@@ -1,0 +1,10 @@
+{
+  "component": {
+    "$description": "COMPONENT tier — aliases scoped to a recurring component pattern. Third (optional) tier of the standard DTCG base/semantic/component convention. path[0] is always 'component'. Values alias the SEMANTIC tier ({semantic.category.name}), never base directly, so a scheme change at the semantic layer flows through automatically. Keep this tier small — only add a component token when a pattern genuinely needs its own name.",
+    "color": {
+      "$type": "color",
+      "button-surface": { "$value": "{semantic.color.action}" },
+      "button-label":   { "$value": "{semantic.color.background}" }
+    }
+  }
+}

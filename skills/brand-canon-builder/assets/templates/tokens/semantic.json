@@ -1,0 +1,21 @@
+{
+  "semantic": {
+    "$description": "SEMANTIC tier — intent aliases that name a ROLE, not a value. Second tier of the standard DTCG base/semantic/component convention. path[0] is always 'semantic'. Every $value is an alias of the form {base.category.name} (curly braces are the DTCG alias syntax; no '.value' suffix; must point to a leaf). This is the layer a consumer themes: one scheme override (e.g. a dark context) re-points these aliases. Add one block per application scheme the brand defines in GRAMMAR.",
+    "color": {
+      "$type": "color",
+      "background": { "$value": "{base.color.neutral-bg}", "$description": "page canvas" },
+      "foreground": { "$value": "{base.color.neutral-ink}", "$description": "primary text" },
+      "action":     { "$value": "{base.color.brand-1}",    "$description": "primary action / link" },
+      "accent":     { "$value": "{base.color.brand-2}",    "$description": "accent / attention (scarce)" }
+    },
+    "font-family": {
+      "$type": "fontFamily",
+      "heading": { "$value": "{base.font-family.display}" },
+      "body":    { "$value": "{base.font-family.body}" }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "control": { "$value": "{base.border-radius.base}" }
+    }
+  }
+}

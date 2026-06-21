@@ -1,0 +1,10 @@
+{
+  "name": "brand-system",
+  "description": "Build a canonical, brand-agnostic, output-agnostic brand source for any brand. brand-canon-builder scaffolds and fills the canon in Claude Code (filesystem + git); brand-canon-scoper scopes a brand in chat and compiles a ready-to-paste handoff for the builder.",
+  "version": "0.1.0",
+  "author": { "name": "ccediland" },
+  "skills": [
+    "./skills/brand-canon-builder",
+    "./skills/brand-canon-scoper"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ccediland/brand-system-skills/main/schema/canon.schema.json",
+  "$description": "Machine-readable mirror of ESSENCE + GRAMMAR (dual legibility). Measurable primitives are NOT here — they live in tokens.json. If this disagrees with the canon/*.md prose, that is a bug; reconcile to the layer that owns the truth (PRIMITIVES=values, ESSENCE=meaning, GRAMMAR=combination).",
+  "version": "0.1.0",
+  "updatedAt": "{{DATE}}",
+  "ratifiedBy": "{{BRAND_OWNERS}}",
+
+  "layers": {
+    "index": "canon/00-index.md",
+    "essence": "canon/01-essence.md",
+    "primitives": "canon/02-primitives.md",
+    "grammar": "canon/03-grammar.md",
+    "dataPointer": "data-map.md",
+    "projections": "projections.md",
+    "tokens": "tokens.json"
+  },
+
+  "essence": {
+    "claim": "{{THE CANONICAL CLAIM}}",
+    "antiPromise": "{{WHAT THE BRAND NEVER CLAIMS}}",
+    "mood": ["{{is...}}"],
+    "moodNots": ["{{never...}}"],
+    "northStar": "{{the settling heuristic}}",
+    "pillars": ["{{pillar}}"],
+    "trustCore": { "name": "{{or null}}", "meaning": "{{...}}" },
+    "positioning": { "category": "{{...}}", "audience": "{{...}}", "isNot": ["{{...}}"] },
+    "lexicon": { "preferred": ["{{...}}"], "forbidden": ["{{...}}"], "naming": "{{spelling/domain rules}}" }
+  },
+
+  "atomMeaning": {
+    "$note": "Per-atom meaning (mirror of ESSENCE › meaning of each atom). Meaning precedes value.",
+    "{{ATOM}}": "{{meaning}}"
+  },
+
+  "schemes": {
+    "$note": "Schemes are derivations of the palette (mirror of GRAMMAR §1). Role values live in tokens.json → color.semantic.",
+    "default": "{{scheme id}}",
+    "{{SCHEME_ID}}": { "mode": "{{light|dark|...}}", "dominant": "{{ink role}}" }
+  },
+
+  "mark": {
+    "arrangements": {
+      "$note": "Mirror of PRIMITIVES › Mark. Only list forms the brand uses.",
+      "{{ARRANGEMENT_ID}}": { "form": "{{wordmark|symbol|primaryLockup|secondaryLockup|monogram|seal}}", "viewBox": "{{…}}", "ratio": "{{…}}", "minPx": 0, "minMm": 0 }
+    },
+    "treatments": { "{{TREATMENT_ID}}": "{{description}}", "neverUsed": ["{{off-system treatment kept only for file completeness}}"] },
+    "construction": "{{grid/unit reference}}",
+    "clearSpace": "{{unit}}",
+    "misuse": ["{{prohibited}}"]
+  },
+
+  "grammar": {
+    "color": { "contrast": { "$note": "role-based min ratios; see ALGO-CONTRAST-ROLE" } },
+    "type": {},
+    "motion": { "$note": "optional", "twoTierEthics": "{{opacity always / transform gated}}" },
+    "composition": { "$note": "incl. optional premium depth", "restraintOfRegisterNotEnergy": true },
+    "pattern": { "$note": "optional graphic-code rule" },
+    "imagery": {},
+    "voice": { "prohibitedClaims": ["{{...}}"] },
+    "interaction": { "$note": "optional medium-agnostic UX" }
+  },
+
+  "ruleIndex": {
+    "$note": "Flat map of every grammar rule ID → one-line summary (mirror of GRAMMAR). Keep IDs stable.",
+    "G-SCHEME-01": "{{…}}",
+    "G-COLOR-02": "{{contrast floor by role}}",
+    "G-MARK-02": "{{arrangement+treatment selection}}",
+    "G-VOICE-02": "{{anti-promise enforced}}"
+  },
+
+  "algorithms": {
+    "$note": "Typed (inputs)→output procedures (mirror of GRAMMAR §10).",
+    "ALGO-MARK-RESOLVE": { "in": ["space", "background", "priority"], "out": ["arrangement", "treatment", "asset"], "rules": ["G-MARK-01", "G-MARK-02"] },
+    "ALGO-CONTRAST-ROLE": { "in": ["textRole", "background"], "out": ["roleToken", "minRatio"], "rules": ["G-COLOR-02"] },
+    "ALGO-VOICE-CHECK": { "in": ["copy"], "out": ["pass|fix"], "rules": ["G-VOICE-02"] }
+  }
+}

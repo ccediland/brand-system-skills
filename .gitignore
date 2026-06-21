@@ -1,0 +1,15 @@
+# Local tooling / scratch — never the source of truth
+.mcp.json
+.claude/
+node_modules/
+*.skill
+dist/
+.DS_Store
+
+# Reference material must NEVER be committed (brand-scrub gate)
+# (kept in /tmp during the build; listed here as a guardrail)
+**/la-gruta*.pdf
+**/brandbook*.pdf
+
+# Build provenance (gitignored — not shipped)
+dev/

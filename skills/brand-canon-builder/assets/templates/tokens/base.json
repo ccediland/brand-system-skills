@@ -1,0 +1,114 @@
+{
+  "base": {
+    "$description": "BASE tier — raw, primitive values. First tier of the standard DTCG base/semantic/component convention. Read with usesDtcg:true. path[0] is always 'base'. COLOR: $value is the OKLCH interchange spine as a literal string; never pre-convert to hex. Other spaces live in $extensions.brand.spaces, each flagged source 'derived' (auto-generated from OKLCH) or source 'authored' (a value the brand DECLARES as truth, e.g. a spot/CMYK print color, which must NOT be re-derived from OKLCH because spot colors do not round-trip). category names at path[1] follow the namespace convention (color, spacing, font-size, font-family, font-weight, line-height, border-radius, shadow). NOTE: these are illustrative example values — replace them with the brand's own. Plain prose is used instead of brace-placeholders here because the curly-brace syntax is reserved for DTCG aliases.",
+    "color": {
+      "$type": "color",
+      "brand-1": {
+        "$value": "oklch(0.62 0.13 255)",
+        "$description": "primary brand ink (example value — replace)",
+        "$extensions": {
+          "brand": {
+            "role": "primary action",
+            "meaning": "set from ESSENCE",
+            "spaces": {
+              "hex": { "value": "#5a7fb0", "source": "derived" },
+              "rgb": { "value": "rgb(90, 127, 176)", "source": "derived" }
+            }
+          }
+        }
+      },
+      "brand-2": {
+        "$value": "oklch(0.68 0.15 145)",
+        "$description": "accent ink (example showing an AUTHORED print value)",
+        "$extensions": {
+          "brand": {
+            "role": "attention / accent",
+            "meaning": "set from ESSENCE",
+            "scarcity": "optional cap, e.g. <=10%",
+            "spaces": {
+              "hex": { "value": "#3fa46d", "source": "derived" },
+              "rgb": { "value": "rgb(63, 164, 109)", "source": "derived" },
+              "cmyk": { "value": "70 0 55 0", "source": "authored" },
+              "pantone": { "value": "7724 C", "source": "authored" }
+            }
+          }
+        }
+      },
+      "neutral-ink": {
+        "$value": "oklch(0.30 0 0)",
+        "$description": "darkest anchor / body text",
+        "$extensions": { "brand": { "role": "ink", "spaces": { "hex": { "value": "#3a3a3a", "source": "derived" } } } }
+      },
+      "neutral-bg": {
+        "$value": "oklch(1 0 0)",
+        "$description": "default light canvas",
+        "$extensions": { "brand": { "role": "background", "spaces": { "hex": { "value": "#ffffff", "source": "derived" } } } }
+      }
+    },
+
+    "spacing": {
+      "$type": "dimension",
+      "$description": "base grid — replace the scale to match the brand",
+      "1": { "$value": "4px" },
+      "2": { "$value": "8px" },
+      "3": { "$value": "16px" },
+      "4": { "$value": "24px" },
+      "5": { "$value": "48px" }
+    },
+
+    "font-size": {
+      "$type": "dimension",
+      "display": { "$value": "48px" },
+      "body": { "$value": "17px" },
+      "eyebrow": { "$value": "13px" }
+    },
+
+    "line-height": {
+      "$type": "number",
+      "display": { "$value": 1.04 },
+      "body": { "$value": 1.6 }
+    },
+
+    "font-family": {
+      "$type": "fontFamily",
+      "display": { "$value": "Display Typeface, system-ui, sans-serif" },
+      "body": { "$value": "Body Typeface, system-ui, sans-serif" }
+    },
+
+    "font-weight": {
+      "$type": "fontWeight",
+      "regular": { "$value": 400 },
+      "bold": { "$value": 700 }
+    },
+
+    "border-radius": {
+      "$type": "dimension",
+      "base": { "$value": "12px" },
+      "pill": { "$value": "999px" }
+    },
+
+    "shadow": {
+      "$type": "shadow",
+      "$description": "Plain-string composite values (not objects) for lossless ingestion. Tint in a brand neutral, not pure black. OPTIONAL dimension — delete if the brand is flat.",
+      "base": { "$value": "0 1px 2px rgba(40,42,54,0.05), 0 8px 22px rgba(40,42,54,0.08)" }
+    },
+
+    "motion": {
+      "$description": "OPTIONAL dimension (carried DTCG-valid even where no current consumer ingests it). Delete if the brand does not move.",
+      "duration": {
+        "$type": "duration",
+        "fast": { "$value": "160ms" },
+        "base": { "$value": "280ms" }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "soft": { "$value": [0.22, 0.61, 0.36, 1] }
+      },
+      "vocabulary": {
+        "$type": "dimension",
+        "entrance-distance": { "$value": "16px" },
+        "hover-lift": { "$value": "-2px" }
+      }
+    }
+  }
+}
