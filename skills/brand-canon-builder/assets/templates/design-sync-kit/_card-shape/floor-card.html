@@ -1,0 +1,29 @@
+<!-- @dsCard group="{{Group}}" -->
+<!--
+  HONEST FLOOR CARD (reference shape). In package-shape, a component with no authored preview ships a
+  floor card — NOT a failure, just an unauthored component. It is honest: it states the component imports
+  and works, but its rich preview is not yet authored. The floor card STILL carries the first-line
+  `<!-- @dsCard group="…" -->` marker (same registration path; missing first line is [DSCARD_MISSING]).
+  Authoring its previews/<Name>.tsx on any later re-sync upgrades it in place.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    body { margin: 0; font-family: var(--font-body, system-ui, sans-serif); color: var(--color-fg, #222);
+           background: var(--color-surface, #f4f4f5); }
+    .floor { min-height: 8rem; display: grid; place-content: center; gap: 0.25rem; text-align: center;
+             padding: 2rem; }
+    .floor .name { font-family: var(--font-display, inherit); font-weight: 700; font-size: 1.25rem; }
+    .floor .note { color: var(--color-muted, #666); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="floor">
+    <div class="name">{{ComponentName}}</div>
+    <div class="note">preview not yet authored — component imports and works</div>
+  </div>
+</body>
+</html>

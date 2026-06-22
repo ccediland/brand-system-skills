@@ -19,8 +19,8 @@ SKELETON slot — never a blocked, empty shell.
 > **Canon = skeleton; prototype + library = deliverable (v2 law, §5.2).** The four-layer canon is the source
 > *skeleton*, never the deliverable on its own. The deliverable is the real, presentable prototype + the
 > `/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is
-> **not** done. (Stages 8 and 10 below, specced in `dev/v2-build-spec.md`, are where this is enforced;
-> this PR-B1 lands the mode + handoff spine the rest builds on.)
+> **not** done. (Stage 8 emits both deliverables; the Stage-10 fidelity gate — a forward-pointer until
+> PR-B4 — is where "done" is enforced against them. See `dev/v2-build-spec.md`.)
 
 ## What it produces
 
@@ -60,8 +60,9 @@ the relevant one when you reach that step; don't hold them all at once.
 
 The builder runs a fixed, **gated** pipeline (full specification: `dev/v2-build-spec.md` §3). **BLOCKING**
 gates must pass — or be explicitly waived by the owner via the handoff/PR — before the build is declared
-complete. Stages 0–2 are the **mode + handoff spine** (this PR-B1). Stages 3–12 are titled here as
-forward-pointers to the spec; they are **not yet implemented** and land in the staged PRs noted against each.
+complete. Stages 0–9 and 12 are implemented (mode + handoff spine, acquisition, fonts, applied-design,
+prototype + kit, token spine, gaps); Stage 11 and the fidelity gate in Stage 10 are titled forward-pointers
+to the spec, landing in the remaining staged PRs (the accounting line below is authoritative).
 
 ### Stage 0 — Ingest the handoff contract & locate the target
 The scoper's machine-readable handoff (`brand-canon-scoper/references/handoff-format.md`) is the **canonical
@@ -113,10 +114,10 @@ in the prose layers and values in the token spine. Mirror essence + grammar into
 
 ---
 
-**Stages 3–5 are implemented (PR-B2):** source-agnostic asset acquisition, font acquisition, applied-design
-harvest. **Stages 8 and 11 and the fidelity gate in Stage 10 remain forward-pointers** to
-`dev/v2-build-spec.md` (PR-B3/B4/B5) — not yet implemented. Stages 6, 7, 9, 12 and the existing checks in
-Stage 10 carry the validated v1 method.
+**Stages 3–5 (PR-B2) and Stage 8 (PR-B3) are implemented:** source-agnostic asset acquisition, font
+acquisition, applied-design harvest, and the real prototype + `/design-sync`-ready kit. **Stage 11 and the
+fidelity gate in Stage 10 remain forward-pointers** to `dev/v2-build-spec.md` (PR-B4/B5) — not yet
+implemented. Stages 6, 7, 9, 12 and the existing checks in Stage 10 carry the validated v1 method.
 
 ### Stage 3 — Source-agnostic asset acquisition · BLOCKING (core)
 Read `references/asset-acquisition.md`. Acquire build-grade assets from whatever sources exist (any
@@ -160,10 +161,26 @@ Read `references/token-spine.md`. Author `tokens/base.json` (raw OKLCH + authore
 aliases as `{tier.category.name}`, category names on the namespace convention. Emit motion/depth tokens if
 the brand uses them (DTCG-valid even without a current consumer); omit for a flat/print-only brand.
 
-### Stage 8 — Prototype + `/design-sync`-ready kit · BLOCKING (prototype) · *PR-B3*
-Emit a self-contained presentable prototype + a compiled-`dist/`-ready component library (package-shape
-default) + the `/design-sync` upload bundle. Claude Design library default YES. (`dev/v2-build-spec.md` §4.6;
-gated on re-verifying the live `/design-sync` contract.)
+### Stage 8 — Prototype + `/design-sync`-ready kit · BLOCKING (prototype)
+Emit both real deliverables (canon = skeleton, these = deliverable):
+
+- **(a) The presentable prototype (F-025).** Copy `assets/templates/prototype/prototype.html` into the repo
+  and fill it from the canon: OKLCH token values inline, the real extracted mark as inline SVG/data-URI,
+  acquired fonts via `@font-face`/data-URI, harvested imagery — rendering hero, card, control set, type
+  spread, color blocks. It is **self-contained and deterministic** (opens in any browser, no toolchain) — the
+  artifact you show a client and the Stage-10 "render real samples" evidence. Never make it depend on the kit.
+- **(b) The `/design-sync`-ready kit (F-026).** Scaffold `assets/templates/design-sync-kit/` and fill it from
+  the canon (components, tokens, `pkg`/`globalName`, conventions). Read `references/design-sync-kit.md` for
+  the converter contract: package-shape default; one-command build (`esbuild` + `ts-morph` + `@types/react`)
+  → `dist/index.es.js` + `.d.ts`; `.design-sync/config.json` with **only live-valid keys** (unknown keys fail
+  the run); the `@dsCard` first-line marker on every emitted card; the `readmeHeader` conventions header;
+  `styles.css` that `@import`s `_ds_bundle.css` and carries the token + `@font-face` closure. **Claude Design
+  default YES** (`references/claude-design-adapter.md`; opt-out only on explicit owner request). The `dist/`
+  build is **best-effort, never a hard-fail** — `[NO_DIST]` is recoverable by running the build, and (a) is
+  the deterministic fidelity artifact regardless.
+
+Re-pin the live `/design-sync` contract before freezing the emitter (`dev/v2-build-spec.md` §4.6 step 0 — the
+contract is server-side/version-fluid via `get_claude_design_prompt`).
 
 ### Stage 9 — Coverage + gaps
 Read `references/coverage-checklist.md` and `references/gap-protocol.md`. Formalize the handoff's

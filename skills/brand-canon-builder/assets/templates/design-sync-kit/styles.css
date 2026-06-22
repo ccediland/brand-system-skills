@@ -1,0 +1,32 @@
+/*
+  styles.css — the IMPORT CLOSURE every design built with this DS receives.
+  Per the live /design-sync contract it MUST @import "./_ds_bundle.css" (the compiled component CSS the
+  converter emits) AND carry the full token + @font-face closure. If the component CSS is unreachable from
+  here, the converter raises [CSS_BUNDLE_UNREACHABLE]; missing token vars → [TOKENS_MISSING]; a referenced
+  family with no @font-face → [FONT_MISSING].
+
+  BUILDER: keep the @import line first; fill the tokens from tokens/*.json and the @font-face from the
+  brand's REAL licensed fonts (Stage 4). Values below are obviously-generic placeholders.
+*/
+
+/* compiled component CSS the converter writes — keep this import (it is the build's, not hand-authored) */
+@import "./_ds_bundle.css";
+
+/* @font-face closure — BUILDER: ship the brand's real, licensed font files (woff2) and reference them here.
+   Left commented so the bundle is valid before fonts are acquired (a missing core face is a fidelity GAP). */
+/* @font-face { font-family: "Brand Display"; src: url("./fonts/brand-display.woff2") format("woff2"); font-display: swap; } */
+
+/* token closure — BUILDER: replace with the brand's real token values (mirror tokens/*.json) */
+:root {
+  --color-bg:        oklch(0.99 0.005 250);
+  --color-surface:   oklch(0.97 0.01 250);
+  --color-fg:        oklch(0.22 0.02 250);
+  --color-muted:     oklch(0.55 0.02 250);
+  --color-brand:     oklch(0.55 0.15 250);
+  --color-brand-fg:  oklch(0.99 0.005 250);
+  --color-accent:    oklch(0.72 0.17 60);
+  --color-border:    oklch(0.90 0.01 250);
+  --font-display: "Brand Display", system-ui, sans-serif;
+  --font-body:    system-ui, sans-serif;
+  --radius: 0.75rem;
+}

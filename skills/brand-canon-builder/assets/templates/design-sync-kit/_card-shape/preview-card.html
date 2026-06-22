@@ -1,0 +1,22 @@
+<!-- @dsCard group="{{Group}}" -->
+<!--
+  EMITTED-CARD SHAPE (reference, not hand-authored). The /design-sync converter WRITES each component's
+  <Name>.html from its authored previews/<Name>.tsx. This template documents the contract every emitted
+  card must satisfy:
+    • FIRST LINE is the marker `<!-- @dsCard group="…" -->` — the design pane's self-check reads it to
+      register the card and build the card index (compiled server-side into ds_manifest). A missing or
+      misplaced first line is [DSCARD_MISSING].
+    • The card loads the component from window.{{globalName}}.<Name> and links the styles.css closure.
+  BUILDER/converter: emit one of these per cell; never ship a card without the first-line marker.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div id="root"></div>
+  <!-- the converter wires window.{{globalName}} from _ds_bundle.js and renders the authored cell here -->
+</body>
+</html>
