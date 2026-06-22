@@ -1,7 +1,7 @@
 # Architecture — the four-question canon
 
-The canon answers four questions, each owned by one layer, plus two non-canon satellites. **The
-four-question logic is the law; the file count is not.** A tiny brand may collapse layers into fewer files;
+The canon answers four questions, each owned by one layer, plus two non-canon satellites. The
+four-question logic is the law; the file count is not. A tiny brand may collapse layers into fewer files;
 a rich brand may split them — but every decision must still trace to *where-start / why / what / how*, and
 nothing may be organized around an output.
 
@@ -36,9 +36,9 @@ nothing may be organized around an output.
 
 ## Canon = skeleton; prototype + library = deliverable (v2 law, §5.2)
 
-The four-layer canon is the **source skeleton**, never the deliverable on its own. The **deliverable** is the
+The four-layer canon is the source skeleton, never the deliverable on its own. The deliverable is the
 real, presentable prototype (real mark, real fonts, real imagery on real surfaces) plus the
-`/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is **not**
+`/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is not
 done — reaching "done" without the real assets and prototype is the bug, not the gap-logging. This law
 governs the v2 builder pipeline (`dev/v2-build-spec.md`; the prototype/kit and fidelity gates land in later
 staged PRs); the do-not-regress invariants below hold underneath it.
