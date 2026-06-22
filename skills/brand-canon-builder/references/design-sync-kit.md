@@ -37,13 +37,17 @@ failure); rich previews are **authored** per scoped component. Escalate to Story
 Top-level keys are validated **strictly**: an unknown or removed key **fails the run** with a named fix, and
 the scripts carry **no compat code**. Emit only keys confirmed live-valid. Required: **`pkg`** + **`globalName`**
 (globalName auto-derives from pkg when omitted). The kit template uses: `pkg`, `globalName`, `projectId`,
-`shape:"package"`, `buildCmd`, `srcDir`, `cssEntry`, `extraFonts`, `readmeHeader`, `overrides`.
+`shape:"package"`, `buildCmd`, `srcDir`, `cssEntry`, `extraFonts`, `readmeHeader` — and **nothing empty**
+(an empty map is still an unknown-shape risk; omit a key until it carries a value).
 
 Other live-valid keys (add only when needed): `tsconfig`, `extraEntries`, `componentSrcMap`, `dtsPropsFor`,
 `tokensPkg`, `tokensGlob`, `docsDir`, `docsMap`, `guidelinesGlob`, `runtimeFontPrefixes`, `replaces`,
-`libOverrides`, `provider`. (`readmeHeader` and `guidelinesGlob` **coexist** — `readmeHeader` prepends a file
-to the README/conventions header; `guidelinesGlob` copies guideline `.md`s into `guidelines/`. The
-"replacement" framing was wrong; both are present in v2.1.185.)
+`libOverrides`, `overrides`, `provider`. Two distinct override keys — don't confuse them: **`libOverrides`**
+is the schema row for declaring which `.design-sync/overrides/*.mjs` lib forks the repo carries (+ why);
+**`overrides.<Name>`** holds per-component preview tweaks (`cardMode` / `skip` / `primaryStory`) and is set
+only when a component needs one — never shipped as an empty `{}`. (`readmeHeader` and `guidelinesGlob`
+**coexist** — `readmeHeader` prepends a file to the README/conventions header; `guidelinesGlob` copies
+guideline `.md`s into `guidelines/`. The "replacement" framing was wrong; both are present in v2.1.185.)
 
 ## The `@dsCard` marker
 
