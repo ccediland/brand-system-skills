@@ -102,7 +102,7 @@ place. Then fill by the handoff's `MODE` (default **ANALYZE**):
 - **ANALYZE (default):** read `references/analyze.md`. Inventory sources, mine each consumer's living docs
   **and open PRs**, reconcile conflicts (fresher/shipped wins specifics; identity wins meaning; repo wins
   over external brandbook/Drive; abstract to universal before promoting), harvest before removing junk,
-  register consumers in `projections.md`. (Applied-design harvest is specced for PR-B2.)
+  register consumers in `projections.md`. (Applied-design harvest now runs in Stage 5.)
 - **CREATE (rare exception, only on `MODE: CREATE`):** read `references/create.md`. Author from the
   handoff's ratified WHY in four-question order — **consume the handoff, do not re-interview**; fill every
   slot the handoff supports.
@@ -115,8 +115,8 @@ in the prose layers and values in the token spine. Mirror essence + grammar into
 
 **Stages 3–5 are implemented (PR-B2):** source-agnostic asset acquisition, font acquisition, applied-design
 harvest. **Stages 8 and 11 and the fidelity gate in Stage 10 remain forward-pointers** to
-`dev/v2-build-spec.md` (PR-B3/B4/B5) — not yet implemented. Stages 7, 9, 12 and the existing checks in Stage
-10 carry the validated v1 method.
+`dev/v2-build-spec.md` (PR-B3/B4/B5) — not yet implemented. Stages 6, 7, 9, 12 and the existing checks in
+Stage 10 carry the validated v1 method.
 
 ### Stage 3 — Source-agnostic asset acquisition · BLOCKING (core)
 Read `references/asset-acquisition.md`. Acquire build-grade assets from whatever sources exist (any
@@ -140,9 +140,19 @@ declared, the lived aesthetic — abstracted to universal (stripped of stack/med
 and ESSENCE (meaning), measurable atoms into tokens. Where lived expression diverges from the ratified WHY,
 log the divergence; never silently overwrite. (`dev/v2-build-spec.md` §4.5.)
 
-### Stage 6 — Fill the canon (extraction) · *PR-B2+*
-Builder **extracts** measured primitives from the pointed-to sources; meaning in prose, values in tokens.
-(`dev/v2-build-spec.md` §4.1, §4.5.)
+### Stage 6 — Fill the canon (extraction synthesis)
+The consolidation point where the canon is filled — **not a separate pass**. Stage 2 routes by MODE and fills
+from the placed material; Stages 3–5 acquire the real assets, fonts and applied design. Here the builder
+**extracts** the measured primitive values those sources yield and lands them in the canon: meaning to the
+prose layers, values to the token spine, mirrored to `canon/canon.json`. The frontier holds throughout — the
+builder extracts/derives values, never re-elicits the ratified WHY. (`dev/v2-build-spec.md` §4.1, §4.5.)
+
+> **Stage 2 / Stage 6 note (adjudicated).** In the spec's §3 table, Stage 2 is *read material* and Stage 6 is
+> *fill the canon*; PR-B1's SKILL mapping folded the MODE-routed fill into Stage 2, leaving Stage 6 partly
+> redundant. Reconciled here by keeping Stage 2 as the merged, load-bearing read+fill entry point and
+> reframing Stage 6 as the explicit extraction-synthesis culmination of Stages 2–5 (no duplicate fill, no
+> future-PR tag). A literal Stage 2 (read-only) / Stage 6 (fill) re-split to mirror §3 exactly is deferred to
+> whichever PR next revisits the PR-B1 spine — out of PR-B2's scope.
 
 ### Stage 7 — Token spine
 Read `references/token-spine.md`. Author `tokens/base.json` (raw OKLCH + authored/derived `$extensions`),
