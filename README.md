@@ -38,9 +38,11 @@ is not done.
 missing resolves to a goal, a tracked gap, and a skeleton slot, never a blocked empty shell.
 
 ## Install
-/plugin marketplace add ccediland/brand-system-skills
 
+```
+/plugin marketplace add ccediland/brand-system-skills
 /plugin install brand-system@brand-system-skills
+```
 
 Then, in Claude Code, just describe what you want — "set up a brand canon for …", "consolidate our brand
 into a single source of truth", "build our design tokens" — and `brand-canon-builder` triggers. In Claude.ai
