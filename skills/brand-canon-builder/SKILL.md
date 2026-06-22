@@ -41,8 +41,25 @@ sources/                 source references placed in-repo (brandbook PDFs, expor
 [optional] .design-sync/ Claude Design adapter (config + conventions + notes)
 ```
 
-Templates for all of these live in `assets/templates/`. Reference knowledge lives in `references/` — read
-the relevant one when you reach that step; don't hold them all at once.
+Templates for all of these live in `assets/templates/`.
+
+## Reference materials — load when relevant
+
+This SKILL.md is the workflow + hard standards. Load a reference only when its stage is reached; don't hold
+them all at once.
+
+- `references/architecture.md` — load when laying out the four-question canon or checking output-agnosticism.
+- `references/token-spine.md` — load when authoring the DTCG/OKLCH token files (Stage 7).
+- `references/gap-protocol.md` — load when logging `GAP-NNN` or running the universality stress test (Stages 9–10).
+- `references/coverage-checklist.md` — load when walking the universal must-haves in the coverage pass (Stage 9).
+- `references/analyze.md` — load for the ANALYZE path (Stage 2, default): harvest the brand's published work.
+- `references/create.md` — load for the CREATE path (Stage 2): author from the ratified handoff WHY.
+- `references/asset-acquisition.md` — load when acquiring build-grade assets, source-agnostic (Stage 3).
+- `references/font-acquisition.md` — load when acquiring fonts under the license boundary (Stage 4).
+- `references/design-sync-kit.md` — load when emitting the prototype + `/design-sync`-ready kit (Stage 8).
+- `references/claude-design-adapter.md` — load when wiring the Claude Design adapter (default ON; Stage 8).
+- `references/validate-audit.md` — load when running the VALIDATE/AUDIT stage + fidelity gate (Stage 10).
+- `references/client-clean.md` — load when scrubbing the client repo before handoff (Stage 11).
 
 ## Hard standards (non-negotiable — encode these into every canon)
 
