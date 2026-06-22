@@ -248,24 +248,62 @@ fresh sources — the bundled skill files themselves (`skill-design-sync-storybo
   `_ds_bundle.js` — *"the same bundle the claude.ai/design agent builds with"* (compiled, not source);
   **package-shape "from a built package without Storybook"** is a real, distinct shape (the D-B8 default is
   valid); **`.design-sync/config.json`** + the converter scripts + the `pkg`/`globalName` bundle-redirect; the
-  **plan/`planId` approval gate**, incremental one-component-at-a-time writes, and **256-file / 256 KiB**
-  upload batches.
+  **plan/`planId` approval gate**, incremental one-component-at-a-time writes, and **256-file-per-call**
+  upload batches (the tool also enforces a server payload-byte cap with no fixed figure — batch binary-heavy
+  dirs smaller and halve the chunk on a 500; the earlier "256 KiB" figure was not in the live skill and is
+  withdrawn).
 - **DELTA-1 — card index is now from a marker, not explicit registration.** The Design System pane builds its
   card index from each preview's **first-line `<!-- @dsCard group="…" -->` comment**, compiled into
   **`_ds_manifest.json`** by the app's self-check; `register_assets`/`unregister_assets` are **legacy** (only
   for hand-authored projects without `@dsCard` markers). **PR-B3's emitter must stamp every preview with a
   `@dsCard` first-line marker**, not rely on registration.
-- **DELTA-2 — a conventions/README header is now a first-class step.** The package-shape config replaced
-  `guidelinesGlob` with a **`readmeHeader`** path, and the workflow added an **"Author the conventions header"**
-  step before upload. The kit should emit a conventions header (the design-system README) as part of the
-  bundle, referenced by `readmeHeader`.
+- **DELTA-2 — a conventions/README header is now a first-class step.** The package-shape config **added** a
+  **`readmeHeader`** path (a repo-committed file prepended verbatim to the generated README — the
+  conventions-header slot), and the workflow added an **"Author the conventions header"** step before upload
+  (distilled into `.design-sync/conventions.md`, wired via `readmeHeader`). The kit should emit a conventions
+  header as part of the bundle, referenced by `readmeHeader`. *(Correction, 2026-06-22 live-pin: this is an
+  **addition, not a replacement** — `guidelinesGlob` remains a separate, still-present field for design-guideline
+  `.md` files copied into `guidelines/`; the two coexist in v2.1.185.)*
 - **VERSION-SPECIFIC (confirm live — narrowed, not the whole contract).** Exact field names and the precise
   converter invocation (`package-build.mjs` vs `.ds-sync/lib/preview-rebuild.mjs`; the full config schema) are
   evolving release-to-release (the skill recently added stable-hash grading, grade carry-forward, remote
   sidecar diffs, targeted rebuilds, upload partitioning). **PR-B3 step 0 = in an updated Claude Code session
   (`/update`), read the live bundled `/design-sync package source shape` skill and pin the current
   field/script names** before generating the emitter. The Piebald mirror is accurate but lags releases by
-  minutes-to-days, and a field has already shifted once (`guidelinesGlob`→`readmeHeader`).
+  minutes-to-days, and the schema is actively growing (`readmeHeader` was a recent addition alongside the
+  existing `guidelinesGlob`).
+
+**LIVE-PIN — 2026-06-22, against the on-disk skill in Claude Code `v2.1.185`** (newer than the Piebald
+mirror's `ccVersion 2.1.176`; read directly from the bundled `/design-sync package source shape` skill). The
+core contract is confirmed; pin these exact names for PR-B3:
+
+- **`.design-sync/config.json` fields (live):** required `pkg`, `globalName` (auto-derived from `pkg` when
+  omitted); plus `projectId`, `shape` (`'storybook'|'package'`), `buildCmd`, `srcDir`, `tsconfig`,
+  `extraEntries`, `componentSrcMap`, `dtsPropsFor`, `cssEntry`, `tokensPkg`, `tokensGlob`, `docsDir`,
+  `docsMap`, `readmeHeader`, `guidelinesGlob`, `extraFonts`, `runtimeFontPrefixes`, `replaces`,
+  `libOverrides`, `provider`. Unknown/removed keys fail the run with a named fix (no compat code) — so the
+  builder's emitted config must track the live schema.
+- **Converter scripts (live, staged into `.ds-sync/`):** `package-build.mjs`, `package-validate.mjs`,
+  `package-capture.mjs`, `resync.mjs` (the one-command re-sync driver), `lib/preview-rebuild.mjs`
+  (component-scoped rebuild), `storybook/http-serve.mjs` (serves `.review.html`). Build invocation:
+  `node .ds-sync/package-build.mjs --config .design-sync/config.json --node-modules <nm> --entry
+  ./dist/index.es.js --out ./ds-bundle`, then `node .ds-sync/package-validate.mjs ./ds-bundle`. Converter
+  deps: `esbuild ts-morph @types/react`.
+- **`@dsCard` marker (live, exact):** each `<Name>.html`'s first line is `<!-- @dsCard group="…" -->`; a
+  missing/misplaced header is `[DSCARD_MISSING]`. The server self-check reads it on project open to register
+  cards and regenerates the adherence config + `ds_manifest` from the uploaded source (the manifest is
+  server-regenerated, not shipped — the earlier `_ds_manifest.json` naming was approximate).
+- **Upload bundle (live, root-level):** `_ds_bundle.js`, `_ds_bundle.css`, `styles.css`, `components/`,
+  `tokens/`, `fonts/`, `README.md`, `_ds_sync.json`, `_ds_needs_recompile`, plus `_vendor/`, `_preview/`,
+  `guidelines/`. `styles.css` must `@import "./_ds_bundle.css"` (its import closure is all a built design
+  receives). Upload sequence via the `DesignSync` MCP tool: `finalize_plan` (interactive approval) →
+  sentinel `_ds_needs_recompile` first → content `write_files` (≤256/call) → `delete_files` →
+  sentinel re-arm → `_ds_sync.json` **last**. Error codes confirmed: `[NO_DIST]`, `[CSS_BUNDLE_UNREACHABLE]`,
+  `[TOKENS_MISSING]`, `[FONT_MISSING]` (plus many more, e.g. `[DSCARD_MISSING]`, `[RENDER]`, `[ZERO_MATCH]`).
+- **Caveat that survives the pin:** the base `/design-sync` command "always fetches the live Claude Design
+  instructions via `get_claude_design_prompt` rather than shipping a vendored copy" — so the authoritative
+  contract is server-side and version-fluid. This LIVE-PIN is the on-disk skill at one moment; PR-B3 step 0
+  still re-reads the live skill in an updated session before freezing the emitter.
 
 ### §4.7 Fidelity gate + VALIDATE/AUDIT stage (F-016·022) — BLOCKING
 
