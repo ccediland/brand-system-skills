@@ -1,15 +1,20 @@
-# Claude Design adapter — the optional projection add-on
+# Claude Design adapter — the DEFAULT projection (canon → on-brand component library)
 
 Claude Design (claude.ai/design) is Claude's design tool: a user prompts a design agent and it builds live
-UI from real React. Out of the box it uses generic components. This **optional** add-on makes the design
-agent build with the **brand's own** components, so every design it produces is on-brand and maps 1:1 onto
-shippable code. It is one more consumer of the canon — **never mandatory**, and brand-agnostic except inside
-the adapter itself.
+UI from real React. Out of the box it uses generic components. This add-on makes the design agent build with
+the **brand's own** components, so every design it produces is on-brand and maps 1:1 onto shippable code. It
+is one more consumer of the canon, brand-agnostic except inside the adapter itself.
 
-## When to attach it
+## Default ON (v2 / F-026)
 
-Attach only when the brand wants a live, on-brand component library in Claude Design. A print-only or
-not-yet-digital brand skips it entirely; the canon is complete without it.
+**`OPTIONAL.Claude Design = YES` by default** — the repo is born `/design-sync`-ready, and the compiled
+component library is a default build output, not a deferrable gap. The old "Claude Design adapter? no"
+default is **retired**. Emit the kit unless the owner **explicitly opts out** (e.g. a print-only or
+not-yet-digital brand with no use for a live component library) — record the opt-out in `projections.md`.
+
+The buildable package-shape scaffold is `assets/templates/design-sync-kit/`; the converter contract the
+builder satisfies is `references/design-sync-kit.md`. This adapter is the canon→kit **brief** (token mapping,
+conventions, runbook) the kit's `.design-sync/` consumes.
 
 ## Shape (abstracted from a real kit)
 
@@ -34,11 +39,13 @@ kit.
 
 ## How to attach (builder steps)
 
-1. Confirm the brand wants it (else skip).
-2. Copy the adapter templates into the brand repo's kit directory (`.design-sync/`).
+1. Default ON — emit it unless the owner explicitly opted out (then skip and note the opt-out in
+   `projections.md`).
+2. Scaffold the buildable kit from `assets/templates/design-sync-kit/` (component source + one-command
+   build + `.design-sync/` control dir); copy these adapter templates into the kit's `.design-sync/`.
 3. Fill the `{{...}}` fields in `config.json` and `conventions.md` from the canon (tokens, schemes, mark
    rules, voice). Derive every line — invent nothing.
 4. Register Claude Design as a consumer in `projections.md`.
-5. Hand off: the brand owner runs `/design-sync` from the kit dir (the design-sync skill does the upload).
-   Building the component kit itself is the brand's web/stack work, not this builder's job — this adapter
-   only provides the canon-faithful brief, token mapping, and conventions the kit and the sync consume.
+5. Build best-effort (`npm run build` → `dist/`) if a Node toolchain is present; otherwise the build runs at
+   `/design-sync` time (`[NO_DIST]` is recoverable, never a hard-fail). The owner runs `/design-sync` from
+   the kit dir to upload. See `references/design-sync-kit.md` for the full converter contract.

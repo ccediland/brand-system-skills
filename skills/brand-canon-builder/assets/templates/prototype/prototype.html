@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--
+  BRAND PROTOTYPE — F-025 deterministic fidelity artifact (Stage 8 / Stage 10 evidence).
+
+  This is a SELF-CONTAINED, zero-toolchain HTML file: it opens in any browser with no build, no server,
+  no network. It is the artifact you show a client and the "render real samples" evidence the fidelity
+  gate (Stage 10) consumes. It MUST stay buildable-independent — never make it depend on the package kit.
+
+  HOW THE BUILDER FILLS IT (everything below is derived from the canon — invent nothing):
+    1. Replace the :root token values with the brand's real OKLCH token values (from tokens/base+semantic).
+    2. Replace the inline <svg id="brand-mark"> with the brand's REAL extracted vector mark (Stage 3).
+    3. Replace the @font-face data-URI(s) with the brand's REAL acquired, licensed fonts (Stage 4).
+    4. Replace the harvested imagery slot with a real harvested image (Stage 5), or leave the token-only
+       block if none is build-grade yet (a missing build-grade image is a fidelity GAP, not a fabrication).
+    5. Replace "Example Brand" / sample copy with the brand's real name + on-voice copy (from ESSENCE).
+  The values shipped here are OBVIOUSLY-GENERIC placeholders so the file renders standalone before fill;
+  a real brand's exact OKLCH/hex/Pantone must never live in this template.
+
+  Surfaces rendered (the fixed five — keep all; a brand that lacks one shows the token-only fallback):
+  hero · card · control set · type spread · color blocks.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Example Brand — prototype</title>
+<style>
+  /* @font-face — BUILDER: replace the src with the brand's real licensed font as a data-URI (Stage 4).
+     Left commented so the file renders with system fonts when no font is yet acquired (fidelity GAP). */
+  /* @font-face { font-family: "Brand Display"; src: url("data:font/woff2;base64,…") format("woff2"); } */
+
+  /* ---- token spine (BUILDER: replace every value from tokens/*.json; these are generic placeholders) ---- */
+  :root {
+    --color-bg:        oklch(0.99 0.005 250);
+    --color-surface:   oklch(0.97 0.01 250);
+    --color-fg:        oklch(0.22 0.02 250);
+    --color-muted:     oklch(0.55 0.02 250);
+    --color-brand:     oklch(0.55 0.15 250);
+    --color-brand-fg:  oklch(0.99 0.005 250);
+    --color-accent:    oklch(0.72 0.17 60);
+    --color-border:    oklch(0.90 0.01 250);
+
+    --font-display: "Brand Display", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body:    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2.5rem; --space-5: 4rem;
+    --radius: 0.75rem;
+    --shadow: 0 1px 2px oklch(0.22 0.02 250 / 0.06), 0 8px 24px oklch(0.22 0.02 250 / 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    /* BUILDER: fill only if the brand declares a dark scheme; else delete this block (a flat brand). */
+    :root {
+      --color-bg: oklch(0.20 0.02 250); --color-surface: oklch(0.25 0.02 250);
+      --color-fg: oklch(0.96 0.01 250); --color-muted: oklch(0.72 0.02 250);
+      --color-border: oklch(0.32 0.02 250); --color-brand-fg: oklch(0.99 0.005 250);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--color-bg); color: var(--color-fg);
+    font-family: var(--font-body); line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 64rem; margin: 0 auto; padding: var(--space-4) var(--space-3); }
+  section { margin-block: var(--space-5); }
+  h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; margin: 0 0 var(--space-2); }
+  h1 { font-size: clamp(2.25rem, 6vw, 4rem); letter-spacing: -0.02em; }
+  h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-muted); }
+  p  { margin: 0 0 var(--space-2); max-width: 38rem; }
+  .lede { font-size: 1.25rem; color: var(--color-muted); }
+
+  /* mark */
+  .mark { display: inline-flex; align-items: center; gap: var(--space-1); }
+  .mark svg { display: block; height: 2.25rem; width: auto; }
+  .mark .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.01em; }
+
+  /* hero */
+  .hero {
+    background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius); padding: var(--space-5) var(--space-4); box-shadow: var(--shadow);
+  }
+  .hero .cta { margin-top: var(--space-3); display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+  /* buttons / controls */
+  .btn {
+    font: inherit; font-weight: 600; border-radius: calc(var(--radius) - 0.25rem);
+    padding: 0.7em 1.25em; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-primary   { background: var(--color-brand); color: var(--color-brand-fg); }
+  .btn-secondary { background: transparent; color: var(--color-fg); border-color: var(--color-border); }
+  .btn-accent    { background: var(--color-accent); color: var(--color-fg); }
+  .control-row { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
+  .field {
+    font: inherit; padding: 0.6em 0.9em; border: 1px solid var(--color-border);
+    border-radius: calc(var(--radius) - 0.25rem); background: var(--color-bg); color: var(--color-fg);
+  }
+  .field:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; }
+
+  /* cards */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--space-3); }
+  .card {
+    background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius); padding: var(--space-3); box-shadow: var(--shadow);
+  }
+  .card .swatch-img {
+    height: 7rem; border-radius: calc(var(--radius) - 0.25rem); margin-bottom: var(--space-2);
+    background: linear-gradient(135deg, var(--color-brand), var(--color-accent));
+  }
+
+  /* type spread */
+  .type-spread > * { margin: 0 0 var(--space-2); }
+  .type-spread .display { font-family: var(--font-display); font-size: 3rem; line-height: 1; }
+  .type-spread .caption { font-size: 0.85rem; color: var(--color-muted); }
+
+  /* color blocks */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: var(--space-2); }
+  .swatch { border-radius: calc(var(--radius) - 0.25rem); border: 1px solid var(--color-border); overflow: hidden; }
+  .swatch .chip { height: 5rem; }
+  .swatch .label { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+  .swatch .label code { color: var(--color-muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- mark: BUILDER replace this inline SVG with the brand's REAL extracted vector mark (Stage 3) -->
+  <div class="mark" aria-label="Example Brand logo">
+    <svg id="brand-mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+      <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>
+      <circle cx="16" cy="16" r="7" fill="var(--color-brand-fg)"/>
+    </svg>
+    <span class="wordmark">Example&nbsp;Brand</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Prototype</h2>
+    <h1>A real, on-brand surface — not a placeholder skeleton.</h1>
+    <p class="lede">This page renders the brand on real surfaces using the canon's own tokens, mark, and
+      type. It is deterministic: open it in any browser, no build required.</p>
+    <div class="cta">
+      <button class="btn btn-primary">Primary action</button>
+      <button class="btn btn-secondary">Secondary</button>
+    </div>
+  </section>
+
+  <!-- CONTROL SET -->
+  <section>
+    <h2>Controls</h2>
+    <div class="control-row">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-accent">Accent</button>
+      <input class="field" type="text" placeholder="Input field" aria-label="Sample input" />
+      <select class="field" aria-label="Sample select"><option>Option one</option><option>Option two</option></select>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section>
+    <h2>Cards</h2>
+    <div class="grid">
+      <article class="card"><div class="swatch-img"></div><h3>Card title</h3><p>On-brand body copy that
+        reads in the brand voice — the canon decides tone, not this template.</p></article>
+      <article class="card"><div class="swatch-img"></div><h3>Card title</h3><p>The image slot is a real
+        harvested image once Stage 5 finds a build-grade one; otherwise the token gradient stands in.</p></article>
+      <article class="card"><div class="swatch-img"></div><h3>Card title</h3><p>Every value here resolves
+        from a <code>var(--token)</code> — re-theme by swapping the canon.</p></article>
+    </div>
+  </section>
+
+  <!-- TYPE SPREAD -->
+  <section class="type-spread">
+    <h2>Type</h2>
+    <div class="display">Display 3rem</div>
+    <h1 style="font-size:2rem">Heading 2rem</h1>
+    <p style="font-size:1.25rem;max-width:none">Subhead 1.25rem — the type pairing the brand actually uses.</p>
+    <p>Body 1rem. The quick brown fox jumps over the lazy dog. 0123456789 — &amp; @ # %.</p>
+    <p class="caption">Caption 0.85rem · muted</p>
+  </section>
+
+  <!-- COLOR BLOCKS -->
+  <section>
+    <h2>Color</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:var(--color-brand)"></div><div class="label">Brand<br><code>--color-brand</code></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-accent)"></div><div class="label">Accent<br><code>--color-accent</code></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-surface)"></div><div class="label">Surface<br><code>--color-surface</code></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-fg)"></div><div class="label">Foreground<br><code>--color-fg</code></div></div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

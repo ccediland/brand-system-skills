@@ -1,0 +1,29 @@
+{
+  "$comment": "F-026 package-shape kit. BUILDER: replace {{pkg}} with the real scoped package name. This is the component library /design-sync ingests as a COMPILED dist/ — `npm run build` emits dist/index.es.js + a .d.ts tree. The build is one command and best-effort: a missing dist is [NO_DIST], recoverable by running it; the HTML prototype is the deterministic fidelity artifact, not this.",
+  "name": "{{@scope/brand-ds-kit}}",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js"
+    }
+  },
+  "files": ["dist", "styles.css"],
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.0",
+    "ts-morph": "^23.0.0",
+    "@types/react": "^18.3.0",
+    "typescript": "^5.5.0"
+  }
+}
