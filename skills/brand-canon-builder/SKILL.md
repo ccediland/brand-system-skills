@@ -19,8 +19,8 @@ SKELETON slot — never a blocked, empty shell.
 > **Canon = skeleton; prototype + library = deliverable (v2 law, §5.2).** The four-layer canon is the source
 > *skeleton*, never the deliverable on its own. The deliverable is the real, presentable prototype + the
 > `/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is
-> **not** done. (Stage 8 emits both deliverables; the Stage-10 fidelity gate — a forward-pointer until
-> PR-B4 — is where "done" is enforced against them. See `dev/v2-build-spec.md`.)
+> **not** done. (Stage 8 emits both deliverables; the Stage-10 fidelity gate enforces "done" against them —
+> a missing or low-fidelity core asset FAILS the build. See `dev/v2-build-spec.md`.)
 
 ## What it produces
 
@@ -60,9 +60,9 @@ the relevant one when you reach that step; don't hold them all at once.
 
 The builder runs a fixed, **gated** pipeline (full specification: `dev/v2-build-spec.md` §3). **BLOCKING**
 gates must pass — or be explicitly waived by the owner via the handoff/PR — before the build is declared
-complete. Stages 0–9 and 12 are implemented (mode + handoff spine, acquisition, fonts, applied-design,
-prototype + kit, token spine, gaps); Stage 11 and the fidelity gate in Stage 10 are titled forward-pointers
-to the spec, landing in the remaining staged PRs (the accounting line below is authoritative).
+complete. Stages 0–10 and 12 are implemented (mode + handoff spine, acquisition, fonts, applied-design,
+prototype + kit, token spine, gaps, validate/audit + fidelity gate); only Stage 11 (client-clean / scrub)
+remains a titled forward-pointer to the spec, landing in PR-B5 (the accounting line below is authoritative).
 
 ### Stage 0 — Ingest the handoff contract & locate the target
 The scoper's machine-readable handoff (`brand-canon-scoper/references/handoff-format.md`) is the **canonical
@@ -114,10 +114,10 @@ in the prose layers and values in the token spine. Mirror essence + grammar into
 
 ---
 
-**Stages 3–5 (PR-B2) and Stage 8 (PR-B3) are implemented:** source-agnostic asset acquisition, font
-acquisition, applied-design harvest, and the real prototype + `/design-sync`-ready kit. **Stage 11 and the
-fidelity gate in Stage 10 remain forward-pointers** to `dev/v2-build-spec.md` (PR-B4/B5) — not yet
-implemented. Stages 6, 7, 9, 12 and the existing checks in Stage 10 carry the validated v1 method.
+**Stages 3–5 (PR-B2), Stage 8 (PR-B3), and Stage 10 (PR-B4) are implemented:** source-agnostic asset
+acquisition, font acquisition, applied-design harvest, the real prototype + `/design-sync`-ready kit, and the
+VALIDATE/AUDIT stage + fidelity gate. **Only Stage 11 (client-clean / scrub) remains a forward-pointer** to
+`dev/v2-build-spec.md` (PR-B5) — not yet implemented. Stages 6, 7, 9, 12 carry the validated v1 method.
 
 ### Stage 3 — Source-agnostic asset acquisition · BLOCKING (core)
 Read `references/asset-acquisition.md`. Acquire build-grade assets from whatever sources exist (any
@@ -188,10 +188,28 @@ client-language gaps into `GAP-NNN` (two-ledger); walk the universal must-haves;
 `GAP-NNN` row to `RESIDENT.md` (severity + proposed resolution). Do **not** pad the checklist defensively —
 the universality stress test is the real net.
 
-### Stage 10 — VALIDATE / AUDIT + fidelity gate · BLOCKING · *PR-B4*
-Output-agnostic + DTCG + universality (below) **plus** the fidelity gate (layered-threshold VRT consuming the
-`CORE-ASSET FIDELITY CONTRACT`), content audit, and rendered real samples. A missing or low-fidelity **core**
-asset FAILS the build. (`dev/v2-build-spec.md` §4.7.) The retained existing checks:
+### Stage 10 — VALIDATE / AUDIT + fidelity gate · BLOCKING
+Read `references/validate-audit.md`. Judge the build on **fidelity**, not rule-compliance of an empty
+skeleton. Five parts:
+
+- **Fidelity gate** — consume the handoff's `CORE-ASSET FIDELITY CONTRACT` (parsed at Stage 0): a missing or
+  low-fidelity **core** asset is **fidelity-blocking → the build FAILS** (not "pass with gaps"); non-core gaps
+  still log and the repo stays valid (Lego). Layered thresholds: zero tolerance on the mark + primary color
+  tokens, higher on gradients/illustration; per-component-variant + per-brand baselines.
+- **Mechanism is shape-dependent** (do not mandate Storybook): **package-shape (default)** evidences fidelity
+  via the deterministic HTML prototype (render real samples) + the kit's `/design-sync` gates
+  (`[FONT_MISSING]` must-resolve, the hollow-render gate `[RENDER]`/`[RENDER_BLANK]`/`[RENDER_THIN]`,
+  `package-validate.mjs` exit 0, the absolute Styled/Complete/Plausible grade) + the content audit + the
+  contract pass/fail — **no pixel-diff VRT**. **Storybook-shape (only if the brand already ships Storybook +
+  Playwright)** adds a pixel-match VRT oracle (Chromatic default; Percy / BackstopJS alternatives).
+- **Content audit** — rule-by-rule audit of all written + visual content (authored AND generated) against the
+  `G-*`/`ALGO-*` GRAMMAR rules and ESSENCE/voice (anti-promise, lexicon, don'ts).
+- **Render real samples** — the Stage-8 HTML prototype is the evidence.
+- **Client-confirmation is a HUMAN gate** — assemble the audit + samples + open ratification GAPs into the PR
+  and **stop**; sign-off is human PR review. Never auto-confirm or auto-stamp "Ratified by…"; default state is
+  unratified-pending. (The scrub apparatus is Stage 11 / PR-B5.)
+
+Retained existing checks (do-not-regress):
 - **Output-agnostic check:** grep the canon for any output/medium-named section; there must be none.
 - **DTCG validity:** the token files parse and the alias graph resolves (every `{...}` points to a real leaf).
 - **Universality stress test:** pick **three arbitrary artifacts the canon names nowhere** (span media —
