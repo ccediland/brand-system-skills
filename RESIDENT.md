@@ -79,7 +79,7 @@ domains: [brand-system, tooling, v2-refactor]
 | **v2:** real asset acquisition (source-agnostic, any medium) + font acquisition are blocking build steps | a canon with no mark/fonts renders nothing on-brand; the source-agnostic matrix supersedes the original PDF-only framing | 2026-06-21 |
 | **v2:** compiled component library emitted by default as a projection; success criteria add a brand-fidelity / presentable gate | repo must be born `/design-sync`-ready and IS the real prototype; rule-compliance of an empty skeleton passed every gate | 2026-06-21 |
 | **v2:** medium-agnostic intake discovery — los slots del canon definen lo NECESARIO, el discovery abierto lo EXISTENTE, el delta es un GAP rastreado; reemplaza cualquier routing por tipo-de-artefacto (PDF/site/social) | el intake nunca debe presumir la forma del material de una marca; surgió en el primer scoping real | 2026-06-21 |
-| **v2 builder:** `/design-sync` ingiere un `dist/` compilado, no source → la component library se emite con package-shape por default (build de un comando: `esbuild` + `ts-morph`) | el contrato verificado del converter exige `dist/` + `.d.ts`; un handoff source-only no es ingerible | 2026-06-22 |
+| **v2 builder:** `/design-sync` ingiere un `dist/` compilado, no source → la component library se emite con package-shape por default (build de un comando: `esbuild` + `ts-morph` + `@types/react`) | el contrato verificado del converter exige `dist/` + `.d.ts`; un handoff source-only no es ingerible | 2026-06-22 |
 | **v2 builder:** la compiled component library es el hueco de ecosistema que el builder llena | ninguna herramienta existente compila un paquete `/design-sync`-ready desde un canon kit (Dembrandt/designlang extraen; web-stack-skills construye sitios; `/design-sync` consume) | 2026-06-22 |
 | **v2 builder:** asset acquisition source-agnostic (matriz por tipo-de-fuente, sin asumir PDF) | nunca presumir que existe un solo tipo de fuente; la técnica de extracción se elige por fuente encontrada | 2026-06-22 |
 | **v2 builder:** pin Style Dictionary v5 + DTCG draft 2025.10 | DTCG 2025.10 aún no está full-supported en SD v5 (issue #1590); usar el transform `color/oklch`, nunca `color/css` | 2026-06-22 |
@@ -90,6 +90,7 @@ domains: [brand-system, tooling, v2-refactor]
 | OI-A | No downstream consumer yet ingests motion/depth tokens (web-stack `astro-css-tokens` reads neither). A future bridge skill could. | NICE | OPEN |
 | OI-B | web-stack-skills cites no `G-*`/`ALGO-*` rule IDs today; enforceable canon downstream would need rule-ID citations there or rule-IDs carried as token metadata. (Canon itself DOES enable rule-ID citation.) | NICE | OPEN |
 | OI-C | Skills exercised end-to-end on a real brownfield brand (print-native pilot). **DONE** → surfaced the v2 reframe + 26 findings. Superseded by `## v2` / WS0–WS5 / `dev/v2-backlog.md`. | SHOULD | RESOLVED → v2 |
+| OI-D | Literal Stage 2 (read-only) / Stage 6 (fill) §3 re-split deferred to the next PR that revisits the PR-B1 spine (out of PR-B2 scope; the folded Stage 2 carries read+fill today). | NICE | OPEN |
 
 ## v2 — first real run: the reframe + surface roadmap
 The first end-to-end run (OI-C, a real brownfield print-native pilot) proved the v1 output is a **hollow
@@ -117,7 +118,14 @@ produces a real prototype + a Design-syncable component library, by default.** T
 WS0 (doctrine) + WS1 (scoper intake instrument): specced en `dev/v2-intake-spec.md` (v1.0) y **MERGED** — el rewrite del scoper está hecho (PR #1, commit `485cbdb`). Lado scoper cerrado.
 WS2–WS5 + el bridge WS0/WS1 del builder: specced en `dev/v2-build-spec.md` (v1.1, research-grounded Round B). Ejecución en PRs por etapas (PR-B1…PR-B6); PR-B1 = reconciliación de modo + consumo del handoff contract.
 
-> **Caveat (`/design-sync` contract).** El contrato del converter en `v2-build-spec.md` §4.6 está reconstruido desde el mirror comunitario **Piebald-AI/claude-code-system-prompts** (vs `ccVersion 2.1.176`), no de un doc oficial de Anthropic. **Re-verificar contra el skill `/design-sync` vivo antes de que PR-B3** implemente el kit emitter.
+> **Caveat (`/design-sync` contract).** El contrato del converter en `v2-build-spec.md` §4.6 fue
+> **re-verificado post-GA (2026-06-22; GA 2026-06-17)** contra el skill `/design-sync` vivo on-disk en
+> Claude Code **`v2.1.185`** (más nuevo que el mirror Piebald `2.1.176`): núcleo **corroborado**; deltas
+> fijados — marcador `@dsCard` de primera línea por preview → `ds_manifest` **server-regenerado**;
+> `readmeHeader` **añadido** junto a `guidelinesGlob` (coexisten, no reemplazo). El comando base re-lee
+> instrucciones vivas vía `get_claude_design_prompt`, así que el contrato es server-side/version-fluid:
+> **PR-B3 step 0 re-lee el skill vivo y fija nombres exactos de campo/script** antes de congelar el
+> emitter — re-check ya **acotado** a eso, no al contrato completo.
 
 **Surface split — who does what:**
 
@@ -140,6 +148,7 @@ WS2–WS5 + el bridge WS0/WS1 del builder: specced en `dev/v2-build-spec.md` (v1
   elicits + points; the builder extracts. (F-002/F-003/F-008)
 
 ## Change log
+- 2026-06-22 — **PR-B2 MERGED** (Stages 3–5: source-agnostic asset acquisition + font acquisition + applied-design harvest, F-018/019/021). **§4.6 re-verificado post-GA y live-pinned vs Claude Code `v2.1.185`** (PR #4 MERGED): núcleo corroborado, deltas fijados (`@dsCard`→`ds_manifest` server-regen; `readmeHeader` añadido junto a `guidelinesGlob`; "256 KiB" retirado). **PR-B3 abierto** (prototipo F-025 + kit `/design-sync` package-shape F-026; OPEN, en review de Chat).
 - 2026-06-22 — PR-B2 ejecutado en `brand-canon-builder`: Stages 3–5 implementadas — adquisición de assets source-agnostic (`references/asset-acquisition.md`: matriz por tipo-de-fuente, techos de fidelidad, ensamblaje + precedencia, F-018), font acquisition multi-fuente con licencia OFL/RFN deny-by-default (`references/font-acquisition.md`, F-019), applied-design harvest (sección en `analyze.md`, F-021). RESIDENT reconciliado (TL;DR / Repo map / decisión PDF → source-agnostic).
 - 2026-06-22 — Builder v2 spec `dev/v2-build-spec.md` commiteado (v1.1, research-grounded Round B): WS2–WS5 + bridge WS0/WS1, plan de PRs por etapas (PR-B1…PR-B6). PR-B1 ejecutado en `brand-canon-builder`: Stage 0 = parse del handoff contract, Stage 2 = lectura de modo (default ANALYZE) + material in-repo `assets/`/`sources/` (D2); `brownfield.md`→`analyze.md`, `greenfield.md`→`create.md`; nota-ley §5.2 (canon = esqueleto; prototipo + library = deliverable) en `architecture.md`. Scoper rewrite ya MERGED (PR #1, `485cbdb`).
 - 2026-06-21 — WS0 doctrine + WS1 scoper intake instrument specced en `dev/v2-intake-spec.md` (v1.0; grounded: Brand Key/Keller/Aaker/Neumeier/Wheeler + W3C/DTCG 2025.10 + OKLCH + Lahdelma/Rythm). Listo para reescribir `brand-canon-scoper/SKILL.md` + `references/handoff-format.md`.
