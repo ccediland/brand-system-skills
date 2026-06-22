@@ -21,7 +21,7 @@ Add a row to the **Open Items / Gaps** table in `RESIDENT.md`:
 
 ## When to log vs. fill
 
-- If the source material (brownfield) or the brief (greenfield) gives the answer → **fill the slot**.
+- If the published material (ANALYZE) or the ratified handoff (CREATE) gives the answer → **fill the slot**.
 - If it does not, and the item is a must-have → **log a MUST-HAVE gap** with a proposed resolution the
   owners can ratify in one pass.
 - If the brand genuinely does not use a dimension → write **"not used"** in the slot (not a gap).
