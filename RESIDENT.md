@@ -112,7 +112,7 @@ produces a real prototype + a Design-syncable component library, by default.** T
 | WS2 | New post-build VALIDATE/AUDIT stage: render real samples + content audit + client confirmation (F-016) |
 | WS3 | Client-clean output: scrub apparatus; gate ratification (F-013/014/015) |
 | WS4 | Distribution / install / deps (F-001/011) |
-| WS5 | Real assets + brand fidelity: PDF asset extraction, font acquisition, fidelity gates (F-018/019/021/022) |
+| WS5 | Real assets + brand fidelity: source-agnostic asset acquisition, font acquisition, fidelity gates (F-018/019/021/022) |
 
 WS0 (doctrine) + WS1 (scoper intake instrument): specced en `dev/v2-intake-spec.md` (v1.0) y **MERGED** — el rewrite del scoper está hecho (PR #1, commit `485cbdb`). Lado scoper cerrado.
 WS2–WS5 + el bridge WS0/WS1 del builder: specced en `dev/v2-build-spec.md` (v1.1, research-grounded Round B). Ejecución en PRs por etapas (PR-B1…PR-B6); PR-B1 = reconciliación de modo + consumo del handoff contract.
