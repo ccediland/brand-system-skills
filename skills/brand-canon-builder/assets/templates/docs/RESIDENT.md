@@ -47,7 +47,7 @@ canonical: github
 | GAP-001 | {{...}} | {{...}} | {{MUST-HAVE \| SHOULD \| NICE}} | {{...}} | {{OPEN \| CLOSED (ratified)}} |
 
 ## Change log
-- {{DATE}} — canon scaffolded with brand-system-skills; {{what was filled vs left as gaps}}.
+- {{DATE}} — canon scaffolded; {{what was filled vs left as gaps}}.
 
 ## Conventions of this doc
 Timeless content is undated; the Open Items and Change log are the volatile sections and are dated. Nothing
