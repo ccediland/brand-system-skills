@@ -78,6 +78,7 @@ domains: [brand-system, tooling, v2-refactor]
 | **v2:** default is to analyze/refine/transform/improve already-published work, NOT create from scratch | scratch only on explicit instruction; brownfield-vs-greenfield was the wrong top dichotomy | 2026-06-21 |
 | **v2:** asset extraction (from source PDFs) + font acquisition are blocking build steps | a canon with no mark/fonts renders nothing on-brand | 2026-06-21 |
 | **v2:** compiled component library emitted by default as a projection; success criteria add a brand-fidelity / presentable gate | repo must be born `/design-sync`-ready and IS the real prototype; rule-compliance of an empty skeleton passed every gate | 2026-06-21 |
+| **v2:** medium-agnostic intake discovery — los slots del canon definen lo NECESARIO, el discovery abierto lo EXISTENTE, el delta es un GAP rastreado; reemplaza cualquier routing por tipo-de-artefacto (PDF/site/social) | el intake nunca debe presumir la forma del material de una marca; surgió en el primer scoping real | 2026-06-21 |
 
 ## Open Items
 | ID | Item | Severity | Status |
@@ -109,6 +110,8 @@ produces a real prototype + a Design-syncable component library, by default.** T
 | WS4 | Distribution / install / deps (F-001/011) |
 | WS5 | Real assets + brand fidelity: PDF asset extraction, font acquisition, fidelity gates (F-018/019/021/022) |
 
+WS0 (doctrine) + WS1 (scoper intake instrument) están specced en `dev/v2-intake-spec.md` (v1.0, research-grounded); listo para el rewrite del scoper.
+
 **Surface split — who does what:**
 
 | Surface | Work | Model |
@@ -130,6 +133,7 @@ produces a real prototype + a Design-syncable component library, by default.** T
   elicits + points; the builder extracts. (F-002/F-003/F-008)
 
 ## Change log
+- 2026-06-21 — WS0 doctrine + WS1 scoper intake instrument specced en `dev/v2-intake-spec.md` (v1.0; grounded: Brand Key/Keller/Aaker/Neumeier/Wheeler + W3C/DTCG 2025.10 + OKLCH + Lahdelma/Rythm). Listo para reescribir `brand-canon-scoper/SKILL.md` + `references/handoff-format.md`.
 - 2026-06-21 — First end-to-end run on a real brownfield (print-native pilot) — OI-C. Output structurally
   sound but unusable as a deliverable (no real assets/prototype). Logged the v2 reframe + findings
   F-001…F-026 (`dev/v2-backlog.md`); added the `## v2` section (workstreams + Chat/Code surface roadmap),
