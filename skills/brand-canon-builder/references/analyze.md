@@ -51,18 +51,22 @@ Add each surviving consumer to the PROJECTIONS registry. Mark whether it is down
 **bidirectional** (also a source of design intent eligible for promotion), and record its upstream
 promotion path.
 
-## Applied-design harvest (PR-B2) — placeholder, not yet implemented
+## Applied-design harvest
 
-> **Specced, not built.** v1 harvested *facts* from the consumers but ignored their *applied design*
-> (F-021). The ANALYZE path will harvest the lived design language from the live consumers the scoper
-> pointed at — layout/composition patterns, imagery/photography direction, type-in-use vs declared, the
-> lived aesthetic — abstracted to universal (stripped of stack/medium), feeding GRAMMAR (rules) and ESSENCE
-> (meaning), with measurable atoms captured into tokens. Where lived expression diverges from the ratified
-> WHY, the divergence is logged, never silently overwritten.
->
-> This section is intentionally a stub. The method is authored in `dev/v2-build-spec.md` §4.5 and lands in
-> **PR-B2** (alongside source-agnostic asset acquisition, F-018, and font acquisition, F-019). Do not
-> implement it here.
+v1 harvested *facts* from the consumers but ignored their *applied design* (F-021). Harvest the lived design
+language from the live consumers the scoper pointed at (sites, social flagged as bidirectional design-intent):
+
+- **Layout & composition** — recurring grid/margin/template structure, spacing rhythm (observe, then promote
+  as a rule, not a pixel measurement).
+- **Imagery / photography direction** — style (lighting, color tone, composition, framing, editing), type
+  (photo/illustration/3D), staged vs natural, and what is deliberately avoided.
+- **Type-in-use vs declared** — which faces and hierarchy actually appear in practice.
+- **Lived aesthetic** — the universal look-and-feel pattern.
+
+Promote all of it **abstracted to universal** (stripped of stack/medium): feed GRAMMAR (rules) and ESSENCE
+(meaning), capture measurable atoms into the token spine. Where the lived expression **diverges** from the
+ratified WHY, log the divergence as a reconcile item — never silently overwrite the ratified WHY. Never
+fabricate: harvest only what the references actually show. (Method: `dev/v2-build-spec.md` §4.5.)
 
 ## 6. Fill, then gap
 
