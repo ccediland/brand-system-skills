@@ -102,7 +102,7 @@ place. Then fill by the handoff's `MODE` (default **ANALYZE**):
 - **ANALYZE (default):** read `references/analyze.md`. Inventory sources, mine each consumer's living docs
   **and open PRs**, reconcile conflicts (fresher/shipped wins specifics; identity wins meaning; repo wins
   over external brandbook/Drive; abstract to universal before promoting), harvest before removing junk,
-  register consumers in `projections.md`. (Applied-design harvest is specced for PR-B2.)
+  register consumers in `projections.md`. (Applied-design harvest now runs in Stage 5.)
 - **CREATE (rare exception, only on `MODE: CREATE`):** read `references/create.md`. Author from the
   handoff's ratified WHY in four-question order — **consume the handoff, do not re-interview**; fill every
   slot the handoff supports.
@@ -113,25 +113,46 @@ in the prose layers and values in the token spine. Mirror essence + grammar into
 
 ---
 
-**Stages 3–12 — specced in `dev/v2-build-spec.md`, not yet implemented.** Forward-pointers only; each lands
-in a later staged PR. Do not implement them in this PR.
+**Stages 3–5 are implemented (PR-B2):** source-agnostic asset acquisition, font acquisition, applied-design
+harvest. **Stages 8 and 11 and the fidelity gate in Stage 10 remain forward-pointers** to
+`dev/v2-build-spec.md` (PR-B3/B4/B5) — not yet implemented. Stages 6, 7, 9, 12 and the existing checks in
+Stage 10 carry the validated v1 method.
 
-### Stage 3 — Source-agnostic asset acquisition · BLOCKING (core) · *PR-B2*
-Acquire build-grade assets from whatever sources exist (any combination), per the spec's acquisition matrix;
-assemble best-fidelity per slot with precedence; the slot-need-vs-source-exists delta is a fidelity GAP.
-(`dev/v2-build-spec.md` §4.3.)
+### Stage 3 — Source-agnostic asset acquisition · BLOCKING (core)
+Read `references/asset-acquisition.md`. Acquire build-grade assets from whatever sources exist (any
+combination), selecting the extraction technique **per source-type encountered** (existing DTCG/token files >
+repo vector masters > website extraction > PDF > design-tool exports > social) — **never assume a PDF**.
+Assemble the best-fidelity asset per canon slot with precedence (authored print > sampled; shipped/site > old
+brandbook; vector master > raster; existing tokens > extraction). The slot-need-vs-source-exists delta is a
+per-slot fidelity **GAP**. (`dev/v2-build-spec.md` §4.3.)
 
-### Stage 4 — Font acquisition · BLOCKING (core) · *PR-B2*
-Multi-source, license-gated font acquisition (OFL/RFN, deny-by-default); else a fidelity GAP.
-(`dev/v2-build-spec.md` §4.4.)
+### Stage 4 — Font acquisition · BLOCKING (core)
+Read `references/font-acquisition.md`. Acquire the brand's actual typefaces by whatever path the source
+offers (embedded-PDF / `@font-face` from a live site / repo files / acquire open via Fontsource). **Licensing
+is hard-gated:** self-host only OFL/Apache/Ubuntu or owner-supplied faces (ship the license; rename on a
+Reserved Font Name when subsetting); an unlicensed commercial face is a MUST-HAVE fidelity **GAP**, never a
+silent fallback (deny-by-default). (`dev/v2-build-spec.md` §4.4.)
 
-### Stage 5 — Applied-design harvest · *PR-B2*
-Harvest the lived design language from live consumers → GRAMMAR/ESSENCE. (`dev/v2-build-spec.md` §4.5;
-stub in `references/analyze.md`.)
+### Stage 5 — Applied-design harvest
+Harvest the lived design language from the live consumers the scoper pointed at (the *Applied-design harvest*
+section of `references/analyze.md`): layout/composition, imagery/photography direction, type-in-use vs
+declared, the lived aesthetic — abstracted to universal (stripped of stack/medium), feeding GRAMMAR (rules)
+and ESSENCE (meaning), measurable atoms into tokens. Where lived expression diverges from the ratified WHY,
+log the divergence; never silently overwrite. (`dev/v2-build-spec.md` §4.5.)
 
-### Stage 6 — Fill the canon (extraction) · *PR-B2+*
-Builder **extracts** measured primitives from the pointed-to sources; meaning in prose, values in tokens.
-(`dev/v2-build-spec.md` §4.1, §4.5.)
+### Stage 6 — Fill the canon (extraction synthesis)
+The consolidation point where the canon is filled — **not a separate pass**. Stage 2 routes by MODE and fills
+from the placed material; Stages 3–5 acquire the real assets, fonts and applied design. Here the builder
+**extracts** the measured primitive values those sources yield and lands them in the canon: meaning to the
+prose layers, values to the token spine, mirrored to `canon/canon.json`. The frontier holds throughout — the
+builder extracts/derives values, never re-elicits the ratified WHY. (`dev/v2-build-spec.md` §4.1, §4.5.)
+
+> **Stage 2 / Stage 6 note (adjudicated).** In the spec's §3 table, Stage 2 is *read material* and Stage 6 is
+> *fill the canon*; PR-B1's SKILL mapping folded the MODE-routed fill into Stage 2, leaving Stage 6 partly
+> redundant. Reconciled here by keeping Stage 2 as the merged, load-bearing read+fill entry point and
+> reframing Stage 6 as the explicit extraction-synthesis culmination of Stages 2–5 (no duplicate fill, no
+> future-PR tag). A literal Stage 2 (read-only) / Stage 6 (fill) re-split to mirror §3 exactly is deferred to
+> whichever PR next revisits the PR-B1 spine — out of PR-B2's scope.
 
 ### Stage 7 — Token spine
 Read `references/token-spine.md`. Author `tokens/base.json` (raw OKLCH + authored/derived `$extensions`),

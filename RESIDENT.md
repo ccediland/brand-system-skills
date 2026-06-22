@@ -20,7 +20,7 @@ domains: [brand-system, tooling, v2-refactor]
 - A plugin marketplace (mirrors `web-stack-skills`) shipping one plugin `brand-system` with two skills:
   `brand-canon-builder` (Code-side, builds the canon) and `brand-canon-scoper` (Chat-side, scopes + hands off).
 - It produces a four-layer canon (INDEX/ESSENCE/PRIMITIVES/GRAMMAR) + 2 satellites + a DTCG/OKLCH token
-  spine, for any brand, greenfield or brownfield. Output-agnostic, generative, dual-legible.
+  spine, for any brand — ANALYZE its published work by default, or CREATE from a ratified brief. Output-agnostic, generative, dual-legible.
 - Sibling to `web-stack-skills` (flagship stack consumer). Same token spine on both sides → lossless hop.
 - **v2 (load-bearing): the first real-brand run proved the v1 ships a *hollow skeleton*.** The skill must
   become an engine that **analyzes existing published brand work across mediums → extracts real assets →
@@ -51,7 +51,7 @@ domains: [brand-system, tooling, v2-refactor]
 ## Repo map
 - `.claude-plugin/marketplace.json` · `plugin.json` — marketplace + plugin manifests (mirror web-stack-skills).
 - `skills/brand-canon-builder/` — `SKILL.md` + `references/` (architecture, coverage-checklist, gap-protocol,
-  token-spine, brownfield, greenfield, claude-design-adapter) + `assets/templates/` (canon skeletons, DTCG
+  token-spine, analyze, create, claude-design-adapter, asset-acquisition, font-acquisition) + `assets/templates/` (canon skeletons, DTCG
   token spine, canon.json, satellites, docs, Claude Design adapter).
 - `skills/brand-canon-scoper/` — `SKILL.md` + `references/handoff-format.md`.
 - `dev/` — the bounded build's work-log (provenance) + `v2-backlog.md` (granular v2 findings F-001…F-026).
@@ -76,7 +76,7 @@ domains: [brand-system, tooling, v2-refactor]
 | Don't pad the must-have checklist; rely on GAP protocol + universality stress test | a longer checklist ≠ a more complete canon | 2026-06-21 |
 | **v2 reframe:** skill = analyze published work across mediums → extract real assets → real prototype + Design-syncable component library; canon is the skeleton, not the deliverable | first real run shipped a hollow, unpresentable skeleton | 2026-06-21 |
 | **v2:** default is to analyze/refine/transform/improve already-published work, NOT create from scratch | scratch only on explicit instruction; brownfield-vs-greenfield was the wrong top dichotomy | 2026-06-21 |
-| **v2:** asset extraction (from source PDFs) + font acquisition are blocking build steps | a canon with no mark/fonts renders nothing on-brand | 2026-06-21 |
+| **v2:** real asset acquisition (source-agnostic, any medium) + font acquisition are blocking build steps | a canon with no mark/fonts renders nothing on-brand; the source-agnostic matrix supersedes the original PDF-only framing | 2026-06-21 |
 | **v2:** compiled component library emitted by default as a projection; success criteria add a brand-fidelity / presentable gate | repo must be born `/design-sync`-ready and IS the real prototype; rule-compliance of an empty skeleton passed every gate | 2026-06-21 |
 | **v2:** medium-agnostic intake discovery — los slots del canon definen lo NECESARIO, el discovery abierto lo EXISTENTE, el delta es un GAP rastreado; reemplaza cualquier routing por tipo-de-artefacto (PDF/site/social) | el intake nunca debe presumir la forma del material de una marca; surgió en el primer scoping real | 2026-06-21 |
 | **v2 builder:** `/design-sync` ingiere un `dist/` compilado, no source → la component library se emite con package-shape por default (build de un comando: `esbuild` + `ts-morph`) | el contrato verificado del converter exige `dist/` + `.d.ts`; un handoff source-only no es ingerible | 2026-06-22 |
@@ -112,7 +112,7 @@ produces a real prototype + a Design-syncable component library, by default.** T
 | WS2 | New post-build VALIDATE/AUDIT stage: render real samples + content audit + client confirmation (F-016) |
 | WS3 | Client-clean output: scrub apparatus; gate ratification (F-013/014/015) |
 | WS4 | Distribution / install / deps (F-001/011) |
-| WS5 | Real assets + brand fidelity: PDF asset extraction, font acquisition, fidelity gates (F-018/019/021/022) |
+| WS5 | Real assets + brand fidelity: source-agnostic asset acquisition, font acquisition, fidelity gates (F-018/019/021/022) |
 
 WS0 (doctrine) + WS1 (scoper intake instrument): specced en `dev/v2-intake-spec.md` (v1.0) y **MERGED** — el rewrite del scoper está hecho (PR #1, commit `485cbdb`). Lado scoper cerrado.
 WS2–WS5 + el bridge WS0/WS1 del builder: specced en `dev/v2-build-spec.md` (v1.1, research-grounded Round B). Ejecución en PRs por etapas (PR-B1…PR-B6); PR-B1 = reconciliación de modo + consumo del handoff contract.
@@ -124,7 +124,7 @@ WS2–WS5 + el bridge WS0/WS1 del builder: specced en `dev/v2-build-spec.md` (v1
 | Surface | Work | Model |
 |---|---|---|
 | **Chat (home base)** | Design the v2 method: intake/understanding methodology (F-023/024); asset-inventory request + questionnaire + multi-stakeholder confirmation (F-008/009/020); brand-fidelity success criteria (F-022); Design-by-default shape (F-026); validate/audit stage spec (F-016). Author the v2 spec prose + decisions. Maintain this RESIDENT + the backlog. | top Opus |
-| **Code (excursions)** | Rewrite both skills' `SKILL.md` + `references/` to spec; build the PDF asset-extraction pipeline (F-018) and font-acquisition step (F-019); scaffold the default compiled component-library template so every repo is born `/design-sync`-ready (F-026); build the validate/audit stage into the builder (F-016/022); add brand-fidelity gates + tests; update `assets/templates/`. | Opus for method-encoding, cheap/fast tier for bulk scaffolding |
+| **Code (excursions)** | Rewrite both skills' `SKILL.md` + `references/` to spec; build the source-agnostic asset-acquisition pipeline (F-018) and font-acquisition step (F-019); scaffold the default compiled component-library template so every repo is born `/design-sync`-ready (F-026); build the validate/audit stage into the builder (F-016/022); add brand-fidelity gates + tests; update `assets/templates/`. | Opus for method-encoding, cheap/fast tier for bulk scaffolding |
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it
@@ -140,6 +140,7 @@ WS2–WS5 + el bridge WS0/WS1 del builder: specced en `dev/v2-build-spec.md` (v1
   elicits + points; the builder extracts. (F-002/F-003/F-008)
 
 ## Change log
+- 2026-06-22 — PR-B2 ejecutado en `brand-canon-builder`: Stages 3–5 implementadas — adquisición de assets source-agnostic (`references/asset-acquisition.md`: matriz por tipo-de-fuente, techos de fidelidad, ensamblaje + precedencia, F-018), font acquisition multi-fuente con licencia OFL/RFN deny-by-default (`references/font-acquisition.md`, F-019), applied-design harvest (sección en `analyze.md`, F-021). RESIDENT reconciliado (TL;DR / Repo map / decisión PDF → source-agnostic).
 - 2026-06-22 — Builder v2 spec `dev/v2-build-spec.md` commiteado (v1.1, research-grounded Round B): WS2–WS5 + bridge WS0/WS1, plan de PRs por etapas (PR-B1…PR-B6). PR-B1 ejecutado en `brand-canon-builder`: Stage 0 = parse del handoff contract, Stage 2 = lectura de modo (default ANALYZE) + material in-repo `assets/`/`sources/` (D2); `brownfield.md`→`analyze.md`, `greenfield.md`→`create.md`; nota-ley §5.2 (canon = esqueleto; prototipo + library = deliverable) en `architecture.md`. Scoper rewrite ya MERGED (PR #1, `485cbdb`).
 - 2026-06-21 — WS0 doctrine + WS1 scoper intake instrument specced en `dev/v2-intake-spec.md` (v1.0; grounded: Brand Key/Keller/Aaker/Neumeier/Wheeler + W3C/DTCG 2025.10 + OKLCH + Lahdelma/Rythm). Listo para reescribir `brand-canon-scoper/SKILL.md` + `references/handoff-format.md`.
 - 2026-06-21 — First end-to-end run on a real brownfield (print-native pilot) — OI-C. Output structurally
