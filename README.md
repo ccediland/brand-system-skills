@@ -1,18 +1,20 @@
 # brand-system-skills
 
-A Claude Code plugin marketplace that builds a **canonical, brand-agnostic, output-agnostic brand source**
-for any brand — a four-layer canon plus a DTCG/OKLCH token spine that any consumer (a website, an app, a
-slide deck, a print kit, a design tool) derives any artifact from. Greenfield or brownfield.
+A Claude Code plugin that turns any brand into a **canonical, brand-agnostic, output-agnostic source of
+truth** — a four-layer brand canon plus a DTCG/OKLCH token spine — and then builds a **real, presentable
+prototype and a `/design-sync`-ready component library** from it. Any consumer (a website, an app, a slide
+deck, a print kit, a design tool) derives any artifact from the same source, with no lossy hop. Greenfield
+or brownfield.
 
 Sibling to [`web-stack-skills`](https://github.com/ccediland/web-stack-skills): the brand canon is the
 upstream source of truth; web-stack-skills is a flagship downstream consumer that turns the canon into web
-output. They share the same DTCG/OKLCH token spine, so a canon projects into web output with no lossy hop.
+output. They share the same DTCG/OKLCH token spine, so a canon projects into web output cleanly.
 
 ## The two skills
 
 | Skill | Where | What it does |
 |---|---|---|
-| **brand-canon-builder** | Claude Code (filesystem + git) | Scaffolds and fills the brand canon: four layers + token spine + satellites + docs. Fills what's known, logs the rest as tracked gaps, emits DTCG tokens, optionally attaches a Claude Design library. |
+| **brand-canon-builder** | Claude Code (filesystem + git) | Analyzes existing brand work, extracts the real assets, and builds the canon — four layers + token spine + satellites + docs — then emits a real prototype and a compiled, `/design-sync`-ready component library. Fills what the brand's material supports, logs the rest as tracked gaps, and fails the build if a core asset (the mark, the fonts) is missing rather than shipping an empty skeleton. |
 | **brand-canon-scoper** | Claude.ai chat (no filesystem) | Scopes a brand in conversation and compiles one ready-to-paste handoff block that the builder runs in Claude Code. |
 
 ## What "canon" means here
@@ -26,21 +28,30 @@ Four questions, four layers, two satellites — nothing organized around an outp
 - satellites: **DATA POINTER** (where volatile values live) · **PROJECTIONS** (who consumes the canon).
 
 Plus a **DTCG / OKLCH token spine** (`tokens/base|semantic|component.json`) as the machine interchange
-contract, with print colors authored and screen colors derived.
+contract — print colors authored, screen colors derived.
 
-**The Lego principle:** the canon is always createable and valid — even for a brand with nothing. Whatever
-is missing resolves to a goal, a tracked gap, and a skeleton slot, never a blocked empty shell.
+**The deliverable is not the skeleton.** The canon is the source skeleton; the deliverable is the real
+prototype and the `/design-sync`-ready library projected from it. A rule-compliant canon with no real assets
+is not done.
+
+**The Lego principle:** the canon is always creatable and valid — even for a brand with nothing. Whatever is
+missing resolves to a goal, a tracked gap, and a skeleton slot, never a blocked empty shell.
 
 ## Install
-
-```
 /plugin marketplace add ccediland/brand-system-skills
+
 /plugin install brand-system@brand-system-skills
-```
 
 Then, in Claude Code, just describe what you want — "set up a brand canon for …", "consolidate our brand
-into a single source of truth", "build our design tokens" — and `brand-canon-builder` triggers. In
-Claude.ai chat, ask to scope your brand and `brand-canon-scoper` will hand you a block for the builder.
+into a single source of truth", "build our design tokens" — and `brand-canon-builder` triggers. In Claude.ai
+chat, ask to scope your brand and `brand-canon-scoper` hands you a block for the builder.
+
+## Requirements
+
+- **Claude Code** — latest recommended. The `/design-sync` integration (compiling the component library into
+  Claude Design) requires a recent Claude Code that ships `/design-sync`.
+- **Node ≥ 18** — only for building the emitted component-library kit (esbuild + ts-morph); the canon itself
+  needs no toolchain.
 
 ## Status
 
