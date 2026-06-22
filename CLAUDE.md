@@ -7,13 +7,15 @@
 ## Repo map
 - `.claude-plugin/marketplace.json` · `plugin.json` — marketplace + plugin manifests (mirror `web-stack-skills`).
 - `skills/brand-canon-builder/` — Code-side builder: `SKILL.md`, `references/` (the method knowledge),
-  `assets/templates/` (the canon skeletons + DTCG token spine + satellites + docs + Claude Design adapter).
+  `assets/templates/` (the canon skeletons + DTCG token spine + satellites + docs + prototype + design-sync
+  kit + Claude Design adapter).
 - `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` + `references/handoff-format.md`.
 - `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items).
 
 ## How the skills work (one line each)
 - **brand-canon-builder** — scaffold the canon → fill what the brand's material/brief supports → log the
-  rest as tracked `GAP-NNN` → emit the DTCG/OKLCH token spine → optionally attach Claude Design → validate.
+  rest as tracked `GAP-NNN` → emit the DTCG/OKLCH token spine → attach the Claude Design adapter (default
+  ON) → validate.
 - **brand-canon-scoper** — in chat (no filesystem), interview + compile one ready-to-paste handoff block for
   the builder.
 
@@ -30,10 +32,11 @@
 - **Mirror web-stack-skills' marketplace conventions** so the two interoperate (same manifest/skill layout).
 
 ## Provenance / build memory
-This repo was derived in a bounded "Phase 4" job by abstracting the method from one mature brand canon and
-validating coverage against a second, independently-authored one. The full work-log, decision log, and the
-build's Compact Instructions live in the **gitignored `dev/`** directory (kept on disk, not shipped). If you
-are resuming that build mid-flight, read `dev/build-memory.md` and `dev/work-log—2026-06-21.md` first.
+This repo was derived in a bounded "Phase 4" job — abstracting the method from one mature brand canon and
+validating coverage against a second, independently-authored one — then rebuilt in v2 into an analyze →
+extract → prototype + Design-syncable library engine (the v2 pipeline is complete; see `RESIDENT.md`). The
+full work-log, the v2 specs (`v2-build-spec.md`, `v2-intake-spec.md`), and the granular backlog
+(`v2-backlog.md`, F-001…F-026) live in the **gitignored `dev/`** directory — local provenance, not shipped.
 
 ## Flujo (Carlos)
 Work on a `claude/<name>` branch, never main; PR + wait for OK before merge. Respond to Carlos in es-MX

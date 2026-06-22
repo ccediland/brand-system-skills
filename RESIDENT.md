@@ -4,10 +4,10 @@ description: "Living resident doc for brand-system-skills — a Claude Code plug
   build a generic, brand-agnostic, output-agnostic brand canon (four layers + DTCG/OKLCH token spine) for
   any brand. Use when any session touches this repo, its skills, the canon template, the token interchange
   contract, or its relationship to web-stack-skills. Canonical at the source; any mirror is read-only."
-last_updated: 2026-06-21
+last_updated: 2026-06-22
 applies_to: Repo ccediland/brand-system-skills — the brand-canon builder/scoper skills + canon template
 canonical: github
-domains: [brand-system, tooling, v2-refactor]
+domains: [brand-system, tooling]
 ---
 
 # brand-system-skills — RESIDENT
@@ -22,11 +22,10 @@ domains: [brand-system, tooling, v2-refactor]
 - It produces a four-layer canon (INDEX/ESSENCE/PRIMITIVES/GRAMMAR) + 2 satellites + a DTCG/OKLCH token
   spine, for any brand — ANALYZE its published work by default, or CREATE from a ratified brief. Output-agnostic, generative, dual-legible.
 - Sibling to `web-stack-skills` (flagship stack consumer). Same token spine on both sides → lossless hop.
-- **v2 (load-bearing): the first real-brand run proved the v1 ships a *hollow skeleton*.** The skill must
-  become an engine that **analyzes existing published brand work across mediums → extracts real assets →
-  produces a real prototype + a Design-syncable component library by default** — not a from-scratch
-  rule/token canon that defers assets to placeholders. The canon is the skeleton, never the deliverable.
-  See `## v2`.
+- **v2 (shipped): the first real-brand run proved v1 shipped a *hollow skeleton*, so v2 rebuilt the skill
+  into an engine that analyzes existing published brand work across mediums → extracts the real assets →
+  produces a real prototype + a Design-syncable component library by default.** The canon is the skeleton,
+  never the deliverable. See `## v2`.
 
 ## Architecture & why
 - **Four-question canon.** Every design truth answers *where-start / why / what / how*; each owned by one
@@ -51,18 +50,19 @@ domains: [brand-system, tooling, v2-refactor]
 ## Repo map
 - `.claude-plugin/marketplace.json` · `plugin.json` — marketplace + plugin manifests (mirror web-stack-skills).
 - `skills/brand-canon-builder/` — `SKILL.md` + `references/` (architecture, coverage-checklist, gap-protocol,
-  token-spine, analyze, create, claude-design-adapter, asset-acquisition, font-acquisition) + `assets/templates/` (canon skeletons, DTCG
-  token spine, canon.json, satellites, docs, Claude Design adapter).
+  token-spine, analyze, create, asset-acquisition, font-acquisition, design-sync-kit, claude-design-adapter,
+  validate-audit, client-clean) + `assets/templates/` (canon skeletons, DTCG token spine, canon.json,
+  satellites, docs, prototype, design-sync kit, Claude Design adapter).
 - `skills/brand-canon-scoper/` — `SKILL.md` + `references/handoff-format.md`.
-- `dev/` — the bounded build's work-log (provenance) + `v2-backlog.md` (granular v2 findings F-001…F-026).
-- `CLAUDE.md` — agent ops + guardrails + Compact Instructions (build-time memory).
+- `README.md` (human front door) · `RESIDENT.md` (this doc) · `CLAUDE.md` (agent ops + guardrails).
+- `dev/` — build provenance (work-log + v2 specs + `v2-backlog.md`, F-001…F-026); **gitignored, local-only, not shipped**.
 
 ## Integrations / ritual
 - **web-stack-skills** = downstream consumer. Its `astro-css-tokens` skill ingests the DTCG `tokens/` spine
   (3-file, OKLCH-string `$value`, plain-string values, `{tier.cat.name}` aliases, namespace-aligned category
   names). Validate "does a canon project cleanly into web-stack-skills?" whenever the token contract changes.
 - **Claude Design** = consumer via `/design-sync`, which needs a COMPILED COMPONENT LIBRARY (dist/Storybook/
-  package), not a canon. v2 makes that library a default build output (see `## v2`, F-026).
+  package), not a canon. v2 makes that library a default build output (see `## v2`).
 - Both are PROJECTIONS of a brand canon; the canon never names a stack (escape valve = adapters in the
   consumer repo).
 
@@ -74,95 +74,75 @@ domains: [brand-system, tooling, v2-refactor]
 | base/semantic/component tiering documented as the DTCG standard, not as web-stack's shape | keep canon stack-agnostic; alignment is convergence on a standard | 2026-06-21 |
 | Emit motion/depth tokens even without a current consumer | first-class optional dimensions; a downstream bridge can come later | 2026-06-21 |
 | Don't pad the must-have checklist; rely on GAP protocol + universality stress test | a longer checklist ≠ a more complete canon | 2026-06-21 |
-| **v2 reframe:** skill = analyze published work across mediums → extract real assets → real prototype + Design-syncable component library; canon is the skeleton, not the deliverable | first real run shipped a hollow, unpresentable skeleton | 2026-06-21 |
+| **v2 reframe:** skill = analyze published work → extract real assets → real prototype + Design-syncable library; canon is the skeleton, not the deliverable | first real run shipped a hollow, unpresentable skeleton | 2026-06-21 |
 | **v2:** default is to analyze/refine/transform/improve already-published work, NOT create from scratch | scratch only on explicit instruction; brownfield-vs-greenfield was the wrong top dichotomy | 2026-06-21 |
-| **v2:** real asset acquisition (source-agnostic, any medium) + font acquisition are blocking build steps | a canon with no mark/fonts renders nothing on-brand; the source-agnostic matrix supersedes the original PDF-only framing | 2026-06-21 |
-| **v2:** compiled component library emitted by default as a projection; success criteria add a brand-fidelity / presentable gate | repo must be born `/design-sync`-ready and IS the real prototype; rule-compliance of an empty skeleton passed every gate | 2026-06-21 |
-| **v2:** medium-agnostic intake discovery — los slots del canon definen lo NECESARIO, el discovery abierto lo EXISTENTE, el delta es un GAP rastreado; reemplaza cualquier routing por tipo-de-artefacto (PDF/site/social) | el intake nunca debe presumir la forma del material de una marca; surgió en el primer scoping real | 2026-06-21 |
-| **v2 builder:** `/design-sync` ingiere un `dist/` compilado, no source → la component library se emite con package-shape por default (build de un comando: `esbuild` + `ts-morph` + `@types/react`) | el contrato verificado del converter exige `dist/` + `.d.ts`; un handoff source-only no es ingerible | 2026-06-22 |
-| **v2 builder:** la compiled component library es el hueco de ecosistema que el builder llena | ninguna herramienta existente compila un paquete `/design-sync`-ready desde un canon kit (Dembrandt/designlang extraen; web-stack-skills construye sitios; `/design-sync` consume) | 2026-06-22 |
-| **v2 builder:** asset acquisition source-agnostic (matriz por tipo-de-fuente, sin asumir PDF) | nunca presumir que existe un solo tipo de fuente; la técnica de extracción se elige por fuente encontrada | 2026-06-22 |
-| **v2 builder:** pin Style Dictionary v5 + DTCG draft 2025.10 | DTCG 2025.10 aún no está full-supported en SD v5 (issue #1590); usar el transform `color/oklch`, nunca `color/css` | 2026-06-22 |
+| **v2:** real asset acquisition (source-agnostic, any medium) + font acquisition are blocking build steps | a canon with no mark/fonts renders nothing on-brand; the source-agnostic matrix supersedes the PDF-only framing | 2026-06-21 |
+| **v2:** compiled component library emitted by default; success criteria add a brand-fidelity / presentable gate | repo must be born `/design-sync`-ready and IS the real prototype; rule-compliance of an empty skeleton passed every gate | 2026-06-21 |
+| **v2:** medium-agnostic intake — canon slots define what is NEEDED, open discovery what EXISTS, the delta is a tracked GAP; replaces any artifact-type routing | intake must never presume the shape of a brand's material; surfaced in the first real scoping | 2026-06-21 |
+| **v2 builder:** `/design-sync` ingests a compiled `dist/`, not source → the library ships package-shape by default (one-command build: `esbuild` + `ts-morph` + `@types/react`) | the converter's verified contract requires `dist/` + `.d.ts`; a source-only handoff isn't ingestible | 2026-06-22 |
+| **v2 builder:** the compiled component library is the ecosystem gap the builder fills | no existing tool compiles a `/design-sync`-ready package from a canon kit | 2026-06-22 |
+| **v2 builder:** source-agnostic asset acquisition (matrix by source-type, never assume PDF) | never presume a single source type exists; technique chosen by the source found | 2026-06-22 |
+| **v2 builder:** pin Style Dictionary v5 + DTCG draft 2025.10 | DTCG 2025.10 not yet fully supported in SD v5 (issue #1590); use `color/oklch`, never `color/css` | 2026-06-22 |
 
 ## Open Items
 | ID | Item | Severity | Status |
 |---|---|---|---|
 | OI-A | No downstream consumer yet ingests motion/depth tokens (web-stack `astro-css-tokens` reads neither). A future bridge skill could. | NICE | OPEN |
-| OI-B | web-stack-skills cites no `G-*`/`ALGO-*` rule IDs today; enforceable canon downstream would need rule-ID citations there or rule-IDs carried as token metadata. (Canon itself DOES enable rule-ID citation.) | NICE | OPEN |
-| OI-C | Skills exercised end-to-end on a real brownfield brand (print-native pilot). **DONE** → surfaced the v2 reframe + 26 findings. Superseded by `## v2` / WS0–WS5 / `dev/v2-backlog.md`. | SHOULD | RESOLVED → v2 |
-| OI-D | Literal Stage 2 (read-only) / Stage 6 (fill) §3 re-split deferred to the next PR that revisits the PR-B1 spine (out of PR-B2 scope; the folded Stage 2 carries read+fill today). | NICE | OPEN |
+| OI-B | web-stack-skills cites no `G-*`/`ALGO-*` rule IDs today; enforceable canon downstream would need rule-ID citations there or carried as token metadata. | NICE | OPEN |
+| OI-D | Literal Stage 2 (read-only) / Stage 6 (fill) §3 re-split deferred; the folded Stage 2 carries read+fill today. Revisit only if the PR-B1 spine is reopened. | NICE | OPEN |
 
-## v2 — first real run: the reframe + surface roadmap
-The first end-to-end run (OI-C, a real brownfield print-native pilot) proved the v1 output is a **hollow
+(OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
+
+## v2 — the reframe (shipped)
+The first end-to-end run on a real brownfield (print-native) pilot proved the v1 output was a **hollow
 skeleton**: structurally sound (authored/derived correct, brand-scrub correct, rules cited by ID) but
 unusable as a deliverable — no real assets, placeholder mark, fallback fonts, generic renders. The skill
-validated rule-compliance of an empty skeleton and called it done. Granular findings F-001…F-026 in
-`dev/v2-backlog.md`.
+validated rule-compliance of an empty skeleton and called it done.
 
 **Reframe (center of gravity).** Not a from-scratch, output-agnostic rule/token canon that defers assets.
 An engine that **analyzes existing published brand work across mediums → extracts the real assets →
 produces a real prototype + a Design-syncable component library, by default.** The four-layer canon is the
-*skeleton*, never the deliverable. We do not create brands from scratch unless explicitly instructed.
+*skeleton*, never the deliverable. Brands are not created from scratch unless explicitly instructed.
 
-**Workstreams** (detail in `dev/v2-backlog.md`):
+**v2 — SHIPPED.** Scoper rewrite (PR #1) + builder pipeline Stages 0–12 (PR-B1…B5: handoff spine ·
+source-agnostic asset + font acquisition · applied-design harvest · real prototype + `/design-sync`-ready
+component-library kit · token spine · gaps · VALIDATE/AUDIT + fidelity gate · client-clean/scrub) +
+distribution (PR-B6) + skills audit-remediation (#8). The method now lives in `skills/*/SKILL.md` +
+`references/`; F-001…F-026 closed. Surface split (design → Chat, filesystem/git → Code) folded into normal flow.
 
-| WS | Thrust |
-|---|---|
-| WS0 | Reframe: analyze-published-work default; real prototype; Design-syncable by default; no placeholder-default (F-023/024/025/026) |
-| WS1 | Scoper = guided intake instrument (interview, asset-inventory request, gap doc); never infers WHY, never extracts primitives (F-002/008/009/003/006/007/020) |
-| WS2 | New post-build VALIDATE/AUDIT stage: render real samples + content audit + client confirmation (F-016) |
-| WS3 | Client-clean output: scrub apparatus; gate ratification (F-013/014/015) |
-| WS4 | Distribution / install / deps (F-001/011) |
-| WS5 | Real assets + brand fidelity: source-agnostic asset acquisition, font acquisition, fidelity gates (F-018/019/021/022) |
-
-WS0 (doctrine) + WS1 (scoper intake instrument): specced en `dev/v2-intake-spec.md` (v1.0) y **MERGED** — el rewrite del scoper está hecho (PR #1, commit `485cbdb`). Lado scoper cerrado.
-WS2–WS5 + el bridge WS0/WS1 del builder: specced en `dev/v2-build-spec.md` (v1.1, research-grounded Round B). Ejecución en PRs por etapas (PR-B1…PR-B6); PR-B1 = reconciliación de modo + consumo del handoff contract.
-
-> **Caveat (`/design-sync` contract).** El contrato del converter en `v2-build-spec.md` §4.6 fue
-> **re-verificado post-GA (2026-06-22; GA 2026-06-17)** contra el skill `/design-sync` vivo on-disk en
-> Claude Code **`v2.1.185`** (más nuevo que el mirror Piebald `2.1.176`): núcleo **corroborado**; deltas
-> fijados — marcador `@dsCard` de primera línea por preview → `ds_manifest` **server-regenerado**;
-> `readmeHeader` **añadido** junto a `guidelinesGlob` (coexisten, no reemplazo). El comando base re-lee
-> instrucciones vivas vía `get_claude_design_prompt`, así que el contrato es server-side/version-fluid:
-> **PR-B3 step 0 re-lee el skill vivo y fija nombres exactos de campo/script** antes de congelar el
-> emitter — re-check ya **acotado** a eso, no al contrato completo.
-
-**Surface split — who does what:**
-
-| Surface | Work | Model |
-|---|---|---|
-| **Chat (home base)** | Design the v2 method: intake/understanding methodology (F-023/024); asset-inventory request + questionnaire + multi-stakeholder confirmation (F-008/009/020); brand-fidelity success criteria (F-022); Design-by-default shape (F-026); validate/audit stage spec (F-016). Author the v2 spec prose + decisions. Maintain this RESIDENT + the backlog. | top Opus |
-| **Code (excursions)** | Rewrite both skills' `SKILL.md` + `references/` to spec; build the source-agnostic asset-acquisition pipeline (F-018) and font-acquisition step (F-019); scaffold the default compiled component-library template so every repo is born `/design-sync`-ready (F-026); build the validate/audit stage into the builder (F-016/022); add brand-fidelity gates + tests; update `assets/templates/`. | Opus for method-encoding, cheap/fast tier for bulk scaffolding |
+> **Caveat (`/design-sync` contract).** The converter contract is **server-side/version-fluid** (the base
+> command re-reads live instructions via `get_claude_design_prompt`). It was live-pinned post-GA against
+> Claude Code `v2.1.185` (core corroborated; first-line `@dsCard` marker per preview → `ds_manifest`
+> server-regenerated; `readmeHeader` coexists with `guidelinesGlob`). The builder **re-reads the live skill
+> at run time** before freezing the emitter — treat pinned field/script names as version-fluid, not frozen.
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it
   passes every gate but renders nothing presentable. Do not retry — assets, fonts and a real prototype are
-  blocking build outputs, not deferrable gaps. (WS0/WS5)
+  blocking build outputs, not deferrable gaps.
 - Tried: greenfield(elicit) vs brownfield(mine) as the top dichotomy. Abandoned: the real default is
   analyze-published-work-across-mediums → harvest/refine/transform/improve; from-scratch is the rare,
-  explicitly-instructed exception. (F-024)
+  explicitly-instructed exception.
 - Tried: default "Claude Design adapter? no" / not-attached. Abandoned: contradicts the standing goal of
-  direct `/design-sync`; the compiled component library is a default build output. (F-026)
+  direct `/design-sync`; the compiled component library is a default build output.
 - Tried: scoper auto-mines material, infers the WHY/essence, and extracts primitives. Abandoned: WHY is not
   in source material (must be elicited) and the scoper's extraction was wrong. Do not retry — the scoper
-  elicits + points; the builder extracts. (F-002/F-003/F-008)
+  elicits + points; the builder extracts.
 
 ## Change log
-- 2026-06-22 — **PR-B6 MERGED (#9)** — distribution/install/deps (F-001/011): README rewrite (v2 deliverable headline + Requirements), manifests → 0.2.0 with v2 descriptions, repo description + 7 topics set, scoper zip published for Claude.ai upload. Remaining: PR-B7 (untrack dev/ + consolidate RESIDENT + update CLAUDE) + refresh the Project-knowledge RESIDENT mirror.
-- 2026-06-22 — **Skills audit-remediation (#8) MERGED** — frontmatter correctness (builder description was invalid YAML + 1206>1024 → replaced with an 884-char valid string; scoper/RESIDENT quoted), md-house-style bold-prune across both SKILL.md + the 13 references, a builder reference-materials index (12 refs), and an assets/templates audit vs each skill's own rules (bold-pruned; token/config/prototype correctness clean; {{placeholders}} preserved). Both skills pass the quick_validate field checks (yaml valid, desc ≤1024, no angle brackets). No method/logic change.
-- 2026-06-22 — **PR-B5 MERGED** — Stage 11 client-clean/scrub (F-013/014/015): strip tool self-attribution (F-015), reference-brand bleed runtime-catch (F-013), {{placeholder}}/chatter removal, never auto-stamp ratification (F-014; default unratified-pending). Source docs templates scrubbed (removed brand-system-skills attribution). **v2 builder pipeline COMPLETE** (Stages 0–12, PR-B1…B5; no forward-pointers). Remaining: PR-B6 (distribution/install/deps, F-001/011) + refresh the Project-knowledge RESIDENT mirror.
-- 2026-06-22 — **PR-B4 MERGED** — Stage 10 VALIDATE/AUDIT + fidelity gate (F-016/022): consume el CORE-ASSET FIDELITY CONTRACT (core missing/low-fi → build FALLA; non-core loggea), mecanismo shape-dependent (package-shape default = prototipo + gates del kit + content audit + contract; Storybook-shape añade pixel-VRT solo si ya hay Storybook+Playwright), content audit rule-by-rule, client-confirmation = human gate. SKILL accounting: Stages 0–10+12 implementados; solo Stage 11 (client-clean) queda pendiente para PR-B5.
-- 2026-06-22 — **PR-B2 MERGED** (Stages 3–5: source-agnostic asset acquisition + font acquisition + applied-design harvest, F-018/019/021). **§4.6 re-verificado post-GA y live-pinned vs Claude Code `v2.1.185`** (PR #4 MERGED): núcleo corroborado, deltas fijados (`@dsCard`→`ds_manifest` server-regen; `readmeHeader` añadido junto a `guidelinesGlob`; "256 KiB" retirado). **PR-B3 abierto** (prototipo F-025 + kit `/design-sync` package-shape F-026; OPEN, en review de Chat).
-- 2026-06-22 — PR-B2 ejecutado en `brand-canon-builder`: Stages 3–5 implementadas — adquisición de assets source-agnostic (`references/asset-acquisition.md`: matriz por tipo-de-fuente, techos de fidelidad, ensamblaje + precedencia, F-018), font acquisition multi-fuente con licencia OFL/RFN deny-by-default (`references/font-acquisition.md`, F-019), applied-design harvest (sección en `analyze.md`, F-021). RESIDENT reconciliado (TL;DR / Repo map / decisión PDF → source-agnostic).
-- 2026-06-22 — Builder v2 spec `dev/v2-build-spec.md` commiteado (v1.1, research-grounded Round B): WS2–WS5 + bridge WS0/WS1, plan de PRs por etapas (PR-B1…PR-B6). PR-B1 ejecutado en `brand-canon-builder`: Stage 0 = parse del handoff contract, Stage 2 = lectura de modo (default ANALYZE) + material in-repo `assets/`/`sources/` (D2); `brownfield.md`→`analyze.md`, `greenfield.md`→`create.md`; nota-ley §5.2 (canon = esqueleto; prototipo + library = deliverable) en `architecture.md`. Scoper rewrite ya MERGED (PR #1, `485cbdb`).
-- 2026-06-21 — WS0 doctrine + WS1 scoper intake instrument specced en `dev/v2-intake-spec.md` (v1.0; grounded: Brand Key/Keller/Aaker/Neumeier/Wheeler + W3C/DTCG 2025.10 + OKLCH + Lahdelma/Rythm). Listo para reescribir `brand-canon-scoper/SKILL.md` + `references/handoff-format.md`.
-- 2026-06-21 — First end-to-end run on a real brownfield (print-native pilot) — OI-C. Output structurally
-  sound but unusable as a deliverable (no real assets/prototype). Logged the v2 reframe + findings
-  F-001…F-026 (`dev/v2-backlog.md`); added the `## v2` section (workstreams + Chat/Code surface roadmap),
-  Dead-ends, decisions, and resolved OI-C.
+- 2026-06-22 — **v2 built & shipped.** Scoper rewrite (PR #1) + builder pipeline Stages 0–12 (PR-B1…B5:
+  handoff spine · asset/font acquisition · applied-design · prototype + `/design-sync` kit · token spine ·
+  gaps · validate/audit + fidelity gate · client-clean) + distribution (PR-B6: README, manifests v0.2.0,
+  topics, scoper zip) + skills audit-remediation (#8: frontmatter correctness, md-house-style, template
+  audit). `/design-sync` §4.6 live-pinned vs Claude Code `v2.1.185` (server-side/version-fluid; re-pinned at
+  runtime). F-001…F-026 closed.
+- 2026-06-22 — **dev/ untracked** (build provenance now local-only per `.gitignore`); RESIDENT consolidated +
+  CLAUDE refreshed (PR-B7).
+- 2026-06-21 — First end-to-end run on a real brownfield (print-native) pilot — OI-C. Output structurally
+  sound but unusable as a deliverable; logged the v2 reframe + findings F-001…F-026 and the workstream plan.
 - 2026-06-21 — Repo derived (Phase 4) and built: two skills, full canon template set, DTCG/OKLCH token spine,
   Claude Design adapter, docs. GATE 1 approved by Carlos; GATE 2 (brand-scrub = 0, DTCG validate + web-stack
-  round-trip, universality stress test) passed before commit. See `dev/work-log—2026-06-21.md` for provenance.
+  round-trip, universality stress test) passed before commit.
 
 ## Conventions of this doc
 Timeless content undated; Open Items + change log are dated/volatile. Nothing external should cite the
