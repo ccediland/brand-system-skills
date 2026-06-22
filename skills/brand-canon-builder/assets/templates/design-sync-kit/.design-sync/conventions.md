@@ -8,7 +8,7 @@
 
 # {{BRAND}} Design System — conventions (for the design agent)
 
-**Mood (one line):** {{from ESSENCE › Mood}}
+Mood (one line): {{from ESSENCE › Mood}}
 
 ## Style by token name (never hardcode values)
 Compose only with the custom-property contract from the token spine — never literal colors or sizes:
@@ -25,7 +25,7 @@ Tokens in `styles.css` / the canon's `tokens/`; per-component API in each compon
 The repo is the source; the kit re-projects it.
 
 ## Hard brand rules
-- Use the **Mark** component only — never recreate, recolor, or distort the mark.
+- Use the Mark component only — never recreate, recolor, or distort the mark.
 - {{accent/ink discipline, e.g. the scarce ink is last and least}}
 - Voice: {{anti-promise + lexicon — forbidden claims/terms}}
 

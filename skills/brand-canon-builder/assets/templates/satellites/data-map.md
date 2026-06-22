@@ -6,7 +6,7 @@
      without ever touching a canon layer. If the brand has no volatile data yet, keep the table empty and
      log it as a NICE gap. -->
 
-> **Rule:** read the value from its source, not from this repo. The canon defines the model; the values
+> Rule: read the value from its source, not from this repo. The canon defines the model; the values
 > live outside. Never freeze a volatile value into a canon layer.
 
 ## Where the data lives
@@ -31,5 +31,5 @@
 
 ## Future-proofing
 
-Expansion = add records to the source, never edit the canon. Geography / product lines / time are **data**,
+Expansion = add records to the source, never edit the canon. Geography / product lines / time are data,
 not text in a layer.
