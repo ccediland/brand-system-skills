@@ -1,9 +1,9 @@
 # Coverage / completeness model
 
-Derived by **intersecting two independent canons** (a digital-native one and a print-native one). What both
-carry is treated as a **universal must-have**; what only one carries is a **parameterized/optional**
+Derived by intersecting two independent canons (a digital-native one and a print-native one). What both
+carry is treated as a universal must-have; what only one carries is a parameterized/optional
 dimension. This is the net against n=1 overfitting — plus the GAP protocol and the GATE-2 universality
-stress test catch anything this list misses. **Do not pad this list defensively** — a longer checklist is
+stress test catch anything this list misses. Do not pad this list defensively — a longer checklist is
 not a more complete canon; trust the stress test.
 
 ## Universal must-haves (expected in every brand)
@@ -27,7 +27,7 @@ not a more complete canon; trust the stress test.
   dark) · Atmosphere / ambient imagery · Interaction / medium-agnostic UX · Trust object / physical
   artifact · The Claude Design add-on.
 
-A brand that does not use one writes "not used" in the slot — the slot stays, and it is **not** a gap.
+A brand that does not use one writes "not used" in the slot — the slot stays, and it is not a gap.
 
 ## Explicitly out of canon
 

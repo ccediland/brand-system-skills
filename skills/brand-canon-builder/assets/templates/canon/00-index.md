@@ -26,9 +26,9 @@ The rules and meaning live machine-readable in `canon/canon.json` (mirror of ESS
 
 ## Dual legibility
 
-Every truth exists twice: as **canonical prose** (`canon/*.md`) and as a **machine mirror**
+Every truth exists twice: as canonical prose (`canon/*.md`) and as a machine mirror
 (`tokens.json` for measurable primitives, `canon/canon.json` for rules and meaning). If the prose and the
-machine mirror ever disagree, that is a **bug**, not a choice — reconcile to the layer that owns the truth
+machine mirror ever disagree, that is a bug, not a choice — reconcile to the layer that owns the truth
 (see Precedence).
 
 ## How to make any decision (the derivation method)
@@ -40,9 +40,9 @@ machine mirror ever disagree, that is a **bug**, not a choice — reconcile to t
 4. **If a value is volatile** (a price, a phone number, a location), resolve it from the DATA POINTER —
    never invent it, never freeze it into the canon.
 5. **If you are building a consumer** (a website, a slide deck, a print kit), you are making a
-   **PROJECTION**: re-project faithfully from the canon and register it in `projections.md`.
+   PROJECTION: re-project faithfully from the canon and register it in `projections.md`.
 
-**Universality test (the gate every decision must pass):** *given only this system, could an arbitrary
+Universality test (the gate every decision must pass): *given only this system, could an arbitrary
 agent make a correct, on-brand decision for an artifact this canon never mentions?* If the only way to
 answer is to enumerate the use case, the rule belongs in GRAMMAR, not in a list.
 
@@ -74,8 +74,8 @@ answer is to enumerate the use case, the rule belongs in GRAMMAR, not in a list.
 ## Maintenance
 
 Edit the layer docs and the token/`canon.json` mirrors directly. Never edit a projection and back-port it.
-Any compiled/bundled master is *generated* by a build step, never hand-edited. Decisions are **decided and
-stamped** by the brand owners; open gaps are tracked, never left as silent holes (see `gap-protocol` /
+Any compiled/bundled master is *generated* by a build step, never hand-edited. Decisions are decided and
+stamped by the brand owners; open gaps are tracked, never left as silent holes (see `gap-protocol` /
 the Open Items in `RESIDENT.md`).
 
 ---

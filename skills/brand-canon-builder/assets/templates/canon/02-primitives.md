@@ -22,7 +22,7 @@
 - **Neutrals / operational:** {{background, surface, foreground inks if distinct from brand inks}}
 - **Scarcity rules:** {{any ink capped to a max usage, e.g. an attention ink used sparingly}}
 
-The application **schemes** (light/dark/etc. — the semantic role mappings) are *derivations* of these inks,
+The application schemes (light/dark/etc. — the semantic role mappings) are *derivations* of these inks,
 defined in `tokens.json → color.semantic` and combined by GRAMMAR. They are not new colors.
 
 ## Typography
@@ -38,7 +38,7 @@ defined in `tokens.json → color.semantic` and combined by GRAMMAR. They are no
      distort them. This is a TAXONOMY of forms — fill the forms the brand has, mark the rest "not used".
      Do NOT enumerate per-output usage here (that is GRAMMAR/PROJECTIONS). -->
 
-**Arrangements (forms) — fill what exists:**
+Arrangements (forms) — fill what exists:
 
 | Arrangement | What it is | Used? | Geometry (viewBox / ratio) |
 |---|---|---|---|
@@ -49,11 +49,11 @@ defined in `tokens.json → color.semantic` and combined by GRAMMAR. They are no
 | **Monogram** | initials/emblem for constrained or ornamental use | {{y/n}} | {{…}} |
 | **Seal / stamp** | auxiliary badge mark | {{y/n}} | {{…}} |
 
-**Treatments (coloring of a form):** {{e.g. full-color / two-ink / single-ink / reversed — list the
+Treatments (coloring of a form): {{e.g. full-color / two-ink / single-ink / reversed — list the
 sanctioned treatments and the preference order; note any treatment that exists only for file completeness
 and is NEVER used}}.
 
-**Geometry (decided values):**
+Geometry (decided values):
 - **Construction:** {{the construction reference — a grid (e.g. an N×N module system) and/or a unit derived
   from the mark itself; how proportions are fixed. Never re-space or re-proportion by eye.}}
 - **Clear space:** {{the protected margin, expressed as a unit of the mark (e.g. a cap-height or a chosen
@@ -61,7 +61,7 @@ and is NEVER used}}.
 - **Minimum sizes (legibility floor), digital AND physical:** {{per arrangement: min px AND min mm/cm.
   Below the floor, step up to a simpler arrangement.}}
 
-**Misuse — strictly prohibited:** {{recoloring outside the palette; changing layout/proportions/hierarchy;
+Misuse — strictly prohibited: {{recoloring outside the palette; changing layout/proportions/hierarchy;
 effects (shadow/glow/bevel) ON THE MARK ITSELF; flipping/rotating/distorting; substituting the typefaces;
 sizes below the floor; intruding the clear space; low-contrast placement; any off-system treatment.}}
 <!-- GUIDE: depth/elevation grammar (if the brand has one) applies to surfaces AROUND the mark, NEVER to
@@ -96,7 +96,7 @@ sizes below the floor; intruding the clear space; low-contrast placement; any of
 <!-- GUIDE: motion is a first-class but OPTIONAL token dimension. A print-only brand writes "not used"; the
      slot stays. Machine values in tokens.json → motion. The ETHICS of motion (what may animate, reduced
      motion) is a GRAMMAR rule. -->
-- **Durations / easings:** see `tokens.json → motion`. **Character:** {{calm/energetic; bounce? no bounce?}}
+- **Durations / easings:** see `tokens.json → motion`. Character: {{calm/energetic; bounce? no bounce?}}
 - **Vocabulary:** {{entrance distance, stagger, hover, press, reveal, any signature motion}} — `tokens.json → motion.vocabulary`.
 
 ## Depth & elevation *(optional dimension — fill only if the brand has surface depth)*
@@ -105,7 +105,7 @@ sizes below the floor; intruding the clear space; low-contrast placement; any of
      inner/edge highlights, surface gradients) here and in tokens.json → shadow (+ derived surface helpers
      in the CSS projection). Shadows tinted in a brand neutral, never pure black, is a common discipline.
      If flat, write "not used". Never apply depth to the mark artwork (see Mark › Misuse). -->
-- **Elevation set:** see `tokens.json → shadow`. **Surface language:** {{any surface-depth helpers — e.g. surface gradients, inner highlights, edge highlights — if used}}
+- **Elevation set:** see `tokens.json → shadow`. Surface language: {{any surface-depth helpers — e.g. surface gradients, inner highlights, edge highlights — if used}}
 
 ## Imagery (intrinsic character)
 

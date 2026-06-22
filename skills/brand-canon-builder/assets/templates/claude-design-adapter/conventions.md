@@ -4,7 +4,7 @@
      made of the brand's real parts. It is the canon's GRAMMAR, scoped to the component kit. Derive every
      line from the canon — do not invent. Keep it short and idiomatic. -->
 
-**Mood (one line):** {{from ESSENCE › Mood}}
+Mood (one line): {{from ESSENCE › Mood}}
 
 ## Setup & schemes
 The kit ships {{N}} application scheme(s) ({{e.g. light / dark}}) as classes — apply `{{.scheme-class}}`
@@ -23,7 +23,7 @@ Tokens in `tokens/`; per-component API in each component's `.d.ts` + `.prompt.md
 this kit re-projects it.
 
 ## Hard brand rules
-- Use the **mark component** only — never recreate, recolor, or distort the mark.
+- Use the mark component only — never recreate, recolor, or distort the mark.
 - {{attention/accent ink discipline, e.g. the scarce ink is last and least}}
 - Voice: {{anti-promise + lexicon — forbidden claims/terms}}
 

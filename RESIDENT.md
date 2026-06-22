@@ -1,9 +1,9 @@
 ---
 name: brand-system-skills-resident
-description: Living resident doc for brand-system-skills — a Claude Code plugin marketplace whose skills
+description: "Living resident doc for brand-system-skills — a Claude Code plugin marketplace whose skills
   build a generic, brand-agnostic, output-agnostic brand canon (four layers + DTCG/OKLCH token spine) for
   any brand. Use when any session touches this repo, its skills, the canon template, the token interchange
-  contract, or its relationship to web-stack-skills. Canonical at the source; any mirror is read-only.
+  contract, or its relationship to web-stack-skills. Canonical at the source; any mirror is read-only."
 last_updated: 2026-06-21
 applies_to: Repo ccediland/brand-system-skills — the brand-canon builder/scoper skills + canon template
 canonical: github

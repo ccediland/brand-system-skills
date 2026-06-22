@@ -4,7 +4,7 @@ The scoper's only output is ONE self-contained, machine-readable block. The pers
 the target repo per the manifest, then pastes this block into Claude Code (in or next to the target repo) to
 invoke `brand-canon-builder`.
 
-This is a **contract, not prose.** LLMs do not reliably infer intent from prose, diagrams, or a Figma file —
+This is a contract, not prose. LLMs do not reliably infer intent from prose, diagrams, or a Figma file —
 the builder needs an explicit, deterministic, auditable block: declared constraints, named responsibilities
 per canon layer, generative rules as the bridge from intent to appearance, fidelity/provenance flags so the
 build can FAIL, and the mode + ratification + "not used" declarations made explicit. It keeps the v1
@@ -24,7 +24,7 @@ single-block property: one fenced block, self-contained.
 8. **Auditability** — mode, owner ratification, and "not used" declarations explicit, so the build is
    auditable against intent.
 
-The scoper passes **pointers + owner-volunteered values only**. It never samples a primitive; the builder
+The scoper passes pointers + owner-volunteered values only. It never samples a primitive; the builder
 extracts measured values from the pointed-to sources.
 
 ## Template
@@ -69,7 +69,7 @@ NOTES: <…>
   *repo pointers*; never write a value you sampled or measured. The builder extracts from the sources.
 - **MODE is ANALYZE or CREATE** (not greenfield/brownfield). Default ANALYZE; CREATE only on explicit
   instruction.
-- **A real TARGET REPO** (path or "create repo X") and a **MATERIAL MANIFEST** that places every source
+- **A real TARGET REPO** (path or "create repo X") and a MATERIAL MANIFEST that places every source
   in-repo (`assets/` binaries, `sources/` references). Never point the builder at "Project knowledge."
 - **RATIFIED WHY only.** The essence block carries the owner-confirmed WHY. If it could not be ratified, it
   is a GAP, not a guess.

@@ -2,23 +2,23 @@
 
 Claude Design (claude.ai/design) is Claude's design tool: a user prompts a design agent and it builds live
 UI from real React. Out of the box it uses generic components. This add-on makes the design agent build with
-the **brand's own** components, so every design it produces is on-brand and maps 1:1 onto shippable code. It
+the brand's own components, so every design it produces is on-brand and maps 1:1 onto shippable code. It
 is one more consumer of the canon, brand-agnostic except inside the adapter itself.
 
 ## Default ON (v2 / F-026)
 
-**`OPTIONAL.Claude Design = YES` by default** — the repo is born `/design-sync`-ready, and the compiled
+`OPTIONAL.Claude Design = YES` by default — the repo is born `/design-sync`-ready, and the compiled
 component library is a default build output, not a deferrable gap. The old "Claude Design adapter? no"
-default is **retired**. Emit the kit unless the owner **explicitly opts out** (e.g. a print-only or
+default is retired. Emit the kit unless the owner explicitly opts out (e.g. a print-only or
 not-yet-digital brand with no use for a live component library) — record the opt-out in `projections.md`.
 
 The buildable package-shape scaffold is `assets/templates/design-sync-kit/`; the converter contract the
-builder satisfies is `references/design-sync-kit.md`. This adapter is the canon→kit **brief** (token mapping,
+builder satisfies is `references/design-sync-kit.md`. This adapter is the canon→kit brief (token mapping,
 conventions, runbook) the kit's `.design-sync/` consumes.
 
 ## Shape (abstracted from a real kit)
 
-A component **kit** (a projection of the canon) plus a `.design-sync/` control directory:
+A component kit (a projection of the canon) plus a `.design-sync/` control directory:
 
 - **`config.json`** — the machine adapter manifest (package name, global name, target project id, build
   command, source dir, the generated CSS entry, extra fonts, the conventions header pointer, per-component
@@ -32,8 +32,8 @@ A component **kit** (a projection of the canon) plus a `.design-sync/` control d
 
 ## The invariant
 
-**kit = constant, canon = variable.** The kit consumes tokens, the mark, and icons via `var(--*)` / asset
-references and **never redefines** them. To re-theme, change the canon and re-project — never edit kit
+kit = constant, canon = variable. The kit consumes tokens, the mark, and icons via `var(--*)` / asset
+references and never redefines them. To re-theme, change the canon and re-project — never edit kit
 values. This is exactly what makes the whole system a clone-per-brand template: swap the canon, rebuild the
 kit.
 

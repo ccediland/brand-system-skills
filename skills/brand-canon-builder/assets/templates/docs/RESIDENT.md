@@ -11,7 +11,7 @@ canonical: github
 # {{BRAND}} — RESIDENT
 
 > Living doc: what this brand canon is, how it is structured, the decisions that govern it, and what is
-> still open. **The repo is the source**; consumers mirror. Timeless content is undated; volatile state is
+> still open. The repo is the source; consumers mirror. Timeless content is undated; volatile state is
 > dated and isolated.
 
 ## TL;DR

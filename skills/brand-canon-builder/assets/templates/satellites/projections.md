@@ -11,22 +11,22 @@
 |---|---|---|---|
 | {{consumer name / id}} | {{downstream \| bidirectional}} | {{what it derives from the canon}} | {{KEEP \| SUPERSEDED}} |
 
-**Bidirectional consumers** are both downstream consumers AND upstream sources of design intent. Their
-**promotion path:** a non-token design decision proven in the consumer → reviewed → **abstracted to
-universal** (stripped of anything output- or stack-specific) → promoted into GRAMMAR/ESSENCE. Until
+Bidirectional consumers are both downstream consumers AND upstream sources of design intent. Their
+promotion path: a non-token design decision proven in the consumer → reviewed → abstracted to
+universal (stripped of anything output- or stack-specific) → promoted into GRAMMAR/ESSENCE. Until
 promoted, it stays as projection rationale, not canon.
 
 ## Interchange contract (machine)
 
 - **Tokens:** DTCG `tokens/` in three tiers — `base.json` / `semantic.json` / `component.json`
   (the standard DTCG base/semantic/component convention). `usesDtcg:true`.
-- **Color spine:** OKLCH literal in `$value`. Consumers MUST emit `oklch()` via an **OKLCH-preserving
-  transform** — never `color/css` or a `transformGroup:'css'` (those gamut-map to sRGB and discard the
+- **Color spine:** OKLCH literal in `$value`. Consumers MUST emit `oklch()` via an OKLCH-preserving
+  transform — never `color/css` or a `transformGroup:'css'` (those gamut-map to sRGB and discard the
   OKLCH precision). Other color spaces are read from `$extensions.brand.spaces`, honoring the
   `source:"authored"|"derived"` flag (authored print values are truth and are not re-derived from OKLCH).
 - **Aliases:** `{tier.category.name}`, no `.value` suffix, pointing to a leaf.
 - **Escape valve:** stack-specific needs (a framework theme block, a shader uniform, a runtime) are
-  **adapters in the consumer repo**, derived from the canon — never coupling that names a stack inside any
+  adapters in the consumer repo, derived from the canon — never coupling that names a stack inside any
   canon layer. The canon names no stack.
 - **Boundary:** engineering concerns (security, performance, SEO, hosting) are out of design-system scope.
 
@@ -42,5 +42,5 @@ promoted, it stays as projection rationale, not canon.
 ## Optional add-on: Claude Design
 
 If the brand wants its components available in claude.ai/design as a live, on-brand library, attach the
-**Claude Design adapter** (see `claude-design-adapter/`). It is one more consumer drinking from this same
+Claude Design adapter (see `claude-design-adapter/`). It is one more consumer drinking from this same
 canon — never mandatory, and brand-agnostic except inside the adapter itself.

@@ -2,13 +2,13 @@
 
 Entered when the handoff says `MODE: ANALYZE` (the default for essentially every real brand). The brand
 already expresses itself publicly in *some* form — one or more code repos, a brandbook PDF, a design-tool
-library, a live site, social, packaging, signage, a single old logo file. The job is to **analyze that
+library, a live site, social, packaging, signage, a single old logo file. The job is to analyze that
 published expression across mediums → harvest the real decisions into the canon, reconcile conflicts, and
-remove the junk** — without inverting the source-of-truth, and without re-eliciting the WHY (the scoper
+remove the junk — without inverting the source-of-truth, and without re-eliciting the WHY (the scoper
 already ratified it; read it from the handoff's `WHY (essence) — RATIFIED` block).
 
-Coverage is measured **per canon layer** (sourceable / partial / elicit-only / empty), never by artifact
-type. The asset-acquisition, font, and prototype/kit stages are **mode-independent** and live in `SKILL.md`
+Coverage is measured per canon layer (sourceable / partial / elicit-only / empty), never by artifact
+type. The asset-acquisition, font, and prototype/kit stages are mode-independent and live in `SKILL.md`
 + their own references — they run here too, but are not part of this file.
 
 ## 1. Inventory the sources
@@ -19,8 +19,8 @@ is *fresher* (recently shipped) or *older*.
 
 ## 2. Mine non-token design decisions
 
-For each consumer repo, read its living docs (`RESIDENT.md` / `CLAUDE.md` or equivalent) **and any open
-PRs / recent commits** — the freshest decisions often live in unmerged work. Extract decisions that belong
+For each consumer repo, read its living docs (`RESIDENT.md` / `CLAUDE.md` or equivalent) and any open
+PRs / recent commits — the freshest decisions often live in unmerged work. Extract decisions that belong
 in the canon: meaning (→ ESSENCE), fixed atoms (→ PRIMITIVES/tokens), rules (→ GRAMMAR). Pull measurable
 values into the token spine; pull rationale into the prose layers.
 
@@ -41,14 +41,14 @@ When sources disagree:
 ## 4. Harvest before removing
 
 Off-system, duplicated, or superseded artifacts are junk → list them on the REMOVE manifest in
-`projections.md`. But **harvest any reusable decision into the canon first**, and flag anything
+`projections.md`. But harvest any reusable decision into the canon first, and flag anything
 irreplaceable as "preserve before delete". Deletion is gated behind a human OK — never delete in the same
 pass that you harvest.
 
 ## 5. Register the consumers
 
 Add each surviving consumer to the PROJECTIONS registry. Mark whether it is downstream-only or
-**bidirectional** (also a source of design intent eligible for promotion), and record its upstream
+bidirectional (also a source of design intent eligible for promotion), and record its upstream
 promotion path.
 
 ## Applied-design harvest
@@ -63,8 +63,8 @@ language from the live consumers the scoper pointed at (sites, social flagged as
 - **Type-in-use vs declared** — which faces and hierarchy actually appear in practice.
 - **Lived aesthetic** — the universal look-and-feel pattern.
 
-Promote all of it **abstracted to universal** (stripped of stack/medium): feed GRAMMAR (rules) and ESSENCE
-(meaning), capture measurable atoms into the token spine. Where the lived expression **diverges** from the
+Promote all of it abstracted to universal (stripped of stack/medium): feed GRAMMAR (rules) and ESSENCE
+(meaning), capture measurable atoms into the token spine. Where the lived expression diverges from the
 ratified WHY, log the divergence as a reconcile item — never silently overwrite the ratified WHY. Never
 fabricate: harvest only what the references actually show. (Method: `dev/v2-build-spec.md` §4.5.)
 

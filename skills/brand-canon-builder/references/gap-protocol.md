@@ -1,12 +1,12 @@
 # GAP protocol — how missing things are tracked, and the universality test
 
-The canon is **always valid even when incomplete** (the Lego property). Anything missing is not a silent
+The canon is always valid even when incomplete (the Lego property). Anything missing is not a silent
 hole — it is a tracked GAP with a proposed resolution. The brand owners *decide* design questions and the
 decision is *stamped*; only non-design human decisions (legal, budget) are out of scope.
 
 ## Logging a gap
 
-Add a row to the **Open Items / Gaps** table in `RESIDENT.md`:
+Add a row to the Open Items / Gaps table in `RESIDENT.md`:
 
 ```
 | ID      | Item            | Why it matters        | Severity   | Proposed resolution | Status |
@@ -21,21 +21,21 @@ Add a row to the **Open Items / Gaps** table in `RESIDENT.md`:
 
 ## When to log vs. fill
 
-- If the published material (ANALYZE) or the ratified handoff (CREATE) gives the answer → **fill the slot**.
-- If it does not, and the item is a must-have → **log a MUST-HAVE gap** with a proposed resolution the
+- If the published material (ANALYZE) or the ratified handoff (CREATE) gives the answer → fill the slot.
+- If it does not, and the item is a must-have → log a MUST-HAVE gap with a proposed resolution the
   owners can ratify in one pass.
-- If the brand genuinely does not use a dimension → write **"not used"** in the slot (not a gap).
+- If the brand genuinely does not use a dimension → write "not used" in the slot (not a gap).
 
 ## The universality stress test (run before declaring done)
 
-Pick **three arbitrary artifacts the canon names nowhere** — deliberately spanning media (e.g. one digital,
+Pick three arbitrary artifacts the canon names nowhere — deliberately spanning media (e.g. one digital,
 one print, one spatial/experiential). For each, walk the derivation method (ESSENCE → PRIMITIVES → GRAMMAR
-→ DATA POINTER) and confirm the canon yields a correct, on-brand decision **without enumerating that
-artifact**.
+→ DATA POINTER) and confirm the canon yields a correct, on-brand decision without enumerating that
+artifact.
 
 - If all three resolve → coverage holds.
 - If one can't resolve → you found a real completeness gap (a missing rule or atom, not a missing
-  catalog entry). Log it and, if a must-have, resolve it. **A new section for that specific artifact is the
-  wrong fix** — add the generative rule/atom that was missing.
+  catalog entry). Log it and, if a must-have, resolve it. A new section for that specific artifact is the
+  wrong fix — add the generative rule/atom that was missing.
 
 This test, not a longer checklist, is the real completeness guarantee.

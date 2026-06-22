@@ -5,7 +5,7 @@
 
 ## Mental model
 - **kit = constant, canon = variable.** The component kit is a PROJECTION of the canon: it consumes tokens,
-  icons, and the mark via `var(--*)` / asset references and **never redefines** them. To re-theme, change
+  icons, and the mark via `var(--*)` / asset references and never redefines them. To re-theme, change
   the canon and re-project — never edit kit values directly.
 - The kit is one consumer; the canon is the source. Re-project (don't hand-edit) before every re-sync.
 

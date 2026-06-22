@@ -1,12 +1,12 @@
 # CREATE — authoring a canon from the ratified handoff (the rare exception)
 
-Entered **only** when the handoff says `MODE: CREATE` — a genuinely new brand, or an explicit "design us a
+Entered only when the handoff says `MODE: CREATE` — a genuinely new brand, or an explicit "design us a
 new brand." This is never the default; ANALYZE is (`analyze.md`). The brand arrives with little or nothing
-published — an idea, a name, maybe a logo and a feeling — but it does **not** arrive without a brief: the
-scoper has already run the intake and **ratified the WHY**. CREATE authors *from that ratified handoff*, it
+published — an idea, a name, maybe a logo and a feeling — but it does not arrive without a brief: the
+scoper has already run the intake and ratified the WHY. CREATE authors *from that ratified handoff*, it
 does not start a fresh interview. The Lego property still holds: scaffold the full canon immediately, fill
-what the handoff supports, and log the rest as GAPs the owners can ratify. **Never invent brand truth to
-fill a slot, and never re-elicit or re-infer the WHY** — a GAP in the handoff stays a GAP.
+what the handoff supports, and log the rest as GAPs the owners can ratify. Never invent brand truth to
+fill a slot, and never re-elicit or re-infer the WHY — a GAP in the handoff stays a GAP.
 
 ## 1. Scaffold first
 
@@ -18,7 +18,7 @@ any owner-supplied logo/font lands there.)
 ## 2. Consume the handoff in the order of the four questions
 
 The scoper handoff is the brief. Read it in derivation order, because later answers depend on earlier ones —
-**consume, don't re-interview**:
+consume, don't re-interview:
 
 1. **Why (ESSENCE):** fill directly from the handoff's `WHY (essence) — RATIFIED` block — what the brand is,
    who it is for, how it should feel, what it must never be / never claim, the one line it wants remembered,
@@ -37,7 +37,7 @@ used". Anything the handoff leaves open is a GAP, not a builder guess.
 ## 3. Decide colors on the OKLCH spine
 
 Author colors as OKLCH (the spine). If the brand will print and declares a spot/CMYK build, capture that as
-an **authored** value in `$extensions` (not re-derived from OKLCH); otherwise hex/rgb are **derived**. See
+an authored value in `$extensions` (not re-derived from OKLCH); otherwise hex/rgb are derived. See
 `token-spine.md`.
 
 ## 4. Fill, gap, stress-test

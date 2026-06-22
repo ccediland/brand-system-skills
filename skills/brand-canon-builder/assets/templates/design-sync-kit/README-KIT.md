@@ -1,6 +1,6 @@
 # design-sync-kit — the F-026 package-shape scaffold
 
-This is the **compiled component library** `/design-sync` ingests, scaffolded so a brand repo is born
+This is the compiled component library `/design-sync` ingests, scaffolded so a brand repo is born
 `/design-sync`-ready. It is a projection of the canon (kit = constant, canon = variable): components style
 themselves only via `var(--token-*)`; re-theme by swapping the canon and rebuilding.
 
@@ -26,13 +26,13 @@ design-sync-kit/
 ## How it satisfies the live `/design-sync` contract (v2.1.185 LIVE-PIN, `dev/v2-build-spec.md` §4.6)
 
 - **Compiled `dist/`, not source.** `/design-sync` bundles the package's built `dist/index.es.js`; the
-  build here is one command (`npm run build`). A missing dist is `[NO_DIST]` — **recoverable** by running
+  build here is one command (`npm run build`). A missing dist is `[NO_DIST]` — recoverable by running
   the build, never a hard-fail. The deterministic fidelity artifact is the HTML prototype
   (`assets/templates/prototype/`), not this.
 - **Package-shape default** (no Storybook): the component list comes from the shipped `.d.ts` exports;
-  unscoped components get an honest **floor card**; rich previews are authored per scoped component.
+  unscoped components get an honest floor card; rich previews are authored per scoped component.
 - **`@dsCard` marker.** Every emitted card's first line is `<!-- @dsCard group="…" -->` (the pane reads it
-  to register cards → server-regenerated `ds_manifest`). Authored `previews/*.tsx` carry **no** marker;
+  to register cards → server-regenerated `ds_manifest`). Authored `previews/*.tsx` carry no marker;
   the converter stamps it into the generated `.html`.
 - **`readmeHeader`** wires `conventions.md` as the conventions header (the "Author the conventions header"
   step).
@@ -40,7 +40,7 @@ design-sync-kit/
   (`[CSS_BUNDLE_UNREACHABLE]` / `[TOKENS_MISSING]` / `[FONT_MISSING]` are the converter's gates).
 - **Strict config.** Unknown top-level keys fail the run (no compat code) — emit only live-valid keys, and
   re-pin the schema before each major run: the base command fetches live instructions via
-  `get_claude_design_prompt`, so the contract is **server-side / version-fluid**.
+  `get_claude_design_prompt`, so the contract is server-side / version-fluid.
 
 The conceptual canon→kit brief (token mapping, conventions, runbook) lives in
 `references/claude-design-adapter.md` + `assets/templates/claude-design-adapter/`; this scaffold is the
