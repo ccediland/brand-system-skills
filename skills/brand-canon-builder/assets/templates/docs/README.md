@@ -22,4 +22,4 @@ universality test.
 ## Status
 
 See `RESIDENT.md` for the living architecture, decisions, and Open Items (anything still to be filled or
-ratified). Built with [`brand-system-skills`](https://github.com/ccediland/brand-system-skills).
+ratified).

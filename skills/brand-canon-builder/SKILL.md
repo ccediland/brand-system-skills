@@ -20,7 +20,8 @@ SKELETON slot — never a blocked, empty shell.
 > *skeleton*, never the deliverable on its own. The deliverable is the real, presentable prototype + the
 > `/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is
 > **not** done. (Stage 8 emits both deliverables; the Stage-10 fidelity gate enforces "done" against them —
-> a missing or low-fidelity core asset FAILS the build. See `dev/v2-build-spec.md`.)
+> a missing or low-fidelity core asset FAILS the build — and Stage 11 scrubs the client repo clean before
+> handoff. See `dev/v2-build-spec.md`.)
 
 ## What it produces
 
@@ -60,9 +61,9 @@ the relevant one when you reach that step; don't hold them all at once.
 
 The builder runs a fixed, **gated** pipeline (full specification: `dev/v2-build-spec.md` §3). **BLOCKING**
 gates must pass — or be explicitly waived by the owner via the handoff/PR — before the build is declared
-complete. Stages 0–10 and 12 are implemented (mode + handoff spine, acquisition, fonts, applied-design,
-prototype + kit, token spine, gaps, validate/audit + fidelity gate); only Stage 11 (client-clean / scrub)
-remains a titled forward-pointer to the spec, landing in PR-B5 (the accounting line below is authoritative).
+complete. **The full pipeline (Stages 0–12) is implemented** — mode + handoff spine, acquisition, fonts,
+applied-design, prototype + kit, token spine, gaps, validate/audit + fidelity gate, client-clean / scrub,
+commit + PR. No forward-pointers remain.
 
 ### Stage 0 — Ingest the handoff contract & locate the target
 The scoper's machine-readable handoff (`brand-canon-scoper/references/handoff-format.md`) is the **canonical
@@ -114,10 +115,10 @@ in the prose layers and values in the token spine. Mirror essence + grammar into
 
 ---
 
-**Stages 3–5 (PR-B2), Stage 8 (PR-B3), and Stage 10 (PR-B4) are implemented:** source-agnostic asset
-acquisition, font acquisition, applied-design harvest, the real prototype + `/design-sync`-ready kit, and the
-VALIDATE/AUDIT stage + fidelity gate. **Only Stage 11 (client-clean / scrub) remains a forward-pointer** to
-`dev/v2-build-spec.md` (PR-B5) — not yet implemented. Stages 6, 7, 9, 12 carry the validated v1 method.
+**The v2 builder pipeline is COMPLETE — every stage is implemented**, staged across PR-B1…PR-B5:
+source-agnostic asset acquisition + fonts + applied-design (PR-B2), the real prototype + `/design-sync`-ready
+kit (PR-B3), the VALIDATE/AUDIT stage + fidelity gate (PR-B4), and client-clean / scrub (PR-B5), on the
+mode + handoff spine (PR-B1). Stages 6, 7, 9, 12 carry the validated v1 method. No forward-pointers remain.
 
 ### Stage 3 — Source-agnostic asset acquisition · BLOCKING (core)
 Read `references/asset-acquisition.md`. Acquire build-grade assets from whatever sources exist (any
@@ -216,9 +217,20 @@ Retained existing checks (do-not-regress):
   e.g. digital, print, spatial). Walk the derivation method for each; confirm the canon decides each one
   without enumerating it. A failure means a missing *rule/atom* — add that, never a per-artifact section.
 
-### Stage 11 — Client-clean / scrub · BLOCKING · *PR-B5*
-Scrub reference-brand bleed, tool self-attribution, scaffolding chatter; never auto-stamp ratification.
-(`dev/v2-build-spec.md` §4.8.)
+### Stage 11 — Client-clean / scrub · BLOCKING
+Read `references/client-clean.md`. The build is not "done" until the **client** repo is clean of all build
+apparatus:
+- **Tool self-attribution (F-015):** no doc credits the build tool/skill — grep the client tree for
+  `brand-system-skills`, the skill names, and the tool repo URL; zero hits.
+- **Reference-brand bleed (F-013), runtime catch:** every rule / name / example / value in the client canon
+  must trace to the client's own material (or an honest GAP); strip anything traceable to a
+  method/reference/example brand instead.
+- **`{{PLACEHOLDER}}` leftovers + chatter:** no raw `{{…}}` survive; remove GUIDE/builder comments and dead
+  template sections from the client deliverable.
+- **Ratification (F-014):** never auto-stamp "Ratified by…" or flip a gap to `CLOSED (ratified)`; default is
+  unratified-pending — ratification lands only on real owner sign-off (the Stage-10 human gate).
+
+This stage scrubs only the **client** repo it produces; this builder repo's own docs keep their attribution.
 
 ### Stage 12 — Commit + PR
 Update `RESIDENT.md` (decisions, Open Items, change log) and commit on a `claude/<name>` branch; open a PR
