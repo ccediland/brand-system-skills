@@ -34,6 +34,15 @@ nothing may be organized around an output.
    exist: a GOAL, PENDING TASKS/DECISIONS (each missing must-have = a logged GAP), and SKELETONS (every
    canon part has an empty, structured slot). Set everything first; project once set.
 
+## Canon = skeleton; prototype + library = deliverable (v2 law, §5.2)
+
+The four-layer canon is the **source skeleton**, never the deliverable on its own. The **deliverable** is the
+real, presentable prototype (real mark, real fonts, real imagery on real surfaces) plus the
+`/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is **not**
+done — reaching "done" without the real assets and prototype is the bug, not the gap-logging. This law
+governs the v2 builder pipeline (`dev/v2-build-spec.md`; the prototype/kit and fidelity gates land in later
+staged PRs); the do-not-regress invariants below hold underneath it.
+
 ## Stable IDs
 
 Grammar rules: `G-<CATEGORY>-<NN>` (e.g. `G-COLOR-02`). Algorithms: `ALGO-<NAME>` with a typed

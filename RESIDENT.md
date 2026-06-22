@@ -79,6 +79,10 @@ domains: [brand-system, tooling, v2-refactor]
 | **v2:** asset extraction (from source PDFs) + font acquisition are blocking build steps | a canon with no mark/fonts renders nothing on-brand | 2026-06-21 |
 | **v2:** compiled component library emitted by default as a projection; success criteria add a brand-fidelity / presentable gate | repo must be born `/design-sync`-ready and IS the real prototype; rule-compliance of an empty skeleton passed every gate | 2026-06-21 |
 | **v2:** medium-agnostic intake discovery — los slots del canon definen lo NECESARIO, el discovery abierto lo EXISTENTE, el delta es un GAP rastreado; reemplaza cualquier routing por tipo-de-artefacto (PDF/site/social) | el intake nunca debe presumir la forma del material de una marca; surgió en el primer scoping real | 2026-06-21 |
+| **v2 builder:** `/design-sync` ingiere un `dist/` compilado, no source → la component library se emite con package-shape por default (build de un comando: `esbuild` + `ts-morph`) | el contrato verificado del converter exige `dist/` + `.d.ts`; un handoff source-only no es ingerible | 2026-06-22 |
+| **v2 builder:** la compiled component library es el hueco de ecosistema que el builder llena | ninguna herramienta existente compila un paquete `/design-sync`-ready desde un canon kit (Dembrandt/designlang extraen; web-stack-skills construye sitios; `/design-sync` consume) | 2026-06-22 |
+| **v2 builder:** asset acquisition source-agnostic (matriz por tipo-de-fuente, sin asumir PDF) | nunca presumir que existe un solo tipo de fuente; la técnica de extracción se elige por fuente encontrada | 2026-06-22 |
+| **v2 builder:** pin Style Dictionary v5 + DTCG draft 2025.10 | DTCG 2025.10 aún no está full-supported en SD v5 (issue #1590); usar el transform `color/oklch`, nunca `color/css` | 2026-06-22 |
 
 ## Open Items
 | ID | Item | Severity | Status |
@@ -110,7 +114,10 @@ produces a real prototype + a Design-syncable component library, by default.** T
 | WS4 | Distribution / install / deps (F-001/011) |
 | WS5 | Real assets + brand fidelity: PDF asset extraction, font acquisition, fidelity gates (F-018/019/021/022) |
 
-WS0 (doctrine) + WS1 (scoper intake instrument) están specced en `dev/v2-intake-spec.md` (v1.0, research-grounded); listo para el rewrite del scoper.
+WS0 (doctrine) + WS1 (scoper intake instrument): specced en `dev/v2-intake-spec.md` (v1.0) y **MERGED** — el rewrite del scoper está hecho (PR #1, commit `485cbdb`). Lado scoper cerrado.
+WS2–WS5 + el bridge WS0/WS1 del builder: specced en `dev/v2-build-spec.md` (v1.1, research-grounded Round B). Ejecución en PRs por etapas (PR-B1…PR-B6); PR-B1 = reconciliación de modo + consumo del handoff contract.
+
+> **Caveat (`/design-sync` contract).** El contrato del converter en `v2-build-spec.md` §4.6 está reconstruido desde el mirror comunitario **Piebald-AI/claude-code-system-prompts** (vs `ccVersion 2.1.176`), no de un doc oficial de Anthropic. **Re-verificar contra el skill `/design-sync` vivo antes de que PR-B3** implemente el kit emitter.
 
 **Surface split — who does what:**
 
@@ -133,6 +140,7 @@ WS0 (doctrine) + WS1 (scoper intake instrument) están specced en `dev/v2-intake
   elicits + points; the builder extracts. (F-002/F-003/F-008)
 
 ## Change log
+- 2026-06-22 — Builder v2 spec `dev/v2-build-spec.md` commiteado (v1.1, research-grounded Round B): WS2–WS5 + bridge WS0/WS1, plan de PRs por etapas (PR-B1…PR-B6). PR-B1 ejecutado en `brand-canon-builder`: Stage 0 = parse del handoff contract, Stage 2 = lectura de modo (default ANALYZE) + material in-repo `assets/`/`sources/` (D2); `brownfield.md`→`analyze.md`, `greenfield.md`→`create.md`; nota-ley §5.2 (canon = esqueleto; prototipo + library = deliverable) en `architecture.md`. Scoper rewrite ya MERGED (PR #1, `485cbdb`).
 - 2026-06-21 — WS0 doctrine + WS1 scoper intake instrument specced en `dev/v2-intake-spec.md` (v1.0; grounded: Brand Key/Keller/Aaker/Neumeier/Wheeler + W3C/DTCG 2025.10 + OKLCH + Lahdelma/Rythm). Listo para reescribir `brand-canon-scoper/SKILL.md` + `references/handoff-format.md`.
 - 2026-06-21 — First end-to-end run on a real brownfield (print-native pilot) — OI-C. Output structurally
   sound but unusable as a deliverable (no real assets/prototype). Logged the v2 reframe + findings

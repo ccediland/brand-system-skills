@@ -1,8 +1,15 @@
-# Brownfield — building a canon from existing material
+# ANALYZE — building a canon from published brand work (the default path)
 
-A brownfield brand arrives with material already: one or more code repos, a brandbook PDF, a design-tool
-library, a live site, scattered decisions. The job is to **harvest the real decisions into the canon,
-reconcile conflicts, and remove the junk** — without inverting the source-of-truth.
+Entered when the handoff says `MODE: ANALYZE` (the default for essentially every real brand). The brand
+already expresses itself publicly in *some* form — one or more code repos, a brandbook PDF, a design-tool
+library, a live site, social, packaging, signage, a single old logo file. The job is to **analyze that
+published expression across mediums → harvest the real decisions into the canon, reconcile conflicts, and
+remove the junk** — without inverting the source-of-truth, and without re-eliciting the WHY (the scoper
+already ratified it; read it from the handoff's `WHY (essence) — RATIFIED` block).
+
+Coverage is measured **per canon layer** (sourceable / partial / elicit-only / empty), never by artifact
+type. The asset-acquisition, font, and prototype/kit stages are **mode-independent** and live in `SKILL.md`
++ their own references — they run here too, but are not part of this file.
 
 ## 1. Inventory the sources
 
@@ -43,6 +50,19 @@ pass that you harvest.
 Add each surviving consumer to the PROJECTIONS registry. Mark whether it is downstream-only or
 **bidirectional** (also a source of design intent eligible for promotion), and record its upstream
 promotion path.
+
+## Applied-design harvest (PR-B2) — placeholder, not yet implemented
+
+> **Specced, not built.** v1 harvested *facts* from the consumers but ignored their *applied design*
+> (F-021). The ANALYZE path will harvest the lived design language from the live consumers the scoper
+> pointed at — layout/composition patterns, imagery/photography direction, type-in-use vs declared, the
+> lived aesthetic — abstracted to universal (stripped of stack/medium), feeding GRAMMAR (rules) and ESSENCE
+> (meaning), with measurable atoms captured into tokens. Where lived expression diverges from the ratified
+> WHY, the divergence is logged, never silently overwritten.
+>
+> This section is intentionally a stub. The method is authored in `dev/v2-build-spec.md` §4.5 and lands in
+> **PR-B2** (alongside source-agnostic asset acquisition, F-018, and font acquisition, F-019). Do not
+> implement it here.
 
 ## 6. Fill, then gap
 
