@@ -237,8 +237,35 @@ opt-out). The verified facts the builder must satisfy:
   *consumes* a finished package. The builder fills this gap; that is the net-new work.
 - **Source caveat (UNCERTAIN provenance):** the converter contract above is reconstructed from the
   **Piebald-AI/claude-code-system-prompts** community mirror of Claude Code's bundled skill files (against
-  `ccVersion 2.1.176`), not an officially published Anthropic doc. **Re-verify against the live skill before
-  PR-B3 implements the kit emitter.**
+  `ccVersion 2.1.176`), not an officially published Anthropic doc. *(Update 2026-06-22 — core contract now corroborated post-GA; the live check at PR-B3 start is scoped to exact field/script names, not the whole contract. See “Verification update” below.)*
+
+**Verification update — 2026-06-22 (post-GA).** `/design-sync` shipped publicly on **2026-06-17** (the Anthropic
+Claude Design overhaul; documented in `support.claude.com`). The §4.6 contract above was re-verified against
+fresh sources — the bundled skill files themselves (`skill-design-sync-storybook-source-shape`, the
+`/design-sync package source shape` skill) plus official help docs and a direct third-party sync run:
+
+- **CORROBORATED (core contract holds).** The converter bundles the package's **compiled `dist/`** into
+  `_ds_bundle.js` — *"the same bundle the claude.ai/design agent builds with"* (compiled, not source);
+  **package-shape "from a built package without Storybook"** is a real, distinct shape (the D-B8 default is
+  valid); **`.design-sync/config.json`** + the converter scripts + the `pkg`/`globalName` bundle-redirect; the
+  **plan/`planId` approval gate**, incremental one-component-at-a-time writes, and **256-file / 256 KiB**
+  upload batches.
+- **DELTA-1 — card index is now from a marker, not explicit registration.** The Design System pane builds its
+  card index from each preview's **first-line `<!-- @dsCard group="…" -->` comment**, compiled into
+  **`_ds_manifest.json`** by the app's self-check; `register_assets`/`unregister_assets` are **legacy** (only
+  for hand-authored projects without `@dsCard` markers). **PR-B3's emitter must stamp every preview with a
+  `@dsCard` first-line marker**, not rely on registration.
+- **DELTA-2 — a conventions/README header is now a first-class step.** The package-shape config replaced
+  `guidelinesGlob` with a **`readmeHeader`** path, and the workflow added an **"Author the conventions header"**
+  step before upload. The kit should emit a conventions header (the design-system README) as part of the
+  bundle, referenced by `readmeHeader`.
+- **VERSION-SPECIFIC (confirm live — narrowed, not the whole contract).** Exact field names and the precise
+  converter invocation (`package-build.mjs` vs `.ds-sync/lib/preview-rebuild.mjs`; the full config schema) are
+  evolving release-to-release (the skill recently added stable-hash grading, grade carry-forward, remote
+  sidecar diffs, targeted rebuilds, upload partitioning). **PR-B3 step 0 = in an updated Claude Code session
+  (`/update`), read the live bundled `/design-sync package source shape` skill and pin the current
+  field/script names** before generating the emitter. The Piebald mirror is accurate but lags releases by
+  minutes-to-days, and a field has already shifted once (`guidelinesGlob`→`readmeHeader`).
 
 ### §4.7 Fidelity gate + VALIDATE/AUDIT stage (F-016·022) — BLOCKING
 
@@ -371,8 +398,8 @@ Resolved with operator judgment; rationale one line each. Round-B grounding note
 - **D-B7 — staging:** six PRs in dependency order (§6); PR-B1 first; PR-B3 gated on contract re-verification.
 - **Version-pin (VERIFIED):** pin Style Dictionary v5 + DTCG draft (2025.10 partial, issue #1590).
 
-**Residual open items:** re-verify the `/design-sync` converter contract against the live skill before PR-B3
-(Piebald-mirror is community, not official); whether the prototype's surface set should be parameterized per
+**Residual open items:** re-verify the exact `/design-sync` field/script names against the live skill at PR-B3 start (core contract
+corroborated 2026-06-22, §4.6; Piebald-mirror lags releases); whether the prototype's surface set should be parameterized per
 brand (default: the fixed five).
 
 ## §8 — Provenance
