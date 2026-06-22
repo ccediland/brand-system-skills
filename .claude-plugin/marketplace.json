@@ -5,8 +5,8 @@
     {
       "name": "brand-system",
       "source": "./",
-      "description": "Build a canonical, brand-agnostic, output-agnostic brand source for any brand (greenfield or brownfield): a four-layer canon + DTCG/OKLCH token spine that any consumer (AI or human) derives any artifact from. Optional Claude Design sync.",
-      "version": "0.1.0"
+      "description": "Build a canonical, brand-agnostic, output-agnostic brand source for any brand (greenfield or brownfield) — a four-layer canon + DTCG/OKLCH token spine — then a real prototype and a /design-sync-ready component library from it.",
+      "version": "0.2.0"
     }
   ]
 }
