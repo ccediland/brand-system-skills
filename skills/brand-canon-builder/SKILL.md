@@ -56,6 +56,7 @@ them all at once.
 - `references/create.md` — load for the CREATE path (Stage 2): author from the ratified handoff WHY.
 - `references/asset-acquisition.md` — load when acquiring build-grade assets, source-agnostic (Stage 3).
 - `references/font-acquisition.md` — load when acquiring fonts under the license boundary (Stage 4).
+- `references/reproduction-router.md` — load when a brand carries a visual/textural treatment to reproduce (Stages 5 & 8).
 - `references/design-sync-kit.md` — load when emitting the prototype + `/design-sync`-ready kit (Stage 8).
 - `references/claude-design-adapter.md` — load when wiring the Claude Design adapter (default ON; Stage 8).
 - `references/validate-audit.md` — load when running the VALIDATE/AUDIT stage + fidelity gate (Stage 10).
@@ -162,7 +163,10 @@ Harvest the lived design language from the live consumers the scoper pointed at 
 section of `references/analyze.md`): layout/composition, imagery/photography direction, type-in-use vs
 declared, the lived aesthetic — abstracted to universal (stripped of stack/medium), feeding GRAMMAR (rules)
 and ESSENCE (meaning), measurable atoms into tokens. Where lived expression diverges from the ratified WHY,
-log the divergence; never silently overwrite. (`dev/v2-build-spec.md` §4.5.)
+log the divergence; never silently overwrite. Classify any visual/textural treatment you observe
+(texture, finish, effect) against `references/reproduction-router.md` and record it with the handoff's
+TREATMENTS provenance (`confidence: hypothesis` until owner-confirmed); the reproduction itself happens in
+Stage 8. (`dev/v2-build-spec.md` §4.5.)
 
 ### Stage 6 — Fill the canon (extraction synthesis)
 The consolidation point where the canon is filled — not a separate pass. Stage 2 routes by MODE and fills
@@ -182,10 +186,15 @@ re-elicits the ratified WHY, and never promotes a `hypothesis` observation to a 
 > whichever PR next revisits the PR-B1 spine — out of PR-B2's scope.
 
 ### Stage 7 — Token spine
-Read `references/token-spine.md`. Author `tokens/base.json` (raw OKLCH + authored/derived `$extensions`),
-`tokens/semantic.json` (role aliases), `tokens/component.json` (optional). Keep `$value` plain strings,
-aliases as `{tier.category.name}`, category names on the namespace convention. Emit motion/depth tokens if
-the brand uses them (DTCG-valid even without a current consumer); omit for a flat/print-only brand.
+Read `references/token-spine.md` — DTCG **2025.10** target, the OKLCH `$value` operative format (the
+tooling-lag caveat on structured color / resolvers ties RESIDENT OI-H), and the **OKLCH scheme-derivation
+engine** (light/dark, high-contrast, sub-brand as cases of one L/C/H transform; re-cohering an ad-hoc
+palette is a `hypothesis` proposal pending owner confirmation). Author `tokens/base.json` (raw OKLCH +
+authored/derived `$extensions`), `tokens/semantic.json` (role aliases), `tokens/component.json` (optional).
+Keep `$value` plain strings, aliases as `{tier.category.name}`, category names on the namespace convention.
+Derive any additional scheme (dark, high-contrast, sub-brand) at the `semantic` tier via the OKLCH engine.
+Emit motion/depth tokens if the brand uses them (DTCG-valid even without a current consumer); omit for a
+flat/print-only brand.
 
 ### Stage 8 — Prototype + `/design-sync`-ready kit · BLOCKING (prototype)
 Emit both real deliverables (canon = skeleton, these = deliverable):
@@ -193,8 +202,11 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
 - **(a) The presentable prototype (F-025).** Copy `assets/templates/prototype/prototype.html` into the repo
   and fill it from the canon: OKLCH token values inline, the real extracted mark as inline SVG/data-URI,
   acquired fonts via `@font-face`/data-URI, harvested imagery — rendering hero, card, control set, type
-  spread, color blocks. It is self-contained and deterministic (opens in any browser, no toolchain) — the
-  artifact you show a client and the Stage-10 "render real samples" evidence. Never make it depend on the kit.
+  spread, color blocks. Reproduce any brand treatment via `references/reproduction-router.md`
+  (procedural SVG-filter / generative-lib / vector-trace / raster-required), validated by visual diff against
+  the source; a treatment that can't be brought within tolerance degrades a method or becomes a fidelity GAP.
+  It is self-contained and deterministic (opens in any browser, no toolchain) — the artifact you show a
+  client and the Stage-10 "render real samples" evidence. Never make it depend on the kit.
 - **(b) The `/design-sync`-ready kit (F-026).** Scaffold `assets/templates/design-sync-kit/` and fill it from
   the canon (components, tokens, `pkg`/`globalName`, conventions). Read `references/design-sync-kit.md` for
   the converter contract: package-shape default; one-command build (`esbuild` + `ts-morph` + `@types/react`)
