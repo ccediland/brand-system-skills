@@ -48,7 +48,7 @@ The rules below are guardrails/gotchas; the staged plan lives in `v3-execution-p
 - **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual; treat
   `pdffonts`/embedded-font tables as corroboration only — outlined type makes them report the studio's layout
   font or nothing.
-- **Provenance spine (4 fields per datum).** Every datum carries source / confirmation-status / owner /
+- **Provenance spine (4 fields per datum).** Every datum carries source / confidence / owner /
   freshness, generalizing v2's `authored|derived`. Observed expression enters as `hypothesis`; promoting a
   one-off to a brand line requires `owner-confirmed`. A datum is never used at a status it has not earned (a
   MATCHED/INFERRED value is not canonized unconfirmed).

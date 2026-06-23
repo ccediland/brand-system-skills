@@ -31,7 +31,7 @@ into the method.
 
 ## The provenance spine (every datum carries it)
 Generalizes v2's `authored|derived` flag. Every datum the scoper records carries four fields:
-- **source** — where it came from (declared-spec / owner-stated / observed-applied / …).
+- **source** — where it came from (declared-spec / owner-stated / computed-css / …).
 - **confidence** — `hypothesis` (observed, unconfirmed) → `corroborated` (multiple sources agree) →
   `owner-confirmed` (the owner ratified it).
 - **owner** — who ratifies it (the Accountable for that slot).
