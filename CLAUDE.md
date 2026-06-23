@@ -48,6 +48,14 @@ The rules below are guardrails/gotchas; the staged plan lives in `v3-execution-p
 - **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual; treat
   `pdffonts`/embedded-font tables as corroboration only — outlined type makes them report the studio's layout
   font or nothing.
+- **Provenance spine (4 fields per datum).** Every datum carries source / confirmation-status / owner /
+  freshness, generalizing v2's `authored|derived`. Observed expression enters as `hypothesis`; promoting a
+  one-off to a brand line requires `owner-confirmed`. A datum is never used at a status it has not earned (a
+  MATCHED/INFERRED value is not canonized unconfirmed).
+- **Adaptive dimension map.** Every brand dimension resolves explicitly to `filled` /
+  `not-used(owner-declared)` / `tagged-gap` — none skipped silently. A builder that receives an unresolved
+  dimension STOPS and reports. The current dimension catalogue (capture · reproduction · keystone · guardrails ·
+  horizons · tokens) is an illustrative instance of the mechanism, never a closed universe (anti-determinism).
 - **Faithful capture.** Clean vectors via PyMuPDF `page.get_drawings()` or copy-region-to-new-doc (a full-page
   Inkscape open yields a bloated, non-isolated SVG); image font-matching for unnamed faces; fidelity rating +
   provenance per artifact.
