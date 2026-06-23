@@ -1,6 +1,6 @@
 {
   "base": {
-    "$description": "BASE tier — raw, primitive values. First tier of the standard DTCG base/semantic/component convention. Read with usesDtcg:true. path[0] is always 'base'. COLOR: $value is the OKLCH interchange spine as a literal string; never pre-convert to hex. Other spaces live in $extensions.brand.spaces, each flagged source 'derived' (auto-generated from OKLCH) or source 'authored' (a value the brand DECLARES as truth, e.g. a spot/CMYK print color, which must NOT be re-derived from OKLCH because spot colors do not round-trip). category names at path[1] follow the namespace convention (color, spacing, font-size, font-family, font-weight, line-height, border-radius, shadow). NOTE: these are illustrative example values — replace them with the brand's own. Plain prose is used instead of brace-placeholders here because the curly-brace syntax is reserved for DTCG aliases.",
+    "$description": "BASE tier — raw, primitive values. First tier of the standard DTCG base/semantic/component convention. Read with usesDtcg:true. path[0] is always 'base'. COLOR: $value is the OKLCH interchange spine as a literal string; never pre-convert to hex. Other spaces live in $extensions.brand.spaces, each flagged source 'derived' (auto-generated from OKLCH) or source 'authored' (a value the brand DECLARES as truth, e.g. a spot/CMYK print color, which must NOT be re-derived from OKLCH because spot colors do not round-trip). PROVENANCE: every emitted token ALSO carries $extensions.brand.provenance {source, confidence, owner, freshness} per token-spine.md — the source/confidence axes are ORTHOGONAL (authored|derived describes the space; the confidence ladder hypothesis|corroborated|owner-confirmed gates the status). The provenance block is shown on REPRESENTATIVE tokens here as the illustrative pattern; emit it on EVERY token. category names at path[1] follow the namespace convention (color, spacing, font-size, font-family, font-weight, line-height, border-radius, shadow). NOTE: these are illustrative example values — replace them with the brand's own. Plain prose is used instead of brace-placeholders here because the curly-brace syntax is reserved for DTCG aliases.",
     "color": {
       "$type": "color",
       "brand-1": {
@@ -10,6 +10,12 @@
           "brand": {
             "role": "primary action",
             "meaning": "set from ESSENCE",
+            "provenance": {
+              "source": "declared-spec",
+              "confidence": "owner-confirmed",
+              "owner": "example-brand-owner",
+              "freshness": "shipped"
+            },
             "spaces": {
               "hex": { "value": "#5a7fb0", "source": "derived" },
               "rgb": { "value": "rgb(90, 127, 176)", "source": "derived" }
@@ -25,6 +31,13 @@
             "role": "attention / accent",
             "meaning": "set from ESSENCE",
             "scarcity": "optional cap, e.g. <=10%",
+            "provenance": {
+              "source": "declared-spec",
+              "confidence": "hypothesis",
+              "owner": "example-brand-owner",
+              "freshness": "stated-old"
+            },
+            "_provenance-note": "ILLUSTRATION: the spaces below are 'authored' (declared print truth) yet confidence is still 'hypothesis' — authored does NOT discharge the confidence ladder; the two axes are orthogonal. Promote to owner-confirmed only when the owner ratifies.",
             "spaces": {
               "hex": { "value": "#3fa46d", "source": "derived" },
               "rgb": { "value": "rgb(63, 164, 109)", "source": "derived" },
@@ -71,7 +84,20 @@
 
     "font-family": {
       "$type": "fontFamily",
-      "display": { "$value": "Display Typeface, system-ui, sans-serif" },
+      "display": {
+        "$value": "Display Typeface, system-ui, sans-serif",
+        "$description": "REPRESENTATIVE non-color token carrying the provenance spine — the spine is not color-only; emit it on every token regardless of $type.",
+        "$extensions": {
+          "brand": {
+            "provenance": {
+              "source": "matched",
+              "confidence": "corroborated",
+              "owner": "example-brand-owner",
+              "freshness": "shipped"
+            }
+          }
+        }
+      },
       "body": { "$value": "Body Typeface, system-ui, sans-serif" }
     },
 

@@ -70,7 +70,11 @@ the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/bou
 - **Provenance spine (4 fields per datum).** Every datum carries source / confidence / owner /
   freshness, generalizing v2's `authored|derived`. Observed expression enters as `hypothesis`; promoting a
   one-off to a brand line requires `owner-confirmed`. A datum is never used at a status it has not earned (a
-  MATCHED/INFERRED value is not canonized unconfirmed).
+  MATCHED/INFERRED value is not canonized unconfirmed). **Token emission (Stage 7):** every emitted token carries
+  `$extensions.brand.provenance` {source, confidence, owner, freshness} — `authored|derived` is the source axis
+  ONLY and is orthogonal to the confidence ladder (an `authored` value can still be `hypothesis`). Confidence
+  ladder is byte-identical at every hop: `hypothesis | corroborated | owner-confirmed` — no fourth value/synonym
+  (the keystone reads its asset-line confidence FROM the token's `$extensions.brand.provenance`, never recalled).
 - **Adaptive dimension map.** Every brand dimension resolves explicitly to `filled` /
   `not-used(owner-declared)` / `tagged-gap` — none skipped silently. A builder that receives an unresolved
   dimension STOPS and reports. The current dimension catalogue (capture · reproduction · keystone · guardrails ·
@@ -86,9 +90,13 @@ the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/bou
   (6-section schema in `references/keystone-emit.md`); keep it within a Claude Project's resident context (RAG
   trip-point unpublished → size is a parameter, calibrated in Phase 5; data first, instructions last for recall).
 - **Fidelity gate v3 (Stage 10, `references/validate-audit.md` §7).** Reproduction visual-diff vs the source
-  (perceptual overlay, no pixel-VRT, no Storybook); keystone gate (present · 6-section · guardrail-in-tail ·
-  within budget); guardrail red-team posture-gated — regulated postures BLOCK + need human sign-off, the live
-  adversarial run is Phase 5.
+  (perceptual overlay, no pixel-VRT, no Storybook) → commits persisted evidence to `audit/fidelity/<treatment-id>/`
+  (source + reproduction + recorded verdict; absence = FAIL); keystone gate (present · 6-section ·
+  guardrail-in-tail · within budget) PLUS a §7b FORM-OF-RULE content check (THINK + DESIGN-as each ≥1
+  when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no bare-adjective core section; `not-used(owner-declared)`
+  resolves clean); guardrail red-team battery + expected-refusal contract EMITTED + COMMITTED to `audit/redteam/`
+  even when non-blocking (empty = FAIL), posture-gated — regulated postures BLOCK + need human sign-off, the live
+  adversarial run is Phase 5 (deferral does not void the committed artifacts).
 - **Tokens/scheme.** DTCG **2025.10** is the format target, but `$value` stays an OKLCH literal string —
   structured-color objects + resolver theming are deferred (SD v5 lag, issue #1590 / OI-H) so `main` stays
   buildable (Lego). OKLCH is the general scheme-derivation engine (light/dark, high-contrast, sub-brand); emit

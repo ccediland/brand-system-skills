@@ -49,7 +49,10 @@ Every treatment the builder reproduces carries the provenance spine (`gap-protoc
 Validate each reproduction by **visual diff against the source artifact** (overlay / perceptual
 comparison); tune filter parameters until within tolerance. A reproduction that cannot be brought within
 tolerance is not done — it either degrades to a lower method (procedural → vector-trace → raster) or becomes
-a fidelity GAP. This visual-diff check is the reproduction half of the Stage-10 fidelity gate.
+a fidelity GAP. This visual-diff check is the reproduction half of the Stage-10 fidelity gate
+(`validate-audit.md` §7a). **The verdict must leave a trace:** §7a commits the source capture + the
+reproduction render + the recorded within/outside-tolerance verdict to `audit/fidelity/<treatment-id>/` in the
+emitted repo; absence of that artifact for a reproduced treatment FAILS the gate.
 
 ## Boundaries (where the router stops)
 

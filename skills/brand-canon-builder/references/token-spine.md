@@ -63,6 +63,39 @@ modifier, once supported) re-points it.
   (some `$extensions` authored). A print-native brand's color truth can be the authored value with OKLCH as
   the best-fit interchange approximation.
 
+## The provenance block — confidence rides the token, not just `authored|derived`
+
+`authored|derived` is the SOURCE projection ONLY — it records whether a color space is the brand's declared
+truth or auto-generated from OKLCH. It says **nothing** about how confident anyone is in the token. The two
+are ORTHOGONAL axes — the same shape as the font-`license:` precedent (one axis is a declared SPDX id that
+*describes* the license; a separate →GAP-on-absent rule *gates* usability): here `authored|derived` *describes*
+the source space, while the **confidence ladder** *gates* the status a datum may be used at. `authored` does
+NOT discharge the confidence obligation — a brand can DECLARE a CMYK build (`source: authored`) that is still
+only a `hypothesis` until the owner ratifies it.
+
+So EVERY emitted token carries the full provenance spine (`gap-protocol.md` § The provenance spine) under
+`$extensions.brand.provenance`:
+
+```
+"$extensions": { "brand": { "provenance": {
+  "source": "<declared-spec | owner-stated | extracted-vector | computed-css | design-file | matched | traced | inferred>",
+  "confidence": "<hypothesis | corroborated | owner-confirmed>",
+  "owner": "<who ratifies this slot, from the handoff OWNERS>",
+  "freshness": "<shipped | stated-old>"
+} } }
+```
+
+- `$extensions` is the DTCG escape hatch — additive metadata the spec ignores. The file MUST still parse and
+  every `{tier.category.name}` alias MUST still resolve; the provenance block never sits where a `$value` or an
+  alias is expected, so it introduces no dangle.
+- The per-space `source` flag inside `$extensions.brand.spaces` (above) is the color-specific projection of the
+  block's `source` field — they agree, they don't compete. A space tagged `authored` still inherits the token's
+  `confidence`; a datum is **never used at a status it has not earned** regardless of which space carries it.
+- The template applies the block to its REPRESENTATIVE tokens as the illustrative pattern (not every literal —
+  this is a template). **Every emitted token carries it**; the builder fills the block per datum at Stage 7 from
+  the value's handoff/extraction provenance (it enters at `hypothesis`, is promoted only on owner confirmation).
+- `freshness` uses the pinned `shipped | stated-old` literal — the same two values at every hop, never a synonym.
+
 ## OKLCH scheme-derivation engine (one transformation space)
 
 OKLCH (L = perceptual lightness 0–1, C = chroma, H = hue 0–360) is perceptually uniform and decouples
