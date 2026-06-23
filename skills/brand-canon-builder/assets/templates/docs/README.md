@@ -9,7 +9,13 @@ brand decision — for any medium, named here or not — from this repo.
 - **`canon/01-essence.md`** — *why* the brand is what it is (meaning, voice, positioning).
 - **`canon/02-primitives.md`** — *what* the fixed atoms are (color, type, the mark, …).
 - **`canon/03-grammar.md`** — *how* to combine them (generative rules + algorithms).
-- **`tokens.json` / `tokens/`** — the machine spine (DTCG, OKLCH); what consumers ingest.
+- **`tokens.json` / `tokens/`** — the machine spine (DTCG — the W3C design-token standard; OKLCH — a perceptual color space); what consumers ingest.
+
+Deliverables projected from the canon (the canon is the skeleton; these are what you ship):
+
+- **`<brand>-keystone.md`** — the single attachable keystone an AI thinks / speaks / designs *as* the brand.
+- **`prototype.html`** — a real, presentable prototype rendered from the canon (opens in any browser, no build).
+- **`design-sync-kit/`** — the compiled, `/design-sync`-ready component library.
 
 Satellites (not canon): `data-map.md` (where volatile values live) · `projections.md` (who consumes this).
 

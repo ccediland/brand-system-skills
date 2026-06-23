@@ -69,6 +69,8 @@ answer is to enumerate the use case, the rule belongs in GRAMMAR, not in a list.
 - **Algorithm (`ALGO-*`)** — a typed `(inputs) → output` procedure that applies one or more rules.
 - **Projection** — any consumer artifact derived from the canon (never a second source of truth).
 - **Token** — a measurable primitive in `tokens.json` (DTCG); the interchange spine.
+- **DTCG** — the W3C Design Tokens standard (the `tokens.json` format consumers ingest).
+- **OKLCH** — a perceptual color space (lightness · chroma · hue); the canonical `$value` format for color tokens. Consumers emit `oklch()` via an *OKLCH-preserving transform* (one that keeps the OKLCH values), never a lossy `color/css` conversion.
 - {{ADD BRAND-SPECIFIC METHOD TERMS IF ANY}}
 
 ## Maintenance

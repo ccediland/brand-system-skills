@@ -36,6 +36,9 @@ canon/canon.json         machine mirror of essence + grammar (dual legibility)
 tokens/base.json | semantic.json | component.json   DTCG token spine (OKLCH; the interchange contract)
 data-map.md              DATA POINTER  (satellite, not canon) — where volatile values live
 projections.md           PROJECTIONS   (satellite, not canon) — consumer registry + interchange contract
+prototype.html           PROTOTYPE  — a real, presentable render from the canon (Stage 8; opens in any browser)
+design-sync-kit/         LIBRARY    — the compiled, /design-sync-ready component library (Stage 8)
+<brand>-keystone.md      KEYSTONE   — the attachable .md an AI thinks / speaks / designs as the brand (Stage 8.5)
 README.md · CLAUDE.md · RESIDENT.md   docs (RESIDENT carries the GAP-NNN Open Items)
 assets/                  source binaries placed in-repo (marks, fonts, imagery) — read by the build
 sources/                 source references placed in-repo (brandbook PDFs, exports) — read by the build

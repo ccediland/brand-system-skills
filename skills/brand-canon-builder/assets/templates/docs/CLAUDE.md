@@ -19,7 +19,8 @@ GRAMMAR → DATA POINTER → register as a PROJECTION). Cite rules by their `G-*
   Any compiled master is generated, never hand-edited.
 - **Volatile values live in the source system** (see `data-map.md`), never frozen into a canon layer.
 - **Tokens:** OKLCH literal in `$value`; consumers emit `oklch()` via an OKLCH-preserving transform, never
-  `color/css`. Authored print values in `$extensions` are truth and are not re-derived. (See `projections.md`.)
+  `color/css`. Authored print values in `$extensions` are truth and are not re-derived. (See `projections.md`;
+  for DTCG / OKLCH / "OKLCH-preserving transform" / `color/css`, see the glossary in `canon/00-index.md`.)
 - **Brand voice rules apply to all copy** (anti-promise + lexicon in ESSENCE).
 
 ## Conventions
