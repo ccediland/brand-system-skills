@@ -50,7 +50,7 @@ them all at once.
 
 - `references/architecture.md` — load when laying out the four-question canon or checking output-agnosticism.
 - `references/token-spine.md` — load when authoring the DTCG/OKLCH token files (Stage 7).
-- `references/gap-protocol.md` — load when logging `GAP-NNN` or running the universality stress test (Stages 9–10).
+- `references/gap-protocol.md` — load when logging `GAP-NNN`, applying the provenance spine, or running the universality stress test (Stages 6, 9–10).
 - `references/coverage-checklist.md` — load when walking the universal must-haves in the coverage pass (Stage 9).
 - `references/analyze.md` — load for the ANALYZE path (Stage 2, default): harvest the brand's published work.
 - `references/create.md` — load for the CREATE path (Stage 2): author from the ratified handoff WHY.
@@ -96,7 +96,10 @@ brief — parse every block and act on it (do not re-derive what it already carr
   re-infers the WHY; a GAP in the handoff stays a GAP.
 - **`WHAT (primitives) — POINTERS + OWNER-PROVIDED ONLY`** → pointers the builder will extract measured
   values from (its half of the frontier); owner-provided values (declared Pantone, `authored-print`) are
-  truth, written `source:"authored"` (never re-derived); `intent` seeds per-atom meaning.
+  truth, written `source:"authored"` (never re-derived); `intent` seeds per-atom meaning. Carry each
+  primitive's `PROVENANCE{source/confidence/owner/freshness}` from the handoff into the build and propagate
+  it through extraction (`references/gap-protocol.md` § The provenance spine): a value enters at its handoff
+  confidence and is never promoted to a brand line without `owner-confirmed`.
 - **`HOW (grammar)` + `generative-rule seeds (if/then)`** → seed `G-*`/`ALGO-*` with stable IDs.
   `CORE-ASSET FIDELITY CONTRACT` → drives the fidelity gate (Stage 10). `GAPS (client-language)` →
   the builder owns formalization into `GAP-NNN` (two-ledger, Stage 9). `OPTIONAL` (incl. `Claude Design
@@ -138,12 +141,14 @@ kit (PR-B3), the VALIDATE/AUDIT stage + fidelity gate (PR-B4), and client-clean 
 mode + handoff spine (PR-B1). Stages 6, 7, 9, 12 carry the validated v1 method. No forward-pointers remain.
 
 ### Stage 3 — Source-agnostic asset acquisition · BLOCKING (core)
-Read `references/asset-acquisition.md`. Acquire build-grade assets from whatever sources exist (any
-combination), selecting the extraction technique per source-type encountered (existing DTCG/token files >
-repo vector masters > website extraction > PDF > design-tool exports > social) — never assume a PDF.
-Assemble the best-fidelity asset per canon slot with precedence (authored print > sampled; shipped/site > old
-brandbook; vector master > raster; existing tokens > extraction). The slot-need-vs-source-exists delta is a
-per-slot fidelity GAP. (`dev/v2-build-spec.md` §4.3.)
+Read `references/asset-acquisition.md` — including the **stated-spec-read** rule (the brand's declared font
+name + declared color are authoritative; `pdffonts`/font-tables/sampled pixels corroborate only, because
+outlined type makes the table report the studio's layout font or nothing). Acquire build-grade assets from
+whatever sources exist (any combination), selecting the extraction technique per source-type encountered
+(existing DTCG/token files > repo vector masters > website extraction > PDF > design-tool exports > social) —
+never assume a PDF. Assemble the best-fidelity asset per canon slot with precedence (authored print > sampled;
+shipped/site > old brandbook; vector master > raster; existing tokens > extraction). The slot-need-vs-source-exists
+delta is a per-slot fidelity GAP. (`dev/v2-build-spec.md` §4.3.)
 
 ### Stage 4 — Font acquisition · BLOCKING (core)
 Read `references/font-acquisition.md`. Acquire the brand's actual typefaces by whatever path the source
@@ -163,8 +168,11 @@ log the divergence; never silently overwrite. (`dev/v2-build-spec.md` §4.5.)
 The consolidation point where the canon is filled — not a separate pass. Stage 2 routes by MODE and fills
 from the placed material; Stages 3–5 acquire the real assets, fonts and applied design. Here the builder
 extracts the measured primitive values those sources yield and lands them in the canon: meaning to the
-prose layers, values to the token spine, mirrored to `canon/canon.json`. The frontier holds throughout — the
-builder extracts/derives values, never re-elicits the ratified WHY. (`dev/v2-build-spec.md` §4.1, §4.5.)
+prose layers, values to the token spine, mirrored to `canon/canon.json`. Each landed value carries its
+provenance spine (`references/gap-protocol.md` § The provenance spine): extracted/sampled/matched values
+enter at `confidence: hypothesis` and stay flagged for owner confirmation; only `declared-spec`/`owner-stated`
+data is canonical truth. The frontier holds throughout — the builder extracts/derives values, never
+re-elicits the ratified WHY, and never promotes a `hypothesis` observation to a brand line. (`dev/v2-build-spec.md` §4.1, §4.5.)
 
 > Stage 2 / Stage 6 note (adjudicated). In the spec's §3 table, Stage 2 is *read material* and Stage 6 is
 > *fill the canon*; PR-B1's SKILL mapping folded the MODE-routed fill into Stage 2, leaving Stage 6 partly
