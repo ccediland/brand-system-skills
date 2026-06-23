@@ -75,14 +75,14 @@ Active: phase 2 (Chat↔Code seam). Phase 1 (Foundations & architecture) RATIFIE
 - Resolver-based theming for the OKLCH scheme-derivation engine rides on the existing v2 pin (Style Dictionary v5 + DTCG `2025.10`, tracked in `RESIDENT.md` Decisions; 2025.10 not yet fully supported in SD v5, issue #1590). The compiler may need a custom-transformer or Terrazzo fallback for resolver theming. Waits on SD v5 progress.
 - The graceful-degradation path for the living questions doc when the chat environment lacks a connector or filesystem (commit-to-repo versus downloadable artifact) needs a spec in Phase 3.
 - The second validation brand (Phase 5) is not yet chosen — it must be differently-shaped (no brandbook, light-only palette, incomplete material) to actually test generality.
-- Gate: Carlos must ratify the Phase 1 architecture before any skill rewrite begins.
+- Gate (Phase 2): Carlos must ratify the v3 Chat↔Code handoff contract (checksummed manifest · media-ingestion · 4-field provenance · v0/DEMO · per-gap provenance tags) before both skills build to it. (Phase 1 architecture + keystone schema already ratified 2026-06-22.)
 
 ## Next actions
 
-1. Draft the Phase 1 v3 architecture spec: write anti-determinism as the skillset's rectoral constraint, the provenance/epistemic-status model, and the adaptive dimension-map mechanism; define what `brand-canon-scoper` and `brand-canon-builder` each become in v3. (Chat, top Opus.)
-2. Design the keystone `.md` schema (think, speak, design, plus the guardrail layer) as the north-star deliverable spec, structured for Claude Project consumption. (Chat, top Opus.)
-3. Take the architecture and keystone schema to Carlos for ratification — the gate — before any rewrite.
-4. (Done this session) The execution plan, the updated `RESIDENT.md`, and the updated `CLAUDE.md` are committed via PR on branch `claude/v3-plan`; merge to make them resident on `main`.
+1. (Done — prior session) Phase 1 ratified: the architecture spec (anti-determinism rectoral · 4-field provenance spine · adaptive dimension map · two-surface output · scoper/builder v3 deltas) and the 6-section keystone `.md` schema, distilled into `RESIDENT.md ## v3` Decisions (no separate spec file).
+2. (Done this session) Phase 2 deliverable: the v3 Chat↔Code handoff contract committed to `skills/brand-canon-scoper/references/handoff-format.md`; `RESIDENT.md` + `CLAUDE.md` given the v3 deltas. PR #12 on branch `claude/v3-phase2-handoff-contract`; merge after Carlos's OK.
+3. Phase 2 gate: Carlos ratifies the handoff contract — then both skills build to it.
+4. Phase 3: rewrite `brand-canon-scoper` to the ratified v3 contract (adaptive dimension map + epistemic states in elicitation, posture/horizon methods, two-surface output). (Chat designs, Code implements.)
 
 ## Resume
 
