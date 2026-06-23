@@ -1,11 +1,11 @@
 ---
 title: "Brand-system-skills v3 — execution plan"
 status: active
-current_phase: "1 of 5 — Foundations & architecture"
+current_phase: "2 of 5 — Chat↔Code seam"
 last_updated: 2026-06-22
 home_base: chat
 resident: ccediland/brand-system-skills/RESIDENT.md
-next_action: "Draft the v3 architecture spec: write anti-determinism as the skillset's rectoral constraint, the provenance/epistemic-status model, and the adaptive dimension-map mechanism; define what the scoper and builder each become in v3."
+next_action: "Phase 2 gate: ratify the v3 Chat↔Code handoff contract (checksummed manifest · media-ingestion method · 4-field provenance · v0/DEMO mode · per-gap provenance tags) before both skills build to it."
 ---
 
 # Brand-system-skills v3 — execution plan
@@ -34,10 +34,16 @@ Phases:
 
 ## Current state
 
-Active: phase 1 (Foundations and architecture), not yet started. Design inputs complete — the v3 stress-test findings and the research foundation are done; the five axes, two columns, provenance spine, and keystone north star are settled. Nothing built yet. The stress-test artifacts (branch `v0/canon-from-available` in the private test-brand repo) are test-only and do not ship. Design complete, build at zero percent.
+Active: phase 2 (Chat↔Code seam). Phase 1 (Foundations & architecture) RATIFIED by Carlos 2026-06-22 — architecture spec + keystone `.md` schema approved, distilled into RESIDENT `## v3` Decisions. Build at zero percent. Design inputs complete — the v3 stress-test findings and the research foundation are done; the five axes, two columns, provenance spine, and keystone north star are settled. The stress-test artifacts (branch `v0/canon-from-available` in the private test-brand repo) are test-only and do not ship.
 
 ## Session log
 
+- 2026-06-22 — Phase 1 ratified; Phase 2 opened. Carlos ratified the architecture spec and the 6-section
+  keystone schema (no separate spec file — distilled into RESIDENT Decisions). Designed the v3 handoff
+  contract in Chat and committed it to `skills/brand-canon-scoper/references/handoff-format.md` (checksummed
+  manifest · media-ingestion · 4-field provenance · v0/DEMO · per-gap provenance tags; new TREATMENTS /
+  DIMENSION MAP / HORIZONS / POSTURE blocks). RESIDENT + CLAUDE given the v3 deltas. Next: Phase 2 gate —
+  Carlos ratifies the contract, then both skills build to it.
 - 2026-06-22 — Ran the full identify, pre-research, research, plan arc. Merged the two v2-stress-test findings docs into five axes plus two execution columns; named the provenance/epistemics spine and the "a brand an AI can be" north star. Ran pre-research twice — the second pass re-leveled every research subtask from single-brand instances to general capability classes after catching instance-level determinism in the first pass. Ran Research mode and produced the six-subtask research foundation (capture tree, treatment-to-reproduction router, keystone schema, posture-guardrails, horizon detection, DTCG plus OKLCH). Wrote this execution plan, committed it to the repo root, and added the v3 domain to `RESIDENT.md` and `CLAUDE.md`. Decided anti-determinism is the rectoral constraint of the whole skillset, not just the research. Next: draft the Phase 1 architecture spec and get it ratified before building.
 
 ## Decisions made
@@ -69,14 +75,14 @@ Active: phase 1 (Foundations and architecture), not yet started. Design inputs c
 - Resolver-based theming for the OKLCH scheme-derivation engine rides on the existing v2 pin (Style Dictionary v5 + DTCG `2025.10`, tracked in `RESIDENT.md` Decisions; 2025.10 not yet fully supported in SD v5, issue #1590). The compiler may need a custom-transformer or Terrazzo fallback for resolver theming. Waits on SD v5 progress.
 - The graceful-degradation path for the living questions doc when the chat environment lacks a connector or filesystem (commit-to-repo versus downloadable artifact) needs a spec in Phase 3.
 - The second validation brand (Phase 5) is not yet chosen — it must be differently-shaped (no brandbook, light-only palette, incomplete material) to actually test generality.
-- Gate: Carlos must ratify the Phase 1 architecture before any skill rewrite begins.
+- Gate (Phase 2): Carlos must ratify the v3 Chat↔Code handoff contract (checksummed manifest · media-ingestion · 4-field provenance · v0/DEMO · per-gap provenance tags) before both skills build to it. (Phase 1 architecture + keystone schema already ratified 2026-06-22.)
 
 ## Next actions
 
-1. Draft the Phase 1 v3 architecture spec: write anti-determinism as the skillset's rectoral constraint, the provenance/epistemic-status model, and the adaptive dimension-map mechanism; define what `brand-canon-scoper` and `brand-canon-builder` each become in v3. (Chat, top Opus.)
-2. Design the keystone `.md` schema (think, speak, design, plus the guardrail layer) as the north-star deliverable spec, structured for Claude Project consumption. (Chat, top Opus.)
-3. Take the architecture and keystone schema to Carlos for ratification — the gate — before any rewrite.
-4. (Done this session) The execution plan, the updated `RESIDENT.md`, and the updated `CLAUDE.md` are committed via PR on branch `claude/v3-plan`; merge to make them resident on `main`.
+1. (Done — prior session) Phase 1 ratified: the architecture spec (anti-determinism rectoral · 4-field provenance spine · adaptive dimension map · two-surface output · scoper/builder v3 deltas) and the 6-section keystone `.md` schema, distilled into `RESIDENT.md ## v3` Decisions (no separate spec file).
+2. (Done this session) Phase 2 deliverable: the v3 Chat↔Code handoff contract committed to `skills/brand-canon-scoper/references/handoff-format.md`; `RESIDENT.md` + `CLAUDE.md` given the v3 deltas. PR #12 on branch `claude/v3-phase2-handoff-contract`; merge after Carlos's OK.
+3. Phase 2 gate: Carlos ratifies the handoff contract — then both skills build to it.
+4. Phase 3: rewrite `brand-canon-scoper` to the ratified v3 contract (adaptive dimension map + epistemic states in elicitation, posture/horizon methods, two-surface output). (Chat designs, Code implements.)
 
 ## Resume
 

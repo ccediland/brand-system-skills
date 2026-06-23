@@ -96,6 +96,9 @@ domains: [brand-system, tooling]
 | **v3 two-surface output:** internal rigor surface (structured, mixed-language) vs external client surface (plain, visual, Spanish) | one surface can't serve both the operator and a non-design SME client | 2026-06-22 |
 | **v3 `v0/DEMO` mode:** OPTIONAL defaults YES (+ carve-out for scope-expanding dims); mark + graphic-code non-waivable even in demo | momentum without dropping identity-load-bearing assets | 2026-06-22 |
 | **v3 scheme derivation:** OKLCH as one general engine (light/dark, high-contrast, sub-brand as cases) on the v2 OKLCH spine | one transformation space covers every scheme; keeps the v2 spine | 2026-06-22 |
+| **v3 keystone schema = 6 sections** (front-matter · THINK-as · SPEAK-as · DESIGN-as · GUARDRAIL · REFERENCE); think/speak/design + guardrail layer | ratified Phase 1 output; the north-star deliverable's structure, brand-agnostic | 2026-06-22 |
+| **v3 keystone recall-ordering** — data first, active instructions last; guardrails never buried mid-doc; behavior layer (§5) doubles as Project instructions, reference (§6) as knowledge | long-context position effects; load-bearing guardrails must stay high-recall | 2026-06-22 |
+| **v3 keystone size-budget = parameter, not a hardcoded number** — conservative default (keep the keystone comfortably within resident context, fully in-context not chunked); measured figure delegated to empirical calibration in Phase 4 (ties OI-E). If the file exceeds the resident window, REFERENCE (§6) splits to retrievable knowledge; only GUARDRAIL (§5) + DESIGN-reasoning (§4) stay in-context | RAG trip-point unpublished by Anthropic; schema must not fake a number | 2026-06-22 |
 
 ## Open Items
 | ID | Item | Severity | Status |
@@ -157,9 +160,8 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
 - **Five axes / two columns.** Axes: coverage+epistemics · faithful capture+reproduction · horizons+keystone ·
   the Chat↔Code seam · two-surface output. Two columns that don't subsume each other: provenance discipline
   (honesty about known-vs-assumed) + faithful-capture craft (actually reproducing what is seen).
-- **Status.** Scoped (identify → pre-research → research → plan done). Build not started. Five gated phases in
-  `v3-execution-plan.md`; Phase 1 (architecture + keystone schema) awaits Carlos's ratification before any
-  rewrite.
+- **Status.** Scoped + Phase 1 RATIFIED (Carlos, 2026-06-22): architecture spec + keystone `.md` schema
+  approved. Build not started. Five gated phases in `v3-execution-plan.md`; Phase 2 (Chat↔Code seam) active.
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it
@@ -191,6 +193,11 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   determinism/tunnel-vision recurs at every phase. Do not retry — anti-determinism is rectoral.
 
 ## Change log
+- 2026-06-22 — **v3 Phase 1 ratified + Phase 2 opened.** Carlos ratified the architecture spec
+  (anti-determinism rectoral · 4-field provenance spine · adaptive dimension map · two-surface output ·
+  scoper/builder v3 deltas) and the 6-section keystone `.md` schema. Distilled into Decisions (no separate
+  spec file). Opened Phase 2: rewrote the Chat↔Code handoff contract (checksummed manifest · media-ingestion
+  method · 4-field provenance · v0/DEMO mode · per-gap provenance tags). Build still at zero.
 - 2026-06-22 — **v3 scoped.** A fresh adversarial stress test (a third, independently-authored brand) exposed
   failure classes v2's gates miss; root cause = epistemic-status loss + determinism. Ran identify → pre-research
   → research → plan. Set the v3 center: rectoral anti-determinism + a provenance spine + a keystone "a brand an
