@@ -1,11 +1,11 @@
 ---
 title: "Brand-system-skills v3 — execution plan"
 status: active
-current_phase: "2 of 5 — Chat↔Code seam"
-last_updated: 2026-06-22
-home_base: chat
+current_phase: "5 of 5 — validation & release"
+last_updated: 2026-06-23
+home_base: "Code (the validation run) + Chat (judgment)"
 resident: ccediland/brand-system-skills/RESIDENT.md
-next_action: "Phase 2 gate: ratify the v3 Chat↔Code handoff contract (checksummed manifest · media-ingestion method · 4-field provenance · v0/DEMO mode · per-gap provenance tags) before both skills build to it."
+next_action: "Phase 5: run validation on a second, differently-shaped brand · live guardrail red-team · visual-diff audit · then release. Design + build are shipped (Phases 1–4 + remediation); the residual surface is Code (the run) + Chat (judgment), not Chat-design-pending. One MAJOR (F10, Theme-7 scoper client instrument) + MINORs + the coverage-gap pass still precede the run."
 ---
 
 # Brand-system-skills v3 — execution plan
@@ -34,10 +34,20 @@ Phases:
 
 ## Current state
 
-Active: phase 2 (Chat↔Code seam). Phase 1 (Foundations & architecture) RATIFIED by Carlos 2026-06-22 — architecture spec + keystone `.md` schema approved, distilled into RESIDENT `## v3` Decisions. Build at zero percent. Design inputs complete — the v3 stress-test findings and the research foundation are done; the five axes, two columns, provenance spine, and keystone north star are settled. The stress-test artifacts (branch `v0/canon-from-available` in the private test-brand repo) are test-only and do not ship.
+Active: **phase 5 (validation & release)**. **Phases 1–4 are SHIPPED to `main`** — the scoper and builder are rewritten to v3: handoff contract (#12) · scoper v3 (#13) · builder — spine+capture (#14), spine harmonization (#15), reproduction+DTCG/OKLCH (#16), keystone+fidelity-gate (#17). A full transversal audit then ran (`v3-audit—2026-06-22.md`, root; verdict QUALIFIED NO; PR #19, left open) and its remediation shipped on top: Theme 1 handoff seam (#20), Theme 2 install integrity (#21), RESIDENT compaction (#22), Themes 3/4 provenance spine + keystone operability (#23), and Theme 6 public surface + docs sync + the pulled-forward Theme-5 F16 (this pass). Design + build are DONE; the residual surface is **Code (the validation run) + Chat (judgment)**, not Chat-design-pending. Remaining before/at Phase 5: one MAJOR (F10 — the scoper's external client instrument, Theme 7) + MINORs (F32/F38) + the coverage-gap audit pass, then the run itself — a second, differently-shaped brand · live guardrail red-team · visual-diff audit · release. The stress-test artifacts (branch `v0/canon-from-available` in the private test-brand repo) are test-only and do not ship.
 
 ## Session log
 
+- 2026-06-23 — **Remediation fix-pass complete; moved to Phase 5.** After the transversal audit
+  (`v3-audit—2026-06-22.md`; QUALIFIED NO; 4 BLOCKER · 22 MAJOR · 24 MINOR · 6 NIT; PR #19 left open), the
+  remediation shipped as Themes 1–6 + the pulled-forward Theme-5 F16: handoff seam single-sufficient-interface
+  (#20), install integrity (#21), RESIDENT compaction (#22), provenance spine + keystone operability (#23),
+  and public surface + docs sync (this pass — manifests carry the keystone + v0.3.0 + ANALYZE/CREATE; the
+  coverage table reframed to an illustrative floor with the universality stress test primary; build-tracking
+  tokens stripped from shipped prose; this plan resynced). Repo now carries ZERO BLOCKER. One MAJOR remains
+  (F10, Theme-7 scoper client instrument) plus MINORs F32/F38 + the coverage-gap pass — all before the Phase-5
+  run. Next: clear Theme 7 + the coverage-gap pass, then run validation on a 2nd differently-shaped brand,
+  the live guardrail red-team, and the visual-diff audit; then release. Mirrors RESIDENT `## v3` + change log.
 - 2026-06-22 — Phase 1 ratified; Phase 2 opened. Carlos ratified the architecture spec and the 6-section
   keystone schema (no separate spec file — distilled into RESIDENT Decisions). Designed the v3 handoff
   contract in Chat and committed it to `skills/brand-canon-scoper/references/handoff-format.md` (checksummed
@@ -71,19 +81,22 @@ Active: phase 2 (Chat↔Code seam). Phase 1 (Foundations & architecture) RATIFIE
 
 ## Open questions / blockers
 
-- Claude Project RAG trip-point: the exact size at which the keystone `.md` stops being context-resident and is silently chunked is unpublished by Anthropic; the keystone size budget needs empirical calibration. Waits on a calibration test in Phase 4.
+- Claude Project RAG trip-point: the exact size at which the keystone `.md` stops being context-resident and is silently chunked is unpublished by Anthropic; the keystone size budget needs empirical calibration. Waits on a calibration test in Phase 5.
 - Resolver-based theming for the OKLCH scheme-derivation engine rides on the existing v2 pin (Style Dictionary v5 + DTCG `2025.10`, tracked in `RESIDENT.md` Decisions; 2025.10 not yet fully supported in SD v5, issue #1590). The compiler may need a custom-transformer or Terrazzo fallback for resolver theming. Waits on SD v5 progress.
-- The graceful-degradation path for the living questions doc when the chat environment lacks a connector or filesystem (commit-to-repo versus downloadable artifact) needs a spec in Phase 3.
+- The graceful-degradation path for the living questions doc when the chat environment lacks a connector or filesystem (commit-to-repo versus downloadable artifact). RESOLVED (#13 scoper v3 — Stage 6: commit-where-possible, else a downloadable artifact).
 - The second validation brand (Phase 5) is not yet chosen — it must be differently-shaped (no brandbook, light-only palette, incomplete material) to actually test generality.
-- Gate (Phase 2): Carlos must ratify the v3 Chat↔Code handoff contract (checksummed manifest · media-ingestion · 4-field provenance · v0/DEMO · per-gap provenance tags) before both skills build to it. (Phase 1 architecture + keystone schema already ratified 2026-06-22.)
+- Gate (Phase 2): the v3 Chat↔Code handoff contract. RESOLVED — ratified, and both skills built to it (Phases 2–4 shipped); the handoff was later hardened to the single sufficient interface in the Theme-1 remediation (#20).
+- Before the Phase-5 run: clear the remaining MAJOR (F10 — instantiate the scoper's external client instrument with a worked Spanish example) + MINORs (F32 token namespace, F38 non-visual fidelity rubric) + the coverage-gap audit pass (research-foundation + client-doc/satellite templates). Tracked in `RESIDENT.md` OI-I.
 
 ## Next actions
 
-1. (Done — prior session) Phase 1 ratified: the architecture spec (anti-determinism rectoral · 4-field provenance spine · adaptive dimension map · two-surface output · scoper/builder v3 deltas) and the 6-section keystone `.md` schema, distilled into `RESIDENT.md ## v3` Decisions (no separate spec file).
-2. (Done this session) Phase 2 deliverable: the v3 Chat↔Code handoff contract committed to `skills/brand-canon-scoper/references/handoff-format.md`; `RESIDENT.md` + `CLAUDE.md` given the v3 deltas. PR #12 on branch `claude/v3-phase2-handoff-contract`; merge after Carlos's OK.
-3. Phase 2 gate: Carlos ratifies the handoff contract — then both skills build to it.
-4. Phase 3: rewrite `brand-canon-scoper` to the ratified v3 contract (adaptive dimension map + epistemic states in elicitation, posture/horizon methods, two-surface output). (Chat designs, Code implements.)
+1. (Done) Phase 1 ratified — the architecture spec (anti-determinism rectoral · 4-field provenance spine · adaptive dimension map · two-surface output · scoper/builder v3 deltas) and the 6-section keystone `.md` schema, distilled into `RESIDENT.md ## v3` Decisions.
+2. (Done, #12) Phase 2 — the v3 Chat↔Code handoff contract committed to `handoff-format.md`; later hardened to the single sufficient interface in the Theme-1 remediation (#20).
+3. (Done, #13–#17) Phases 3–4 — scoper v3 (#13) and builder v3 (capture/spine #14, harmonization #15, reproduction+tokens #16, keystone+fidelity-gate #17) shipped.
+4. (Done, #20–#23 + this pass) Remediation Themes 1–6 + the pulled-forward Theme-5 F16 — repo carries ZERO BLOCKER.
+5. Clear the remaining Theme-7 items: F10 (MAJOR — instantiate the scoper's external client instrument with a worked Spanish example), F38 (MINOR — non-visual fidelity rubric), F32 (MINOR — token namespace reconciliation); then run the coverage-gap audit pass (research-foundation + client-doc/satellite templates).
+6. Phase 5: choose the second, differently-shaped brand; run the end-to-end validation build; live guardrail red-team (persona + injection); visual-diff audit of reproductions; confirm no single-brand hardcoding survived; then release + final migration of durable residue into `RESIDENT.md`.
 
 ## Resume
 
-Read `RESIDENT.md` first — its front matter, TL;DR, and domain map, then only the domains this plan touches — then this plan's state block, Current state, Open questions, and Next actions. Confirm the next action with Carlos, then continue. Do not restart the plan.
+Read `RESIDENT.md` first — its front matter, TL;DR, and domain map, then the v3 domain — then this plan's state block, Current state, Open questions, and Next actions. Phases 1–4 + remediation Themes 1–6 + F16 are SHIPPED and the repo carries ZERO BLOCKER; do not restart shipped phases. Pick up at Next action 5 (clear Theme 7 F10/F38/F32 + the coverage-gap pass) before the Phase-5 run. Confirm the next action with Carlos, then continue.

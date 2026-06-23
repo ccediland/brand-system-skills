@@ -53,7 +53,9 @@ chat, ask to scope your brand and `brand-canon-scoper` hands you a block for the
 ## Requirements
 
 - **Claude Code** — latest recommended. The `/design-sync` integration (compiling the component library into
-  Claude Design) requires a recent Claude Code that ships `/design-sync`.
+  Claude Design) requires a recent Claude Code that ships `/design-sync`. That contract is server-side and
+  version-fluid — the command re-reads it live via `get_claude_design_prompt`, so its field and script names
+  can shift between releases and the builder re-pins them at run time (don't treat a pinned setup as frozen).
 - **Node ≥ 18** — only for building the emitted component-library kit (esbuild + ts-morph); the canon itself
   needs no toolchain.
 

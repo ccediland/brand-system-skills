@@ -49,7 +49,7 @@ hypothesis` and must be owner-confirmed before it is promoted to canonical brand
 | **Social media** | observe applied aesthetic + grab the downloadable avatar/imagery (best-effort; anti-scraping/rate-limits). Everything here is observed → `confidence: hypothesis`, owner-confirm before canonizing | low — reference, not master |
 | **Nothing / a stray logo** | vectorize/clean the one mark; derive an OKLCH palette from it; pick an OFL stand-in face; emit a small valid DTCG spine; the rest = GAP (author only on `MODE: CREATE`) | n/a |
 
-## ingest-token map — route by the contract's declared `ingest:` (D2)
+## ingest-token map — route by the contract's declared `ingest:`
 
 The handoff's manifest carries an `ingest:` token per item (`brand-canon-scoper/references/handoff-format.md`).
 That token is the contract's **authoritative HOW-to-read** — consume it to pick the matrix row directly,

@@ -16,12 +16,13 @@ The defining property is the Lego principle: the repo is *always* createable and
 that arrives with nothing. Whatever is missing always resolves to a GOAL, a tracked PENDING DECISION, and a
 SKELETON slot — never a blocked, empty shell.
 
-> Canon = skeleton; prototype + library = deliverable (v2 law, §5.2). The four-layer canon is the source
-> *skeleton*, never the deliverable on its own. The deliverable is the real, presentable prototype + the
-> `/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is
-> not done. (Stage 8 emits both deliverables; the Stage-10 fidelity gate enforces "done" against them —
-> a missing or low-fidelity core asset FAILS the build — and Stage 11 scrubs the client repo clean before
-> handoff. See `references/architecture.md` § "Canon = skeleton; prototype + library = deliverable".)
+> Canon = skeleton; prototype + library + keystone = deliverable (v2/v3 law). The four-layer canon is the
+> source *skeleton*, never the deliverable on its own. The deliverable is the real, presentable prototype, the
+> `/design-sync`-ready component library projected from it, and the mandatory keystone `.md`. Rule-compliance
+> of an asset-less skeleton is not done. (Stage 8 emits the prototype + kit, Stage 8.5 the keystone; the
+> Stage-10 fidelity gate enforces "done" against them — a missing or low-fidelity core asset FAILS the build —
+> and Stage 11 scrubs the client repo clean before handoff. See `references/architecture.md` § "Canon =
+> skeleton; prototype + library + keystone = deliverable".)
 
 ## What it produces
 
@@ -82,7 +83,7 @@ The builder runs a fixed, gated pipeline — the Stages 0–12 specified below a
 gates must pass — or be explicitly waived by the owner via the handoff/PR — before the build is declared
 complete. The full pipeline (Stages 0–12) is implemented — mode + handoff spine, acquisition, fonts,
 applied-design, prototype + kit, token spine, gaps, validate/audit + fidelity gate, client-clean / scrub,
-commit + PR. No forward-pointers remain.
+commit + PR. Every stage is specified here; nothing is deferred elsewhere.
 
 ### Stage 0 — Ingest the handoff contract & locate the target
 The scoper's machine-readable handoff (`brand-canon-scoper/references/handoff-format.md`) is the canonical
@@ -147,8 +148,8 @@ equivalent fields before proceeding.)
 ### Stage 1 — Scaffold (always first)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
 root (`README.md`, `CLAUDE.md`, `RESIDENT.md`) and `tokens/*` into `tokens/`. Create `assets/` (source
-binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the D2 material
-convention. This creates the valid, empty-but-structured baseplate before any content. Fill the obvious
+binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the
+`assets/`+`sources/` material convention. This creates the valid, empty-but-structured baseplate before any content. Fill the obvious
 header fields (`{{BRAND}}`, `{{BRAND_OWNERS}}`, `{{DATE}}`, repo/org).
 
 ### Stage 2 — Read material in-repo & fill the canon (by MODE)
@@ -168,13 +169,6 @@ fill by the handoff's `MODE` (default ANALYZE):
 For every slot: fill it to full depth if the material supports it; write "not used" if the brand
 genuinely doesn't use that dimension; otherwise leave the placeholder and log a gap (Stage 9). Keep meaning
 in the prose layers and values in the token spine. Mirror essence + grammar into `canon/canon.json` as you go.
-
----
-
-The v2 builder pipeline is COMPLETE — every stage is implemented, staged across PR-B1…PR-B5:
-source-agnostic asset acquisition + fonts + applied-design (PR-B2), the real prototype + `/design-sync`-ready
-kit (PR-B3), the VALIDATE/AUDIT stage + fidelity gate (PR-B4), and client-clean / scrub (PR-B5), on the
-mode + handoff spine (PR-B1). Stages 6, 7, 9, 12 carry the validated v1 method. No forward-pointers remain.
 
 ### Stage 3 — Source-agnostic asset acquisition · BLOCKING (core)
 Read `references/asset-acquisition.md` — including the **stated-spec-read** rule (the brand's declared font
@@ -222,15 +216,14 @@ the builder extracts/derives values, never re-elicits the ratified WHY, and neve
 observation to a brand line. (Provenance spine: `references/gap-protocol.md`.)
 
 > Stage 2 / Stage 6 note (adjudicated). In the spec's §3 table, Stage 2 is *read material* and Stage 6 is
-> *fill the canon*; PR-B1's SKILL mapping folded the MODE-routed fill into Stage 2, leaving Stage 6 partly
+> *fill the canon*; the SKILL mapping folded the MODE-routed fill into Stage 2, leaving Stage 6 partly
 > redundant. Reconciled here by keeping Stage 2 as the merged, load-bearing read+fill entry point and
-> reframing Stage 6 as the explicit extraction-synthesis culmination of Stages 2–5 (no duplicate fill, no
-> future-PR tag). A literal Stage 2 (read-only) / Stage 6 (fill) re-split to mirror §3 exactly is deferred to
-> whichever PR next revisits the PR-B1 spine — out of PR-B2's scope.
+> reframing Stage 6 as the explicit extraction-synthesis culmination of Stages 2–5 (no duplicate fill). A
+> literal Stage 2 (read-only) / Stage 6 (fill) re-split to mirror §3 exactly is deferred.
 
 ### Stage 7 — Token spine
-Read `references/token-spine.md` — DTCG **2025.10** target, the OKLCH `$value` operative format (the
-tooling-lag caveat on structured color / resolvers ties RESIDENT OI-H), and the **OKLCH scheme-derivation
+Read `references/token-spine.md` — DTCG **2025.10** target, the OKLCH `$value` operative format (with the
+tooling-lag caveat on structured color / resolvers), and the **OKLCH scheme-derivation
 engine** (light/dark, high-contrast, sub-brand as cases of one L/C/H transform; re-cohering an ad-hoc
 palette is a `hypothesis` proposal pending owner confirmation). Author `tokens/base.json` (raw OKLCH +
 authored/derived `$extensions` + `$extensions.brand.provenance` {source, confidence, owner, freshness} on
@@ -244,7 +237,7 @@ flat/print-only brand.
 ### Stage 8 — Prototype + `/design-sync`-ready kit · BLOCKING (prototype)
 Emit both real deliverables (canon = skeleton, these = deliverable):
 
-- **(a) The presentable prototype (F-025).** Copy `assets/templates/prototype/prototype.html` into the repo
+- **(a) The presentable prototype.** Copy `assets/templates/prototype/prototype.html` into the repo
   and fill it from the canon: OKLCH token values inline, the real extracted mark as inline SVG/data-URI,
   acquired fonts via `@font-face`/data-URI, harvested imagery — rendering hero, card, control set, type
   spread, color blocks. Reproduce any brand treatment via `references/reproduction-router.md`
@@ -252,7 +245,7 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
   the source; a treatment that can't be brought within tolerance degrades a method or becomes a fidelity GAP.
   It is self-contained and deterministic (opens in any browser, no toolchain) — the artifact you show a
   client and the Stage-10 "render real samples" evidence. Never make it depend on the kit.
-- **(b) The `/design-sync`-ready kit (F-026).** Scaffold `assets/templates/design-sync-kit/` and fill it from
+- **(b) The `/design-sync`-ready kit.** Scaffold `assets/templates/design-sync-kit/` and fill it from
   the canon (components, tokens, `pkg`/`globalName`, conventions). Read `references/design-sync-kit.md` for
   the converter contract: package-shape default; one-command build (`esbuild` + `ts-morph` + `@types/react`)
   → `dist/index.es.js` + `.d.ts`; `.design-sync/config.json` with only live-valid keys (unknown keys fail
@@ -277,7 +270,7 @@ output, not opt-in. Copy `assets/templates/keystone/keystone.md` and fill it in 
   double as Project instructions, §6 REFERENCE as Project knowledge (front-matter carries the deployment map).
 - Size budget is a parameter (conservative default: stay fully resident in context). If over, apply the
   degradation path (split §6 REFERENCE to retrievable knowledge first). The measured trip-point is delegated to
-  Phase-5 calibration (RESIDENT OI-E).
+  Phase-5 calibration.
 - Provenance: every datum inherits the spine; mark observed-but-unconfirmed as `hypothesis`, never crystallize.
 Stage 10 fails the build if the keystone is absent or malformed (`references/validate-audit.md` §7b).
 
@@ -320,7 +313,7 @@ skeleton. Seven parts:
   run is Phase 5 (its deferral does not void the committed artifacts). (`validate-audit.md` §7b.)
 - **Client-confirmation is a HUMAN gate** — assemble the audit + samples + open ratification GAPs into the PR
   and stop; sign-off is human PR review. Never auto-confirm or auto-stamp "Ratified by…"; default state is
-  unratified-pending. (The scrub apparatus is Stage 11 / PR-B5.)
+  unratified-pending. (The scrub apparatus is Stage 11.)
 
 Retained existing checks (do-not-regress):
 - **Output-agnostic check:** grep the canon for any output/medium-named section; there must be none.
@@ -332,14 +325,14 @@ Retained existing checks (do-not-regress):
 ### Stage 11 — Client-clean / scrub · BLOCKING
 Read `references/client-clean.md`. The build is not "done" until the client repo is clean of all build
 apparatus:
-- **Tool self-attribution (F-015):** no doc credits the build tool/skill — grep the client tree for
+- **Tool self-attribution:** no doc credits the build tool/skill — grep the client tree for
   `brand-system-skills`, the skill names, and the tool repo URL; zero hits.
-- **Reference-brand bleed (F-013), runtime catch:** every rule / name / example / value in the client canon
+- **Reference-brand bleed, runtime catch:** every rule / name / example / value in the client canon
   must trace to the client's own material (or an honest GAP); strip anything traceable to a
   method/reference/example brand instead.
 - **`{{PLACEHOLDER}}` leftovers + chatter:** no raw `{{…}}` survive; remove GUIDE/builder comments and dead
   template sections from the client deliverable.
-- **Ratification (F-014):** never auto-stamp "Ratified by…" or flip a gap to `CLOSED (ratified)`; default is
+- **Ratification:** never auto-stamp "Ratified by…" or flip a gap to `CLOSED (ratified)`; default is
   unratified-pending — ratification lands only on real owner sign-off (the Stage-10 human gate).
 
 This stage scrubs only the client repo it produces; this builder repo's own docs keep their attribution.

@@ -1,14 +1,24 @@
 # Coverage / completeness model
 
-Derived by intersecting two independent canons (a digital-native one and a print-native one). What both
-carry is treated as a universal must-have; what only one carries is a parameterized/optional
-dimension. This is the net against n=1 overfitting — plus the GAP protocol and the GATE-2 universality
-stress test catch anything this list misses. Do not pad this list defensively — a longer checklist is
-not a more complete canon; trust the stress test.
+The real completeness mechanism is the **universality stress test** (`gap-protocol.md`): pick arbitrary
+artifacts the canon names nowhere and confirm the canon decides each one through its derivation method. A
+canon is complete when it passes that test — not when it has ticked a fixed list of slots. The checklist
+below is a **prompt for that test, not the gate**: an ILLUSTRATIVE floor derived by intersecting two
+independent canons (one digital-native, one print-native), the same way the dimension catalogue in
+`CLAUDE.md` is an illustrative instance of a mechanism and never a closed universe (anti-determinism). It is
+**not** the set of things every brand must have — a monogram-only, single-typeface, or single-ink brand is
+fully valid while "missing" several rows below. Do not pad this list defensively — a longer checklist is not a
+more complete canon; the list only jogs the stress test.
 
-## Universal must-haves (expected in every brand)
+## Illustrative coverage floor (a prompt for the stress test — not a closed must-have set)
 
-| # | Coverage item | Lands in |
+Each row is **expected-unless-not-used(owner-declared)**: present it if the brand uses that dimension; if the
+brand legitimately does not, mark the slot `not-used(owner-declared)` and it resolves CLEAN — never a gap,
+never a violation. A row is a MUST-HAVE GAP only when the brand *does* use the dimension and it is missing or
+empty (severity below). What both reference canons carried is shown here; what one carried is a
+parameterized/optional dimension below — neither is a universe, both are illustration.
+
+| # | Coverage item (expected-unless-not-used) | Lands in |
 |---|---|---|
 | 1 | Brand essence / narrative / origin / positioning / audience | ESSENCE |
 | 2 | Glossary of the system's own vocabulary | INDEX |
@@ -36,10 +46,19 @@ A brand that does not use one writes "not used" in the slot — the slot stays, 
 - **Volatile values** (prices, hours, contact, inventory) → DATA POINTER.
 - **Legal / confidentiality / governance** → a non-canon meta note at most; never a design truth.
 
+## Two coverage checks beyond the floor (shipped v3 behavior)
+
+- **Provenance coverage.** Every landed datum carries its 4-field provenance spine, and every emitted token its
+  `$extensions.brand.provenance` (`token-spine.md` § The provenance block) — a value present but held at an
+  unearned confidence is an incomplete datum, not a complete one. Coverage is of *status*, not just presence.
+- **Keystone operability.** The mandatory keystone passes the Stage-10 §7b content check (`validate-audit.md`):
+  the core sections carry when-X-then-Z rules / on-off pairs (form-of-rule only — never fixed brand content),
+  not bare adjectives. A structurally-present but operationally-hollow keystone is not "covered".
+
 ## Severity (for any unmet item)
 
-- **MUST-HAVE** — a universal item (table above) is missing or empty. Blocks "complete", never blocks the
-  repo existing.
+- **MUST-HAVE** — a dimension the brand *uses* (a floor row not marked `not-used(owner-declared)`) is missing
+  or empty. Blocks "complete", never blocks the repo existing.
 - **SHOULD** — an optional dimension the brand *does* use is present but unfilled.
 - **NICE** — a refinement deferred by choice.
 

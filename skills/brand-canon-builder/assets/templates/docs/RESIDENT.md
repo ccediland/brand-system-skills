@@ -29,7 +29,12 @@ canonical: github
 - **Generative over catalog:** stable `G-*` rules + `ALGO-*` algorithms so consumers apply the canon
   mechanically and it decides artifacts it never names (the universality test).
 - **Token spine:** DTCG `base/semantic/component`; OKLCH literal in `$value`; print values authored in
-  `$extensions`. See `projections.md` for the interchange contract.
+  `$extensions`; every token carries its `$extensions.brand.provenance` (source/confidence/owner/freshness).
+  See `projections.md` for the interchange contract.
+- **Build evidence (`audit/`):** the build commits fidelity + guardrail evidence the repo carries —
+  `audit/fidelity/<treatment-id>/` (each reproduced treatment's source capture + reproduction + recorded
+  verdict) and `audit/redteam/` (the keystone's red-team battery + expected-refusal contract). Present when
+  the brand has reproduced treatments / a keystone guardrail layer; absent (legitimately) when it does not.
 
 ## Integrations / ritual
 - Consumers are registered in `projections.md`; bidirectional consumers have a promotion path back to canon.

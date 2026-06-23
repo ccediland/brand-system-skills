@@ -1,4 +1,4 @@
-# Keystone emit — the attachable brand `.md` an AI can BE (Stage 8.5) · D4
+# Keystone emit — the attachable brand `.md` an AI can BE (Stage 8.5)
 
 Read at Stage 8.5, the build's mandatory north-star emit. The canon (filled at Stages 2/6), the token spine
 (Stage 7), and the acquired assets (Stages 3/4) describe the brand; they do not yet make it *operable* by an
@@ -72,7 +72,7 @@ front-matter records which section goes where (the deployment map).
   mid-document. §5 GUARDRAIL + §4 DESIGN-reasoning are the in-context-critical core.
 - **Size budget is a PARAMETER, not a hardcoded number.** Default conservative: keep the keystone comfortably
   within the resident context window so it stays fully in-context. The measured trip-point is unpublished by
-  Anthropic (RESIDENT OI-E) → the figure is set by empirical calibration in the Phase 5 validation, not guessed
+  Anthropic → the figure is set by empirical calibration in the Phase 5 validation, not guessed
   here. **Degradation path:** if the file exceeds the resident window, split §6 REFERENCE out to retrievable
   Project knowledge first; only §5 GUARDRAIL + §4 DESIGN-reasoning must remain in-context.
 
@@ -97,8 +97,8 @@ guardrail buried mid-document, or over-budget without the degradation applied). 
   full-document adherence weakens. Budget for residency; the degradation path is the fallback, not the goal.
 - **Guardrails reduce, do not eliminate, jailbreak/injection risk.** In-context rules raise robustness but are
   not absolute (persona prompts measurably increase attack success). High-stakes / regulated postures therefore
-  require the Stage-10 keystone red-team + external human review, never the file alone — the hook the D6 gate
-  (`validate-audit.md` §7b) enforces.
+  require the Stage-10 keystone red-team + external human review, never the file alone — the gate
+  `validate-audit.md` §7b enforces.
 - **The keystone is derived, never a re-elicitation.** It restates the ratified canon in an AI-operable form;
   it introduces no new brand truth.
 

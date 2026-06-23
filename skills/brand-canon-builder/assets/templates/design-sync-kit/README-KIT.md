@@ -1,4 +1,4 @@
-# design-sync-kit — the F-026 package-shape scaffold
+# design-sync-kit — the package-shape scaffold
 
 This is the compiled component library `/design-sync` ingests, scaffolded so a brand repo is born
 `/design-sync`-ready. It is a projection of the canon (kit = constant, canon = variable): components style
