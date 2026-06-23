@@ -170,3 +170,42 @@ OKLCH (L = perceptual lightness 0–1, C = chroma, H = hue 0–360; built on OKL
 - The DTCG resolver and full 2025.10 support are new (Oct 2025) and still propagating through tooling; treat tool conformance as a moving target through 2026.
 - Model/version details (Opus 4.x window sizes) come from Anthropic support docs that list multiple in-flight model names; treat exact figures as point-in-time. Anthropic's published long-context recall numbers predate Opus 4.x (run on Claude 2), so the qualitative position-effect guidance holds but the specific accuracy figures are not representative of current models.
 - The anti-determinism constraint was honored: every resolution is a general capability/method/taxonomy with a boundary; the anonymous restaurant stress-test instance produced no single-brand artifacts in this research.
+
+---
+
+## Appendix A — Research scope, source priority, and subtask briefs (from pre-research)
+
+This appendix records the pre-research framing that produced the findings above, so the scope boundaries survive — in particular, **what was researched as a general capability vs. what is a roadmap-level design decision** (the latter is NOT in this doc; it lives in `RESIDENT.md` `## v3` Decisions).
+
+### Governing constraint
+Anti-determinism: every answer is a general capability class, a space/taxonomy, or a decision method spanning all brands — never a single-brand instance. The anonymous restaurant was a stress-test instance only. The pre-research itself was re-leveled once after instance-level determinism was caught in the first pass.
+
+### Stated assumptions
+The keystone is a single attachable in-context file for a Claude Project (Opus 4.x), not fine-tuning/RLHF. Repo deliverables are dense structured English. The brand instance is an anonymous stress test, not the objective.
+
+### Scope IN (researched as general capabilities — resolved in the sections above)
+(1) multi-source capture + stated-spec-read + fidelity/provenance; (2) treatment→reproduction decision tree + capability boundary; (3) keystone `.md` schema (think/speak/design + guardrails); (4) posture-parameterized guardrails + posture elicitation; (5) adaptive horizon detection + base taxonomy; (6) DTCG 2025.10 tokens + OKLCH scheme derivation.
+
+### Scope OUT (NOT researched — these are roadmap-level DESIGN DECISIONS, recorded in `RESIDENT.md` `## v3`, not findings here)
+- The data-provenance / epistemic-status model (the v3 spine) — a design decision, not external research.
+- The internal-vs-external two-surface document split — a design decision.
+- The `v0/DEMO`-as-engagement framing (OPTIONAL defaults YES, with the mark + graphic-code carve-out) — a design decision.
+- Also excluded: general branding-theory restatement (frameworks already identified); model fine-tuning/RLHF (the target is an in-context file); SaaS brand-AI procurement/pricing (Jasper, Omneky, Glean) except as a marked [SECONDARY] industry pattern.
+
+### Source priority (applied throughout)
+1. Primary specs/standards — W3C/DTCG Design Tokens 2025.10, W3C SVG Filter Effects, MDN.
+2. Primary library/tool docs — PyMuPDF/Artifex, Inkscape, dvisvgm, rough.js and similar generative libs, SVGO/svgcleaner, image-based font-ID tools.
+3. Anthropic docs for the Claude/Projects target (Opus 4.x; Project-knowledge mechanics; how an attached `.md` is consumed).
+4. Credible practitioner engineering — Klaviyo (tonal dissonance / prompt hierarchy), Codrops/CSS-Tricks/Smashing (SVG filters), zeroheight (tokens).
+5. [SECONDARY] brand-AI vendor marketing (Glean, Jasper, Omneky) — only as evidence of an industry pattern.
+
+### The six subtask briefs (what each one researched, with its resolution target)
+1. **Multi-source capture** — decision tree per source archetype (vector PDF, raster-only, live website, design file, social images, none); the stated-spec-read rule (named font / declared color authoritative; `pdffonts`/embedded-font tables corroborative only, since brand type is often outlined/flattened); clean vector extraction (PyMuPDF `get_drawings`, dvisvgm, Inkscape copy-region, SVGO/svgcleaner); image font-matching (WhatTheFont, Matcherator); fidelity+provenance per artifact. → the per-source capture decision tree.
+2. **Treatment → reproduction-method tree** — taxonomy of treatments (textures, hand-drawn/organic, lighting/dimensional, optical, print-artifacts, flat, photographic) mapped to procedural SVG/CSS filter / generative library (rough.js) / vector-trace / raster-required; visual-diff validation; explicit code-can't boundary. → the treatment→method tree + boundary.
+3. **AI-knowledge brand-file schema** — a single Markdown file letting an AI speak, design, AND think as the brand, plus a guardrail layer; how a Claude Project consumes an attached `.md` (context vs retrieval). → the keystone `.md` schema.
+4. **Guardrails by posture** — functional-requirements tier above personality (anti tonal-dissonance), in-character refusal, audience registers, hard limits, injection resistance, visibility setting; posture detected not hardcoded. → parameterized structure + posture-elicitation set.
+5. **Horizon detect/prompt/ingest** — adaptive detection by category, one-line+tracked-gap prompting, existing-material detection; base taxonomy from Brand Key / Keller / Aaker / Neumeier / Wheeler. → the method + base taxonomy.
+6. **Tokens + scheme derivation** — DTCG 2025.10 (resolvers, OKLCH-native, `.tokens.json`) for the spine + machine-readable mirror; OKLCH as one perceptual scheme-derivation engine (light/dark, high-contrast, sub-brand). → token format + derivation method.
+
+### Success criterion (completion test)
+Each subtask yields a general recommended capability/method with sources and an explicit boundary, sufficient for the `/ai-roadmap` to list it as a v3 feature with a chosen method — with no subtask left at "investigate further," and no finding phrased as a single-brand solution.
