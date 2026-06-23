@@ -103,3 +103,9 @@ The router reproduces what the scoper OBSERVED and pointed at (the handoff's TRE
 observed one-off to a brand rule without owner confirmation. A bespoke artwork is traced from the brand's
 own source vector (the master), never synthesized — synthesizing a brand's graphic-code pattern from scratch
 is a dead-end (it invents instead of reproducing).
+
+**Discrimination limit (explicit).** Distinguishing a faithfully-traced master from a plausible synthesized
+lookalike is NOT mechanical in code. The §7a persisted evidence — the committed source capture + the
+reproduction render + the recorded verdict — is what makes the trace auditable; a reproduction that left no
+committed source-vs-render trace cannot be trusted as traced-not-synthesized. Convergence is the §7a
+requirement, not a code-side classifier.

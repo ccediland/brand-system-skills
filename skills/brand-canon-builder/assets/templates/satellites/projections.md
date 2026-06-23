@@ -28,7 +28,7 @@ promoted, it stays as projection rationale, not canon.
 - **Escape valve:** stack-specific needs (a framework theme block, a shader uniform, a runtime) are
   adapters in the consumer repo, derived from the canon — never coupling that names a stack inside any
   canon layer. The canon names no stack.
-- **Boundary:** engineering concerns (security, performance, SEO, hosting) are out of design-system scope.
+- **Boundary:** engineering/runtime concerns (e.g. security, performance, SEO, hosting — not exhaustive) are out of scope; they belong to the consumer, derived from but never coupled into the canon.
 
 ## REMOVE manifest (harvest-first)
 

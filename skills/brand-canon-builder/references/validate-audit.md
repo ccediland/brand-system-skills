@@ -36,6 +36,10 @@ Fidelity tolerance is layered by what the element is — independent of the mech
   judge against intent, not pixels).
 - **Baselines** are per-component-variant and per-brand (the clone-per-brand model: each brand carries
   its own baselines, never shared across brands).
+- **Named tolerance (auditable).** The zero-tolerance assignment — which elements §2 holds at zero tolerance
+  for THIS brand (the resolved primary-identity carrier + the named primary color tokens + any NON-WAIVABLE
+  graphic-code) — is NAMED in the committed Stage-10 audit artifact (alongside the §7a/§7b evidence), so the
+  tolerance tiering is auditable, not silently re-decided each run.
 
 ## 3. The mechanism is shape-dependent (the reconciliation)
 
@@ -54,8 +58,11 @@ Fidelity evidence is the convergence of four sources — all already produced by
    GAP** ("primary-medium render not yet a build-grade target — tracked horizon"); the §1/§2 fidelity gate
    accepts that declared GAP (fidelity-blocking per the carrier's role) rather than demanding a render the
    build cannot produce — no faked render, no silent pass.
-2. **The `/design-sync` converter gates** (the live `/design-sync` tool stages these server-side into
-   `.ds-sync/` and runs them on the uploaded bundle — they are converter/server-side, NOT kit-shipped;
+2. **The `/design-sync` converter gates.** The CONCEPTUAL invariant is what binds — *a missing core face must
+   hard-fail; a hollow/blank render must fail; the validator must exit clean* — whatever the live skill names
+   the codes. The v2.1.185 names below are the CURRENT illustrative binding, not the method; re-pin them per
+   the server-side/version-fluid caveat (`design-sync-kit.md` § Step 0). (The live tool stages these
+   server-side into `.ds-sync/` and runs them on the uploaded bundle — converter/server-side, NOT kit-shipped;
    live-pinned names, Claude Code v2.1.185):
    - **`[FONT_MISSING]`** — must-resolve: the one defect the render check can't self-detect (every design
      would silently render in a fallback face). A missing core face is a fidelity-blocking GAP, never a
@@ -101,6 +108,10 @@ A rule-by-rule audit of all written and visual content — authored AND generate
   is a finding;
 - **ESSENCE / voice** — the anti-promise (forbidden claims), the lexicon (required + banned terms), and the
   voice don'ts.
+- **font provenance** — every canonized font's `PROVENANCE.source ∈ {declared-spec | owner-stated | matched}`,
+  never a raw `extract-vector` / `pdffonts`-table read promoted to canon. An outlined-font or agency-embedded
+  layout-font regression (the studio's font reported in place of the brand's) surfaces here as a finding,
+  mirroring the stated-spec-read rule.
 
 Findings are fixed (regenerate / re-author) or logged as `GAP-NNN`; a content piece that contradicts the
 ratified WHY is never silently kept.
