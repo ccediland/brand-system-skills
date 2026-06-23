@@ -202,6 +202,7 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   determinism/tunnel-vision recurs at every phase. Do not retry — anti-determinism is rectoral.
 
 ## Change log
+- 2026-06-23 — **v3 system audit produced (#25).** Full repo + functional-pipeline reassessment vs current main; see `v3-system-audit—2026-06-23.md` (root, audit-only). Verdict QUALIFIED YES on the visual default path (all five #19 BLOCKERs dead); 2 BLOCKER scoped to the medium-agnostic / sonic-motion shape · 6 MAJOR · 10 MINOR · 4 NIT. Open Items to be re-baselined from its ledger in the next fix-pass.
 - 2026-06-23 — **Theme 6 public surface + docs sync + the pulled-forward Theme-5 F16 (#24).** Both manifests
   carry the mandatory keystone deliverable + ANALYZE/CREATE framing + v0.3.0 (dropped "greenfield/brownfield");
   README states the `/design-sync` contract is server-side/version-fluid; the coverage table reframed to an
