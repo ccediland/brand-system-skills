@@ -21,7 +21,7 @@ SKELETON slot — never a blocked, empty shell.
 > `/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is
 > not done. (Stage 8 emits both deliverables; the Stage-10 fidelity gate enforces "done" against them —
 > a missing or low-fidelity core asset FAILS the build — and Stage 11 scrubs the client repo clean before
-> handoff. See `dev/v2-build-spec.md`.)
+> handoff. See `references/architecture.md` § "Canon = skeleton; prototype + library = deliverable".)
 
 ## What it produces
 
@@ -78,7 +78,7 @@ them all at once.
 
 ## Workflow
 
-The builder runs a fixed, gated pipeline (full specification: `dev/v2-build-spec.md` §3). BLOCKING
+The builder runs a fixed, gated pipeline — the Stages 0–12 specified below are the full specification. BLOCKING
 gates must pass — or be explicitly waived by the owner via the handoff/PR — before the build is declared
 complete. The full pipeline (Stages 0–12) is implemented — mode + handoff spine, acquisition, fonts,
 applied-design, prototype + kit, token spine, gaps, validate/audit + fidelity gate, client-clean / scrub,
@@ -186,7 +186,7 @@ where the manifest leaves it `n/a` do you fall back to selecting the technique b
 (existing DTCG/token files > repo vector masters > website extraction > PDF > design-tool exports > social) —
 never assume a PDF. Assemble the best-fidelity asset per canon slot with precedence (authored print > sampled;
 shipped/site > old brandbook; vector master > raster; existing tokens > extraction). The slot-need-vs-source-exists
-delta is a per-slot fidelity GAP. (`dev/v2-build-spec.md` §4.3.)
+delta is a per-slot fidelity GAP. (Full method: `references/asset-acquisition.md`.)
 
 ### Stage 4 — Font acquisition · BLOCKING (core)
 Read `references/font-acquisition.md`. **Read each face's handoff `license:` field first** (a declared
@@ -195,7 +195,7 @@ owner's declared license state, not something to re-derive. Then acquire the bra
 offers (embedded-PDF / `@font-face` from a live site / repo files / acquire open via Fontsource). Licensing
 is hard-gated: self-host only OFL/Apache/Ubuntu or owner-supplied faces (ship the license; rename on a
 Reserved Font Name when subsetting); an `unlicensed→GAP` or otherwise unlicensed commercial face is a
-MUST-HAVE fidelity GAP, never a silent fallback (deny-by-default). (`dev/v2-build-spec.md` §4.4.)
+MUST-HAVE fidelity GAP, never a silent fallback (deny-by-default). (Full method: `references/font-acquisition.md`.)
 
 ### Stage 5 — Applied-design harvest
 Harvest the lived design language from the live consumers the scoper pointed at (the *Applied-design harvest*
@@ -205,7 +205,7 @@ and ESSENCE (meaning), measurable atoms into tokens. Where lived expression dive
 log the divergence; never silently overwrite. Classify any visual/textural treatment you observe
 (texture, finish, effect) against `references/reproduction-router.md` and record it with the handoff's
 TREATMENTS provenance (`confidence: hypothesis` until owner-confirmed); the reproduction itself happens in
-Stage 8. (`dev/v2-build-spec.md` §4.5.)
+Stage 8. (Full method: `references/analyze.md` § Applied-design harvest + `references/reproduction-router.md`.)
 
 ### Stage 6 — Fill the canon (extraction synthesis)
 The consolidation point where the canon is filled — not a separate pass. Stage 2 routes by MODE and fills
@@ -219,7 +219,7 @@ construction-ref), read the owner-provided values the handoff's WHAT GEOMETRY bl
 (`owner-confirmed` where the owner gave them) instead of re-hunting them from a PDF; only where a geometry
 value is `none` does the builder derive it (at `hypothesis`) or log a GAP. The frontier holds throughout —
 the builder extracts/derives values, never re-elicits the ratified WHY, and never promotes a `hypothesis`
-observation to a brand line. (`dev/v2-build-spec.md` §4.1, §4.5.)
+observation to a brand line. (Provenance spine: `references/gap-protocol.md`.)
 
 > Stage 2 / Stage 6 note (adjudicated). In the spec's §3 table, Stage 2 is *read material* and Stage 6 is
 > *fill the canon*; PR-B1's SKILL mapping folded the MODE-routed fill into Stage 2, leaving Stage 6 partly
@@ -260,8 +260,8 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
   build is best-effort, never a hard-fail — `[NO_DIST]` is recoverable by running the build, and (a) is
   the deterministic fidelity artifact regardless.
 
-Re-pin the live `/design-sync` contract before freezing the emitter (`dev/v2-build-spec.md` §4.6 step 0 — the
-contract is server-side/version-fluid via `get_claude_design_prompt`).
+Re-pin the live `/design-sync` contract before freezing the emitter (`references/design-sync-kit.md` § "Step 0
+— Re-pin the live contract" — the contract is server-side/version-fluid via `get_claude_design_prompt`).
 
 ### Stage 8.5 — Emit the keystone `.md` · BLOCKING (north-star)
 Read `references/keystone-emit.md`. Synthesize the single attachable `<brand>-keystone.md` from the filled
@@ -294,11 +294,13 @@ skeleton. Seven parts:
   still log and the repo stays valid (Lego). Layered thresholds: zero tolerance on the mark + primary color
   tokens, higher on gradients/illustration; per-component-variant + per-brand baselines.
 - **Mechanism is shape-dependent** (do not mandate Storybook): package-shape (default) evidences fidelity
-  via the deterministic HTML prototype (render real samples) + the kit's `/design-sync` gates
-  (`[FONT_MISSING]` must-resolve, the hollow-render gate `[RENDER]`/`[RENDER_BLANK]`/`[RENDER_THIN]`,
-  `package-validate.mjs` exit 0, the absolute Styled/Complete/Plausible grade) + the content audit + the
-  contract pass/fail — no pixel-diff VRT. Storybook-shape (only if the brand already ships Storybook +
-  Playwright) adds a pixel-match VRT oracle (Chromatic default; Percy / BackstopJS alternatives).
+  via the deterministic HTML prototype (render real samples) + the kit's own offline `npm run validate`
+  (`package-validate.mjs`, kit-shipped: dist/`.d.ts` present, ≥1 component exported, every referenced font
+  has a shipped `@font-face`, non-hollow token closure) + the `/design-sync` converter's server-side gates
+  (`[FONT_MISSING]` must-resolve, the hollow-render gate `[RENDER]`/`[RENDER_BLANK]`/`[RENDER_THIN]`, the
+  converter's own `package-validate.mjs` exit 0, the absolute Styled/Complete/Plausible grade) + the content
+  audit + the contract pass/fail — no pixel-diff VRT. Storybook-shape (only if the brand already ships
+  Storybook + Playwright) adds a pixel-match VRT oracle (Chromatic default; Percy / BackstopJS alternatives).
 - **Content audit** — rule-by-rule audit of all written + visual content (authored AND generated) against the
   `G-*`/`ALGO-*` GRAMMAR rules and ESSENCE/voice (anti-promise, lexicon, don'ts).
 - **Render real samples** — the Stage-8 HTML prototype is the evidence.

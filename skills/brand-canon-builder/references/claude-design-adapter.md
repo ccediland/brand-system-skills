@@ -21,8 +21,12 @@ conventions, runbook) the kit's `.design-sync/` consumes.
 A component kit (a projection of the canon) plus a `.design-sync/` control directory:
 
 - **`config.json`** — the machine adapter manifest (package name, global name, target project id, build
-  command, source dir, the generated CSS entry, extra fonts, the conventions header pointer, per-component
-  overrides). Template: `assets/templates/claude-design-adapter/config.json`.
+  command, source dir, the CSS entry, extra fonts, the conventions header pointer, and — only when a
+  component actually needs one — a per-component `overrides.<Name>` tweak). There is exactly **one** config
+  and it is the kit's own `.design-sync/config.json` (template:
+  `assets/templates/design-sync-kit/.design-sync/config.json`; schema authority:
+  `references/design-sync-kit.md`). This adapter directory ships no second config — a duplicate could
+  contradict the kit's, and the converter validates only the kit's.
 - **`conventions.md`** — the agent-facing header: the brand's GRAMMAR scoped to the kit (mood, scheme
   classes, the style-by-token-name idiom, where the truth lives, the hard brand rules, one idiomatic
   example). This is what keeps the design agent on-brand. Template: `…/conventions.md`.
@@ -42,9 +46,11 @@ kit.
 1. Default ON — emit it unless the owner explicitly opted out (then skip and note the opt-out in
    `projections.md`).
 2. Scaffold the buildable kit from `assets/templates/design-sync-kit/` (component source + one-command
-   build + `.design-sync/` control dir); copy these adapter templates into the kit's `.design-sync/`.
-3. Fill the `{{...}}` fields in `config.json` and `conventions.md` from the canon (tokens, schemes, mark
-   rules, voice). Derive every line — invent nothing.
+   build + `.design-sync/` control dir, which already carries the single `config.json`). These adapter
+   templates are the canon→kit brief (conventions + NOTES), not a second config — do not copy a config.json
+   here.
+3. Fill the `{{...}}` fields in the kit's `.design-sync/config.json` and `conventions.md` from the canon
+   (tokens, schemes, mark rules, voice). Derive every line — invent nothing.
 4. Register Claude Design as a consumer in `projections.md`.
 5. Build best-effort (`npm run build` → `dist/`) if a Node toolchain is present; otherwise the build runs at
    `/design-sync` time (`[NO_DIST]` is recoverable, never a hard-fail). The owner runs `/design-sync` from

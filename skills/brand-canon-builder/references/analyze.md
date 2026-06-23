@@ -70,7 +70,7 @@ language from the live consumers the scoper pointed at (sites, social flagged as
 Promote all of it abstracted to universal (stripped of stack/medium): feed GRAMMAR (rules) and ESSENCE
 (meaning), capture measurable atoms into the token spine. Where the lived expression diverges from the
 ratified WHY, log the divergence as a reconcile item — never silently overwrite the ratified WHY. Never
-fabricate: harvest only what the references actually show. (Method: `dev/v2-build-spec.md` §4.5.)
+fabricate: harvest only what the references actually show.
 
 ## 6. Fill, then gap
 

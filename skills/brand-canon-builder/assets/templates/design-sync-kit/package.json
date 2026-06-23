@@ -12,9 +12,10 @@
       "import": "./dist/index.es.js"
     }
   },
-  "files": ["dist", "styles.css"],
+  "files": ["dist", "styles.css", "build.mjs", "package-validate.mjs"],
   "scripts": {
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "validate": "node package-validate.mjs"
   },
   "peerDependencies": {
     "react": ">=18",

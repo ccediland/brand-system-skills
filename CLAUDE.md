@@ -31,6 +31,13 @@
   category names on the namespace convention; `source:"authored"|"derived"` on extension color spaces. See
   `skills/brand-canon-builder/references/token-spine.md`.
 - **Generative over catalog.** Never add a per-output section to a template; absorb the need as a rule.
+- **Install integrity (Theme 2).** A shipped file must point at zero unshipped paths — never cite `dev/`
+  (gitignored) from `skills/`; if a method lives only in `dev/`, harvest it into the shipped reference that owns
+  that stage. Client-emitted templates (`canon.json`, the kit, docs templates) must carry no tool-repo URL/org
+  (`brand-system-skills`/`ccediland`) — the Stage-11 client-clean grep depends on it. The `.design-sync` config
+  is single-sourced in the kit (`design-sync-kit/.design-sync/config.json`); the adapter references it, never a
+  duplicate. No gate (validate-audit.md) may name an artifact that isn't shipped or honestly attributed — the kit
+  ships a real offline `package-validate.mjs`.
 - **Mirror web-stack-skills' marketplace conventions** so the two interoperate (same manifest/skill layout).
 
 ## Provenance / build memory

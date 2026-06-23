@@ -1,13 +1,36 @@
 # /design-sync kit — the builder-side converter contract (Stage 8b)
 
 Read when running Stage 8. This is what the builder must emit so the brand repo is born `/design-sync`-ready
-by default (F-026). It is grounded in the live `/design-sync` skill pinned in `dev/v2-build-spec.md` §4.6
-(Claude Code v2.1.185 LIVE-PIN). Templates: `assets/templates/design-sync-kit/`.
+by default (F-026). It is grounded in the live `/design-sync` skill, captured here as a versioned pin (Claude
+Code v2.1.185 LIVE-PIN). Templates: `assets/templates/design-sync-kit/`.
 
 > Server-side / version-fluid caveat. The base `/design-sync` command *always fetches live instructions
 > via `get_claude_design_prompt`* rather than shipping a vendored copy — so the authoritative contract lives
 > server-side and shifts release-to-release. Re-pin the exact field/script/marker names against the live
-> skill before each major run (`dev/v2-build-spec.md` §4.6 step 0). Everything below is the v2.1.185 pin.
+> skill before each major run (procedure below). Everything below is the v2.1.185 pin.
+
+## Step 0 — Re-pin the live contract before freezing the emitter
+
+The contract below is a captured pin, not a vendored copy of the truth — the live skill is fetched
+server-side and grows release-to-release (this pin already absorbed `readmeHeader`, `@dsCard`-marker card
+indexing, and the `package-validate.mjs` converter script across releases). So **before generating or
+freezing the kit emitter on any major run, re-pin against the live skill**:
+
+1. **Update first.** Run `/update` so the Claude Code session carries the current bundled `/design-sync`
+   skill (the Piebald-mirror copy lags releases by minutes-to-days — read the live on-disk skill, not a
+   mirror).
+2. **Read the live skill.** Open the bundled `/design-sync package source shape` skill and re-pin the exact
+   names this kit depends on: the `.design-sync/config.json` top-level keys (a removed/renamed key fails the
+   run with no compat code), the converter script names (`package-build.mjs` / `package-validate.mjs` /
+   `package-capture.mjs` / `resync.mjs`), the `@dsCard` first-line marker, the upload-bundle file names, and
+   the converter error codes (`[NO_DIST]`, `[FONT_MISSING]`, `[RENDER]`, …).
+3. **Reconcile the pin.** Where a live name diverges from the pin below, update the kit templates + this
+   reference to the live name before emitting — never ship the emitter against a stale field/script name.
+   If a render-/error-code variant isn't confirmed live, fall back to the generic confirmed code (e.g.
+   `[RENDER]`) rather than invent one.
+
+This is the one piece that cannot be frozen into the kit: the rest of this reference is the captured pin to
+reconcile *against*.
 
 ## What `/design-sync` ingests (the load-bearing fact)
 
@@ -31,6 +54,12 @@ already ships Storybook + Playwright (gains a pixel-match oracle) — otherwise 
 1. **esbuild** bundles `src/index.ts` → `dist/index.es.js` (ESM, React/JSX externalised).
 2. **ts-morph** emits the `.d.ts` tree (the converter reads `<Name>.d.ts` as each component's API; without
    `@types/react`, React utility-type props collapse to `any` → `[DTS_REACT]`).
+
+`npm run validate` (`package-validate.mjs`) is the kit's OWN offline pre-flight gate, distinct from the live
+converter's server-side validate: it checks dist + `.d.ts` present, ≥1 component exported, every referenced
+font-family has a shipped `@font-face` (local `[FONT_MISSING]`), and `styles.css` carries a non-hollow token
+closure → exit 0/1. It needs no `/design-sync` round-trip, so the Stage-10 gate can run it offline before any
+upload (`validate-audit.md` §3a).
 
 ## `.design-sync/config.json` (emit ONLY live-valid keys)
 
@@ -79,7 +108,8 @@ never a silent fallback).
 1. Copy `assets/templates/design-sync-kit/` into the repo; fill `{{pkg}}`/`{{globalName}}`/components/tokens
    from the canon (invent nothing).
 2. Run the one-command build best-effort if a Node toolchain is present (else leave `[NO_DIST]` for the
-   `/design-sync`-time build — recoverable, documented).
+   `/design-sync`-time build — recoverable, documented); then `npm run validate` (the kit's offline gate)
+   to catch a hollow lib / `[FONT_MISSING]` / `[NO_DIST]` before any `/design-sync` upload.
 3. Author `previews/<Name>.tsx` for the scoped components; floor card the rest.
 4. Wire `conventions.md` via `readmeHeader`; ensure `styles.css` `@import`s `_ds_bundle.css` + closure.
 5. Register Claude Design as a consumer in `projections.md` (default ON — `claude-design-adapter.md`).
