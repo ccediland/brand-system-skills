@@ -8,9 +8,13 @@ themselves only via `var(--token-*)`; re-theme by swapping the canon and rebuild
 
 ```
 design-sync-kit/
-  package.json            one-command build → dist/index.es.js + .d.ts (deps: esbuild + ts-morph + @types/react)
+  package.json            `npm run build` → dist/index.es.js + .d.ts; `npm run validate` → the offline gate
   tsconfig.json           emits the .d.ts tree the converter reads as each component's API
   build.mjs               the build (esbuild bundle + ts-morph .d.ts) — best-effort, never a hard-fail
+  package-validate.mjs    the kit's OWN offline pre-flight gate (`npm run validate`): dist/.d.ts present,
+                          ≥1 component exported, every referenced font has a shipped @font-face, styles.css
+                          carries a non-hollow token closure → exit 0/1. Distinct from the converter's
+                          server-side validate; this one needs no /design-sync round-trip.
   src/index.ts            barrel: every PascalCase export = a discovered component
   src/components/*.tsx    component source (Mark, Button) — projections of the canon, token-only styling
   styles.css             the import closure: @import "./_ds_bundle.css" + token + @font-face closure
@@ -23,7 +27,7 @@ design-sync-kit/
     floor-card.html       honest floor card for unscoped components (also first-line @dsCard marker)
 ```
 
-## How it satisfies the live `/design-sync` contract (v2.1.185 LIVE-PIN, `dev/v2-build-spec.md` §4.6)
+## How it satisfies the live `/design-sync` contract (v2.1.185 LIVE-PIN; see `references/design-sync-kit.md`)
 
 - **Compiled `dist/`, not source.** `/design-sync` bundles the package's built `dist/index.es.js`; the
   build here is one command (`npm run build`). A missing dist is `[NO_DIST]` — recoverable by running

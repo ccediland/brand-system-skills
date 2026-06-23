@@ -3,6 +3,25 @@
 Read when running Stage 4. Acquire the brand's actual typefaces (never punt to a fallback stack), from
 whatever path the source offers, within a hard licensing boundary.
 
+## Read the declared `license:` first (the stated-license-read guard)
+
+Before deriving anything about a face's license, **read the owner-declared `license:` field the handoff
+carries per font** (WHAT per-font, parsed at Stage 0: a declared SPDX/license id, `owner-supplied`, or
+`unlicensed→GAP`). That declared state is the owner's truth — consume it; do not re-derive a license you
+were already told. This is the license-axis parity of the *stated-spec-read* guard below (read the declared
+truth first, corroborate second).
+
+Two INDEPENDENT axes govern a face — never collapse them into one:
+
+- **Axis 1 — WHICH license (the SPDX-id axis).** The declared `license:` *names* the license (an open SPDX
+  id like `OFL-1.1` / `Apache-2.0`, an `owner-supplied` attestation, or an explicit `unlicensed→GAP`). This
+  is a capability class — any valid SPDX id, never a closed `OFL | owner | GAP` floor.
+- **Axis 2 — the routing RULE (usable → self-host; absent → GAP).** Separately from *which* license it is:
+  **a face with no usable / redistributable license routes to a tracked fidelity GAP, blocking per the
+  font's role** (a core face missing blocks the Stage-10 gate; a non-core face logs and the repo stays
+  valid). The →GAP-on-absent routing is its own rule — it fires on the *absence/non-usability* of a license,
+  not on which SPDX id was named.
+
 ## Stated-spec-read for type (the naming authority)
 
 The brand's declared typeface NAME is the source of truth; font-table metadata only corroborates. Read the

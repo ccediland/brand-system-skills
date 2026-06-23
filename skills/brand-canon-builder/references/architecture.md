@@ -40,8 +40,9 @@ The four-layer canon is the source skeleton, never the deliverable on its own. T
 real, presentable prototype (real mark, real fonts, real imagery on real surfaces) plus the
 `/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is not
 done — reaching "done" without the real assets and prototype is the bug, not the gap-logging. This law
-governs the v2 builder pipeline (`dev/v2-build-spec.md`; the prototype/kit and fidelity gates land in later
-staged PRs); the do-not-regress invariants below hold underneath it.
+governs the builder pipeline — the prototype/kit emit at Stage 8 (`SKILL.md`; `references/design-sync-kit.md`)
+and the fidelity gate enforces it at Stage 10 (`references/validate-audit.md`); the do-not-regress
+invariants below hold underneath it.
 
 ## Stable IDs
 

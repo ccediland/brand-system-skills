@@ -1,6 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/ccediland/brand-system-skills/main/schema/canon.schema.json",
-  "$description": "Machine-readable mirror of ESSENCE + GRAMMAR (dual legibility). Measurable primitives are NOT here — they live in tokens.json. If this disagrees with the canon/*.md prose, that is a bug; reconcile to the layer that owns the truth (PRIMITIVES=values, ESSENCE=meaning, GRAMMAR=combination).",
+  "$description": "Machine-readable mirror of ESSENCE + GRAMMAR (dual legibility). Measurable primitives are NOT here — they live in tokens.json. If this disagrees with the canon/*.md prose, that is a bug; reconcile to the layer that owns the truth (PRIMITIVES=values, ESSENCE=meaning, GRAMMAR=combination). ($schema is intentionally omitted: this is the client's own canon, so it carries no external schema URL. If the brand wants validation, point $schema at a CLIENT-LOCAL relative file (e.g. \"./canon.schema.json\") — never a tool-repo URL.)",
   "version": "0.1.0",
   "updatedAt": "{{DATE}}",
   "ratifiedBy": "{{BRAND_OWNERS}}",

@@ -44,7 +44,9 @@ Fidelity evidence is the convergence of four sources — all already produced by
 1. **Render real samples** — the deterministic HTML prototype (`assets/templates/prototype/`, F-025 / §4.6a)
    is the evidence. Open it and confirm the real mark, real fonts, and real imagery render on the real
    surfaces (hero / card / control set / type spread / color blocks).
-2. **The kit's own `/design-sync` gates** (the kit ships them; live-pinned names, Claude Code v2.1.185):
+2. **The `/design-sync` converter gates** (the live `/design-sync` tool stages these server-side into
+   `.ds-sync/` and runs them on the uploaded bundle — they are converter/server-side, NOT kit-shipped;
+   live-pinned names, Claude Code v2.1.185):
    - **`[FONT_MISSING]`** — must-resolve: the one defect the render check can't self-detect (every design
      would silently render in a fallback face). A missing core face is a fidelity-blocking GAP, never a
      silent fallback.
@@ -52,8 +54,14 @@ Fidelity evidence is the convergence of four sources — all already produced by
      effectively blank), `[RENDER_THIN]` (mounted text is just the name / variants render identically): hollow
      previews are fixed within the validate iterations. (If a render-code variant isn't confirmed in the live
      skill at run time, use the generic confirmed code `[RENDER]` rather than invent one.)
-   - **`package-validate.mjs` exits 0.**
+   - the converter's **`package-validate.mjs` exits 0** (the server-side validate of the uploaded bundle).
    - the absolute Styled / Complete / Plausible grade per in-scope component.
+
+   Plus the kit's **own offline pre-flight gate** — `npm run validate` (`package-validate.mjs`, shipped in
+   `assets/templates/design-sync-kit/`): dist + `.d.ts` present, ≥1 component exported, every referenced
+   font-family has a shipped `@font-face` (a local `[FONT_MISSING]`), and `styles.css` carries a non-hollow
+   token closure → exit 0/1. This one is kit-shipped and runs with no `/design-sync` round-trip, so Stage 10
+   can run it offline before any upload.
 3. **The content audit** (§4).
 4. **The CORE-ASSET FIDELITY CONTRACT pass/fail** (§1).
 
@@ -98,8 +106,11 @@ ratified WHY is never silently kept.
 
 Confirmation is never self-certification:
 
-- The kit's `.review.html` (iframes every preview card, served locally) is the built-in human-review
-  surface — hand it to the owner.
+- The `/design-sync` converter generates a `.review.html` (iframes every preview card) and serves it
+  locally via its own `storybook/http-serve.mjs` — a converter/server-side surface produced at sync time,
+  not a kit-shipped file. Where no `/design-sync` round-trip has run, the kit-shipped deterministic HTML
+  prototype (`assets/templates/prototype/`, §3a item 1) is the offline human-review surface. Hand whichever
+  exists to the owner.
 - The builder assembles the audit + the rendered samples + the open ratification GAPs into the PR and
   stops. Sign-off is human PR review.
 - **Never auto-confirm; never auto-stamp "Ratified by…"** The default state is unratified-pending.
@@ -156,8 +167,9 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
 ## Gate summary
 
 The build is done only when: every core asset is present + build-grade (§1); `[FONT_MISSING]` is
-resolved for core faces; the hollow-render gate is clean and `package-validate.mjs` exits 0 (package-shape) or
-the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
+resolved for core faces; the hollow-render gate is clean and `package-validate.mjs` exits 0 — the kit's
+offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip
+has run (package-shape) — or the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
 rule/voice violations; the three retained checks pass; **every reproduced treatment passes the §7a visual-diff
 (or degrades / logs a GAP); the keystone is present, six-section, guardrail-in-tail, within budget — and, in a
 regulated posture, carries human red-team sign-off (§7b)**; and the evidence + open ratification GAPs are
