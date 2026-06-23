@@ -1,4 +1,4 @@
-# Client-clean / scrub (Stage 11) — F-013 · F-014 · F-015
+# Client-clean / scrub (Stage 11)
 
 Read when running Stage 11, the last pipeline stage and a BLOCKING gate: the build is not "done"
 until the client repo is clean of all build apparatus. The deliverable is the brand's own canon — it must
@@ -8,7 +8,7 @@ read as if the brand authored it, carrying no trace of the tool, the method, or 
 > docs (we keep our attribution); the source templates are kept brand- and tool-neutral so they don't *seed*
 > bleed in the first place.
 
-## 1. Tool self-attribution (F-015)
+## 1. Tool self-attribution
 
 The client `README.md` / `RESIDENT.md` / `CLAUDE.md` and any other doc must not credit the build tool or
 skill. Strip every:
@@ -21,7 +21,7 @@ Grep the client tree for `brand-system-skills`, the skill names, and the tool re
 hits before "done". (The source templates are kept neutral so this is a runtime backstop, not a routine
 fix.)
 
-## 2. Reference-brand bleed (F-013) — a RUNTIME catch
+## 2. Reference-brand bleed — a RUNTIME catch
 
 The templates are brand-blind, so bleed is never *in* the templates — it is whatever the build imported
 from a method / reference / example brand instead of the client's own material. Audit the generated client
@@ -45,7 +45,7 @@ The client deliverable must read as finished:
   template chatter that addresses the builder rather than the brand owner. They are scaffolding, not content.
 - Remove dead template sections that were never filled and are not tracked as a GAP.
 
-## 4. Ratification (F-014) — never auto-stamp
+## 4. Ratification — never auto-stamp
 
 Ratification is a record of a real human decision, never a side effect of a build:
 

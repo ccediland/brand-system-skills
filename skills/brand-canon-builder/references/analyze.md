@@ -57,7 +57,7 @@ re-deriving them.
 
 ## Applied-design harvest
 
-v1 harvested *facts* from the consumers but ignored their *applied design* (F-021). Harvest the lived design
+v1 harvested *facts* from the consumers but ignored their *applied design*. Harvest the lived design
 language from the live consumers the scoper pointed at (sites, social flagged as bidirectional design-intent):
 
 - **Layout & composition** — recurring grid/margin/template structure, spacing rhythm (observe, then promote

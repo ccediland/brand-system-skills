@@ -26,7 +26,7 @@ domains: [brand-system, tooling]
   into an engine that analyzes existing published brand work across mediums → extracts the real assets →
   produces a real prototype + a Design-syncable component library by default.** The canon is the skeleton,
   never the deliverable. See `## v2`.
-- **v3 (skills built; validation next):** a fresh adversarial stress test (a third, independently-authored brand) exposed failure classes v2's gates miss — all reducing to lost epistemic status. v3's **rectoral constraint is anti-determinism**; its **north star** is a single attachable file an AI can *think / speak / design as* the brand; its **spine** is provenance on every datum. **Phases 1–4 shipped to `main`** (handoff contract · scoper v3 · builder v3 — capture/spine, reproduction+tokens, keystone+fidelity-gate); Phase 5 (validation + live red-team + release) next. Plan in `v3-execution-plan.md`. See `## v3`.
+- **v3 (skills built; validation next):** a fresh adversarial stress test (a third, independently-authored brand) exposed failure classes v2's gates miss — all reducing to lost epistemic status. v3's **rectoral constraint is anti-determinism**; its **north star** is a single attachable file an AI can *think / speak / design as* the brand; its **spine** is provenance on every datum. **Phases 1–4 shipped to `main`** (handoff contract · scoper v3 · builder v3 — capture/spine, reproduction+tokens, keystone+fidelity-gate); the transversal-audit remediation is shipped through Theme 6 (#20–#24) so the repo carries **zero BLOCKER** (sole open MAJOR: F10, Theme-7 client instrument); Phase 5 (validation + live red-team + release) next. Plan in `v3-execution-plan.md`. See `## v3`.
 
 ## Architecture & why
 - **Four-question canon.** Every design truth answers *where-start / why / what / how*; each owned by one
@@ -107,6 +107,10 @@ domains: [brand-system, tooling]
 | **v3 confidence ladder byte-identical at every hop** — `hypothesis \| corroborated \| owner-confirmed`, no fourth value/synonym anywhere; the keystone's invented `confirmed` replaced with `owner-confirmed` and `corroborated` represented; the keystone REFERENCE asset line READS token-derived confidence from `$extensions.brand.provenance` (or canon.json / RESIDENT GAP ledger), never recalled from emitter memory | vocabulary drift between hops let a datum change status silently | 2026-06-23 |
 | **v3 Theme-4 keystone gate audits OPERABILITY** — §7b adds a CONTENT check (THINK + DESIGN-as each ≥1 when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no core section a bare adjective list) testing FORM-OF-RULE only, never fixed brand content; `not-used(owner-declared)` dimensions resolve clean; DESIGN-as sources named (token spine + GRAMMAR G-*/ALGO-* + PRIMITIVES intent + ESSENCE meaning), not an unnamed "design rationale" | a structurally-perfect but operationally-hollow keystone (adjectives dressed as rules) passed the shape-only gate | 2026-06-23 |
 | **v3 Theme-4 fidelity gates leave persisted evidence** — §7a commits the source + reproduction + recorded verdict to `audit/fidelity/<treatment-id>/` (absence = FAIL); §7b emits + commits the red-team battery + expected-refusal contract to `audit/redteam/` even when non-blocking (empty/un-run = FAIL); the LIVE red-team run is Phase-5-deferred but its deferral does NOT void the now-gated artifacts | both new v3 gates reduced to "a human said OK" with no committed trace | 2026-06-23 |
+| **v3 Theme-5 coverage = illustrative floor, not a closed universe (F16)** — the n=2 must-have table is a PROMPT for the universality stress test (the real completeness gate); each row is `expected-unless-not-used(owner-declared)` so a legitimately-absent dimension (monogram-only / single-ink / sonic-primary) resolves CLEAN; mirrored in `architecture.md` Adaptivity | a frozen n=2 intersection-as-floor is the determinism failure in textbook form — a valid brand violated the enumerated minima | 2026-06-23 |
+| **v3 Theme-6 public surface honest + current (F20/F23/F24/F50)** — both manifests carry the mandatory keystone deliverable, drop the retired "greenfield/brownfield" vocabulary for ANALYZE/CREATE framing, and bump to v0.3.0 in lockstep (pre-1.0 minor, Phase-5 pending); README notes the `/design-sync` contract is server-side/version-fluid | the pre-install promise omitted the north-star keystone, marketed retired vocabulary, and pinned 0.2.0 across a shipped v3 major | 2026-06-23 |
+| **v3 Theme-6 build-tracking tokens stripped from shipped prose (F21/F22)** — internal IDs (PR-B*, F-0NN, D-B*, OI-*, GATE-2, Dn) + stale "forward-pointer"/"later-staged-PR" language scrubbed from all shipped references + emitted templates; Stage numbers + human-readable rules kept; a real cross-skill contract is named (CORE-ASSET FIDELITY CONTRACT), never an ID | tokens resolving to nothing in the bundle leaked into AI-facing prose, and "No forward-pointers remain" contradicted references still calling shipped gates forward-pointers | 2026-06-23 |
+| **v3 execution plan resynced to Phase 5 (F26/F56)** — `v3-execution-plan.md` moved from a frozen end-of-Phase-1 state to `current_phase: 5 of 5`; design+build marked DONE, residual surface is Code (the run) + Chat (judgment); RESIDENT and the plan now agree on phase + shipped state | a plan frozen at "Phase 2, build at zero percent" would have a fresh session re-do completed phases | 2026-06-23 |
 
 ## Open Items
 | ID | Item | Severity | Status |
@@ -118,7 +122,7 @@ domains: [brand-system, tooling]
 | OI-F | Second v3 validation brand not chosen — must be differently-shaped (no brandbook, light-only palette, incomplete material) to test generality. | MAJOR | OPEN (Phase 5) |
 | OI-G | Graceful-degradation path for the scoper's living-questions doc when the chat env lacks a connector/filesystem. | NICE | RESOLVED (#13 scoper v3 — Stage 6: commit-where-possible, else a downloadable artifact) |
 | OI-H | Resolver-based theming for OKLCH scheme derivation rides on the v2 SD-v5 / DTCG-2025.10 pin (issue #1590) → may need a custom-transformer/Terrazzo fallback. | NICE | OPEN |
-| OI-I | v3 transversal-audit remaining remediation (Themes 5–7; full backlog in `v3-audit—2026-06-22.md`): de-crystallize the n=2 coverage table F16 · manifests/version + docs sync F20/F23/F24/F26 · client surface F10/F38 · coverage-gap pass (research-foundation + client-doc/satellite templates). (Theme 1 F1/F3-F9/F11/F28/F29/F49 closed by #20; Theme 2 F2/F12/F13/F25 closed; Theme 3/4 F14/F15/F17/F18/F19/F37 closed by this PR.) | MAJOR | OPEN (before Phase 5) |
+| OI-I | v3 transversal-audit remaining remediation (full backlog in `v3-audit—2026-06-22.md`): **Theme 7 client surface** — F10 (instantiate the scoper's external client instrument with a worked Spanish example) · F38 (non-visual fidelity rubric) · F32 (token-namespace reconciliation) — plus the **coverage-gap audit pass** (research-foundation + client-doc/satellite templates). Closed: Theme 1 F1/F3-F9/F11/F28/F29/F49 (#20); Theme 2 F2/F12/F13/F25 (#21); Theme 3/4 F14/F15/F17/F18/F19/F37 (#23); Theme 5 F16 + Theme 6 F20/F21/F22/F23/F24/F26 + F50/F56 (#24). Repo now ZERO BLOCKER; F10 (MAJOR) is the sole open MAJOR, F32/F38 are MINOR. | MAJOR | OPEN (before Phase 5) |
 
 (OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
 
@@ -160,9 +164,12 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   (honesty about known-vs-assumed) + faithful-capture craft (actually reproducing what is seen).
 - **Status.** The v3 skills are BUILT (Phases 1–4 shipped to `main`, #12–#17). A full transversal SYSTEM/PRODUCT
   audit then ran — report `v3-audit—2026-06-22.md` (root); verdict **QUALIFIED NO** (conceptually sound, but the
-  seam wasn't a single sufficient interface + dangling pointers/stale metadata; 5 BLOCKER · 27 MAJOR). **Theme 1
-  (handoff seam, #20), Theme 2 (install integrity), and Theme 3/4 (provenance spine + keystone operability) are now fixed.** Remaining audit themes 5–7 are tracked in OI-I, to clear before Phase 5
-  (validation on a 2nd differently-shaped brand · live red-team · visual-diff audit · release). Plan in
+  seam wasn't a single sufficient interface + dangling pointers/stale metadata; 4 BLOCKER · 22 MAJOR · 24 MINOR ·
+  6 NIT). The remediation is now SHIPPED: Theme 1 handoff seam (#20), Theme 2 install integrity (#21), Theme 3/4
+  provenance spine + keystone operability (#23), and Theme 6 public surface + docs sync + the pulled-forward
+  Theme-5 F16 (#24) — **the repo now carries ZERO BLOCKER.** One MAJOR remains (F10 — the scoper's external
+  client instrument, Theme 7) plus MINORs (F32/F38) + a coverage-gap audit pass, all tracked in OI-I, before
+  Phase 5 (validation on a 2nd differently-shaped brand · live red-team · visual-diff audit · release). Plan in
   `v3-execution-plan.md`.
 
 ## Dead-ends — do not retry
@@ -195,13 +202,20 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   determinism/tunnel-vision recurs at every phase. Do not retry — anti-determinism is rectoral.
 
 ## Change log
-- 2026-06-23 — **Theme 3/4 provenance spine + keystone operability (#22).** Provenance into the token spine (`$extensions.brand.provenance` on every token; `authored\|derived` orthogonal to the confidence ladder); keystone confidence vocab made byte-identical (`confirmed`→`owner-confirmed`, ladder shown); §7b gains a FORM-OF-RULE content check (operability, not shape) + DESIGN-as sources named; §7a/§7b leave persisted evidence (`audit/fidelity/` + `audit/redteam/`, absence = FAIL; live run = Phase 5). F14/F15/F17/F18/F19/F37 closed.
+- 2026-06-23 — **Theme 6 public surface + docs sync + the pulled-forward Theme-5 F16 (#24).** Both manifests
+  carry the mandatory keystone deliverable + ANALYZE/CREATE framing + v0.3.0 (dropped "greenfield/brownfield");
+  README states the `/design-sync` contract is server-side/version-fluid; the coverage table reframed to an
+  illustrative floor with the universality stress test primary (rows `expected-unless-not-used`); build-tracking
+  tokens (PR-B*/F-0NN/D-B*/OI-*/GATE-2/Dn) + stale forward-pointer language stripped from shipped references +
+  emitted templates; `v3-execution-plan.md` resynced to Phase 5. **Repo now carries ZERO BLOCKER**; F10 (Theme-7
+  scoper client instrument) is the sole open MAJOR. F16/F20/F21/F22/F23/F24/F26 + F50/F56 closed.
+- 2026-06-23 — **Theme 3/4 provenance spine + keystone operability (#23).** Provenance into the token spine (`$extensions.brand.provenance` on every token; `authored\|derived` orthogonal to the confidence ladder); keystone confidence vocab made byte-identical (`confirmed`→`owner-confirmed`, ladder shown); §7b gains a FORM-OF-RULE content check (operability, not shape) + DESIGN-as sources named; §7a/§7b leave persisted evidence (`audit/fidelity/` + `audit/redteam/`, absence = FAIL; live run = Phase 5). F14/F15/F17/F18/F19/F37 closed.
 - 2026-06-23 — **Theme 2 install integrity (#21).** Killed the `dev/v2-build-spec.md` dangle (12 cites
   repointed/dropped; Stage-8 re-pin reconstructed into `design-sync-kit.md`); `.design-sync` config
   single-sourced; `canon.json` `$schema` neutralized; real offline `package-validate.mjs` shipped; license
   →GAP rule confirmed distinct from the SPDX axis. F2/F12/F13/F25 closed.
 - 2026-06-22 — **Theme 1 seam fix (#20)** after the transversal audit (`v3-audit—2026-06-22.md`; QUALIFIED NO,
-  5 BLOCKER · 27 MAJOR). The handoff is made the single sufficient interface (two-track manifest · voice/value +
+  4 BLOCKER · 22 MAJOR · 24 MINOR · 6 NIT). The handoff is made the single sufficient interface (two-track manifest · voice/value +
   geometry/license carriers · 3 orphaned blocks wired into Stage 0 with a live DIMENSION-MAP STOP · SPDX license).
   F1/F3-F9/F11/F28/F29/F49 closed.
 - 2026-06-22 — **v3 Phases 1–4 shipped (skills BUILT).** Phase 1 ratified; handoff contract (#12) · scoper v3

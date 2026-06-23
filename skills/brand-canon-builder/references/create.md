@@ -12,7 +12,7 @@ fill a slot, and never re-elicit or re-infer the WHY — a GAP in the handoff st
 
 Copy the full template set into the brand repo before authoring anything. The skeleton — every layer, every
 slot, the token spine, the satellites, the docs — exists from minute one. This is what makes the repo valid
-even when empty. (Stage 1 also creates `assets/` and `sources/`, per the D2 convention — even in CREATE,
+even when empty. (Stage 1 also creates `assets/` and `sources/`, per the `assets/`+`sources/` convention — even in CREATE,
 any owner-supplied logo/font lands there.)
 
 ## 2. Consume the handoff in the order of the four questions

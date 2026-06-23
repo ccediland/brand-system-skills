@@ -1,4 +1,4 @@
-// One-command build for the F-026 package-shape kit.
+// One-command build for the package-shape kit.
 // Emits dist/index.es.js (esbuild) + the .d.ts tree (ts-morph), the two things /design-sync ingests.
 //
 // BEST-EFFORT, NEVER A HARD-FAIL of the canon build: if a toolchain dep is missing, this exits non-zero

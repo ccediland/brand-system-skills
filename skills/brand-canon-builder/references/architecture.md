@@ -34,15 +34,20 @@ nothing may be organized around an output.
    exist: a GOAL, PENDING TASKS/DECISIONS (each missing must-have = a logged GAP), and SKELETONS (every
    canon part has an empty, structured slot). Set everything first; project once set.
 
-## Canon = skeleton; prototype + library = deliverable (v2 law, §5.2)
+## Canon = skeleton; prototype + library + keystone = deliverable (v2/v3 law)
 
 The four-layer canon is the source skeleton, never the deliverable on its own. The deliverable is the
-real, presentable prototype (real mark, real fonts, real imagery on real surfaces) plus the
-`/design-sync`-ready component library projected from it. Rule-compliance of an asset-less skeleton is not
+real, presentable prototype (real mark, real fonts, real imagery on real surfaces), the
+`/design-sync`-ready component library projected from it, and (v3) the mandatory keystone `.md` an AI can
+think / speak / design *as* the brand. Rule-compliance of an asset-less skeleton is not
 done — reaching "done" without the real assets and prototype is the bug, not the gap-logging. This law
-governs the builder pipeline — the prototype/kit emit at Stage 8 (`SKILL.md`; `references/design-sync-kit.md`)
-and the fidelity gate enforces it at Stage 10 (`references/validate-audit.md`); the do-not-regress
-invariants below hold underneath it.
+governs the builder pipeline — the prototype/kit emit at Stage 8 and the keystone at Stage 8.5 (`SKILL.md`;
+`references/design-sync-kit.md`; `references/keystone-emit.md`) and the fidelity gate enforces it at Stage 10
+(`references/validate-audit.md`) — including the §7b keystone **operability** content-check (the keystone
+carries real when-X-then-Z rules and on/off pairs, form-of-rule only, never bare adjectives). Each landed
+value, and every emitted token, carries its provenance spine — per-token `$extensions.brand.provenance`
+{source, confidence, owner, freshness} (`references/token-spine.md`) — so a datum is never used above the
+confidence it earned. The do-not-regress invariants below hold underneath it.
 
 ## Stable IDs
 
@@ -54,8 +59,12 @@ never shifts.
 ## Adaptivity (the baseplate, not a fixed shape)
 
 The templates are a Lego baseplate. Each subsection is a slot the brand either fills to full depth or marks
-"not used" — the slot stays either way, and an empty must-have slot becomes a GAP. Optional dimensions
+`not-used(owner-declared)` — the slot stays either way; an empty slot a brand *actually uses* becomes a GAP,
+an owner-declared not-used one resolves clean. Optional dimensions
 (motion, depth/elevation, multi-scheme, interaction, the Claude Design add-on) appear as slots that a
-print-only brand simply marks unused. Universal coverage (essence, glossary, color, type, the mark system,
-clear-space, min sizes, construction, misuse, usage-over-imagery, voice) is expected in every brand because
-both independent reference canons carry it.
+print-only brand simply marks unused. The coverage floor (essence, glossary, color, type, the mark system,
+clear-space, min sizes, construction, misuse, usage-over-imagery, voice) is an ILLUSTRATIVE floor derived by
+intersecting the two reference canons — *expected-unless-not-used(owner-declared)*, not a closed must-have
+set every brand must carry. A brand that legitimately lacks a dimension marks the slot
+`not-used(owner-declared)` and resolves clean; the universality stress test, not the list, is the real
+completeness gate (`references/coverage-checklist.md`).

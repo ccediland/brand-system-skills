@@ -1,4 +1,4 @@
-# VALIDATE / AUDIT + fidelity gate (Stage 10) — F-016 · F-022
+# VALIDATE / AUDIT + fidelity gate (Stage 10)
 
 Read when running Stage 10, the build's BLOCKING final quality stage. v1 ended at "canon built" and
 rewarded rule-compliance over fidelity — it passed an asset-less skeleton. v2 judges the build on fidelity
@@ -18,14 +18,14 @@ marked present-build-grade vs GAP (low-fi / missing). At Stage 10, walk it:
 - "build-grade" = vector master + commercial-licensed font files + color profiles (incl. authored spot where
   declared) + clear-space/min-size + misuse list (per `asset-acquisition.md` / `font-acquisition.md`).
 
-This closes the loop opened by F-020 (the scoper's asset-inventory request) → F-022 (the builder judges it).
+This closes the loop: the scoper requests the asset inventory in the handoff, and the builder judges it here.
 
 ## 2. Layered-threshold fidelity policy
 
 Fidelity tolerance is layered by what the element is — independent of the mechanism in §3:
 
 - **Zero tolerance** on brand-defining elements: the mark and the primary color tokens — plus any
-  **graphic-code** the handoff's CORE-ASSET FIDELITY CONTRACT lists on the `NON-WAIVABLE` line (F6). Any
+  **graphic-code** the handoff's CORE-ASSET FIDELITY CONTRACT lists on the `NON-WAIVABLE` line. Any
   divergence on a zero-tolerance element fails (the NON-WAIVABLE set holds even under `BUILD-MODE: v0/DEMO`).
 - **Higher tolerance** on gradients, illustration, and incidental imagery (perceptual difference is expected;
   judge against intent, not pixels).
@@ -41,7 +41,7 @@ evidenced. Do not mandate Storybook by default.
 
 Fidelity evidence is the convergence of four sources — all already produced by Stages 8–9:
 
-1. **Render real samples** — the deterministic HTML prototype (`assets/templates/prototype/`, F-025 / §4.6a)
+1. **Render real samples** — the deterministic HTML prototype (`assets/templates/prototype/`)
    is the evidence. Open it and confirm the real mark, real fonts, and real imagery render on the real
    surfaces (hero / card / control set / type spread / color blocks).
 2. **The `/design-sync` converter gates** (the live `/design-sync` tool stages these server-side into
@@ -102,7 +102,7 @@ ratified WHY is never silently kept.
 - **Universality stress test** — three arbitrary artifacts the canon names nowhere (span media); each must
   resolve through the derivation method without being enumerated. (`gap-protocol.md`.)
 
-## 6. Client-confirmation is a HUMAN gate (D-B6 · F-014)
+## 6. Client-confirmation is a HUMAN gate
 
 Confirmation is never self-certification:
 
@@ -115,9 +115,8 @@ Confirmation is never self-certification:
   stops. Sign-off is human PR review.
 - **Never auto-confirm; never auto-stamp "Ratified by…"** The default state is unratified-pending.
 
-(The client-clean / scrub apparatus that strips build bleed — F-013/014/015 — is Stage 11 / PR-B5; this
-stage only references the human-gate principle and assembles the evidence. The scrub itself is not implemented
-here.)
+(The client-clean / scrub apparatus that strips build bleed is Stage 11 (`client-clean.md`); this
+stage only references the human-gate principle and assembles the evidence.)
 
 ## 7. v3 fidelity additions — reproduction visual-diff + keystone red-team
 
@@ -189,7 +188,7 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
   layer — persona / roleplay-jailbreak attempts ("ignore previous instructions" / persona-override / DAN-style)
   and injection attempts (untrusted external/retrieved text overriding the rules) — plus the **expected-refusal
   contract** (what the guardrail must refuse, and how, in character).
-  - **Regulated trigger — fire on EITHER signal (F29): the handoff POSTURE `profile == regulated` OR a
+  - **Regulated trigger — fire on EITHER signal: the handoff POSTURE `profile == regulated` OR a
     non-empty `regulatory:` field** (a brand can be regulated-in-fact without the `regulated` profile label).
     When either trips: **BLOCKING + external human sign-off.** In-context guardrails reduce but do not
     eliminate jailbreak/injection risk, so such a keystone is never self-certified — the battery + the

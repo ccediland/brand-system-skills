@@ -1,7 +1,7 @@
 # /design-sync kit — the builder-side converter contract (Stage 8b)
 
 Read when running Stage 8. This is what the builder must emit so the brand repo is born `/design-sync`-ready
-by default (F-026). It is grounded in the live `/design-sync` skill, captured here as a versioned pin (Claude
+by default. It is grounded in the live `/design-sync` skill, captured here as a versioned pin (Claude
 Code v2.1.185 LIVE-PIN). Templates: `assets/templates/design-sync-kit/`.
 
 > Server-side / version-fluid caveat. The base `/design-sync` command *always fetches live instructions
@@ -38,10 +38,10 @@ reconcile *against*.
 So "born `/design-sync`-ready" means scaffolding component source + a one-command build that emits
 `dist/index.es.js` + a `.d.ts` tree, not a source-only handoff. The build is best-effort, never a
 hard-fail: a missing `dist/` is `[NO_DIST]`, recoverable by running the build. The deterministic fidelity
-artifact is the HTML prototype (`references` for F-025; `assets/templates/prototype/`), which depends on
+artifact is the HTML prototype (`assets/templates/prototype/`), which depends on
 no toolchain — the kit dist is one command away from it.
 
-## Package-shape (the default, D-B8)
+## Package-shape (the default)
 
 No Storybook. Deps are just `esbuild` + `ts-morph` + `@types/react`. The component list comes from the
 shipped `.d.ts` exports; unscoped components get an honest floor card ("preview not yet authored" — not a
@@ -114,5 +114,5 @@ never a silent fallback).
 4. Wire `conventions.md` via `readmeHeader`; ensure `styles.css` `@import`s `_ds_bundle.css` + closure.
 5. Register Claude Design as a consumer in `projections.md` (default ON — `claude-design-adapter.md`).
 
-The fidelity gate (Stage 10, PR-B4) and client-clean scrub (Stage 11, PR-B5) consume this kit's gates; they
-are forward-pointers from this PR.
+The fidelity gate (Stage 10, `validate-audit.md`) and client-clean scrub (Stage 11, `client-clean.md`)
+consume this kit's gates.

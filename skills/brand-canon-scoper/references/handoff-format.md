@@ -126,7 +126,7 @@ one, v3 wins.
   the fidelity contract). FULL is the normal mode.
 - **The DIMENSION MAP is exhaustive and the scoper owns its completeness.** Every dimension resolves to
   `filled` / `not-used(owner-declared)` / `tagged-gap` — including `applied-expression/social`, which must
-  resolve to `filled(media-attached)` / `not-used` / `tagged-gap` explicitly (F42). A builder that receives a
+  resolve to `filled(media-attached)` / `not-used` / `tagged-gap` explicitly. A builder that receives a
   *present-but-unresolved* dimension STOPS and reports — this is the live anti-determinism mechanism, not
   decoration. But the builder can only stop on a dimension that is *present*: an un-enumerated dimension is the
   SCOPER's defect (a `handoff-defect` GAP), never a silent pass — completeness is the scoper's accountability.

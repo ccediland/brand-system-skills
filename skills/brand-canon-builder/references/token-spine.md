@@ -10,7 +10,7 @@ syntax, `$value`/`$type`/`$description`, atomic + composite types, aliases via `
 color with `colorSpace` (incl. `oklch`), and **resolvers** (sets + modifiers + `resolutionOrder`) as the
 standard theming mechanism. Files use `.tokens.json`; media type `application/design-tokens+json`.
 
-**Tooling-lag caveat (binding — ties RESIDENT OI-H).** Full 2025.10 + resolver support is still landing in
+**Tooling-lag caveat (binding).** Full 2025.10 + resolver support is still landing in
 Style Dictionary v5 (issue #1590), and SD's object/structured color trips a known split bug. Until that
 lands, author the **operative `$value` as an OKLCH literal string** (below) — which SD v4/v5 consume — and
 treat 2025.10 structured-color and resolver theming as the target with a documented fallback

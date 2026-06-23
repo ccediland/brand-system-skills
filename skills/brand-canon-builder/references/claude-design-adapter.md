@@ -5,7 +5,7 @@ UI from real React. Out of the box it uses generic components. This add-on makes
 the brand's own components, so every design it produces is on-brand and maps 1:1 onto shippable code. It
 is one more consumer of the canon, brand-agnostic except inside the adapter itself.
 
-## Default ON (v2 / F-026)
+## Default ON
 
 `OPTIONAL.Claude Design = YES` by default — the repo is born `/design-sync`-ready, and the compiled
 component library is a default build output, not a deferrable gap. The old "Claude Design adapter? no"
