@@ -40,8 +40,10 @@ extract → prototype + Design-syncable library engine (the v2 pipeline is compl
 full work-log, the v2 specs (`v2-build-spec.md`, `v2-intake-spec.md`), and the granular backlog
 (`v2-backlog.md`, F-001…F-026) live in the **gitignored `dev/`** directory — local provenance, not shipped.
 
-## v3 (in progress) — see `v3-execution-plan.md`
-v3 builds on the shipped v2 skills (does not restart them). Rectoral rule for ALL v3 work: **anti-determinism** —
+## v3 (skills built; Phase 5 validation next) — see `v3-execution-plan.md`
+v3 extends the shipped v2 skills (does not restart them); **Phases 1–4 are merged to `main`** — the scoper and
+builder are rewritten to v3 (handoff contract · provenance spine · capture · reproduction router · DTCG 2025.10 /
+OKLCH engine · the mandatory keystone · the v3 fidelity gate). Rectoral rule for ALL v3 work: **anti-determinism** —
 build and research the general capability class, never a single-brand instance; the brand is illustration only.
 The rules below are guardrails/gotchas; the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/boundaries/sources in `v3-research-foundation.md`, and
 `RESIDENT.md ## v3`.
@@ -63,11 +65,17 @@ The rules below are guardrails/gotchas; the staged plan lives in `v3-execution-p
   organic/glitch · `feDiffuse`+`feSpecularLighting` 3D/gloss/emboss · `feGaussianBlur` glass · `feColorMatrix`
   grading) / generative lib (rough.js) / vector-trace / raster-required. Validate by visual diff. `feTurbulence`
   is CPU-heavy → constrain or rasterize; photography + bespoke illustration are raster-required.
-- **Keystone `.md` (mandatory v3 output).** A single attachable think/speak/design + guardrail file; keep it
-  within a Claude Project's resident context (RAG trip-point unpublished → budget the size; data first,
-  instructions last for recall).
-- **Tokens/scheme.** Keep the v2 DTCG/OKLCH spine; OKLCH is the general scheme-derivation engine (light/dark,
-  high-contrast, sub-brand). SD v5 / DTCG 2025.10 already pinned (issue #1590 — `color/oklch`, never `color/css`).
+- **Keystone `.md` (mandatory v3 output, Stage 8.5).** A single attachable think/speak/design + guardrail file
+  (6-section schema in `references/keystone-emit.md`); keep it within a Claude Project's resident context (RAG
+  trip-point unpublished → size is a parameter, calibrated in Phase 5; data first, instructions last for recall).
+- **Fidelity gate v3 (Stage 10, `references/validate-audit.md` §7).** Reproduction visual-diff vs the source
+  (perceptual overlay, no pixel-VRT, no Storybook); keystone gate (present · 6-section · guardrail-in-tail ·
+  within budget); guardrail red-team posture-gated — regulated postures BLOCK + need human sign-off, the live
+  adversarial run is Phase 5.
+- **Tokens/scheme.** DTCG **2025.10** is the format target, but `$value` stays an OKLCH literal string —
+  structured-color objects + resolver theming are deferred (SD v5 lag, issue #1590 / OI-H) so `main` stays
+  buildable (Lego). OKLCH is the general scheme-derivation engine (light/dark, high-contrast, sub-brand); emit
+  `oklch()` via `color/oklch`, never `color/css`.
 
 ## Flujo (Carlos)
 Work on a `claude/<name>` branch, never main; PR + wait for OK before merge. Respond to Carlos in es-MX

@@ -26,7 +26,7 @@ domains: [brand-system, tooling]
   into an engine that analyzes existing published brand work across mediums → extracts the real assets →
   produces a real prototype + a Design-syncable component library by default.** The canon is the skeleton,
   never the deliverable. See `## v2`.
-- **v3 (scoping):** v2's engine shipped and works, but a fresh adversarial stress test (a third, independently-authored brand of a different shape) exposed deeper failure classes v2's gates miss — all reducing to the system losing track of its data's epistemic status. v3's **rectoral constraint is anti-determinism**; its **north star** is a single attachable file an AI can *think / speak / design as* the brand; its **spine** is provenance on every datum. Detailed plan in `v3-execution-plan.md` (repo root). See `## v3`.
+- **v3 (skills built; validation next):** a fresh adversarial stress test (a third, independently-authored brand) exposed failure classes v2's gates miss — all reducing to lost epistemic status. v3's **rectoral constraint is anti-determinism**; its **north star** is a single attachable file an AI can *think / speak / design as* the brand; its **spine** is provenance on every datum. **Phases 1–4 shipped to `main`** (handoff contract · scoper v3 · builder v3 — capture/spine, reproduction+tokens, keystone+fidelity-gate); Phase 5 (validation + live red-team + release) next. Plan in `v3-execution-plan.md`. See `## v3`.
 
 ## Architecture & why
 - **Four-question canon.** Every design truth answers *where-start / why / what / how*; each owned by one
@@ -98,7 +98,9 @@ domains: [brand-system, tooling]
 | **v3 scheme derivation:** OKLCH as one general engine (light/dark, high-contrast, sub-brand as cases) on the v2 OKLCH spine | one transformation space covers every scheme; keeps the v2 spine | 2026-06-22 |
 | **v3 keystone schema = 6 sections** (front-matter · THINK-as · SPEAK-as · DESIGN-as · GUARDRAIL · REFERENCE); think/speak/design + guardrail layer | ratified Phase 1 output; the north-star deliverable's structure, brand-agnostic | 2026-06-22 |
 | **v3 keystone recall-ordering** — data first, active instructions last; guardrails never buried mid-doc; behavior layer (§5) doubles as Project instructions, reference (§6) as knowledge | long-context position effects; load-bearing guardrails must stay high-recall | 2026-06-22 |
-| **v3 keystone size-budget = parameter, not a hardcoded number** — conservative default (keep the keystone comfortably within resident context, fully in-context not chunked); measured figure delegated to empirical calibration in Phase 4 (ties OI-E). If the file exceeds the resident window, REFERENCE (§6) splits to retrievable knowledge; only GUARDRAIL (§5) + DESIGN-reasoning (§4) stay in-context | RAG trip-point unpublished by Anthropic; schema must not fake a number | 2026-06-22 |
+| **v3 keystone size-budget = parameter, not a hardcoded number** — conservative default (keep the keystone comfortably within resident context, fully in-context not chunked); measured figure delegated to empirical calibration in Phase 5 (ties OI-E). If the file exceeds the resident window, REFERENCE (§6) splits to retrievable knowledge; only GUARDRAIL (§5) + DESIGN-reasoning (§4) stay in-context | RAG trip-point unpublished by Anthropic; schema must not fake a number | 2026-06-22 |
+| **v3 token target = DTCG 2025.10**, but `$value` stays an OKLCH literal string — structured-color objects + resolver theming deferred (SD v5 lag, issue #1590 / OI-H) | 2025.10 is the format target; migrating `$value` now would break the build → Lego: `main` stays buildable | 2026-06-22 |
+| **v3 fidelity gate** — reproduction visual-diff vs the source (no pixel-VRT, no Storybook); keystone gate (present · 6-section · guardrail-in-tail · within budget); guardrail red-team posture-gated (regulated = BLOCKING + human sign-off; live adversarial run = Phase 5) | judge fidelity not skeleton-compliance, and make the keystone/guardrail a real gate — honest that in-context guardrails reduce ≠ eliminate jailbreak risk | 2026-06-22 |
 
 ## Open Items
 | ID | Item | Severity | Status |
@@ -106,9 +108,9 @@ domains: [brand-system, tooling]
 | OI-A | No downstream consumer yet ingests motion/depth tokens (web-stack `astro-css-tokens` reads neither). A future bridge skill could. | NICE | OPEN |
 | OI-B | web-stack-skills cites no `G-*`/`ALGO-*` rule IDs today; enforceable canon downstream would need rule-ID citations there or carried as token metadata. | NICE | OPEN |
 | OI-D | Literal Stage 2 (read-only) / Stage 6 (fill) §3 re-split deferred; the folded Stage 2 carries read+fill today. Revisit only if the PR-B1 spine is reopened. | NICE | OPEN |
-| OI-E | Keystone `.md` RAG trip-point (size at which a Claude Project stops keeping it resident and chunks it) is unpublished by Anthropic → keystone size budget needs empirical calibration. | MAJOR | OPEN (Phase 4) |
+| OI-E | Keystone `.md` RAG trip-point (size at which a Claude Project stops keeping it resident and chunks it) is unpublished by Anthropic → keystone size budget needs empirical calibration. The v3 skills treat it as a parameter; the measured figure is a Phase-5 validation task (resolves the keystone-files↔RESIDENT phase drift in favor of Phase 5). | MAJOR | OPEN (Phase 5) |
 | OI-F | Second v3 validation brand not chosen — must be differently-shaped (no brandbook, light-only palette, incomplete material) to test generality. | MAJOR | OPEN (Phase 5) |
-| OI-G | Graceful-degradation path for the scoper's living-questions doc when the chat env lacks a connector/filesystem. | NICE | OPEN (Phase 3) |
+| OI-G | Graceful-degradation path for the scoper's living-questions doc when the chat env lacks a connector/filesystem. | NICE | RESOLVED (#13 scoper v3 — Stage 6: commit-where-possible, else a downloadable artifact) |
 | OI-H | Resolver-based theming for OKLCH scheme derivation rides on the v2 SD-v5 / DTCG-2025.10 pin (issue #1590) → may need a custom-transformer/Terrazzo fallback. | NICE | OPEN |
 
 (OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
@@ -136,7 +138,7 @@ distribution (PR-B6) + skills audit-remediation (#8). The method now lives in `s
 > server-regenerated; `readmeHeader` coexists with `guidelinesGlob`). The builder **re-reads the live skill
 > at run time** before freezing the emitter — treat pinned field/script names as version-fluid, not frozen.
 
-## v3 — provenance, anti-determinism, and a brand an AI can be (scoping)
+## v3 — provenance, anti-determinism, and a brand an AI can be
 v2's analyze→extract→prototype+library engine shipped and works. A fresh adversarial stress test — a third,
 independently-authored brand of a different shape (a divergent multi-source identity: an authored brandbook,
 fresher shipped social, a stale website) — exposed failure CLASSES v2's gates do not catch. They reduce to one
@@ -154,14 +156,17 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   layer, sized to stay resident in a Claude Project's context. Mandatory build output; gives a testable
   end-to-end criterion (instantiate the brand-AI, judge fidelity).
 - **Spine — provenance/epistemics on every datum.** Generalizes v2's `authored|derived` flag + GAP protocol:
-  every datum carries source / confirmation status / owner / freshness, and is never used as if it had a status
+  every datum carries source / confidence / owner / freshness, and is never used as if it had a status
   it has not earned. Observed expression enters as a hypothesis, never a finding; line-vs-one-off promotion needs
   owner confirmation.
 - **Five axes / two columns.** Axes: coverage+epistemics · faithful capture+reproduction · horizons+keystone ·
   the Chat↔Code seam · two-surface output. Two columns that don't subsume each other: provenance discipline
   (honesty about known-vs-assumed) + faithful-capture craft (actually reproducing what is seen).
-- **Status.** Scoped + Phase 1 RATIFIED (Carlos, 2026-06-22): architecture spec + keystone `.md` schema
-  approved. Build not started. Five gated phases in `v3-execution-plan.md`; Phase 2 (Chat↔Code seam) active.
+- **Status.** Phases 1–4 COMPLETE (2026-06-22). Phase 1 ratified; Phase 2 (handoff contract, #12) · Phase 3
+  (scoper v3, #13) · Phase 4 (builder v3 — spine+capture #14, reproduction+tokens #16, keystone+fidelity-gate
+  #17) shipped to `main`, plus spine-label harmonization (#15). The v3 skills are BUILT. Phase 5 (validation on a
+  second, differently-shaped brand · live guardrail red-team · visual-diff audit · release) is next — designed
+  in Chat. Plan in `v3-execution-plan.md`.
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it
@@ -193,29 +198,22 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   determinism/tunnel-vision recurs at every phase. Do not retry — anti-determinism is rectoral.
 
 ## Change log
-- 2026-06-22 — **v3 Phase 1 ratified + Phase 2 opened.** Carlos ratified the architecture spec
-  (anti-determinism rectoral · 4-field provenance spine · adaptive dimension map · two-surface output ·
-  scoper/builder v3 deltas) and the 6-section keystone `.md` schema. Distilled into Decisions (no separate
-  spec file). Opened Phase 2: rewrote the Chat↔Code handoff contract (checksummed manifest · media-ingestion
-  method · 4-field provenance · v0/DEMO mode · per-gap provenance tags). Build still at zero.
-- 2026-06-22 — **v3 scoped.** A fresh adversarial stress test (a third, independently-authored brand) exposed
-  failure classes v2's gates miss; root cause = epistemic-status loss + determinism. Ran identify → pre-research
-  → research → plan. Set the v3 center: rectoral anti-determinism + a provenance spine + a keystone "a brand an
-  AI can be" `.md`. Detailed five-phase plan committed to `v3-execution-plan.md` (root); RESIDENT + CLAUDE given
-  a v3 domain. Phases gated; Phase 1 (architecture) awaits ratification. Build not started.
-- 2026-06-22 — **v2 built & shipped.** Scoper rewrite (PR #1) + builder pipeline Stages 0–12 (PR-B1…B5:
-  handoff spine · asset/font acquisition · applied-design · prototype + `/design-sync` kit · token spine ·
-  gaps · validate/audit + fidelity gate · client-clean) + distribution (PR-B6: README, manifests v0.2.0,
-  topics, scoper zip) + skills audit-remediation (#8: frontmatter correctness, md-house-style, template
-  audit). `/design-sync` §4.6 live-pinned vs Claude Code `v2.1.185` (server-side/version-fluid; re-pinned at
-  runtime). F-001…F-026 closed.
-- 2026-06-22 — **dev/ untracked** (build provenance now local-only per `.gitignore`); RESIDENT consolidated +
-  CLAUDE refreshed (PR-B7).
-- 2026-06-21 — First end-to-end run on a real brownfield (print-native) pilot — OI-C. Output structurally
-  sound but unusable as a deliverable; logged the v2 reframe + findings F-001…F-026 and the workstream plan.
-- 2026-06-21 — Repo derived (Phase 4) and built: two skills, full canon template set, DTCG/OKLCH token spine,
-  Claude Design adapter, docs. GATE 1 approved by Carlos; GATE 2 (brand-scrub = 0, DTCG validate + web-stack
-  round-trip, universality stress test) passed before commit.
+- 2026-06-22 — **v3 Phases 2–4 shipped (the skills are BUILT).** Phase 2: the v3 Chat↔Code handoff contract
+  (#12). Phase 3: `brand-canon-scoper` rewritten to it (#13). Phase 4 (builder): provenance spine +
+  stated-spec-read in capture (#14) · reproduction router + DTCG 2025.10 / OKLCH scheme engine (#16) · mandatory
+  keystone `.md` emit + fidelity gate v3 (#17); plus a spine-label harmonization (#15) and a keystone-template
+  comment fix. Each PR verified by adversarial multi-agent review before merge; OI-G resolved, OI-E moved to
+  Phase 5. Phase 5 (validation + live red-team + release) is next.
+- 2026-06-22 — **v3 scoped + Phase 1 ratified.** A stress test (3rd, independently-authored brand) exposed
+  epistemic-status loss + determinism; ran identify→pre-research→research→plan; set the v3 center (rectoral
+  anti-determinism · provenance spine · keystone north star); five-phase plan in `v3-execution-plan.md`. Carlos
+  ratified the architecture spec + the 6-section keystone schema (distilled into Decisions, no separate spec file).
+- 2026-06-22 — **v2 built & shipped.** Scoper rewrite + builder Stages 0–12 (asset/font acquisition ·
+  applied-design · prototype + `/design-sync` kit · token spine · gaps · validate/fidelity · client-clean) +
+  distribution + audit-remediation; F-001…F-026 closed; `dev/` untracked; RESIDENT/CLAUDE consolidated (PR-B7).
+  `/design-sync` live-pinned vs Claude Code `v2.1.185` (server-side/version-fluid).
+- 2026-06-21 — **Repo derived + first pilot.** Two skills + canon templates + DTCG/OKLCH spine built (GATE 1/2
+  passed); the first real brownfield run surfaced the v2 reframe (OI-C) + F-001…F-026.
 
 ## Conventions of this doc
 Timeless content undated; Open Items + change log are dated/volatile. Nothing external should cite the

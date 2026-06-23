@@ -2,9 +2,10 @@
 
 A Claude Code plugin that turns any brand into a **canonical, brand-agnostic, output-agnostic source of
 truth** — a four-layer brand canon plus a DTCG/OKLCH token spine — and then builds a **real, presentable
-prototype and a `/design-sync`-ready component library** from it. Any consumer (a website, an app, a slide
-deck, a print kit, a design tool) derives any artifact from the same source, with no lossy hop. Greenfield
-or brownfield.
+prototype, a `/design-sync`-ready component library, and a single attachable keystone `.md` an AI can think,
+speak, and design *as* the brand** from it. Any consumer (a website, an app, a slide deck, a print kit, a
+design tool, or an AI assistant) derives any artifact from the same source, with no lossy hop. It analyzes a
+brand's published work by default, or authors from a ratified brief on request.
 
 Sibling to [`web-stack-skills`](https://github.com/ccediland/web-stack-skills): the brand canon is the
 upstream source of truth; web-stack-skills is a flagship downstream consumer that turns the canon into web
@@ -30,9 +31,10 @@ Four questions, four layers, two satellites — nothing organized around an outp
 Plus a **DTCG / OKLCH token spine** (`tokens/base|semantic|component.json`) as the machine interchange
 contract — print colors authored, screen colors derived.
 
-**The deliverable is not the skeleton.** The canon is the source skeleton; the deliverable is the real
-prototype and the `/design-sync`-ready library projected from it. A rule-compliant canon with no real assets
-is not done.
+**The deliverable is not the skeleton.** The canon is the source skeleton; the deliverables are the real
+prototype, the `/design-sync`-ready library, and the keystone `.md` (an AI that can *be* the brand —
+think/speak/design plus an operational guardrail layer), all projected from it. A rule-compliant canon with
+no real assets is not done.
 
 **The Lego principle:** the canon is always creatable and valid — even for a brand with nothing. Whatever is
 missing resolves to a goal, a tracked gap, and a skeleton slot, never a blocked empty shell.
