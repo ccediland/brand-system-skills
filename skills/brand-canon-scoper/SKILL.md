@@ -1,6 +1,6 @@
 ---
 name: brand-canon-scoper
-description: "Scope a brand in conversation (no filesystem needed): interview the owner, request and structure their brand material and intent, detect brand posture and horizons, resolve every dimension to filled/not-used/tagged-gap, and compile a single ready-to-paste handoff block that the brand-canon-builder skill runs in Claude Code to build the brand canon. Use this in Claude.ai chat — or any conversation without a working filesystem/git — when someone wants to start a brand system, design system, brand canon, brand guidelines, or design tokens but isn't in a coding environment yet. Triggers on \"help me scope our brand\", \"I want to start a brand system but I'm in chat\", \"gather what we need for our design system\", \"prep our brand for the builder\". Its ONLY job is to interview, structure, detect, and emit one machine-readable handoff plus a client instrument — it does not build the canon, infer the WHY, extract primitive values, or promote an observation to a brand rule without owner confirmation."
+description: "Scope a brand in conversation (no filesystem needed): interview the owner, request and structure their brand material and intent, detect brand posture and horizons, resolve every dimension to filled/not-used/tagged-gap, and compile a single ready-to-paste handoff block that the brand-canon-builder skill runs in Claude Code to build the brand canon. Use this in Claude.ai chat when someone wants to start a brand system, design system, brand canon, brand guidelines, or design tokens but isn't in a coding environment yet. Triggers on \"help me scope our brand\", \"I want to start a brand system but I'm in chat\", \"gather what we need for our design system\", \"prep our brand for the builder\". Its ONLY job is to interview, structure, detect, and emit one machine-readable handoff plus a client instrument — it does not build the canon, infer the WHY, extract primitive values, or promote an observation to a brand rule without owner confirmation."
 ---
 
 # Brand Canon Scoper
@@ -16,6 +16,10 @@ values, and does not promote an observation to a brand rule without owner confir
 builder's job or require the owner. Use this when there's no working filesystem (e.g. Claude.ai chat);
 if you're already in Claude Code with a filesystem, you can skip the scoper and use
 `brand-canon-builder` directly.
+
+## Reference materials — load when relevant
+This SKILL.md is the workflow + gates. Load the reference only when its stage is reached:
+- `references/handoff-format.md` — the v3 handoff contract: the single self-contained fenced block this skill compiles at Stage 7 (two-track manifest · 4-field provenance spine · WHY/WHAT/HOW/DIMENSION-MAP/POSTURE/HORIZONS carriers). Load when compiling or validating the handoff.
 
 ## What it does NOT do
 It does not scaffold files, write tokens, or build the canon. No filesystem work. It does not eyedropper a
@@ -168,6 +172,15 @@ cannot be rebuilt into a master, so it is a *reference*, not build-grade.
 | Monogram | vector master | raster | — |
 | Seal / emblem | vector master | raster | — |
 
+**The core-asset set is per-brand — not a fixed visual list.** The table above is the COMMON (visual-primary)
+case. Where a brand's PRIMARY identity carrier is non-visual — e.g. a sonic mark (a sound logo / audio
+signature), a motion signature (a timing/easing identity), a verbal/naming system, or another declared lead
+carrier — elicit and rate THAT carrier on the same three-way scale at intake: **build-grade** = the editable
+master + its spec (what the build can reproduce from); **low-fi-reference** = a lossy/recorded/captured
+instance (a clip, a screen-grab, scattered examples); **missing** = named only. So the scoper ELICITS the
+non-visual primary's fidelity and the handoff carries it under the same primary-identity-carrier model the
+builder gate + keystone use — the lead atom is never assumed to be a visual mark.
+
 Other build-grade requirements (request all; "not used" is valid for optional items):
 
 - **Vector formats:** AI (editable master), SVG (web), EPS/PDF (print/vendor).
@@ -194,7 +207,9 @@ Inventory-request text (translate to the owner's language at runtime):
 > any, the Pantone/spot colors that are your authored truth. (d) Existing rules: clear-space, minimum size,
 > and a misuse list. (e) If you only have a screenshot or a low-res PNG of something, send it anyway — we'll
 > mark it as a reference, not a build source. Don't send hex values from memory; point us at the source and
-> we'll extract."
+> we'll extract. (f) If your brand's LEAD identity isn't visual — a sound logo, a signature animation/motion,
+> a naming/verbal system — tell us that's the primary, and send its editable master + spec (or the best
+> recording you have, marked as a reference): we rate it build-grade / reference / missing on the same scale."
 
 ### 4. Elicitation instrument — BLOCKING (gate 4)
 The centerpiece. Hard rule: the WHY is elicited, never inferred. If the owner cannot answer, it becomes a
@@ -295,7 +310,7 @@ onliness fill-in-the-blank; the opposing-scales differential; "what would be los
 disappeared?". These *draw out* the WHY from the person — they never license you to *invent* it. An
 unanswerable WHY is a gap to confirm, not a guess to make.
 
-#### 4a. Posture detection (detect, don't hardcode)
+### 4a. Posture detection (detect, don't hardcode)
 The brand's posture parameterizes the builder's guardrail layer (the keystone's operational tier). Detect
 it with a question battery; never assume it from category. The posture space is a capability class
 (illustrative, not a closed set — record an unlisted posture verbatim):
@@ -310,10 +325,13 @@ playful/irreverent · B2B-formal · <other-detected>. Battery:
 
 Record the detected `profile` + the parameters into the handoff's POSTURE block, including two the keystone
 guardrail tier reads directly: `visibility:<low|moderate|high>` (from the risk-appetite answer) and
-`audiences:<ordered priority list>` (from the audiences-served answer, ordered by the stated priority). Each
-answer is `owner-stated` (confidence: owner-confirmed) — posture is declared, not observed.
+`audiences:<ordered priority list>` (from the audiences-served answer, ordered by the stated priority).
+Posture is declared, not observed — so each answer's `source` is `owner-stated`; but its `confidence` enters
+as `hypothesis` (owner-stated in-session, not yet gate-ratified — exactly like every other unratified owner
+datum, e.g. the WHY exemplars) and is promoted to `owner-confirmed` only at the gate-6 To-confirm pass, never
+stamped mid-interview (an in-session statement is not yet a gate-ratified line).
 
-#### 4b. Horizon detection (adaptive, not a checklist)
+### 4b. Horizon detection (adaptive, not a checklist)
 A fixed checklist causes tunnel vision and category mismatch. Detect horizons adaptively:
 1. **Generate candidates from the brand's category + the base taxonomy** (Brand Key / Keller / Aaker /
    Neumeier / Wheeler). E.g. hospitality → uniforms, signage, sonic, menu/packaging; SaaS → motion, naming
@@ -372,6 +390,25 @@ The external instrument's three parts (client language, not `GAP-NNN`):
 - **To confirm** — explicit owner sign-off: the ratified WHY, every multi-decider conflict resolved to one
   answer, any owner-provided values, all "not used" declarations, and every `hypothesis`-status observation
   the owner is being asked to promote to a line.
+
+**Worked example — the external instrument in use** (this is the tone-fidelity-critical surface; register:
+warm, plain Mexican Spanish for a non-design owner-operator, every design term glossed inline by example — no
+jargon, no filler, never translated-English or AI-slop). Placeholder brand: a neighborhood bakery (generic;
+`<marca>` stands in for the name, never a real brand). It shows exactly one Found / one Missing / one
+To-confirm line:
+
+> **Encontrado.** Su logo ya viene como una sola pieza —el dibujo y el nombre de la panadería pegados, lo que
+> llamamos el *lockup*— y nos lo pasaron en archivo editable, así que sirve tal cual para todo lo que armemos.
+>
+> **Falta.** No tenemos el archivo de su tipografía —la *fuente*, el molde de las letras con que se escriben
+> el nombre y los letreros—. Sin ese archivo, cada material acaba con una letra distinta y el negocio se ve
+> disparejo; es lo más urgente, y se consigue con su diseñador o se compra con licencia.
+>
+> **Por confirmar.** En sus redes usan un rosa más fuerte que el del menú impreso. ¿Cuál es el oficial —el que
+> manda— y cuál fue solo una prueba? Díganos cuál es el bueno y lo dejamos fijo.
+
+(Exactly one Encontrado / one Falta / one Por confirmar; two terms glossed inline by example — *lockup*,
+*fuente*. The point is the register, not the length.)
 
 Gate. The owner reviews and confirms/corrects the external instrument; only then do you compile.
 
