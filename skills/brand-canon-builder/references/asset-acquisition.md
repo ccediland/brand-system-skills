@@ -49,6 +49,24 @@ hypothesis` and must be owner-confirmed before it is promoted to canonical brand
 | **Social media** | observe applied aesthetic + grab the downloadable avatar/imagery (best-effort; anti-scraping/rate-limits). Everything here is observed → `confidence: hypothesis`, owner-confirm before canonizing | low — reference, not master |
 | **Nothing / a stray logo** | vectorize/clean the one mark; derive an OKLCH palette from it; pick an OFL stand-in face; emit a small valid DTCG spine; the rest = GAP (author only on `MODE: CREATE`) | n/a |
 
+## ingest-token map — route by the contract's declared `ingest:` (D2)
+
+The handoff's manifest carries an `ingest:` token per item (`brand-canon-scoper/references/handoff-format.md`).
+That token is the contract's **authoritative HOW-to-read** — consume it to pick the matrix row directly,
+instead of re-deriving routing from a detected source-type. Each of the five tokens maps to a row above:
+
+| `ingest:` token | Routes to (matrix row) | What it tells the builder to do |
+|---|---|---|
+| `vector-extract` | Drive/repo vector masters · Brandbook-PDF vector paths | extract embedded vector paths to a clean master (SVG direct / `illustrator-parser-pdfcpu` / Ghostscript / PyMuPDF `get_drawings()` + copy-region) |
+| `computed-css` | Live website(s) · the CONSUMERS track | headless computed-style read (Dembrandt `--dtcg`, OKLCH) on the reachable `url:`; download `@font-face` files; read declared font-stack + custom-property colors as the stated spec, pixel corroborates only |
+| `design-file-native` | Existing DTCG/token files · Design-tool exports (Figma/Canva) | ingest the native source directly to the DTCG spine (Figma variables/styles via Tokens Studio; CSS vars 1:1; Canva export ≈ brandbook PDF) — read, don't re-sample |
+| `ocr-visual` | Brandbook PDF (stated-spec read) · raster references | OCR/visual read of the page text + swatch labels for the declared font name + declared HEX/Pantone (`source: declared-spec`); a flattened-image source yields a reference, not a master |
+| `font-match` | (degraded face path; feeds Stage 4) | image-based font-matching for an unnamed/outlined face — the value enters at `confidence: hypothesis`, owner-confirm before canonizing; no match → MUST-HAVE fidelity GAP |
+
+`n/a` (or an absent token) is the only case where the builder falls back to detecting the source-type and
+selecting the row itself. A declared token always wins over re-derivation; if the declared token and the
+detected source-type disagree, follow the token and flag the conflict (the contract is the brief).
+
 ## Fidelity ceilings (design these into the GAP logic)
 
 - `get_drawings()` cannot tell which paths form one logical figure (a logo may be hundreds of disjoint

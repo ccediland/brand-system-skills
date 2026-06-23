@@ -14,7 +14,9 @@ colors. Each datum carries four fields:
 - **confidence** — `hypothesis` (observed/derived, unconfirmed) → `corroborated` (independent sources agree)
   → `owner-confirmed` (the owner ratified it).
 - **owner** — who ratifies it (the Accountable for that slot, from the handoff `OWNERS`).
-- **freshness** — `shipped`/fresh vs `stated`/older.
+- **freshness** — the pinned value enum `shipped | stated-old` (`shipped` = fresh/live; `stated-old` =
+  declared but not the current shipped reality). The same two literals are used at every hop — the handoff
+  manifest `fresh:`, the handoff PROVENANCE `freshness:`, and the build — so a value never drifts label.
 
 Hard rules:
 - **Observed expression enters as `hypothesis`, never as a finding.** A sampled color, a matched font, a

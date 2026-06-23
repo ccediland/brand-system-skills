@@ -35,7 +35,8 @@ Generalizes v2's `authored|derived` flag. Every datum the scoper records carries
 - **confidence** — `hypothesis` (observed, unconfirmed) → `corroborated` (multiple sources agree) →
   `owner-confirmed` (the owner ratified it).
 - **owner** — who ratifies it (the Accountable for that slot).
-- **freshness** — shipped/fresh vs stated/older.
+- **freshness** — the pinned value enum `shipped | stated-old` (`shipped` = fresh/live; `stated-old` =
+  declared but not the current shipped reality). The same two literals are used at every hop downstream.
 
 Hard rule: **observed expression enters as `hypothesis`, never as a finding.** Promoting an observed
 one-off to a brand *line* (a rule) requires `owner-confirmed`. A datum is never passed across the handoff
@@ -115,10 +116,12 @@ Open discovery prompt (not a medium checklist):
 
 For each thing returned, record (functional, medium-blind):
 
-- **Role** — `CONSUMER` (live/applied expression), `REFERENCE` (a stated spec, any format), `RAW MATERIAL`
-  (assets/fonts/fragments).
+- **Role** — `CONSUMER` (a live/applied surface the brand ships today — site, app, active feed), `REFERENCE`
+  (a stated spec, any format), `RAW MATERIAL` (assets/fonts/fragments). A CONSUMER is carried in the handoff's
+  CONSUMERS track by its `url` (reachability-verified, no checksum); REFERENCE/RAW are placed in-repo and
+  checksummed in the ASSETS track.
 - **Provenance** — the four-field spine: source · confidence (`hypothesis` for anything observed) · owner ·
-  freshness (fresher/shipped vs older). You only *tag*; the builder reconciles precedence.
+  freshness (the pinned enum `shipped | stated-old`). You only *tag*; the builder reconciles precedence.
 - **Layers carried** — which canon layers it touches: does it *state* the WHY (ESSENCE)? *carry* primitive
   values (PRIMITIVES)? *imply* rules (GRAMMAR)? name vocabulary (INDEX)?
 - **Repo pointer** — where it will live in the target repo (see *Material placement*).
@@ -140,6 +143,12 @@ ESSENCE / PRIMITIVES / GRAMMAR), the treatments, the horizons, and the posture. 
 resolve to one of the three states is itself a `tagged-gap`, never an omission. This map — not an
 artifact-type label — drives intake depth, the client review, and the handoff. The all-empty case is the
 CREATE doctrine (explicit instruction only).
+
+The scoper owns completeness. The builder can only STOP on a dimension that is *present* in the map but
+unresolved; an un-enumerated dimension is the scoper's own defect (it lands as a `handoff-defect` gap), never
+a silent pass. One dimension is named explicitly so it can never be dropped: **applied-expression/social**
+resolves to `filled(media-attached)` / `not-used(owner-declared)` / `tagged-gap` — a live applied surface is
+carried in the CONSUMERS track, static applied media in ASSETS, and if neither exists the dimension is a gap.
 
 ### 3. Asset-inventory request — BLOCKING (gate 3)
 A blocking precondition — its absence in v1 was the single largest cause of the hollow build. Issue an
@@ -224,6 +233,15 @@ material states it:
   SECONDARY)*
 - Resonance: what would make a customer feel part of a community/identity with the brand? *(Keller CBBE —
   resonance, top of the salience→performance/imagery→judgments/feelings→resonance pyramid)*
+- **Value trade-offs (owner-confirmed):** "When the brand must trade one value against another — e.g. speed vs
+  craft, reach vs exclusivity — which does it choose, and why?" Capture 1–2 as "when trading X vs Y the brand
+  chooses Z." *(seeds the keystone's THINK trade-off rules — carried in WHY VALUE TRADE-OFFS; `none` if the
+  owner has none, never invented.)*
+
+Carry, don't just elicit. The Aaker-5 personality scores, the differential-scale placements, and the
+resonance answer are not only elicited here — they are written into the handoff's WHY block (Personality /
+Differential scales / Resonance) so the builder and keystone consume them. An unanswered one is a gap, never a
+scoper guess.
 
 Voice (register / lexicon / do's-and-don'ts) — subset of ESSENCE:
 - If the brand were a person, what personality? And as a celebrity, or someone at work? *(personification
@@ -233,7 +251,12 @@ Voice (register / lexicon / do's-and-don'ts) — subset of ESSENCE:
   condescending." *(tone guardrails — SECONDARY)*
 - Brand lexicon: words/terms the brand always uses, and the banned-words list. *(brand lexicon — SECONDARY)*
 - **Five personality dimensions as a checklist: Sincerity, Excitement, Competence, Sophistication,
-  Ruggedness.** *(Jennifer L. Aaker, "Dimensions of Brand Personality," JMR 34(3), 1997 — PRIMARY)*
+  Ruggedness.** *(Jennifer L. Aaker, "Dimensions of Brand Personality," JMR 34(3), 1997 — PRIMARY)* Score each
+  and carry the scores into WHY (Personality, Aaker-5 scored).
+- **Voice-exemplars (per audience, owner-confirmed):** for each priority audience, ask the owner for one
+  *on-brand* utterance and one *off-brand* utterance the brand might say. These become the keystone's SPEAK
+  few-shot pairs. Carry them into WHY VOICE-EXEMPLARS with provenance; where the owner gives none, the carrier
+  is `none` and the keystone emits a tagged GAP — a pair is never fabricated. *(few-shot voice practice — PRIMARY)*
 
 → PRIMITIVES intent (the MEANING each color/typeface/mark should carry — NOT hex/geometry):
 - What should someone FEEL on seeing the primary color? What meaning/emotion should it carry? *(do not ask
@@ -242,6 +265,16 @@ Voice (register / lexicon / do's-and-don'ts) — subset of ESSENCE:
 - What idea/story should the symbol/mark embody? What must it NOT suggest?
 - Is there a recurring pattern/texture/graphic element, and what role does it play?
   *(These elicit INTENT; the builder extracts values.)*
+- **Per-mark geometry (record owner-provided values, don't measure):** for each mark, ask the owner for its
+  clear-space, minimum size (digital and physical), and any construction reference. These are *owner-provided
+  rule-values*, not scoper measurements — record them with provenance into the handoff's WHAT per-mark GEOMETRY
+  block so the builder reads them instead of re-hunting from a PDF. `none` where the owner has none (then it is
+  a gap the builder can flag), never a scoper-measured value.
+- **Per-font license (record, don't assume):** for each named face, record its license state — the declared
+  SPDX/license id (e.g. `OFL-1.1` / `Apache-2.0` / `Ubuntu`) / `owner-supplied` / `unlicensed→GAP` — into the
+  handoff's WHAT per-font `license:` field, so the builder's font stage reads the actual license (and applies
+  its own self-hostable policy) rather than being boxed into a closed list. An agency handoff that withheld the
+  license is `unlicensed→GAP`.
 
 → TREATMENTS intent (visual/textural language — observed, enters as hypothesis):
 - Does the brand have a recurring texture, finish, or treatment (grain, gloss, hand-drawn, glitch, foil,
@@ -274,8 +307,10 @@ playful/irreverent · B2B-formal. Battery:
 - **Audiences served and their relative priority** (staff / customers / press / regulators / community).
 - **Off-limits:** "What topics will the brand never discuss?" and "How should it refuse when asked?"
 
-Record the detected `profile` + the parameters into the handoff's POSTURE block. Each answer is
-`owner-stated` (confidence: owner-confirmed) — posture is declared, not observed.
+Record the detected `profile` + the parameters into the handoff's POSTURE block, including two the keystone
+guardrail tier reads directly: `visibility:<low|moderate|high>` (from the risk-appetite answer) and
+`audiences:<ordered priority list>` (from the audiences-served answer, ordered by the stated priority). Each
+answer is `owner-stated` (confidence: owner-confirmed) — posture is declared, not observed.
 
 #### 4b. Horizon detection (adaptive, not a checklist)
 A fixed checklist causes tunnel vision and category mismatch. Detect horizons adaptively:
@@ -345,9 +380,12 @@ IDs; your severity tags + provenance tags here seed the builder's formalization.
 
 ### 7. Handoff compile
 Produce ONE machine-readable, fenced block following `references/handoff-format.md` (the v3 contract:
-checksummed manifest · `ingest:` method per item · the four-field PROVENANCE spine on every primitive ·
-TREATMENTS / DIMENSION MAP / HORIZONS / POSTURE blocks · per-gap provenance tag · `BUILD-MODE` with the
-v0/DEMO carve-out · mark + graphic-code non-waivable). Then tell the person exactly what to do with it:
+two-track manifest — checksummed ASSETS + reachability-verified CONSUMERS · `ingest:` method per item · the
+four-field PROVENANCE spine on every primitive · WHY carrying Personality (Aaker-5 scored) / Differential
+scales / Resonance / VALUE TRADE-OFFS / VOICE-EXEMPLARS · WHAT carrying per-mark GEOMETRY + per-font
+`license:` · TREATMENTS / DIMENSION MAP (incl. applied-expression/social) / HORIZONS / POSTURE (incl.
+visibility + audiences) blocks · per-gap provenance tag · `BUILD-MODE` with the v0/DEMO carve-out · mark +
+graphic-code non-waivable). Then tell the person exactly what to do with it:
 open Claude Code in (or create) the target repo, place the material per the manifest **with checksums**,
 and paste the block — it invokes `brand-canon-builder`. The block is self-contained: everything the
 builder needs to start, nothing it should discover for itself.
@@ -389,13 +427,18 @@ Both were v1 failures. Honor all three:
 
 - **A real target repo.** The handoff requires a real target repo path (or "create repo X"). Never invent a
   tree you can't see — you are Chat-side with no filesystem.
-- **All source material goes INTO the target repo**, under a conventional location (`assets/` for binaries,
-  `sources/` for references), as a build precondition, **with a sha256 checksum per item**. Never point
-  material at "Project knowledge" or at a Claude.ai URL — the Code-side builder cannot read either.
+- **Static source material goes INTO the target repo**, under a conventional location (`assets/` for binaries,
+  `sources/` for references), as a build precondition, **with a sha256 checksum per item** (the ASSETS track).
+  A **live consumer surface** the brand ships today (its site, app, active feed) is the exception: it is *not*
+  copied in — it is carried in the CONSUMERS track by its `url`, which the builder reaches and reads at build
+  time. What is always forbidden is the **dead/ephemeral** pointer: a Claude.ai chat link, a local Downloads
+  path, an auth-walled resource, or "Project knowledge" — the Code-side builder cannot reach any of those. The
+  test is reachability, not URL-vs-file: a live url that resolves is allowed; a dead link is not.
 - **Chat→Code boundary.** Because you have no filesystem, placement is an instruction to the person + a
-  checksummed manifest in the handoff, never a scoper file-op. Social/applied media is attached with an
-  `ingest:` method, never passed as prose. The builder reads only the repo; nothing the build needs may
-  live only in chat/Project knowledge.
+  two-track manifest in the handoff (checksummed ASSETS + reachability-verified CONSUMERS), never a scoper
+  file-op. Social/applied media is either attached (ASSETS, checksummed) or carried live (CONSUMERS, url), each
+  with an `ingest:` method, never passed as prose. The builder reads only the repo + the reachable consumer
+  surfaces; nothing the build needs may live only in a chat or in Project knowledge.
 
 ### Fidelity-bar linkage
 For THIS brand, the intake defines which assets/primitives are core/must-have (vs optional/not-used), so

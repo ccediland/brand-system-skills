@@ -23,11 +23,18 @@ single-block property: one fenced block, self-contained.
    missing core asset.
 8. **Auditability** — mode, owner ratification, and "not used" declarations explicit, so the build is
    auditable against intent.
-9. **Checksummed manifest** — each placed item carries a `sha256`; no URL or local-path pointers.
+9. **Two-track manifest** — in-repo ASSETS carry a `sha256` (verified before reading); LIVE CONSUMERS (the
+   surfaces the brand ships today) carry a `url` verified by REACHABILITY, not a checksum. Dead/ephemeral
+   pointers (Claude.ai chats, local Downloads, auth-walled) stay forbidden.
 10. **Per-datum provenance** — the 4-field spine (source / confidence / owner / freshness) on every
     primitive and gap, so the builder never uses a datum at a status it has not earned.
 11. **Exhaustive dimension map** — every dimension resolves to filled / not-used / tagged-gap; none skipped.
+    The SCOPER owns DIMENSION-MAP completeness — the builder STOPs only on a present-but-unresolved dimension,
+    so an un-enumerated dimension is the scoper's defect, never a silent pass.
 12. **Build-mode + non-waivables** — FULL vs v0/DEMO declared; mark + graphic-code fidelity-blocking regardless.
+13. **Owner rule-values the gate/keystone need** — per-mark geometry, per-font license, voice-exemplars,
+    value trade-offs, personality scores, posture visibility + audiences: each carried as a typed slot with
+    provenance, so the builder reads them instead of re-hunting, and absence is a GAP, never a fabrication.
 
 The scoper passes pointers + owner-volunteered values only. It never samples a primitive; the builder
 extracts measured values from the pointed-to sources.
@@ -42,16 +49,25 @@ OWNERS: <who ratifies per slot>   UNRESOLVED CONFLICTS: <slots still split | non
 MODE: <ANALYZE | CREATE>   BUILD-MODE: <FULL | v0/DEMO>
 TARGET REPO: <real path | "create repo <name>">
 
-— MATERIAL MANIFEST (placed in-repo before build; checksums, never URLs) —
-  <item> · role:<CONSUMER|REFERENCE|RAW> · fresh:<shipped|older> · path:<repo path> · fidelity:<build-grade|low-fi|pointer-only> · sha256:<hash> · ingest:<vector-extract|computed-css|design-file-native|ocr-visual|font-match|n/a>
+— MATERIAL MANIFEST (two tracks; dead/auth-walled/Downloads pointers forbidden) —
+  ASSETS (in-repo before build; checksummed):
+    <item> · role:<REFERENCE|RAW> · fresh:<shipped|stated-old> · path:<repo path> · fidelity:<build-grade|low-fi|pointer-only> · sha256:<hash> · ingest:<vector-extract|computed-css|design-file-native|ocr-visual|font-match|n/a>
+  CONSUMERS (live surfaces the brand ships today; verified by reachability, not a checksum):
+    <surface> · url:<live url> · role:CONSUMER · fresh:<shipped|stated-old> · bidirectional:<y/n> · promotion-path:<… | none> · ingest:computed-css
 
 — WHY (essence) — RATIFIED (elicited + owner-confirmed) —
   Category/positioning · Audience · Feel (is / never) · Anti-promise · One line (onliness) · RTB · Voice (register/lexicon/don'ts)
+  Personality (Aaker-5 scored: sincerity/excitement/competence/sophistication/ruggedness) · Differential scales (formal↔casual etc.) · Resonance
+  VALUE TRADE-OFFS: <1–2 owner-confirmed "when trading X vs Y the brand chooses Z" | none>
+  VOICE-EXEMPLARS (per audience): <audience> → on-brand:<utterance> / off-brand:<utterance> · PROVENANCE{ confidence:<owner-confirmed | hypothesis> } | none
 
 — WHAT (primitives) — POINTERS + OWNER-PROVIDED ONLY (scoper never sampled) —
   <slot>: present:<y/n> · intent:<meaning> · owner value:<… | none> · source:<repo pointer>
-    · PROVENANCE{ source:<declared-spec|extracted-vector|computed-css|design-file|matched|traced|inferred|owner-stated> · confidence:<hypothesis|corroborated|owner-confirmed> · owner:<who ratifies> · freshness:<shipped|stated/old> }
+    · PROVENANCE{ source:<declared-spec|extracted-vector|computed-css|design-file|matched|traced|inferred|owner-stated> · confidence:<hypothesis|corroborated|owner-confirmed> · owner:<who ratifies> · freshness:<shipped|stated-old> }
   mark forms present: <wordmark/symbol/lockup/secondary/monogram/seal>
+  per-mark GEOMETRY (owner-provided + PROVENANCE; builder Stage 6 reads, does not re-hunt):
+    <mark>: clear-space:<… | none> · min-size digital:<… | none> · min-size physical:<… | none> · construction-ref:<repo pointer | none> · PROVENANCE{ confidence:<owner-confirmed | hypothesis> }
+  per-font: <face>: license:<declared SPDX/license id (e.g. OFL-1.1, Apache-2.0, Ubuntu) | owner-supplied | unlicensed→GAP>
 
 — HOW (grammar) —
   Schemes · contrast/imagery rule · mark-selection rule · voice enforcement · motion:<… | not used> · depth:<… | not used>
@@ -60,14 +76,15 @@ TARGET REPO: <real path | "create repo <name>">
 — TREATMENTS (visual/textural, for the reproduction router) —
   <treatment>: observed-on:<manifest item> · route-hint:<procedural|generative|vector-trace|raster-required|unknown> · PROVENANCE{ confidence:<hypothesis|corroborated|owner-confirmed> } · none
 
-— DIMENSION MAP (every dimension resolves; none skipped silently) —
+— DIMENSION MAP (every dimension resolves; none skipped silently; scoper owns completeness) —
   <dimension>: <filled | not-used(owner-declared) | tagged-gap>
+  applied-expression/social: <filled(media-attached) | not-used(owner-declared) | tagged-gap>   (must resolve explicitly)
 
 — HORIZONS (category-detected; one-line + gap by default) —
   <horizon>: <direction one-line | not-relevant | tagged-gap> · existing-material:<y/n>
 
 — POSTURE (guardrail layer; detected, not hardcoded) —
-  profile:<low-profile|high-visibility|regulated|activist|playful|b2b-formal> · regulatory:<… | none> · stance:<takes positions | neutral> · never-topics:<…> · refusal-style:<…>
+  profile:<low-profile|high-visibility|regulated|activist|playful|b2b-formal> · visibility:<low|moderate|high> · audiences:<ordered priority list> · regulatory:<… | none> · stance:<takes positions | neutral> · never-topics:<…> · refusal-style:<…>
 
 — CORE-ASSET FIDELITY CONTRACT (this brand's must-haves) —
   <core slot>: <present build-grade | GAP low-fi/missing → fidelity-blocking>
@@ -90,10 +107,15 @@ in-repo, RATIFIED-WHY-only, flag authored print, CORE-ASSET FIDELITY CONTRACT fi
 client language, Claude Design default YES, one fenced self-contained block). Where a v3 rule hardens a v2
 one, v3 wins.
 
-- **Checksums, never URLs.** Every manifest item carries `sha256`; the builder verifies before reading.
-  Zero pointers to Claude.ai or to a local Downloads folder. (Closes the v2 dead-end: resource handoff by URL.)
-- **Media is attached + its ingestion declared.** Social/applied expression never crosses the seam as prose;
-  it is placed in `assets/`/`sources/` with an `ingest:` field telling the builder how to read it
+- **Two manifest tracks; never a DEAD pointer.** In-repo ASSETS carry `sha256` (the builder verifies before
+  reading). LIVE CONSUMERS — the surfaces the brand actually ships today (site, app, active feed) — carry a
+  `url` and are verified by REACHABILITY, not a checksum: the builder confirms each url resolves before reading
+  it. What stays forbidden is the *dead/ephemeral* pointer — a Claude.ai chat link, a local Downloads path, an
+  auth-walled resource — because the Code-side builder cannot reach it. (Closes the v2 dead-end: resource handoff
+  by a dead URL — not by penalizing the live surface the brand runs on.)
+- **Media is attached or live + its ingestion declared.** Social/applied expression never crosses the seam as
+  prose. A static asset is placed in `assets/`/`sources/` (checksummed); a live surface is carried in CONSUMERS
+  (reachability-checked). Either way it carries an `ingest:` field telling the builder how to read it
   (vector-extract / computed-css / design-file-native / ocr-visual / font-match). (Closes the v2 dead-end:
   applied expression passed as prose degraded across the seam.)
 - **Provenance on every primitive and every gap.** WHAT carries the 4-field spine
@@ -102,9 +124,16 @@ one, v3 wins.
 - **`BUILD-MODE: v0/DEMO`** turns OPTIONAL to default-YES with a carve-out: genuinely scope-expanding
   dimensions default NO. Mark and graphic-code stay fidelity-blocking even in demo (the NON-WAIVABLE line of
   the fidelity contract). FULL is the normal mode.
-- **The DIMENSION MAP is exhaustive.** Every dimension resolves to `filled` / `not-used(owner-declared)` /
-  `tagged-gap`. A builder that receives an unresolved dimension STOPS and reports — this is the
-  anti-determinism mechanism, not decoration.
+- **The DIMENSION MAP is exhaustive and the scoper owns its completeness.** Every dimension resolves to
+  `filled` / `not-used(owner-declared)` / `tagged-gap` — including `applied-expression/social`, which must
+  resolve to `filled(media-attached)` / `not-used` / `tagged-gap` explicitly (F42). A builder that receives a
+  *present-but-unresolved* dimension STOPS and reports — this is the live anti-determinism mechanism, not
+  decoration. But the builder can only stop on a dimension that is *present*: an un-enumerated dimension is the
+  SCOPER's defect (a `handoff-defect` GAP), never a silent pass — completeness is the scoper's accountability.
+- **Freshness value enum is pinned: `shipped | stated-old`.** The field NAMES stay (`fresh:` in the manifest,
+  `freshness:` in PROVENANCE), but the value is one of exactly these two literals at every hop — manifest,
+  provenance spine, and downstream. `shipped` = fresh/live; `stated-old` = declared but not the current shipped
+  reality.
 - **TREATMENTS, HORIZONS, POSTURE are capability-class blocks, not brand instances.** They carry the
   scoper's observations + route-hints + detected posture as hypotheses for the builder's router / horizon
   detector / guardrail layer; none asserts a brand-specific value as settled truth.

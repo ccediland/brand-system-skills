@@ -13,9 +13,12 @@ type. The asset-acquisition, font, and prototype/kit stages are mode-independent
 
 ## 1. Inventory the sources
 
-List every source and classify each: a CONSUMER (a site, an app, a design-tool export), a REFERENCE (an
-external brandbook / Drive doc), or RAW MATERIAL (assets, fonts, scattered notes). Note for each whether it
-is *fresher* (recently shipped) or *older*.
+List every source from the handoff's two-track MATERIAL MANIFEST and classify each: a CONSUMER (a live
+surface the brand ships today — carried in the CONSUMERS track by its reachability-verified `url:`), a
+REFERENCE (an external brandbook / Drive doc, in the checksummed ASSETS track), or RAW MATERIAL (assets,
+fonts, scattered notes, ASSETS track). Read each item's `fresh:` value (the pinned enum `shipped | stated-old`)
+and its `bidirectional:` / `promotion-path:` carriers straight from the manifest — do not re-derive them.
+A CONSUMER url Stage 0 could not reach is not harvested; it is flagged (a `handoff-defect` GAP), not guessed.
 
 ## 2. Mine non-token design decisions
 
@@ -47,9 +50,10 @@ pass that you harvest.
 
 ## 5. Register the consumers
 
-Add each surviving consumer to the PROJECTIONS registry. Mark whether it is downstream-only or
-bidirectional (also a source of design intent eligible for promotion), and record its upstream
-promotion path.
+Add each surviving consumer to the PROJECTIONS registry, carrying the manifest's CONSUMERS-track values:
+whether it is downstream-only or `bidirectional:` (also a source of design intent eligible for promotion),
+and its `promotion-path:` (the declared upstream path, or `none`). Read these from the handoff rather than
+re-deriving them.
 
 ## Applied-design harvest
 

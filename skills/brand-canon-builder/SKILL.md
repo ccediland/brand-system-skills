@@ -88,28 +88,61 @@ commit + PR. No forward-pointers remain.
 The scoper's machine-readable handoff (`brand-canon-scoper/references/handoff-format.md`) is the canonical
 brief — parse every block and act on it (do not re-derive what it already carries):
 
-- **`MODE`** → ANALYZE | CREATE (drives Stage 2). `TARGET REPO` → the real repo path (never invent a tree
-  the builder can't see). `OWNERS` / `UNRESOLVED CONFLICTS` → ratification bookkeeping; an unresolved
-  conflict is an open GAP, never builder-decided.
-- **`MATERIAL MANIFEST`** → the in-repo paths (`assets/` / `sources/`) read in Stage 2, plus any live-URL
-  pointers. If the manifest points anywhere the builder cannot read (e.g. Project knowledge), stop and
-  report — material must live in the repo.
+- **`MODE`** → ANALYZE | CREATE (drives Stage 2). `BUILD-MODE` → `FULL` = the normal build; `v0/DEMO` =
+  apply the OPTIONAL block's degradation (OPTIONAL defaults YES, scope-expanding dims default NO) and thread
+  that mode into Stage 8 (prototype/kit) and Stage 9 (gaps); mark + graphic-code stay non-waivable regardless.
+  `TARGET REPO` → the real repo path (never invent a tree the builder can't see). `OWNERS` /
+  `UNRESOLVED CONFLICTS` → ratification bookkeeping; an unresolved conflict is an open GAP, never builder-decided.
+- **`MATERIAL MANIFEST`** (two tracks) → **ASSETS**: the in-repo paths (`assets/` / `sources/`) read in
+  Stage 2; verify each `sha256` before reading. **CONSUMERS**: the live surfaces (`url:`) the brand ships
+  today — verify each url is REACHABLE before reading it, then ANALYZE harvests from them (Stages 2 / 5). If
+  the manifest points anywhere the builder cannot reach — Project knowledge, a dead Claude.ai/Downloads link,
+  an auth-walled resource — stop and report. (This typed CONSUMERS carrier replaces the old undeclared
+  "plus any live-URL pointers" aside.)
+- **Route by declared `ingest:`** → each ASSETS/CONSUMERS item carries an `ingest:` token
+  (`vector-extract | computed-css | design-file-native | ocr-visual | font-match | n/a`). Consume that token
+  as the authoritative HOW-to-read and route to the matching acquisition technique (Stage 3,
+  `references/asset-acquisition.md` § ingest-token map) — do not re-derive routing from a detected source-type
+  when the contract already declares it.
 - **`WHY (essence) — RATIFIED`** → fills ESSENCE directly in Stage 2. The builder never re-elicits or
-  re-infers the WHY; a GAP in the handoff stays a GAP.
+  re-infers the WHY; a GAP in the handoff stays a GAP. The voice/value carriers feed Stage 8.5: `Personality
+  (Aaker-5)` / `Differential scales` / `Resonance` seed the keystone's THINK/SPEAK; `VALUE TRADE-OFFS` →
+  keystone §2 trade-off rules; `VOICE-EXEMPLARS` → keystone §3 few-shot pairs. Where a carrier is `none`, the
+  keystone emits a tagged GAP — never a fabricated pair/rule (`references/keystone-emit.md`).
 - **`WHAT (primitives) — POINTERS + OWNER-PROVIDED ONLY`** → pointers the builder will extract measured
   values from (its half of the frontier); owner-provided values (declared Pantone, `authored-print`) are
   truth, written `source:"authored"` (never re-derived); `intent` seeds per-atom meaning. Carry each
   primitive's `PROVENANCE{source/confidence/owner/freshness}` from the handoff into the build and propagate
   it through extraction (`references/gap-protocol.md` § The provenance spine): a value enters at its handoff
-  confidence and is never promoted to a brand line without `owner-confirmed`.
+  confidence and is never promoted to a brand line without `owner-confirmed`. **per-mark GEOMETRY**
+  (clear-space / min-size digital / min-size physical / construction-ref) → Stage 6 reads these owner-provided
+  values instead of re-hunting from a PDF. **per-font `license:`** (a declared SPDX/license id, `owner-supplied`,
+  or `unlicensed→GAP`) → Stage 4 reads the actual license and applies its own self-hostable policy (OFL/Apache/
+  Ubuntu/… self-host; an `unlicensed→GAP` or non-self-hostable commercial face is a MUST-HAVE fidelity GAP,
+  never a silent fallback).
 - **`HOW (grammar)` + `generative-rule seeds (if/then)`** → seed `G-*`/`ALGO-*` with stable IDs.
   `CORE-ASSET FIDELITY CONTRACT` → drives the fidelity gate (Stage 10). `GAPS (client-language)` →
   the builder owns formalization into `GAP-NNN` (two-ledger, Stage 9). `OPTIONAL` (incl. `Claude Design
   library: default YES`) → Stage 8.
+- **`DIMENSION MAP`** → resolve each dimension to `filled` / `not-used(owner-declared)` / `tagged-gap`,
+  including the explicit `applied-expression/social` dimension. A dimension **present but unresolved** is a
+  PARSE-OR-STOP gate: HALT the build and report it — this is the live anti-determinism mechanism, not a
+  decorative check. (The SCOPER owns completeness, so an *un-enumerated* dimension is a `handoff-defect` GAP,
+  not something the builder can silently pass; a *present-but-unresolved* one stops the build.)
+- **`HORIZONS`** → seed the keystone §6 horizon map (Stage 8.5); where a horizon carries
+  `existing-material:y`, route those assets into Stage 3 acquisition rather than re-inventing them.
+- **`POSTURE`** → parse `profile` + `visibility` + `audiences` (+ `regulatory`/`stance`/`never-topics`/
+  `refusal-style`); feed the keystone §5 guardrail tier (Stage 8.5) and the Stage 10 §7b regulated gate.
+- **`TREATMENTS`** → parsed here (`observed-on` / `route-hint` / PROVENANCE), then routed to the reproduction
+  router at Stage 5 (classify) and Stage 8 (reproduce); each treatment stays `confidence: hypothesis` until
+  owner-confirmed.
+- **`NOTES`** → human-readable context for the build PR only; the builder never treats it as a source of brand
+  truth and it never silently overrides a parsed block.
 
-A handoff that cannot be parsed, or that names no real target repo, is a parse-or-stop gate: stop and
-report rather than guess. (If a user runs the builder directly in Code with published material and no handoff
-block, default `MODE: ANALYZE` and gather the equivalent fields before proceeding.)
+A handoff that cannot be parsed, that names no real target repo, or that carries a present-but-unresolved
+DIMENSION-MAP dimension is a parse-or-stop gate: stop and report rather than guess. (If a user runs the
+builder directly in Code with published material and no handoff block, default `MODE: ANALYZE` and gather the
+equivalent fields before proceeding.)
 
 ### Stage 1 — Scaffold (always first)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
@@ -119,9 +152,10 @@ convention. This creates the valid, empty-but-structured baseplate before any co
 header fields (`{{BRAND}}`, `{{BRAND_OWNERS}}`, `{{DATE}}`, repo/org).
 
 ### Stage 2 — Read material in-repo & fill the canon (by MODE)
-Read placed material only from the in-repo `assets/` (binaries) and `sources/` (references) — plus any
-live-URL pointers the manifest carries. Never read from Project knowledge or a tree the manifest didn't
-place. Then fill by the handoff's `MODE` (default ANALYZE):
+Read placed material only from the in-repo `assets/` (binaries) and `sources/` (references) — plus the
+reachability-verified `url:` surfaces in the manifest's CONSUMERS track (Stage 0 confirmed each resolves).
+Never read from Project knowledge, a tree the manifest didn't place, or an unreachable/dead pointer. Then
+fill by the handoff's `MODE` (default ANALYZE):
 
 - **ANALYZE (default):** read `references/analyze.md`. Inventory sources, mine each consumer's living docs
   and open PRs, reconcile conflicts (fresher/shipped wins specifics; identity wins meaning; repo wins
@@ -146,18 +180,22 @@ mode + handoff spine (PR-B1). Stages 6, 7, 9, 12 carry the validated v1 method. 
 Read `references/asset-acquisition.md` — including the **stated-spec-read** rule (the brand's declared font
 name + declared color are authoritative; `pdffonts`/font-tables/sampled pixels corroborate only, because
 outlined type makes the table report the studio's layout font or nothing). Acquire build-grade assets from
-whatever sources exist (any combination), selecting the extraction technique per source-type encountered
+whatever sources exist (any combination). **Route by the declared `ingest:` token first** (the contract's
+authoritative HOW-to-read, mapped per token in `references/asset-acquisition.md` § ingest-token map); only
+where the manifest leaves it `n/a` do you fall back to selecting the technique by detected source-type
 (existing DTCG/token files > repo vector masters > website extraction > PDF > design-tool exports > social) —
 never assume a PDF. Assemble the best-fidelity asset per canon slot with precedence (authored print > sampled;
 shipped/site > old brandbook; vector master > raster; existing tokens > extraction). The slot-need-vs-source-exists
 delta is a per-slot fidelity GAP. (`dev/v2-build-spec.md` §4.3.)
 
 ### Stage 4 — Font acquisition · BLOCKING (core)
-Read `references/font-acquisition.md`. Acquire the brand's actual typefaces by whatever path the source
+Read `references/font-acquisition.md`. **Read each face's handoff `license:` field first** (a declared
+SPDX/license id, `owner-supplied`, or `unlicensed→GAP`, from WHAT per-font, parsed at Stage 0) — it is the
+owner's declared license state, not something to re-derive. Then acquire the brand's actual typefaces by whatever path the source
 offers (embedded-PDF / `@font-face` from a live site / repo files / acquire open via Fontsource). Licensing
 is hard-gated: self-host only OFL/Apache/Ubuntu or owner-supplied faces (ship the license; rename on a
-Reserved Font Name when subsetting); an unlicensed commercial face is a MUST-HAVE fidelity GAP, never a
-silent fallback (deny-by-default). (`dev/v2-build-spec.md` §4.4.)
+Reserved Font Name when subsetting); an `unlicensed→GAP` or otherwise unlicensed commercial face is a
+MUST-HAVE fidelity GAP, never a silent fallback (deny-by-default). (`dev/v2-build-spec.md` §4.4.)
 
 ### Stage 5 — Applied-design harvest
 Harvest the lived design language from the live consumers the scoper pointed at (the *Applied-design harvest*
@@ -176,8 +214,12 @@ extracts the measured primitive values those sources yield and lands them in the
 prose layers, values to the token spine, mirrored to `canon/canon.json`. Each landed value carries its
 provenance spine (`references/gap-protocol.md` § The provenance spine): extracted/sampled/matched values
 enter at `confidence: hypothesis` and stay flagged for owner confirmation; only `declared-spec`/`owner-stated`
-data is canonical truth. The frontier holds throughout — the builder extracts/derives values, never
-re-elicits the ratified WHY, and never promotes a `hypothesis` observation to a brand line. (`dev/v2-build-spec.md` §4.1, §4.5.)
+data is canonical truth. For per-mark geometry (clear-space / min-size digital / min-size physical /
+construction-ref), read the owner-provided values the handoff's WHAT GEOMETRY block carries
+(`owner-confirmed` where the owner gave them) instead of re-hunting them from a PDF; only where a geometry
+value is `none` does the builder derive it (at `hypothesis`) or log a GAP. The frontier holds throughout —
+the builder extracts/derives values, never re-elicits the ratified WHY, and never promotes a `hypothesis`
+observation to a brand line. (`dev/v2-build-spec.md` §4.1, §4.5.)
 
 > Stage 2 / Stage 6 note (adjudicated). In the spec's §3 table, Stage 2 is *read material* and Stage 6 is
 > *fill the canon*; PR-B1's SKILL mapping folded the MODE-routed fill into Stage 2, leaving Stage 6 partly
