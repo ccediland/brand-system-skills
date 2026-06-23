@@ -139,19 +139,56 @@ reproduction half of the fidelity gate the router points at.
 - **Shape note.** In package-shape (the default) this is the manual/perceptual overlay above — it does **not**
   introduce a pixel-VRT and does **not** mandate Storybook + Playwright. The Storybook-shape pixel-match VRT
   (§3b) stays the exception, used only when the brand already ships that stack.
+- **Persisted evidence (BLOCKING — the diff must leave a trace).** A human eyeballing an overlay and saying
+  "looks fine" is not auditable. For every reproduced treatment, the build commits an evidence artifact to the
+  emitted repo at **`audit/fidelity/<treatment-id>/`**, holding three things: (1) the Stage-5 **source capture**,
+  (2) the **reproduction** render, and (3) a recorded **verdict** (`within-tolerance` | `outside-tolerance →
+  degraded to <method>` | `outside-tolerance → GAP-NNN`) naming the §2 threshold tier applied. **Absence of the
+  artifact for a reproduced treatment = §7a gate FAIL** (you cannot claim a visual-diff that left no evidence).
+  Cross-check `audit/fidelity/` against the authoritative reproduced-treatment set (Stage-5 classification →
+  Stage-8 reproduction, each treatment carrying its provenance-spine entry): a treatment on that set with no
+  artifact FAILS; a treatment dropped from the set must carry a `GAP-NNN`, never a silent disappearance.
+  This is the persisted half of the reproduction gate `reproduction-router.md` § Validation points at — the
+  router tunes parameters until within tolerance; §7a records the resulting verdict + the two images that prove
+  it. (No artifact is required for a brand that reproduced no treatment — the directory is simply absent.)
 
 ### 7b. Keystone gate — exists, well-formed, red-team
 
 The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Stage 10 gates it.
 
-- **Existence + well-formedness (BLOCKING, all postures).** The keystone is present and carries all six
-  sections; the GUARDRAIL layer (§5) sits in the high-recall tail (not buried mid-document); the file is within
-  the conservative size budget or has applied the degradation path (§6 REFERENCE split out). Absent or
-  malformed → the build FAILS.
-- **Guardrail red-team (posture-gated).** The builder **emits a red-team battery** derived from the keystone's
-  §5 guardrail layer — persona / roleplay-jailbreak attempts ("ignore previous instructions" / persona-override
-  / DAN-style) and injection attempts (untrusted external/retrieved text overriding the rules) — plus the
-  **expected-refusal contract** (what the guardrail must refuse, and how, in character).
+- **Existence + STRUCTURAL well-formedness (BLOCKING, all postures).** The keystone is present and carries all
+  six sections; the GUARDRAIL layer (§5) sits in the high-recall tail (not buried mid-document); the file is
+  within the conservative size budget or has applied the degradation path (§6 REFERENCE split out). Absent or
+  structurally malformed → the build FAILS.
+- **CONTENT / operability well-formedness (BLOCKING, all postures).** Structure alone passes a
+  structurally-perfect-but-operationally-hollow keystone — adjectives dressed as rules. This check audits that
+  the core sections carry OPERABLE rules, mirroring `keystone-emit.md` §4:
+  - **THINK (§2)** contains **≥1 when-X-then-Z decision rule** (a conditional trade-off rule), not bare
+    adjectives.
+  - **DESIGN-as (§4)** contains **≥1 when-X-then-Z decision rule** (a conditional design rule), not bare values
+    or adjectives.
+  - **SPEAK (§3)** contains **≥1 on-brand/off-brand few-shot pair** (the `keystone-emit.md` §3 minimum — §3
+    mandates "pairs", i.e. at least one pair present).
+  - **No core section is a bare adjective list.** Adjectives where a rule/pair is required = a malformed
+    keystone → FAIL.
+  - **FORM-OF-RULE only (rector guard).** This tests the SHAPE — that a conditional rule is present, that a pair
+    is present — NEVER specific brand content. A monogram-only / sonic-primary / single-ink / wordmark-only brand
+    must still pass; the check is medium-agnostic and names no brand-specific rule.
+  - **`not-used(owner-declared)` resolves CLEAN.** Where a section legitimately has no rule because its
+    dimension is declared `not-used(owner-declared)` (cross-check the Stage-0 DIMENSION MAP), that is not a
+    missing rule — it resolves CLEAN, never FAIL. A section whose carrier is `none` but whose dimension is NOT
+    declared not-used must carry its tagged GAP slot (e.g. "trade-off rule pending owner ratification") — an
+    emitted GAP line satisfies the form check; a silent empty section does not.
+- **Red-team battery is EMITTED + COMMITTED (BLOCKING well-formedness, all postures).** The builder emits the
+  battery + the expected-refusal contract as a PERSISTED artifact committed to the emitted repo at
+  **`audit/redteam/`** — even when the live run is non-blocking. An empty or un-emitted battery is a
+  **well-formedness FAIL** (a gate that ships no battery is the "looks-like-a-check-but-isn't" hole). The battery
+  is the committed evidence that the guardrail layer was actually adversarially scoped; its EXISTENCE is gated
+  NOW, independent of the live RUN (which is Phase-5-deferred, below).
+- **Guardrail red-team (posture-gated).** The committed battery is derived from the keystone's §5 guardrail
+  layer — persona / roleplay-jailbreak attempts ("ignore previous instructions" / persona-override / DAN-style)
+  and injection attempts (untrusted external/retrieved text overriding the rules) — plus the **expected-refusal
+  contract** (what the guardrail must refuse, and how, in character).
   - **Regulated trigger — fire on EITHER signal (F29): the handoff POSTURE `profile == regulated` OR a
     non-empty `regulatory:` field** (a brand can be regulated-in-fact without the `regulated` profile label).
     When either trips: **BLOCKING + external human sign-off.** In-context guardrails reduce but do not
@@ -159,10 +196,16 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
     expected-refusal contract are assembled into the PR and **human red-team sign-off is required; the default
     state is unratified-pending** (mirrors §6).
   - **Non-regulated postures:** the battery runs; findings are fixed or logged as `GAP-NNN`; not build-blocking
-    on its own.
-  - **Live adversarial execution is Phase 5.** This stage *builds and assembles* the gate (battery +
-    expected-refusal contract + posture-blocking rule); the live instantiate-and-attack run is the Phase-5
-    guardrail red-team — a model has to actually run it. The builder does not fake a live jailbreak eval in Code.
+    on its own. But IF the battery is run (pre-Phase-5 or at Phase 5), its result persists — a per-attempt
+    refused/leaked verdict committed alongside the battery (`audit/redteam/<run>/results.md`). A run that left
+    no recorded verdict is a well-formedness gap (symmetric with §7a): non-blocking on findings, but an
+    unrecorded run cannot read as a silent pass.
+  - **Live adversarial execution is Phase 5 — but its deferral does NOT void the committed artifacts.** This
+    stage *builds, assembles, and COMMITS* the gate (battery + expected-refusal contract + posture-blocking
+    rule) to `audit/redteam/`; the live instantiate-and-attack RUN is the Phase-5 guardrail red-team — a model
+    has to actually run it. The builder does not fake a live jailbreak eval in Code. The Phase-5 deferral applies
+    ONLY to the live run; the §7a fidelity artifact and the §7b battery's existence are gated NOW and their
+    absence FAILS the build regardless of the deferred run.
 
 ## Gate summary
 
@@ -171,7 +214,14 @@ resolved for core faces; the hollow-render gate is clean and `package-validate.m
 offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip
 has run (package-shape) — or the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
 rule/voice violations; the three retained checks pass; **every reproduced treatment passes the §7a visual-diff
-(or degrades / logs a GAP); the keystone is present, six-section, guardrail-in-tail, within budget — and, in a
-regulated posture, carries human red-team sign-off (§7b)**; and the evidence + open ratification GAPs are
-assembled into the PR for human sign-off. Anything core unmet → the build fails; non-core gaps log and the
-repo stays valid.
+(or degrades / logs a GAP) AND has committed its persisted evidence artifact to `audit/fidelity/<treatment-id>/`
+(source + reproduction + recorded verdict — absence FAILS); the keystone is present, six-section,
+guardrail-in-tail, within budget (structural), AND passes the §7b CONTENT check (THINK + DESIGN-as each carry
+≥1 when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no core section a bare adjective list — form-of-rule only,
+`not-used(owner-declared)` resolves clean); the red-team battery + expected-refusal contract are EMITTED and
+COMMITTED to `audit/redteam/` (empty/un-run battery = well-formedness FAIL); and, in a regulated posture, the
+keystone carries human red-team sign-off (§7b)**; and the evidence + open ratification GAPs are assembled into
+the PR for human sign-off. **Phase-5 dependency (explicit):** the LIVE red-team RUN (instantiate-and-attack) is
+Phase-5-deferred and does NOT happen here; what is gated NOW is the §7a artifact + the §7b committed battery +
+the §7b content check — their absence fails the build regardless of the deferred live run. Anything core unmet →
+the build fails; non-core gaps log and the repo stays valid.

@@ -44,8 +44,10 @@ front-matter records which section goes where (the deployment map).
    is `none`, emit a tagged GAP ("voice few-shot pair pending owner ratification") — NEVER a fabricated pair.
 4. **DESIGN AS THE BRAND (visual reasoning).** How the brand DECIDES color/type/spacing/asset/treatment —
    reasoning, not values: primary reserved for X; chroma ceilings; type-scale ratio; when texture vs flat
-   (cross-ref the `reproduction-router.md` treatment decisions). Derived from the token spine + the design
-   rationale.
+   (cross-ref the `reproduction-router.md` treatment decisions). **Derived from the token spine (values) +
+   GRAMMAR rules `G-*`/`ALGO-*` (combination reasoning) + PRIMITIVES per-atom intent + ESSENCE per-atom meaning
+   (the why)** — every one a NAMED canon layer/block, never an unnamed "design rationale". Each decision rule
+   here is a when-X-then-Z rule (cross-checked by `validate-audit.md` §7b), not a bare adjective.
 5. **OPERATIONAL GUARDRAIL LAYER.** Posture-parameterized (consume the handoff POSTURE block): a
    functional-requirements tier ABOVE personality; an in-character refusal policy; audience-scoped registers
    ordered by the POSTURE `audiences:` priority list (staff / customers / press / regulators / community);
@@ -56,7 +58,12 @@ front-matter records which section goes where (the deployment map).
    in the high-recall tail and doubles as Project instructions.**
 6. **REFERENCE.** Token-spine pointer; asset inventory + fidelity/provenance; horizon map seeded from the
    handoff `HORIZONS` block (each horizon's one-line direction + its `existing-material` flag). This is the
-   knowledge surface — the section that splits out first if the file exceeds the resident budget.
+   knowledge surface — the section that splits out first if the file exceeds the resident budget. **The
+   asset-inventory line's token-derived confidence is READ from its source, never recalled from emitter
+   memory:** a token's confidence comes from that token's `$extensions.brand.provenance.confidence`
+   (`token-spine.md` § The provenance block); where the datum is not a token, from `canon.json` or the
+   `RESIDENT.md` GAP ledger. The value is on the byte-identical ladder `hypothesis | corroborated |
+   owner-confirmed` — traceable to where it was earned, so a datum is never displayed above its earned status.
 
 ## Recall-ordering & size budget
 

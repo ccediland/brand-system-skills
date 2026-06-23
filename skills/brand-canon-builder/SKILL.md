@@ -233,7 +233,9 @@ Read `references/token-spine.md` — DTCG **2025.10** target, the OKLCH `$value`
 tooling-lag caveat on structured color / resolvers ties RESIDENT OI-H), and the **OKLCH scheme-derivation
 engine** (light/dark, high-contrast, sub-brand as cases of one L/C/H transform; re-cohering an ad-hoc
 palette is a `hypothesis` proposal pending owner confirmation). Author `tokens/base.json` (raw OKLCH +
-authored/derived `$extensions`), `tokens/semantic.json` (role aliases), `tokens/component.json` (optional).
+authored/derived `$extensions` + `$extensions.brand.provenance` {source, confidence, owner, freshness} on
+EVERY token — `authored|derived` is source-only and orthogonal to the confidence ladder), `tokens/semantic.json`
+(role aliases), `tokens/component.json` (optional).
 Keep `$value` plain strings, aliases as `{tier.category.name}`, category names on the namespace convention.
 Derive any additional scheme (dark, high-contrast, sub-brand) at the `semantic` tier via the OKLCH engine.
 Emit motion/depth tokens if the brand uses them (DTCG-valid even without a current consumer); omit for a
@@ -306,11 +308,16 @@ skeleton. Seven parts:
 - **Render real samples** — the Stage-8 HTML prototype is the evidence.
 - **Reproduction visual-diff (treatments)** — every reproduced treatment (Stage 5 → Stage 8 via
   `reproduction-router.md`) passes a perceptual visual-diff against the Stage-5 source (no pixel-VRT, no
-  Storybook dependency), else it degrades a method or logs a fidelity GAP. (`validate-audit.md` §7a.)
-- **Keystone gate (exists + red-team)** — the Stage-8.5 keystone is present, six-section, guardrail-in-tail,
-  within budget; the builder emits a guardrail red-team battery + expected-refusal contract. Regulated postures
+  Storybook dependency), else it degrades a method or logs a fidelity GAP. The verdict leaves a PERSISTED
+  artifact committed to `audit/fidelity/<treatment-id>/` (source + reproduction + recorded verdict); its absence
+  FAILS the gate. (`validate-audit.md` §7a.)
+- **Keystone gate (exists + content + red-team)** — the Stage-8.5 keystone is present, six-section,
+  guardrail-in-tail, within budget (structural) AND passes the §7b CONTENT check (THINK + DESIGN-as each ≥1
+  when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no core section a bare adjective list — form-of-rule only,
+  `not-used(owner-declared)` resolves clean). The builder emits + COMMITS the guardrail red-team battery +
+  expected-refusal contract to `audit/redteam/` (empty/un-run battery = well-formedness FAIL). Regulated postures
   (health/finance/legal): BLOCKING + human red-team sign-off (default unratified-pending); the live adversarial
-  run is Phase 5. (`validate-audit.md` §7b.)
+  run is Phase 5 (its deferral does not void the committed artifacts). (`validate-audit.md` §7b.)
 - **Client-confirmation is a HUMAN gate** — assemble the audit + samples + open ratification GAPs into the PR
   and stop; sign-off is human PR review. Never auto-confirm or auto-stamp "Ratified by…"; default state is
   unratified-pending. (The scrub apparatus is Stage 11 / PR-B5.)

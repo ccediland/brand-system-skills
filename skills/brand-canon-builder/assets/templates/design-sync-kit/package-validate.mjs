@@ -12,6 +12,8 @@
 //   [FONT_MISSING]  — every font-family referenced in styles.css resolves to a shipped @font-face / system
 //                     stack (a referenced custom family with no @font-face is a fidelity-blocking GAP)
 //   [RENDER_THIN]   — styles.css carries a real token closure (not just the @import) so designs aren't hollow
+//   [CSS_BUNDLE_UNREACHABLE] — styles.css @imports "./_ds_bundle.css" (the compiled component CSS); without
+//                     that import the component styles never reach the render
 //
 // Best-effort by design: run it after `npm run build`. A missing dist is recoverable ([NO_DIST] → run build).
 
