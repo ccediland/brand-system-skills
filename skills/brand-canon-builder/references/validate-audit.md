@@ -24,8 +24,9 @@ This closes the loop opened by F-020 (the scoper's asset-inventory request) → 
 
 Fidelity tolerance is layered by what the element is — independent of the mechanism in §3:
 
-- **Zero tolerance** on brand-defining elements: the mark and the primary color tokens. Any
-  divergence here fails.
+- **Zero tolerance** on brand-defining elements: the mark and the primary color tokens — plus any
+  **graphic-code** the handoff's CORE-ASSET FIDELITY CONTRACT lists on the `NON-WAIVABLE` line (F6). Any
+  divergence on a zero-tolerance element fails (the NON-WAIVABLE set holds even under `BUILD-MODE: v0/DEMO`).
 - **Higher tolerance** on gradients, illustration, and incidental imagery (perceptual difference is expected;
   judge against intent, not pixels).
 - **Baselines** are per-component-variant and per-brand (the clone-per-brand model: each brand carries
@@ -140,10 +141,12 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
   §5 guardrail layer — persona / roleplay-jailbreak attempts ("ignore previous instructions" / persona-override
   / DAN-style) and injection attempts (untrusted external/retrieved text overriding the rules) — plus the
   **expected-refusal contract** (what the guardrail must refuse, and how, in character).
-  - **Regulated postures (health / finance / legal): BLOCKING + external human sign-off.** In-context
-    guardrails reduce but do not eliminate jailbreak/injection risk, so a regulated-posture keystone is never
-    self-certified — the battery + the expected-refusal contract are assembled into the PR and **human red-team
-    sign-off is required; the default state is unratified-pending** (mirrors §6).
+  - **Regulated trigger — fire on EITHER signal (F29): the handoff POSTURE `profile == regulated` OR a
+    non-empty `regulatory:` field** (a brand can be regulated-in-fact without the `regulated` profile label).
+    When either trips: **BLOCKING + external human sign-off.** In-context guardrails reduce but do not
+    eliminate jailbreak/injection risk, so such a keystone is never self-certified — the battery + the
+    expected-refusal contract are assembled into the PR and **human red-team sign-off is required; the default
+    state is unratified-pending** (mirrors §6).
   - **Non-regulated postures:** the battery runs; findings are fixed or logged as `GAP-NNN`; not build-blocking
     on its own.
   - **Live adversarial execution is Phase 5.** This stage *builds and assembles* the gate (battery +
