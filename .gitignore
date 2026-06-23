@@ -6,10 +6,10 @@ node_modules/
 dist/
 .DS_Store
 
-# Reference material must NEVER be committed (brand-scrub gate)
-# (kept in /tmp during the build; listed here as a guardrail)
-**/la-gruta*.pdf
-**/brandbook*.pdf
+# Reference material must NEVER be committed (brand-scrub gate) — never name a real brand here.
+# Brand references live in /tmp during a build; the tool repo ships no PDFs, so ignore ALL PDFs as a guardrail
+# (token-named patterns would let a brand-named file slip; the real enforcement is the 0-brand-name pre-commit grep).
+**/*.pdf
 
 # Build provenance (gitignored — not shipped)
 dev/

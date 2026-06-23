@@ -30,7 +30,7 @@ canonical: github
   mechanically and it decides artifacts it never names (the universality test).
 - **Token spine:** DTCG `base/semantic/component`; OKLCH literal in `$value`; print values authored in
   `$extensions`; every token carries its `$extensions.brand.provenance` (source/confidence/owner/freshness).
-  See `projections.md` for the interchange contract.
+  See `projections.md` for the interchange contract; for DTCG / OKLCH, see the glossary in `canon/00-index.md`.
 - **Build evidence (`audit/`):** the build commits fidelity + guardrail evidence the repo carries —
   `audit/fidelity/<treatment-id>/` (each reproduced treatment's source capture + reproduction + recorded
   verdict) and `audit/redteam/` (the keystone's red-team battery + expected-refusal contract). Present when
@@ -47,9 +47,9 @@ canonical: github
 
 ## Open Items / Gaps
 <!-- GUIDE: every empty must-have slot and every unratified decision is a GAP here. See gap-protocol. -->
-| ID | Item | Why it matters | Severity | Proposed resolution | Status |
-|---|---|---|---|---|---|
-| GAP-001 | {{...}} | {{...}} | {{MUST-HAVE \| SHOULD \| NICE}} | {{...}} | {{OPEN \| CLOSED (ratified)}} |
+| ID | Item | Why it matters | Severity | Provenance | Proposed resolution | Status |
+|---|---|---|---|---|---|---|
+| GAP-001 | {{...}} | {{...}} | {{MUST-HAVE \| SHOULD \| NICE}} | {{handoff-deliberate \| handoff-defect \| builder \| skill-scope}} | {{...}} | {{OPEN \| CLOSED (ratified)}} |
 
 ## Change log
 - {{DATE}} — canon scaffolded; {{what was filled vs left as gaps}}.

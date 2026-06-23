@@ -15,7 +15,7 @@ output. They share the same DTCG/OKLCH token spine, so a canon projects into web
 
 | Skill | Where | What it does |
 |---|---|---|
-| **brand-canon-builder** | Claude Code (filesystem + git) | Analyzes existing brand work, extracts the real assets, and builds the canon — four layers + token spine + satellites + docs — then emits a real prototype and a compiled, `/design-sync`-ready component library. Fills what the brand's material supports, logs the rest as tracked gaps, and fails the build if a core asset (the mark, the fonts) is missing rather than shipping an empty skeleton. |
+| **brand-canon-builder** | Claude Code (filesystem + git) | Analyzes existing brand work, extracts the real assets, and builds the canon — four layers + token spine + satellites + docs — then emits a real prototype, a compiled, `/design-sync`-ready component library, and the attachable keystone `.md` an AI thinks / speaks / designs *as* the brand. Fills what the brand's material supports, logs the rest as tracked gaps, and fails the build if a core asset (the mark, the fonts) is missing rather than shipping an empty skeleton. |
 | **brand-canon-scoper** | Claude.ai chat (no filesystem) | Scopes a brand in conversation and compiles one ready-to-paste handoff block that the builder runs in Claude Code. |
 
 ## What "canon" means here

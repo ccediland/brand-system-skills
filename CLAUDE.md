@@ -24,8 +24,10 @@
 ## Standing guardrails (apply when editing THIS repo's templates/skills)
 - **Brand-agnostic + output-agnostic, always.** The templates must contain zero real brand specifics and no
   output/medium-named sections. Before committing changes to the templates/skills, grep the tracked tree for
-  any real brand name, ink, or token value that may have crept in — it must be 0 hits. Example/illustrative
-  token values must be obviously generic (never a real brand's exact OKLCH/hex/Pantone).
+  any real brand name, ink, or token value that may have crept in — it must be 0 hits (a standing pre-commit
+  gate). This covers `.gitignore`, configs, and every dotfile too: a brand-scrub *pattern* must generalize
+  (`**/brandbook*.pdf`), never name a brand (the M2 leak hid in `.gitignore`). Example/illustrative token
+  values must be obviously generic (never a real brand's exact OKLCH/hex/Pantone).
 - **Token contract is load-bearing.** Keep the DTCG token templates valid and projecting cleanly into
   downstream consumers: OKLCH literal in `$value`; plain-string values; `{tier.category.name}` aliases;
   category names on the namespace convention; `source:"authored"|"derived"` on extension color spaces. See

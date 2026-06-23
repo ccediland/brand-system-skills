@@ -29,7 +29,9 @@ A component kit (a projection of the canon) plus a `.design-sync/` control direc
   contradict the kit's, and the converter validates only the kit's.
 - **`conventions.md`** — the agent-facing header: the brand's GRAMMAR scoped to the kit (mood, scheme
   classes, the style-by-token-name idiom, where the truth lives, the hard brand rules, one idiomatic
-  example). This is what keeps the design agent on-brand. Template: `…/conventions.md`.
+  example). This is what keeps the design agent on-brand. There is exactly **one** `conventions.md` and it is
+  the kit's own (template: `assets/templates/design-sync-kit/.design-sync/conventions.md`), wired by
+  `config.json` `readmeHeader`; this adapter directory ships no second copy.
 - **`NOTES.md`** — the operational runbook + gotchas (re-sync in one pass; assets copied post-build; inline
   the mark as a data-URI; generated CSS entry; capture MIME patch; project-id bookkeeping). Template:
   `…/NOTES.md`.
@@ -46,9 +48,10 @@ kit.
 1. Default ON — emit it unless the owner explicitly opted out (then skip and note the opt-out in
    `projections.md`).
 2. Scaffold the buildable kit from `assets/templates/design-sync-kit/` (component source + one-command
-   build + `.design-sync/` control dir, which already carries the single `config.json`). These adapter
-   templates are the canon→kit brief (conventions + NOTES), not a second config — do not copy a config.json
-   here.
+   build + `.design-sync/` control dir, which already carries the single `config.json` and the single
+   `conventions.md`). The only adapter-dir template is the `NOTES.md` runbook (the conventions header is the
+   kit's own `.design-sync/conventions.md`, not a second copy) — do not copy a `config.json` or a
+   `conventions.md` here.
 3. Fill the `{{...}}` fields in the kit's `.design-sync/config.json` and `conventions.md` from the canon
    (tokens, schemes, mark rules, voice). Derive every line — invent nothing.
 4. Register Claude Design as a consumer in `projections.md`.
