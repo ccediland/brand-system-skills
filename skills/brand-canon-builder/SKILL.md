@@ -59,6 +59,7 @@ them all at once.
 - `references/reproduction-router.md` — load when a brand carries a visual/textural treatment to reproduce (Stages 5 & 8).
 - `references/design-sync-kit.md` — load when emitting the prototype + `/design-sync`-ready kit (Stage 8).
 - `references/claude-design-adapter.md` — load when wiring the Claude Design adapter (default ON; Stage 8).
+- `references/keystone-emit.md` — load when emitting the mandatory keystone `.md` (Stage 8.5).
 - `references/validate-audit.md` — load when running the VALIDATE/AUDIT stage + fidelity gate (Stage 10).
 - `references/client-clean.md` — load when scrubbing the client repo before handoff (Stage 11).
 
@@ -220,6 +221,22 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
 Re-pin the live `/design-sync` contract before freezing the emitter (`dev/v2-build-spec.md` §4.6 step 0 — the
 contract is server-side/version-fluid via `get_claude_design_prompt`).
 
+### Stage 8.5 — Emit the keystone `.md` · BLOCKING (north-star)
+Read `references/keystone-emit.md`. Synthesize the single attachable `<brand>-keystone.md` from the filled
+canon (Stages 2/6), the token spine (Stage 7), and the acquired assets (Stages 3/4) — the deliverable that
+makes the brand *operable* by an AI (think / speak / design AS the brand + a guardrail layer). Mandatory build
+output, not opt-in. Copy `assets/templates/keystone/keystone.md` and fill it in the ratified 6-section order
+(front-matter · THINK-as · SPEAK-as · DESIGN-as · GUARDRAIL · REFERENCE):
+- Render THINK and DESIGN as decision rules and SPEAK with few-shot pairs (machine-consumable), never
+  adjectives; derive DESIGN from the token spine, GUARDRAIL from the handoff POSTURE block.
+- Recall-ordering: the GUARDRAIL layer (§5) sits in the high-recall tail, never buried mid-document; §5 + §4
+  double as Project instructions, §6 REFERENCE as Project knowledge (front-matter carries the deployment map).
+- Size budget is a parameter (conservative default: stay fully resident in context). If over, apply the
+  degradation path (split §6 REFERENCE to retrievable knowledge first). The measured trip-point is delegated to
+  Phase-5 calibration (RESIDENT OI-E).
+- Provenance: every datum inherits the spine; mark observed-but-unconfirmed as `hypothesis`, never crystallize.
+Stage 10 fails the build if the keystone is absent or malformed (`references/validate-audit.md` §7b).
+
 ### Stage 9 — Coverage + gaps
 Read `references/coverage-checklist.md` and `references/gap-protocol.md`. Formalize the handoff's
 client-language gaps into `GAP-NNN` (two-ledger); walk the universal must-haves; for each unmet one, add a
@@ -228,7 +245,7 @@ the universality stress test is the real net.
 
 ### Stage 10 — VALIDATE / AUDIT + fidelity gate · BLOCKING
 Read `references/validate-audit.md`. Judge the build on fidelity, not rule-compliance of an empty
-skeleton. Five parts:
+skeleton. Seven parts:
 
 - **Fidelity gate** — consume the handoff's `CORE-ASSET FIDELITY CONTRACT` (parsed at Stage 0): a missing or
   low-fidelity core asset is fidelity-blocking → the build FAILS (not "pass with gaps"); non-core gaps
@@ -243,6 +260,13 @@ skeleton. Five parts:
 - **Content audit** — rule-by-rule audit of all written + visual content (authored AND generated) against the
   `G-*`/`ALGO-*` GRAMMAR rules and ESSENCE/voice (anti-promise, lexicon, don'ts).
 - **Render real samples** — the Stage-8 HTML prototype is the evidence.
+- **Reproduction visual-diff (treatments)** — every reproduced treatment (Stage 5 → Stage 8 via
+  `reproduction-router.md`) passes a perceptual visual-diff against the Stage-5 source (no pixel-VRT, no
+  Storybook dependency), else it degrades a method or logs a fidelity GAP. (`validate-audit.md` §7a.)
+- **Keystone gate (exists + red-team)** — the Stage-8.5 keystone is present, six-section, guardrail-in-tail,
+  within budget; the builder emits a guardrail red-team battery + expected-refusal contract. Regulated postures
+  (health/finance/legal): BLOCKING + human red-team sign-off (default unratified-pending); the live adversarial
+  run is Phase 5. (`validate-audit.md` §7b.)
 - **Client-confirmation is a HUMAN gate** — assemble the audit + samples + open ratification GAPs into the PR
   and stop; sign-off is human PR review. Never auto-confirm or auto-stamp "Ratified by…"; default state is
   unratified-pending. (The scrub apparatus is Stage 11 / PR-B5.)

@@ -59,6 +59,8 @@ Fidelity evidence is the convergence of four sources — all already produced by
 No pixel-diff VRT is required in package-shape — there is no reference render to diff against; the absolute
 grade + the HTML-prototype samples + the contract are the gate.
 
+(For brands carrying a reproduced TREATMENT, §7a adds a perceptual visual-diff against the source — a manual overlay, still no pixel-VRT and no Storybook dependency.)
+
 ### 3b. Storybook-shape (ONLY if the brand already ships Storybook + Playwright)
 
 Per `design-sync-kit.md` / §4.6, escalate to Storybook-shape only when the brand already ships Storybook +
@@ -105,11 +107,56 @@ Confirmation is never self-certification:
 stage only references the human-gate principle and assembles the evidence. The scrub itself is not implemented
 here.)
 
+## 7. v3 fidelity additions — reproduction visual-diff + keystone red-team
+
+Two v3 gates layered on top of §1–6.
+
+### 7a. Reproduction visual-diff (treatments) — ties `reproduction-router.md`
+
+Every brand TREATMENT the build reproduced (classified at Stage 5, reproduced at Stage 8 via
+`reproduction-router.md`) is validated by **visual diff against the source artifact** — a perceptual overlay of
+the reproduction over the Stage-5 source capture, not a pixel-VRT against a reference render. This is the
+reproduction half of the fidelity gate the router points at.
+
+- **Within tolerance → pass.** Apply the §2 layered thresholds: zero tolerance where the treatment is
+  brand-defining (a mark's texture, a signature finish), higher tolerance on incidental texture/illustration
+  (judge against intent, not pixels).
+- **Cannot be brought within tolerance → not done.** It degrades to a lower method (procedural → vector-trace →
+  raster-required) or becomes a fidelity `GAP-NNN`. A procedural approximation passed off as the real treatment
+  is a fail, never a pass.
+- **Shape note.** In package-shape (the default) this is the manual/perceptual overlay above — it does **not**
+  introduce a pixel-VRT and does **not** mandate Storybook + Playwright. The Storybook-shape pixel-match VRT
+  (§3b) stays the exception, used only when the brand already ships that stack.
+
+### 7b. Keystone gate — exists, well-formed, red-team
+
+The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Stage 10 gates it.
+
+- **Existence + well-formedness (BLOCKING, all postures).** The keystone is present and carries all six
+  sections; the GUARDRAIL layer (§5) sits in the high-recall tail (not buried mid-document); the file is within
+  the conservative size budget or has applied the degradation path (§6 REFERENCE split out). Absent or
+  malformed → the build FAILS.
+- **Guardrail red-team (posture-gated).** The builder **emits a red-team battery** derived from the keystone's
+  §5 guardrail layer — persona / roleplay-jailbreak attempts ("ignore previous instructions" / persona-override
+  / DAN-style) and injection attempts (untrusted external/retrieved text overriding the rules) — plus the
+  **expected-refusal contract** (what the guardrail must refuse, and how, in character).
+  - **Regulated postures (health / finance / legal): BLOCKING + external human sign-off.** In-context
+    guardrails reduce but do not eliminate jailbreak/injection risk, so a regulated-posture keystone is never
+    self-certified — the battery + the expected-refusal contract are assembled into the PR and **human red-team
+    sign-off is required; the default state is unratified-pending** (mirrors §6).
+  - **Non-regulated postures:** the battery runs; findings are fixed or logged as `GAP-NNN`; not build-blocking
+    on its own.
+  - **Live adversarial execution is Phase 5.** This stage *builds and assembles* the gate (battery +
+    expected-refusal contract + posture-blocking rule); the live instantiate-and-attack run is the Phase-5
+    guardrail red-team — a model has to actually run it. The builder does not fake a live jailbreak eval in Code.
+
 ## Gate summary
 
 The build is done only when: every core asset is present + build-grade (§1); `[FONT_MISSING]` is
 resolved for core faces; the hollow-render gate is clean and `package-validate.mjs` exits 0 (package-shape) or
 the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
-rule/voice violations; the three retained checks pass; and the evidence + open ratification GAPs are assembled
-into the PR for human sign-off. Anything core unmet → the build fails; non-core gaps log and the repo
-stays valid.
+rule/voice violations; the three retained checks pass; **every reproduced treatment passes the §7a visual-diff
+(or degrades / logs a GAP); the keystone is present, six-section, guardrail-in-tail, within budget — and, in a
+regulated posture, carries human red-team sign-off (§7b)**; and the evidence + open ratification GAPs are
+assembled into the PR for human sign-off. Anything core unmet → the build fails; non-core gaps log and the
+repo stays valid.
