@@ -11,6 +11,8 @@
   kit + Claude Design adapter).
 - `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` + `references/handoff-format.md`.
 - `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items).
+- `v3-execution-plan.md` (root) — the v3 execution plan (detailed gated phases + session log).
+- `v3-research-foundation.md` (root) — the frozen v3 research (resolved methods, boundaries, sources); the build phases draw from it.
 
 ## How the skills work (one line each)
 - **brand-canon-builder** — scaffold the canon → fill what the brand's material/brief supports → log the
@@ -38,6 +40,34 @@ extract → prototype + Design-syncable library engine (the v2 pipeline is compl
 full work-log, the v2 specs (`v2-build-spec.md`, `v2-intake-spec.md`), and the granular backlog
 (`v2-backlog.md`, F-001…F-026) live in the **gitignored `dev/`** directory — local provenance, not shipped.
 
+## v3 (in progress) — see `v3-execution-plan.md`
+v3 builds on the shipped v2 skills (does not restart them). Rectoral rule for ALL v3 work: **anti-determinism** —
+build and research the general capability class, never a single-brand instance; the brand is illustration only.
+The rules below are guardrails/gotchas; the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/boundaries/sources in `v3-research-foundation.md`, and
+`RESIDENT.md ## v3`.
+- **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual; treat
+  `pdffonts`/embedded-font tables as corroboration only — outlined type makes them report the studio's layout
+  font or nothing.
+- **Faithful capture.** Clean vectors via PyMuPDF `page.get_drawings()` or copy-region-to-new-doc (a full-page
+  Inkscape open yields a bloated, non-isolated SVG); image font-matching for unnamed faces; fidelity rating +
+  provenance per artifact.
+- **Reproduction router (treatment→method).** Procedural SVG filters (`feTurbulence` texture · `feDisplacementMap`
+  organic/glitch · `feDiffuse`+`feSpecularLighting` 3D/gloss/emboss · `feGaussianBlur` glass · `feColorMatrix`
+  grading) / generative lib (rough.js) / vector-trace / raster-required. Validate by visual diff. `feTurbulence`
+  is CPU-heavy → constrain or rasterize; photography + bespoke illustration are raster-required.
+- **Keystone `.md` (mandatory v3 output).** A single attachable think/speak/design + guardrail file; keep it
+  within a Claude Project's resident context (RAG trip-point unpublished → budget the size; data first,
+  instructions last for recall).
+- **Tokens/scheme.** Keep the v2 DTCG/OKLCH spine; OKLCH is the general scheme-derivation engine (light/dark,
+  high-contrast, sub-brand). SD v5 / DTCG 2025.10 already pinned (issue #1590 — `color/oklch`, never `color/css`).
+
 ## Flujo (Carlos)
 Work on a `claude/<name>` branch, never main; PR + wait for OK before merge. Respond to Carlos in es-MX
 (technical terms + code in English). Secrets in Infisical, never in git/Drive.
+
+**Workflow hub (v3).** Chat is the hub; design decisions happen in Chat. Hand big or filesystem/git/build tasks
+to Claude Code (it returns results to Chat) — including non-repo tasks better suited to Code. From Chat, use
+Composio GitHub **con calma**: reads + light edits only; route big repo work to Code. Editing canonical `.md`
+(RESIDENT/CLAUDE) via Composio carries clobber risk → read-then-merge, or route to Code. Update RESIDENT + CLAUDE
+at the end of each chat — especially on a context/compute hand-off, which Carlos decides (Claude may only suggest
+a fresh chat when context is legitimately heavy).

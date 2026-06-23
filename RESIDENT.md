@@ -26,6 +26,7 @@ domains: [brand-system, tooling]
   into an engine that analyzes existing published brand work across mediums → extracts the real assets →
   produces a real prototype + a Design-syncable component library by default.** The canon is the skeleton,
   never the deliverable. See `## v2`.
+- **v3 (scoping):** v2's engine shipped and works, but a fresh adversarial stress test (a third, independently-authored brand of a different shape) exposed deeper failure classes v2's gates miss — all reducing to the system losing track of its data's epistemic status. v3's **rectoral constraint is anti-determinism**; its **north star** is a single attachable file an AI can *think / speak / design as* the brand; its **spine** is provenance on every datum. Detailed plan in `v3-execution-plan.md` (repo root). See `## v3`.
 
 ## Architecture & why
 - **Four-question canon.** Every design truth answers *where-start / why / what / how*; each owned by one
@@ -56,6 +57,8 @@ domains: [brand-system, tooling]
 - `skills/brand-canon-scoper/` — `SKILL.md` + `references/handoff-format.md`.
 - `README.md` (human front door) · `RESIDENT.md` (this doc) · `CLAUDE.md` (agent ops + guardrails).
 - `dev/` — build provenance (work-log + v2 specs + `v2-backlog.md`, F-001…F-026); **gitignored, local-only, not shipped**.
+- `v3-execution-plan.md` (root, tracked) — the v3 execution plan (detailed gated phases + session log); v3's simplified goals/decisions live in this RESIDENT (`## v3`), its tech/gotchas in `CLAUDE.md`.
+- `v3-research-foundation.md` (root, tracked) — the frozen v3 research: six resolved capability classes with methods, capability boundaries, and primary sources; the build phases draw from it.
 
 ## Integrations / ritual
 - **web-stack-skills** = downstream consumer. Its `astro-css-tokens` skill ingests the DTCG `tokens/` spine
@@ -83,6 +86,16 @@ domains: [brand-system, tooling]
 | **v2 builder:** the compiled component library is the ecosystem gap the builder fills | no existing tool compiles a `/design-sync`-ready package from a canon kit | 2026-06-22 |
 | **v2 builder:** source-agnostic asset acquisition (matrix by source-type, never assume PDF) | never presume a single source type exists; technique chosen by the source found | 2026-06-22 |
 | **v2 builder:** pin Style Dictionary v5 + DTCG draft 2025.10 | DTCG 2025.10 not yet fully supported in SD v5 (issue #1590); use `color/oklch`, never `color/css` | 2026-06-22 |
+| **v3 rectoral:** anti-determinism governs the whole skillset — general capability classes only, instance as illustration | the determinism failure recurred at every stress-test phase + in the v3 pre-research; intent didn't prevent it | 2026-06-22 |
+| **v3 north star:** a single attachable `.md` an AI can think/speak/design as the brand (+ guardrail layer); mandatory build output | the canon + library don't make the brand *operable* by an AI; this is the deliverable they serve | 2026-06-22 |
+| **v3 spine:** provenance/epistemic status (source/confidence/owner/freshness) on every datum; extends `authored\|derived` | ~5 distinct stress-test failures reduce to lost data-status; observed ≠ confirmed | 2026-06-22 |
+| **v3 stated-spec-read:** brand's declared truth (named font, declared color) authoritative; tool metadata corroborates only | outlined/flattened type makes font tables report the studio's layout font or nothing | 2026-06-22 |
+| **v3 reproduction router:** treatment→method (procedural SVG-filter / generative-lib / vector-trace / raster) validated by visual diff, explicit code-can't boundary | faithful capture is craft the provenance frame can't supply; photography + bespoke illustration are raster-required | 2026-06-22 |
+| **v3 guardrail layer:** posture-parameterized, functional-requirements tier ABOVE personality; posture detected not hardcoded | prevents tonal dissonance; personality must not override functional/safety constraints | 2026-06-22 |
+| **v3 horizons:** adaptive detection (category → one-line + tracked gap → detect existing material), not a fixed checklist | a fixed checklist causes tunnel vision + category mismatch | 2026-06-22 |
+| **v3 two-surface output:** internal rigor surface (structured, mixed-language) vs external client surface (plain, visual, Spanish) | one surface can't serve both the operator and a non-design SME client | 2026-06-22 |
+| **v3 `v0/DEMO` mode:** OPTIONAL defaults YES (+ carve-out for scope-expanding dims); mark + graphic-code non-waivable even in demo | momentum without dropping identity-load-bearing assets | 2026-06-22 |
+| **v3 scheme derivation:** OKLCH as one general engine (light/dark, high-contrast, sub-brand as cases) on the v2 OKLCH spine | one transformation space covers every scheme; keeps the v2 spine | 2026-06-22 |
 
 ## Open Items
 | ID | Item | Severity | Status |
@@ -90,6 +103,10 @@ domains: [brand-system, tooling]
 | OI-A | No downstream consumer yet ingests motion/depth tokens (web-stack `astro-css-tokens` reads neither). A future bridge skill could. | NICE | OPEN |
 | OI-B | web-stack-skills cites no `G-*`/`ALGO-*` rule IDs today; enforceable canon downstream would need rule-ID citations there or carried as token metadata. | NICE | OPEN |
 | OI-D | Literal Stage 2 (read-only) / Stage 6 (fill) §3 re-split deferred; the folded Stage 2 carries read+fill today. Revisit only if the PR-B1 spine is reopened. | NICE | OPEN |
+| OI-E | Keystone `.md` RAG trip-point (size at which a Claude Project stops keeping it resident and chunks it) is unpublished by Anthropic → keystone size budget needs empirical calibration. | MAJOR | OPEN (Phase 4) |
+| OI-F | Second v3 validation brand not chosen — must be differently-shaped (no brandbook, light-only palette, incomplete material) to test generality. | MAJOR | OPEN (Phase 5) |
+| OI-G | Graceful-degradation path for the scoper's living-questions doc when the chat env lacks a connector/filesystem. | NICE | OPEN (Phase 3) |
+| OI-H | Resolver-based theming for OKLCH scheme derivation rides on the v2 SD-v5 / DTCG-2025.10 pin (issue #1590) → may need a custom-transformer/Terrazzo fallback. | NICE | OPEN |
 
 (OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
 
@@ -116,6 +133,34 @@ distribution (PR-B6) + skills audit-remediation (#8). The method now lives in `s
 > server-regenerated; `readmeHeader` coexists with `guidelinesGlob`). The builder **re-reads the live skill
 > at run time** before freezing the emitter — treat pinned field/script names as version-fluid, not frozen.
 
+## v3 — provenance, anti-determinism, and a brand an AI can be (scoping)
+v2's analyze→extract→prototype+library engine shipped and works. A fresh adversarial stress test — a third,
+independently-authored brand of a different shape (a divergent multi-source identity: an authored brandbook,
+fresher shipped social, a stale website) — exposed failure CLASSES v2's gates do not catch. They reduce to one
+root: **the system loses track of each datum's epistemic status and crystallizes the unconfirmed or the
+instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does not restart them.
+
+- **Rectoral constraint — anti-determinism.** Governs the WHOLE skillset, not one phase. Every part (discovery,
+  inventory, capture, reproduction, the dimension map, the keystone file) reasons in general capability classes,
+  spaces, and decision methods, never single-brand instances; a brand instance is only an illustration. The
+  failure recurred at every stress-test phase and inside the v3 pre-research itself, so v3 enforces it
+  structurally, not by intent.
+- **North star — a brand an AI can BE.** Beyond the canon + component library, v3's keystone deliverable is a
+  single attachable Markdown file that lets an AI **think / speak / design as** the brand (essence/positioning as
+  operative reasoning + voice + design-reasoning derived from the token canon) plus an operational guardrail
+  layer, sized to stay resident in a Claude Project's context. Mandatory build output; gives a testable
+  end-to-end criterion (instantiate the brand-AI, judge fidelity).
+- **Spine — provenance/epistemics on every datum.** Generalizes v2's `authored|derived` flag + GAP protocol:
+  every datum carries source / confirmation status / owner / freshness, and is never used as if it had a status
+  it has not earned. Observed expression enters as a hypothesis, never a finding; line-vs-one-off promotion needs
+  owner confirmation.
+- **Five axes / two columns.** Axes: coverage+epistemics · faithful capture+reproduction · horizons+keystone ·
+  the Chat↔Code seam · two-surface output. Two columns that don't subsume each other: provenance discipline
+  (honesty about known-vs-assumed) + faithful-capture craft (actually reproducing what is seen).
+- **Status.** Scoped (identify → pre-research → research → plan done). Build not started. Five gated phases in
+  `v3-execution-plan.md`; Phase 1 (architecture + keystone schema) awaits Carlos's ratification before any
+  rewrite.
+
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it
   passes every gate but renders nothing presentable. Do not retry — assets, fonts and a real prototype are
@@ -128,8 +173,29 @@ distribution (PR-B6) + skills audit-remediation (#8). The method now lives in `s
 - Tried: scoper auto-mines material, infers the WHY/essence, and extracts primitives. Abandoned: WHY is not
   in source material (must be elicited) and the scoper's extraction was wrong. Do not retry — the scoper
   elicits + points; the builder extracts.
+- Tried (v3 stress test): trusting `pdffonts`/font tables for the brand typeface. Abandoned: outlined brand
+  type is invisible to the table, which reported the studio's embedded layout font. Do not retry —
+  stated-spec-read (OCR/visual the named spec); metadata corroborates only.
+- Tried (v3): a full-page PDF opened in Inkscape with a cropped viewBox as the "isolated" mark. Abandoned: not
+  isolated — carried the whole page's paths/glyphs; bloated. Do not retry — subtree-extract
+  (`page.get_drawings()`) / copy-region-to-new-doc, or label page-clips honestly.
+- Tried (v3): recreating a brand's graphic-code pattern parametrically from scratch. Abandoned: wrong vs the
+  source (invented, not compared). Do not retry — trace the source vector as master; parametric only as a
+  visual-diff-validated variant.
+- Tried (v3): passing social/applied expression as prose across the Chat→Code handoff. Abandoned: the builder
+  can't ingest prose; the applied-expression dimension degraded. Do not retry — attach real media + give the
+  builder an ingestion method.
+- Tried (v3): resource handoff via Claude.ai URLs. Abandoned: unreachable behind auth; the builder hunted local
+  Downloads. Do not retry — a placed-files manifest with checksums.
+- Tried (v3, meta): researching/building the single brand instance instead of the general capability. Abandoned:
+  determinism/tunnel-vision recurs at every phase. Do not retry — anti-determinism is rectoral.
 
 ## Change log
+- 2026-06-22 — **v3 scoped.** A fresh adversarial stress test (a third, independently-authored brand) exposed
+  failure classes v2's gates miss; root cause = epistemic-status loss + determinism. Ran identify → pre-research
+  → research → plan. Set the v3 center: rectoral anti-determinism + a provenance spine + a keystone "a brand an
+  AI can be" `.md`. Detailed five-phase plan committed to `v3-execution-plan.md` (root); RESIDENT + CLAUDE given
+  a v3 domain. Phases gated; Phase 1 (architecture) awaits ratification. Build not started.
 - 2026-06-22 — **v2 built & shipped.** Scoper rewrite (PR #1) + builder pipeline Stages 0–12 (PR-B1…B5:
   handoff spine · asset/font acquisition · applied-design · prototype + `/design-sync` kit · token spine ·
   gaps · validate/audit + fidelity gate · client-clean) + distribution (PR-B6: README, manifests v0.2.0,
