@@ -1,24 +1,45 @@
 ---
 name: brand-canon-scoper
-description: "Scope a brand in conversation (no filesystem needed) and compile a single ready-to-paste handoff block that the brand-canon-builder skill runs in Claude Code to build the brand canon. Use this in Claude.ai chat — or any conversation without a working filesystem/git — when someone wants to start a brand system, design system, brand canon, brand guidelines, or design tokens but isn't in a coding environment yet. Triggers on \"help me scope our brand\", \"I want to start a brand system but I'm in chat\", \"gather what we need for our design system\", \"prep our brand for the builder\". Its ONLY job is to interview, request the brand's material and intent, structure it, and emit one machine-readable handoff — it does not build the canon itself, never infers the brand's WHY, and never extracts primitive values."
+description: "Scope a brand in conversation (no filesystem needed): interview the owner, request and structure their brand material and intent, detect brand posture and horizons, resolve every dimension to filled/not-used/tagged-gap, and compile a single ready-to-paste handoff block that the brand-canon-builder skill runs in Claude Code to build the brand canon. Use this in Claude.ai chat — or any conversation without a working filesystem/git — when someone wants to start a brand system, design system, brand canon, brand guidelines, or design tokens but isn't in a coding environment yet. Triggers on \"help me scope our brand\", \"I want to start a brand system but I'm in chat\", \"gather what we need for our design system\", \"prep our brand for the builder\". Its ONLY job is to interview, request, structure, detect, and emit one machine-readable handoff plus a client-facing instrument — it does not build the canon itself, never infers the brand's WHY, never extracts primitive values, and never promotes an observation to a brand rule without owner confirmation."
 ---
 
 # Brand Canon Scoper
 
 A Chat-side guided intake instrument for building a brand canon. It does one thing: interview the
-person, request and structure their brand material and intent, and compile a single machine-readable
-handoff block they take into Claude Code, where the `brand-canon-builder` skill does the actual build
-(filesystem + git).
+person, request and structure their brand material and intent, detect posture + horizons, resolve every
+dimension to a known state, and compile a single machine-readable handoff block they take into Claude
+Code, where the `brand-canon-builder` skill does the actual build (filesystem + git).
 
-It interviews, requests, structures, and points — then emits one handoff. It does not mine material
-autonomously, does not infer the WHY, and does not extract primitive values. Those are the builder's
-job. Use this when there's no working filesystem (e.g. Claude.ai chat); if you're already in Claude Code with
-a filesystem, you can skip the scoper and use `brand-canon-builder` directly.
+It interviews, requests, structures, detects, and points — then emits one handoff plus a client-facing
+instrument. It does not mine material autonomously, does not infer the WHY, does not extract primitive
+values, and does not promote an observation to a brand rule without owner confirmation. Those are the
+builder's job or require the owner. Use this when there's no working filesystem (e.g. Claude.ai chat);
+if you're already in Claude Code with a filesystem, you can skip the scoper and use
+`brand-canon-builder` directly.
 
 ## What it does NOT do
 It does not scaffold files, write tokens, or build the canon. No filesystem work. It does not eyedropper a
 color, read geometry off a PDF/site, extract embedded vectors, or finalize the WHY without the owner's
-ratification. It scopes, structures, and hands off.
+ratification. It does not crystallize an observed one-off as a brand line. It scopes, structures, detects,
+and hands off.
+
+## Rectoral rule — anti-determinism
+Every part of this skill reasons in general capability classes, not a single-brand instance. The dimension
+map, the posture space, the horizon taxonomy, the epistemic states — all are mechanisms that span every
+brand; a given brand is only an illustration that fills them in. Never hardcode a brand-specific answer
+into the method.
+
+## The provenance spine (every datum carries it)
+Generalizes v2's `authored|derived` flag. Every datum the scoper records carries four fields:
+- **source** — where it came from (declared-spec / owner-stated / observed-applied / …).
+- **confidence** — `hypothesis` (observed, unconfirmed) → `corroborated` (multiple sources agree) →
+  `owner-confirmed` (the owner ratified it).
+- **owner** — who ratifies it (the Accountable for that slot).
+- **freshness** — shipped/fresh vs stated/older.
+
+Hard rule: **observed expression enters as `hypothesis`, never as a finding.** Promoting an observed
+one-off to a brand *line* (a rule) requires `owner-confirmed`. A datum is never passed across the handoff
+at a status it has not earned.
 
 ## Doctrine — analyze published work as the default
 
@@ -31,7 +52,7 @@ the published material.
 
 | Mode | When | Default? |
 |---|---|---|
-| **ANALYZE** | The brand already expresses itself publicly in *any* form — site, social, print, brandbook, packaging, signage, a single old logo file. Job: analyze that expression across mediums → harvest → refine → transform → improve into a canon. | Yes — for essentially every real brand |
+| **ANALYZE** | The brand already expresses itself publicly in *any* form — site, social, print, brandbook, packaging, signage, a single old logo file. Job: analyze that expression across mediums then harvest, refine, transform, improve into a canon. | Yes — for essentially every real brand |
 | **CREATE** | Author brand truth from scratch. Entered only on explicit instruction (a genuinely new brand, or an explicit "design us a new brand"). | No — never assumed |
 
 Axis 2 — Material coverage (orthogonal). Coverage is measured per canon layer — how much of each is
@@ -42,8 +63,8 @@ which routes toward CREATE *only on explicit instruction*; absent that, "I don't
 the little that exists*.
 
 Elicitation-depth corollary. Depth follows where the answer lives: elicit deeply where the
-answer exists only in a person's head (WHY / essence / intended meaning / rules); point, don't extract
-where the answer lives in material (primitives / exact values). This replaces any blanket "don't
+answer exists only in a person's head (WHY / essence / intended meaning / rules / posture); point, don't
+extract where the answer lives in material (primitives / exact values). This replaces any blanket "don't
 over-interview" rule.
 
 ## The gated pipeline
@@ -55,11 +76,11 @@ issued; WHY invented) plus the pre-compile client review.
 | # | Stage | What happens | Gate |
 |---|---|---|---|
 | 1 | Mode determination | One defaulted question (ANALYZE default) | one defaulted question |
-| 2 | Material protocol | Open discovery; inventory each thing by function; per-layer coverage map | route depth |
+| 2 | Material protocol | Brandbook-/social-first discovery; inventory each thing by function with epistemic + freshness tags; the dimension map | route depth |
 | 3 | Asset-inventory request | Itemized request against what the canon needs, with a fidelity rubric | BLOCKING |
-| 4 | Elicitation instrument | Layer-mapped interview; the WHY is elicited + ratified, never inferred | BLOCKING |
+| 4 | Elicitation instrument | Layer-mapped interview; WHY elicited + ratified never inferred; plus posture detection + horizon detection | BLOCKING |
 | 5 | Multi-decider consolidation | Attribute voices, name the Accountable per slot, cluster rambling input | converge to one set |
-| 6 | Gaps + confirmation doc | Reflect back Found / Missing / To-confirm; owner reviews | BLOCKING |
+| 6 | Three-surface review | Internal status + external client instrument + living questions doc; owner reviews | BLOCKING |
 | 7 | Handoff compile | Emit the single machine-readable block (`references/handoff-format.md`) | emit once 1–6 clear |
 
 ## Stage detail
@@ -74,27 +95,51 @@ gap. Do not run a checklist of expected mediums. Ask the owner to surface *whate
 specifies the brand, in any form or state*, then inventory and classify each thing by function, never by
 medium.
 
+Discovery order (brandbook-first, social-first, stale-vs-fresh). Probe in a deliberate order so the
+highest-authority and the freshest sources surface first, and so staleness is caught:
+1. **Brandbook / stated spec first** — "Is there a brand book, style guide, or any document that *states*
+   the rules (named fonts, declared colors)?" This is the brand's declared truth (highest authority for
+   intent), but it may be stale — tag its freshness.
+2. **Shipped/social next** — "Where does the brand live *today* — the live site, the active social feeds,
+   the most recent packaging?" Shipped expression is the freshest evidence of practice, but it is
+   *observed*, so it enters as `hypothesis` (confidence), not as a finding.
+3. **Stale-vs-fresh reconciliation (tag only).** When a brandbook says one thing and shipped work shows
+   another, you only *tag* the divergence (freshness + a gap flag); the builder reconciles precedence
+   (repo > external reference; shipped > stated for specifics; identity/stated > shipped for meaning).
+
 Open discovery prompt (not a medium checklist):
 
 > "Show me everything the brand already has that shows what it is or how it should look/sound — finished or
-> not, digital or physical, official or improvised."
+> not, digital or physical, official or improvised. Start with any brand book or style guide, then where the
+> brand lives today (site, social, packaging)."
 
 For each thing returned, record (functional, medium-blind):
 
 - **Role** — `CONSUMER` (live/applied expression), `REFERENCE` (a stated spec, any format), `RAW MATERIAL`
   (assets/fonts/fragments).
-- **Freshness** — fresher/shipped vs older. (You only *tag* it; the builder reconciles precedence —
-  repo > external reference, shipped > stated.)
+- **Provenance** — the four-field spine: source · confidence (`hypothesis` for anything observed) · owner ·
+  freshness (fresher/shipped vs older). You only *tag*; the builder reconciles precedence.
 - **Layers carried** — which canon layers it touches: does it *state* the WHY (ESSENCE)? *carry* primitive
   values (PRIMITIVES)? *imply* rules (GRAMMAR)? name vocabulary (INDEX)?
 - **Repo pointer** — where it will live in the target repo (see *Material placement*).
 - **States (prose only)** — any positioning/voice it asserts, to seed elicitation. Reading prose is not
-  extracting primitives.
+  extracting primitives, and what it asserts enters as `hypothesis` until the owner confirms it.
 
-Coverage assessment (the only "routing" that matters). For each canon layer (INDEX / ESSENCE /
-PRIMITIVES / GRAMMAR), mark whether it is sourceable from material / partially sourceable / elicit-only /
-empty. This per-layer map — not an artifact-type label — drives intake depth and the gap doc. The all-empty
-case is the CREATE doctrine (explicit instruction only).
+The dimension map (the routing mechanism). Replaces the v2 per-layer coverage map with the v3
+anti-determinism mechanism: **every brand dimension resolves explicitly to exactly one state — none is
+skipped silently.**
+
+| State | Meaning | What it requires |
+|---|---|---|
+| **filled** | sourceable from material or owner, with its epistemic status earned | a datum with the four-field spine |
+| **not-used** | the brand genuinely does not use this dimension | an explicit owner declaration |
+| **tagged-gap** | needed but absent or unconfirmed | a gap with severity + a provenance tag |
+
+The dimensions are not a closed checklist — they are an open space seeded by the canon layers (INDEX /
+ESSENCE / PRIMITIVES / GRAMMAR), the treatments, the horizons, and the posture. A dimension you cannot
+resolve to one of the three states is itself a `tagged-gap`, never an omission. This map — not an
+artifact-type label — drives intake depth, the client review, and the handoff. The all-empty case is the
+CREATE doctrine (explicit instruction only).
 
 ### 3. Asset-inventory request — BLOCKING (gate 3)
 A blocking precondition — its absence in v1 was the single largest cause of the hollow build. Issue an
@@ -121,7 +166,7 @@ Other build-grade requirements (request all; "not used" is valid for optional it
   surface (desktop ≠ web ≠ app ≠ broadcast). Named-only is a fidelity gap (the builder acquires). A typical
   agency handoff leaves the license with the agency — flag it.
 - **Color:** RGB (screen) and CMYK (print) values; spot/Pantone declared as authored truth when the
-  brand defines it so (not re-derived from OKLCH).
+  brand defines it so (`owner-stated`, not re-derived from OKLCH).
 - **Clear-space and minimum-size** per mark slot.
 - **Misuse list:** prohibited treatments (no stretch, no unapproved recolor, no unauthorized
   bold/italic/outline, etc.).
@@ -129,7 +174,7 @@ Other build-grade requirements (request all; "not used" is valid for optional it
 Placement & frontier. Vectors embedded in a source (a PDF, a deck) are pointed to in-repo for the
 builder to extract — never sampled by the scoper. Everything routes into the target repo, never Project
 knowledge. A missing or low-fidelity core asset is fidelity-blocking (MUST-HAVE), surfaced in the
-gap doc — because the build is judged on a real mark/fonts/imagery.
+client review — because the build is judged on a real mark/fonts/imagery.
 
 Inventory-request text (translate to the owner's language at runtime):
 
@@ -146,7 +191,8 @@ Inventory-request text (translate to the owner's language at runtime):
 The centerpiece. Hard rule: the WHY is elicited, never inferred. If the owner cannot answer, it becomes a
 gap to confirm — never a scoper guess. Depth follows the corollary: deep where the answer lives only in a
 person's head; point, don't elicit values where it lives in material. The instrument is organized by
-canon layer — the layer is the mapping.
+canon layer — the layer is the mapping. Two detection sub-instruments (posture, horizons) run inside this
+stage; both are capability-class methods, not brand-specific checklists.
 
 → INDEX (where-to-start / glossary)
 - Describe the brand to someone who has never seen it, in one sentence. *(Wheeler — "Who are you? Who needs
@@ -197,6 +243,12 @@ Voice (register / lexicon / do's-and-don'ts) — subset of ESSENCE:
 - Is there a recurring pattern/texture/graphic element, and what role does it play?
   *(These elicit INTENT; the builder extracts values.)*
 
+→ TREATMENTS intent (visual/textural language — observed, enters as hypothesis):
+- Does the brand have a recurring texture, finish, or treatment (grain, gloss, hand-drawn, glitch, foil,
+  halftone, glass)? Where does it appear? *(Observe + point; the builder's reproduction router decides
+  procedural / generative / vector-trace / raster. You only record the observation as `hypothesis` and
+  point at the source artifact.)*
+
 → GRAMMAR (how / combination-rules / contrast / mark-selection / motion):
 - In which situations is each mark form used (wordmark vs symbol vs lockup)?
 - Which color/figure-ground combinations are allowed, which forbidden?
@@ -210,6 +262,36 @@ onliness fill-in-the-blank; the opposing-scales differential; "what would be los
 disappeared?". These *draw out* the WHY from the person — they never license you to *invent* it. An
 unanswerable WHY is a gap to confirm, not a guess to make.
 
+#### 4a. Posture detection (detect, don't hardcode)
+The brand's posture parameterizes the builder's guardrail layer (the keystone's operational tier). Detect
+it with a question battery; never assume it from category. The posture space is a capability class:
+low-profile/conservative · high-visibility/aggressive · regulated/compliance · activist/opinionated ·
+playful/irreverent · B2B-formal. Battery:
+- **Regulatory exposure:** "Are the claims you make legally constrained? By whom?" *(→ regulated profile)*
+- **Risk appetite:** "When in doubt, does the brand stay quiet or speak boldly?" *(→ visibility setting)*
+- **Stance:** "Does the brand take public positions on issues, or stay neutral?" *(→ activist vs neutral)*
+- **Humor/irreverence tolerance** and **formality default.**
+- **Audiences served and their relative priority** (staff / customers / press / regulators / community).
+- **Off-limits:** "What topics will the brand never discuss?" and "How should it refuse when asked?"
+
+Record the detected `profile` + the parameters into the handoff's POSTURE block. Each answer is
+`owner-stated` (confidence: owner-confirmed) — posture is declared, not observed.
+
+#### 4b. Horizon detection (adaptive, not a checklist)
+A fixed checklist causes tunnel vision and category mismatch. Detect horizons adaptively:
+1. **Generate candidates from the brand's category + the base taxonomy** (Brand Key / Keller / Aaker /
+   Neumeier / Wheeler). E.g. hospitality → uniforms, signage, sonic, menu/packaging; SaaS → motion, naming
+   architecture, partner co-branding. Suppress irrelevant horizons.
+2. **Prompt lightly by default** — for each relevant horizon, offer a one-line direction + a tracked gap;
+   deepen only when the brand already has material or asks.
+3. **Detect existing material** — actively probe for assets a naive run would miss (existing uniforms,
+   gift-shop merch, hold music, signage), so the canon ingests what exists rather than re-inventing it.
+4. **Ask the open question** — "Are there other horizons we haven't named?" Never present the generated set
+   as exhaustive; owner confirmation closes it.
+
+Record each horizon as `direction one-line | not-relevant | tagged-gap` + `existing-material:<y/n>` into
+the handoff's HORIZONS block.
+
 ### 5. Multi-decider & unstructured input
 Two generic, blind capabilities. Encode multi-signer sign-off and partner politics as "more than one
 person decides," never as a named demographic.
@@ -217,9 +299,10 @@ person decides," never as a named demographic.
 Multi-decider (RACI-shaped). When several people have a say:
 - Capture each voice's input per slot; attribute positions.
 - For each canon slot, identify the single Accountable (the ratifier; the buck stops there) plus
-  Consulted/Informed. More than one Accountable on a slot is a conflict to resolve.
-- **Surface disagreement explicitly** — never paper over it; route each conflict to the gap doc as "needs
-  one decision."
+  Consulted/Informed. More than one Accountable on a slot is a conflict to resolve. The Accountable is the
+  `owner` field of the provenance spine for that slot.
+- **Surface disagreement explicitly** — never paper over it; route each conflict to the living questions doc
+  as "needs one decision."
 - Record who ratifies (→ `OWNERS` in the handoff).
 - Session pattern: involve the decision-makers without making the decision in-session; keep the decider
   group small and fixed; never introduce new deciders mid-process. *(Wheeler — SECONDARY)*
@@ -232,56 +315,74 @@ Unstructured input. Owners ramble, jump, contradict. You:
 Output: one consolidated, per-slot confirmed set plus an explicit list of unresolved multi-decider
 conflicts.
 
-### 6. Gaps + confirmation doc — BLOCKING (gate 6)
-The client-facing review artifact, presented before compile. No silent handoff. Three parts:
+### 6. Three-surface review — BLOCKING (gate 6)
+The pre-compile review. No silent handoff. v3 splits the single v2 review doc into three surfaces by
+architecture, because one surface cannot serve both the operator and a non-design SME owner. The scoper is
+Chat-side with no filesystem, so each surface is produced as chat text or a downloadable/presentable
+artifact, never a file-op.
 
+| Surface | Audience | Form | What it carries |
+|---|---|---|---|
+| **Internal status** | the operator / builder | structured, dense, mixed-language | the full provenance spine, the dimension map, severity tags, RACI — seeds the handoff |
+| **External client instrument** | the brand owner / SME | plain language, visual, the owner's language (e.g. Spanish); design terms glossed by example | Found / Missing / To-confirm in client words, presentable in chat |
+| **Living questions doc** | the owner, over time | a markdown block the owner keeps | open questions, multi-decider conflicts, requests; committed to the repo where the env allows, else a downloadable artifact (graceful degradation) |
+
+The external instrument's three parts (client language, not `GAP-NNN`):
 - **Found** — what intake captured, per canon layer: the ratified WHY, pointed-to material/assets,
-  owner-provided values.
-- **Missing** — gaps in plain client language (not `GAP-NNN`): "we don't yet have X," each with *why it
-  matters* and a *proposed resolution* the owner can ratify in one pass. Tag severity
-  (MUST-HAVE / SHOULD / NICE); core-asset gaps are MUST-HAVE + fidelity-blocking.
+  owner-provided values, detected posture + horizons.
+- **Missing** — gaps in plain client language: "we don't yet have X," each with *why it matters* and a
+  *proposed resolution* the owner can ratify in one pass. Tag severity (MUST-HAVE / SHOULD / NICE);
+  core-asset gaps are MUST-HAVE + fidelity-blocking.
 - **To confirm** — explicit owner sign-off: the ratified WHY, every multi-decider conflict resolved to one
-  answer, any owner-provided values, all "not used" declarations.
+  answer, any owner-provided values, all "not used" declarations, and every `hypothesis`-status observation
+  the owner is being asked to promote to a line.
 
-Gate. The owner reviews and confirms/corrects; only then do you compile.
+Gate. The owner reviews and confirms/corrects the external instrument; only then do you compile.
 
-Two-ledger split. This doc lists gaps in client language. The builder formalizes them into the
+Two-ledger split. These docs list gaps in client language. The builder formalizes them into the
 canonical `GAP-NNN` ledger in `RESIDENT.md` at build time (`gap-protocol.md`). The scoper never owns GAP
-IDs; your severity tags here seed the builder's formalization.
+IDs; your severity tags + provenance tags here seed the builder's formalization.
 
 ### 7. Handoff compile
-Produce ONE machine-readable, fenced block following `references/handoff-format.md`, then tell the person
-exactly what to do with it: open Claude Code in (or create) the target repo, place the material per the
-manifest, and paste the block — it invokes `brand-canon-builder`. The block is self-contained: everything
-the builder needs to start, nothing it should discover for itself.
+Produce ONE machine-readable, fenced block following `references/handoff-format.md` (the v3 contract:
+checksummed manifest · `ingest:` method per item · the four-field PROVENANCE spine on every primitive ·
+TREATMENTS / DIMENSION MAP / HORIZONS / POSTURE blocks · per-gap provenance tag · `BUILD-MODE` with the
+v0/DEMO carve-out · mark + graphic-code non-waivable). Then tell the person exactly what to do with it:
+open Claude Code in (or create) the target repo, place the material per the manifest **with checksums**,
+and paste the block — it invokes `brand-canon-builder`. The block is self-contained: everything the
+builder needs to start, nothing it should discover for itself.
 
 ## Laws
 
 ### The scoper/builder frontier
-The dividing law. The scoper elicits intent, observes applied expression, and points at sources. The
-builder extracts values and builds.
+The dividing law. The scoper elicits intent, observes applied expression (as hypothesis), detects posture +
+horizons, and points at sources. The builder extracts values and builds.
 
 | The scoper MAY | The scoper MUST NOT |
 |---|---|
 | Read stated prose (positioning, voice) to seed/ratify the WHY | Infer or finalize the WHY without owner ratification |
-| Record values the owner volunteers as truth (e.g. declared Pantone) + an authored flag | Sample/measure any primitive value (eyedropper a color, read geometry off a PDF/site) |
+| Record values the owner volunteers as truth (e.g. declared Pantone) + the `owner-stated` source | Sample/measure any primitive value (eyedropper a color, read geometry off a PDF/site) |
 | Inventory which assets/forms exist and at what fidelity | Extract embedded vectors/images from sources (that is the builder's job) |
-| **Observe** applied design language and point at it (checklist below) | Harvest/transcribe the applied design into the canon (builder) |
-| Point each source into the repo with role/freshness tags | Reconcile conflicts or invert source-of-truth precedence (builder) |
-| List gaps in plain client language | Assign `GAP-NNN` IDs (builder formalizes) |
+| **Observe** applied design language and point at it (checklist below) as `hypothesis` | Harvest/transcribe the applied design into the canon (builder) |
+| Tag a one-off observation with `confidence: hypothesis` | Promote an observed one-off to a brand *line* without `owner-confirmed` |
+| Detect posture + horizons via the elicitation batteries | Hardcode posture/horizons from category assumption |
+| Point each source into the repo with role/freshness/provenance tags | Reconcile conflicts or invert source-of-truth precedence (builder) |
+| List gaps in plain client language with a provenance tag | Assign `GAP-NNN` IDs (builder formalizes) |
 
-Applied-design capture checklist (POINT-and-OBSERVE, not extract). Record pointers + observations so the
-builder can later harvest:
+Applied-design capture checklist (POINT-and-OBSERVE, not extract). Record pointers + observations (each as
+`hypothesis`) so the builder can later harvest:
 - Inventory of existing applied expression (where the brand lives today) — URLs/files.
 - Layout & composition: any recurring grid/margin/template structure (observe, don't measure).
 - Imagery/photography direction: style (lighting, color tone, composition, framing, editing), type
   (photo/illustration/3D), staged vs natural, what is avoided.
 - Type-in-use: which faces appear in practice vs declared; hierarchy.
 - Lived aesthetic / look-and-feel: the universal pattern — observe it, don't quantify it.
+- Treatments: any recurring texture/finish/effect — observe + point at the source artifact for the
+  builder's reproduction router.
 - Gap flags: where actual expression diverges from stated intent; mark each divergence as a gap.
 - Hand the builder the pointers (files/URLs) for real harvesting.
 
-The boundary: measured/derived values = builder; stated intent + observed pointers = scoper.
+The boundary: measured/derived values = builder; stated intent + observed pointers (as hypothesis) = scoper.
 
 ### Material placement & target repo
 Both were v1 failures. Honor all three:
@@ -289,11 +390,12 @@ Both were v1 failures. Honor all three:
 - **A real target repo.** The handoff requires a real target repo path (or "create repo X"). Never invent a
   tree you can't see — you are Chat-side with no filesystem.
 - **All source material goes INTO the target repo**, under a conventional location (`assets/` for binaries,
-  `sources/` for references), as a build precondition. Never point material at "Project knowledge" — the
-  Code-side builder cannot read it.
+  `sources/` for references), as a build precondition, **with a sha256 checksum per item**. Never point
+  material at "Project knowledge" or at a Claude.ai URL — the Code-side builder cannot read either.
 - **Chat→Code boundary.** Because you have no filesystem, placement is an instruction to the person + a
-  manifest in the handoff, never a scoper file-op. The builder reads only the repo; nothing the build needs
-  may live only in chat/Project knowledge.
+  checksummed manifest in the handoff, never a scoper file-op. Social/applied media is attached with an
+  `ingest:` method, never passed as prose. The builder reads only the repo; nothing the build needs may
+  live only in chat/Project knowledge.
 
 ### Fidelity-bar linkage
 For THIS brand, the intake defines which assets/primitives are core/must-have (vs optional/not-used), so
@@ -303,11 +405,13 @@ rule-compliance.
 - **build-grade** = vector master + commercial-licensed font files + color profiles (incl. authored spot
   where declared) + clear-space/min-size + misuse list.
 - The intake emits a fidelity contract (the handoff's CORE-ASSET FIDELITY CONTRACT block): the per-brand
-  core-asset set, each marked present/build-grade vs gap/low-fi.
+  core-asset set, each marked present/build-grade vs gap/low-fi. Mark + graphic-code are non-waivable even
+  under `BUILD-MODE: v0/DEMO`.
 - The builder's fidelity gate consumes it: a missing or low-fidelity core asset FAILS the build — it
   does not "pass with gaps." Closes the loop from *request* (asset inventory) to *judge* (fidelity gate).
 
 ## Principle
-Scope, don't build. Interview, request, structure, and point — emit one machine-readable handoff and let the
-builder do the rigorous, filesystem-bound work (extract → scaffold → fill → tokens → gaps → validate). Never
-infer the WHY; never sample a primitive.
+Scope, don't build. Interview, request, structure, detect, and point — emit one machine-readable handoff
+plus a client instrument, and let the builder do the rigorous, filesystem-bound work (extract → scaffold →
+fill → tokens → gaps → validate). Never infer the WHY; never sample a primitive; never promote an
+observation to a line without the owner.
