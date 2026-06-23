@@ -5,7 +5,7 @@ current_phase: "5 of 5 — validation & release"
 last_updated: 2026-06-23
 home_base: "Code (the validation run) + Chat (judgment)"
 resident: ccediland/brand-system-skills/RESIDENT.md
-next_action: "Phase 5: run validation on a second, differently-shaped brand · live guardrail red-team · visual-diff audit · then release. Design + build are shipped (Phases 1–4 + remediation); the residual surface is Code (the run) + Chat (judgment), not Chat-design-pending. One MAJOR (F10, Theme-7 scoper client instrument) + MINORs + the coverage-gap pass still precede the run."
+next_action: "Phase 5: choose a second, differently-shaped brand and run validation · live guardrail red-team · visual-diff audit · then release. Design + build are shipped and the ENTIRE audit ledger (#19 + #25) is CLOSED across PRs #20–#29 — zero BLOCKER/MAJOR/MINOR/NIT except the deliberate F55 + the OI-J horizon. The only residual surface is Code (the run) + Chat (judgment); nothing precedes the run except picking the brand."
 ---
 
 # Brand-system-skills v3 — execution plan
@@ -34,10 +34,18 @@ Phases:
 
 ## Current state
 
-Active: **phase 5 (validation & release)**. **Phases 1–4 are SHIPPED to `main`** — the scoper and builder are rewritten to v3: handoff contract (#12) · scoper v3 (#13) · builder — spine+capture (#14), spine harmonization (#15), reproduction+DTCG/OKLCH (#16), keystone+fidelity-gate (#17). A full transversal audit then ran (`v3-audit—2026-06-22.md`, root; verdict QUALIFIED NO; PR #19, left open) and its remediation shipped on top: Theme 1 handoff seam (#20), Theme 2 install integrity (#21), RESIDENT compaction (#22), Themes 3/4 provenance spine + keystone operability (#23), and Theme 6 public surface + docs sync + the pulled-forward Theme-5 F16 (this pass). Design + build are DONE; the residual surface is **Code (the validation run) + Chat (judgment)**, not Chat-design-pending. Remaining before/at Phase 5: one MAJOR (F10 — the scoper's external client instrument, Theme 7) + MINORs (F32/F38) + the coverage-gap audit pass, then the run itself — a second, differently-shaped brand · live guardrail red-team · visual-diff audit · release. The stress-test artifacts (branch `v0/canon-from-available` in the private test-brand repo) are test-only and do not ship.
+Active: **phase 5 (validation & release)**. **Phases 1–4 are SHIPPED to `main`** — the scoper and builder are rewritten to v3: handoff contract (#12) · scoper v3 (#13) · builder — spine+capture (#14), spine harmonization (#15), reproduction+DTCG/OKLCH (#16), keystone+fidelity-gate (#17). A full transversal audit then ran (`v3-audit—2026-06-22.md`, at the root of the open `v3/audit` branch / PR #19, not merged to main; verdict QUALIFIED NO), and a fresh full system audit (`v3-system-audit—2026-06-23.md`, at main root; #25). Both ledgers are now **FULLY REMEDIATED across PRs #20–#29**: handoff seam (#20) · install integrity (#21) · RESIDENT compaction (#22) · provenance spine + keystone operability (#23) · public surface + docs + F16 (#24) · medium scoping + keystone orphan (#26) · client-drift + hygiene (#27) · scoper client instrument + intake (#28) · ledger close + last leak F45 + tail (#29). **The entire audit ledger is CLOSED — zero BLOCKER/MAJOR/MINOR/NIT**, except the deliberate F55 (bold-density deviation) + OI-J (sonic/motion build-grade horizon). The only residual is the Phase-5 run itself — a second, differently-shaped brand · live guardrail red-team · visual-diff audit · release; nothing else precedes it. The stress-test artifacts (branch `v0/canon-from-available` in the private test-brand repo) are test-only and do not ship.
 
 ## Session log
 
+- 2026-06-23 — **Audit ledger fully CLOSED (#20–#29).** After the #24 move-to-Phase-5, a fresh full system
+  audit (#25, `v3-system-audit—2026-06-23.md`) re-verified main and surfaced a residual tail; it was
+  remediated across #26 (medium scoping + keystone orphan), #27 (client-drift + hygiene), #28 (scoper client
+  instrument + medium-agnostic intake — closed F10, the last #19 MAJOR), and #29 (the last determinism leak
+  F45 + the full MINOR/NIT tail + coverage-gap + the OI-I/ledger re-baseline). Both audit reports are now
+  closed baselines (the #19 report on the open `v3/audit` branch, the #25 report at main root). Repo carries
+  **zero BLOCKER/MAJOR/MINOR/NIT** except the deliberate F55 (bold-density) + the OI-J horizon. The only
+  remaining work is the Phase-5 validation run. Mirrors `RESIDENT.md` OI-I (RESOLVED) + change log.
 - 2026-06-23 — **Remediation fix-pass complete; moved to Phase 5.** After the transversal audit
   (`v3-audit—2026-06-22.md`; QUALIFIED NO; 4 BLOCKER · 22 MAJOR · 24 MINOR · 6 NIT; PR #19 left open), the
   remediation shipped as Themes 1–6 + the pulled-forward Theme-5 F16: handoff seam single-sufficient-interface
@@ -86,17 +94,17 @@ Active: **phase 5 (validation & release)**. **Phases 1–4 are SHIPPED to `main`
 - The graceful-degradation path for the living questions doc when the chat environment lacks a connector or filesystem (commit-to-repo versus downloadable artifact). RESOLVED (#13 scoper v3 — Stage 6: commit-where-possible, else a downloadable artifact).
 - The second validation brand (Phase 5) is not yet chosen — it must be differently-shaped (no brandbook, light-only palette, incomplete material) to actually test generality.
 - Gate (Phase 2): the v3 Chat↔Code handoff contract. RESOLVED — ratified, and both skills built to it (Phases 2–4 shipped); the handoff was later hardened to the single sufficient interface in the Theme-1 remediation (#20).
-- Before the Phase-5 run: clear the remaining MAJOR (F10 — instantiate the scoper's external client instrument with a worked Spanish example) + MINORs (F32 token namespace, F38 non-visual fidelity rubric) + the coverage-gap audit pass (research-foundation + client-doc/satellite templates). Tracked in `RESIDENT.md` OI-I.
+- Pre-Phase-5 remediation: the full audit ledger (#19 transversal + #25 system audit) is **CLOSED across PRs #20–#29 — RESOLVED**; nothing precedes the run but choosing the brand. Only the deliberate F55 (bold-density) + the OI-J horizon remain open. See `RESIDENT.md` OI-I (RESOLVED).
 
 ## Next actions
 
 1. (Done) Phase 1 ratified — the architecture spec (anti-determinism rectoral · 4-field provenance spine · adaptive dimension map · two-surface output · scoper/builder v3 deltas) and the 6-section keystone `.md` schema, distilled into `RESIDENT.md ## v3` Decisions.
 2. (Done, #12) Phase 2 — the v3 Chat↔Code handoff contract committed to `handoff-format.md`; later hardened to the single sufficient interface in the Theme-1 remediation (#20).
 3. (Done, #13–#17) Phases 3–4 — scoper v3 (#13) and builder v3 (capture/spine #14, harmonization #15, reproduction+tokens #16, keystone+fidelity-gate #17) shipped.
-4. (Done, #20–#23 + this pass) Remediation Themes 1–6 + the pulled-forward Theme-5 F16 — repo carries ZERO BLOCKER.
-5. Clear the remaining Theme-7 items: F10 (MAJOR — instantiate the scoper's external client instrument with a worked Spanish example), F38 (MINOR — non-visual fidelity rubric), F32 (MINOR — token namespace reconciliation); then run the coverage-gap audit pass (research-foundation + client-doc/satellite templates).
-6. Phase 5: choose the second, differently-shaped brand; run the end-to-end validation build; live guardrail red-team (persona + injection); visual-diff audit of reproductions; confirm no single-brand hardcoding survived; then release + final migration of durable residue into `RESIDENT.md`.
+4. (Done, #20–#29) Full remediation of both audits (#19 + #25) — repo carries zero BLOCKER/MAJOR/MINOR/NIT except the deliberate F55 + the OI-J horizon.
+5. (Done, #26–#29) Theme 7 + the #25 system-audit findings + the coverage-gap pass — all cleared; the audit ledger is CLOSED.
+6. Phase 5 (the only remaining work): choose the second, differently-shaped brand; run the end-to-end validation build; live guardrail red-team (persona + injection); visual-diff audit of reproductions; confirm no single-brand hardcoding survived; then release + final migration of durable residue into `RESIDENT.md`.
 
 ## Resume
 
-Read `RESIDENT.md` first — its front matter, TL;DR, and domain map, then the v3 domain — then this plan's state block, Current state, Open questions, and Next actions. Phases 1–4 + remediation Themes 1–6 + F16 are SHIPPED and the repo carries ZERO BLOCKER; do not restart shipped phases. Pick up at Next action 5 (clear Theme 7 F10/F38/F32 + the coverage-gap pass) before the Phase-5 run. Confirm the next action with Carlos, then continue.
+Read `RESIDENT.md` first — its front matter, TL;DR, and domain map, then the v3 domain — then this plan's state block, Current state, Open questions, and Next actions. Phases 1–4 + the FULL audit remediation (#20–#29) are SHIPPED and the entire ledger is CLOSED (zero BLOCKER/MAJOR/MINOR/NIT except the deliberate F55 + the OI-J horizon); do not restart shipped phases or re-open cleared findings. Pick up at Next action 6 (the Phase-5 run): choose the 2nd differently-shaped brand and run validation. Confirm the next action with Carlos, then continue.

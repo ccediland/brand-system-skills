@@ -30,8 +30,9 @@
   values must be obviously generic (never a real brand's exact OKLCH/hex/Pantone).
 - **Token contract is load-bearing.** Keep the DTCG token templates valid and projecting cleanly into
   downstream consumers: OKLCH literal in `$value`; plain-string values; `{tier.category.name}` aliases;
-  category names on the namespace convention; `source:"authored"|"derived"` on extension color spaces. See
-  `skills/brand-canon-builder/references/token-spine.md`.
+  category names on the namespace convention (a single-value category projects a bare `--<prefix>` singleton,
+  e.g. one radius → `--radius`; a multi-value one projects `--<prefix>-<name>`); `source:"authored"|"derived"`
+  on extension color spaces. See `skills/brand-canon-builder/references/token-spine.md`.
 - **Generative over catalog.** Never add a per-output section to a template; absorb the need as a rule.
 - **Install integrity (Theme 2).** A shipped file must point at zero unshipped paths — never cite `dev/`
   (gitignored) from `skills/`; if a method lives only in `dev/`, harvest it into the shipped reference that owns
@@ -54,13 +55,14 @@ v3 extends the shipped v2 skills (does not restart them); **Phases 1–4 are mer
 builder are rewritten to v3 (handoff contract · provenance spine · capture · reproduction router · DTCG 2025.10 /
 OKLCH engine · the mandatory keystone · the v3 fidelity gate). Rectoral rule for ALL v3 work: **anti-determinism** —
 build and research the general capability class, never a single-brand instance; the brand is illustration only.
-A full transversal audit then ran (`v3-audit—2026-06-22.md`, root; verdict QUALIFIED NO; 4 BLOCKER · 22 MAJOR);
+A full transversal audit then ran (`v3-audit—2026-06-22.md`, on the open `v3/audit` branch / PR #19, not merged to main; verdict QUALIFIED NO; 4 BLOCKER · 22 MAJOR);
 its remediation is shipped through **Theme 6** (handoff seam #20 · install integrity #21 · provenance spine +
 keystone operability #23 · public surface + docs sync + the pulled-forward Theme-5 F16 #24; RESIDENT compaction
 #22). A fresh full system audit (#25) then drove #26 (medium scoping + keystone orphan) · #27 (client-drift +
-hygiene) · #28 (scoper client instrument + medium-agnostic intake) — so the repo now carries **zero BLOCKER and
-zero MAJOR** (F10 closed #28). Only a MINOR/NIT tail (F32 + system-audit minors) + a coverage-gap pass remain,
-tracked in `RESIDENT.md` OI-I. The rules below are guardrails/gotchas;
+hygiene) · #28 (scoper client instrument + medium-agnostic intake) · #29 (ledger close — F45 last leak + the
+MINOR/NIT tail + coverage-gap) — so the **entire audit ledger is CLOSED: zero BLOCKER, MAJOR, MINOR and NIT**,
+except the deliberate F55 (bold-density deviation) + OI-J (sonic/motion build-grade horizon). Both audit reports
+are closed baselines; only the Phase-5 validation run remains. The rules below are guardrails/gotchas;
 the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/boundaries/sources in
 `v3-research-foundation.md`, and `RESIDENT.md ## v3`.
 - **Handoff = single sufficient interface (Theme 1).** When editing the skills, keep the seam closed both ways:
@@ -70,7 +72,9 @@ the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/bou
   pointer, not never a live surface. DIMENSION-MAP present-but-unresolved → builder HALTs (live anti-determinism).
   Carrier enums stay capability classes — font `license:` is a declared SPDX id (not a closed OFL/owner/GAP
   floor); freshness is exactly `shipped | stated-old` at every hop. Keystone voice/value layers derive from WHY
-  `VOICE-EXEMPLARS`/`VALUE TRADE-OFFS` and emit a GAP where absent — never fabricate.
+  `VOICE-EXEMPLARS`/`VALUE TRADE-OFFS` and emit a GAP where absent — never fabricate. The kit shape is a carried
+  datum too — `existing-component-stack:<storybook+playwright | other | none>` (default `none` → package-shape),
+  read at Stage 8, never re-hunted.
 - **Medium scoping (honest, carrier-resolved).** Every layer that gates or renders a brand's identity acts on
   the brand's PRIMARY-IDENTITY CARRIER(S) resolved from the DIMENSION MAP — an OPEN class (visual mark \|
   sonic-mark \| motion-signature \| other declared lead atom), never a hardcoded `mark`. The current build is

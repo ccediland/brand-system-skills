@@ -129,7 +129,7 @@ brief — parse every block and act on it (do not re-derive what it already carr
 - **`HOW (grammar)` + `generative-rule seeds (if/then)`** → seed `G-*`/`ALGO-*` with stable IDs.
   `CORE-ASSET FIDELITY CONTRACT` → drives the fidelity gate (Stage 10). `GAPS (client-language)` →
   the builder owns formalization into `GAP-NNN` (two-ledger, Stage 9). `OPTIONAL` (incl. `Claude Design
-  library: default YES`) → Stage 8.
+  library: default YES` and `existing-component-stack:` → the Stage-8 kit shape) → Stage 8.
 - **`DIMENSION MAP`** → resolve each dimension to `filled` / `not-used(owner-declared)` / `tagged-gap`,
   including the explicit `applied-expression/social` dimension. A dimension **present but unresolved** is a
   PARSE-OR-STOP gate: HALT the build and report it — this is the live anti-determinism mechanism, not a
@@ -204,7 +204,9 @@ and ESSENCE (meaning), measurable atoms into tokens. Where lived expression dive
 log the divergence; never silently overwrite. Classify any visual/textural treatment you observe
 (texture, finish, effect) against `references/reproduction-router.md` and record it with the handoff's
 TREATMENTS provenance (`confidence: hypothesis` until owner-confirmed); the reproduction itself happens in
-Stage 8. (Full method: `references/analyze.md` § Applied-design harvest + `references/reproduction-router.md`.)
+Stage 8. In CREATE mode (or wherever a TREATMENT is handoff-carried with no live consumer to harvest from),
+classify the handoff TREATMENTS block directly against `references/reproduction-router.md` regardless of
+whether a live-consumer harvest ran — Stage 0 routes TREATMENTS here either way. (Full method: `references/analyze.md` § Applied-design harvest + `references/reproduction-router.md`.)
 
 ### Stage 6 — Fill the canon (extraction synthesis)
 The consolidation point where the canon is filled — not a separate pass. Stage 2 routes by MODE and fills
@@ -220,11 +222,8 @@ value is `none` does the builder derive it (at `hypothesis`) or log a GAP. The f
 the builder extracts/derives values, never re-elicits the ratified WHY, and never promotes a `hypothesis`
 observation to a brand line. (Provenance spine: `references/gap-protocol.md`.)
 
-> Stage 2 / Stage 6 note (adjudicated). In the spec's §3 table, Stage 2 is *read material* and Stage 6 is
-> *fill the canon*; the SKILL mapping folded the MODE-routed fill into Stage 2, leaving Stage 6 partly
-> redundant. Reconciled here by keeping Stage 2 as the merged, load-bearing read+fill entry point and
-> reframing Stage 6 as the explicit extraction-synthesis culmination of Stages 2–5 (no duplicate fill). A
-> literal Stage 2 (read-only) / Stage 6 (fill) re-split to mirror §3 exactly is deferred.
+> Stage 2 / Stage 6 note. Stage 2 is the merged, load-bearing read+fill entry point; Stage 6 is the explicit
+> extraction-synthesis culmination of Stages 2–5 — no duplicate fill.
 
 ### Stage 7 — Token spine
 Read `references/token-spine.md` — DTCG **2025.10** target, the OKLCH `$value` operative format (with the
@@ -251,8 +250,10 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
   It is self-contained and deterministic (opens in any browser, no toolchain) — the artifact you show a
   client and the Stage-10 "render real samples" evidence. Never make it depend on the kit.
 - **(b) The `/design-sync`-ready kit.** Scaffold `assets/templates/design-sync-kit/` and fill it from
-  the canon (components, tokens, `pkg`/`globalName`, conventions). Read `references/design-sync-kit.md` for
-  the converter contract: package-shape default; one-command build (`esbuild` + `ts-morph` + `@types/react`)
+  the canon (components, tokens, `pkg`/`globalName`, conventions). The kit SHAPE is a CARRIED datum: read the
+  handoff's `existing-component-stack:` (parsed at Stage 0) — `none`/`other` → package-shape (the default);
+  `storybook+playwright` → Storybook-shape is available — never re-hunt whether the brand ships Storybook.
+  Read `references/design-sync-kit.md` for the converter contract: package-shape default; one-command build (`esbuild` + `ts-morph` + `@types/react`)
   → `dist/index.es.js` + `.d.ts`; `.design-sync/config.json` with only live-valid keys (unknown keys fail
   the run); the `@dsCard` first-line marker on every emitted card; the `readmeHeader` conventions header;
   `styles.css` that `@import`s `_ds_bundle.css` and carries the token + `@font-face` closure. Claude Design
@@ -316,8 +317,9 @@ skeleton. Seven parts:
   guardrail-in-tail, within budget (structural) AND passes the §7b CONTENT check (THINK + DESIGN-as each ≥1
   when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no core section a bare adjective list — form-of-rule only,
   `not-used(owner-declared)` resolves clean). The builder emits + COMMITS the guardrail red-team battery +
-  expected-refusal contract to `audit/redteam/` (empty/un-run battery = well-formedness FAIL). Regulated postures
-  (health/finance/legal): BLOCKING + human red-team sign-off (default unratified-pending); the live adversarial
+  expected-refusal contract to `audit/redteam/` (empty/un-run battery = well-formedness FAIL). A regulated posture
+  — fire on EITHER §7b arm: the handoff POSTURE `profile == regulated` OR a non-empty `regulatory:` field (not a
+  fixed domain list): BLOCKING + human red-team sign-off (default unratified-pending); the live adversarial
   run is Phase 5 (its deferral does not void the committed artifacts). (`validate-audit.md` §7b.)
 - **Client-confirmation is a HUMAN gate** — assemble the audit + samples + open ratification GAPs into the PR
   and stop; sign-off is human PR review. Never auto-confirm or auto-stamp "Ratified by…"; default state is

@@ -1,4 +1,4 @@
-# /design-sync kit — the builder-side converter contract (Stage 8b)
+# /design-sync kit — the builder-side converter contract (Stage 8, deliverable b)
 
 Read when running Stage 8. This is what the builder must emit so the brand repo is born `/design-sync`-ready
 by default. It is grounded in the live `/design-sync` skill, captured here as a versioned pin (Claude

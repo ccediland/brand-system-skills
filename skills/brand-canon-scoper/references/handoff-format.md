@@ -97,6 +97,7 @@ TARGET REPO: <real path | "create repo <name>">
 — OPTIONAL (v0/DEMO: OPTIONAL defaults YES; carve-out = scope-expanding dims default NO) —
   <dimension>: not used | demo-default-yes | scope-expanding(demo-default-no)
   Claude Design component library: default YES; "no" only on explicit owner opt-out
+  existing-component-stack: <storybook+playwright | other | none>   (default none → builder emits package-shape; storybook+playwright → builder may emit Storybook-shape — Stage 8 reads this, never re-hunts it)
 
 NOTES: <…>
 ````

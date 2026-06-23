@@ -40,7 +40,10 @@ else fail("NO_DTS", "dist/index.d.ts missing — the converter reads the .d.ts t
 // 2) at least one exported component (non-hollow lib)
 const barrel = await read("src/index.ts");
 if (barrel) {
-  const exported = [...barrel.matchAll(/export\s*\{\s*([A-Z]\w*)/g)].map((m) => m[1]);
+  const exported = [...barrel.matchAll(/export\s*\{([^}]*)\}/g)]
+    .flatMap((m) => m[1].split(","))
+    .map((s) => s.trim().split(/\s+as\s+/).pop().trim())
+    .filter((n) => /^[A-Z]\w*$/.test(n));
   if (exported.length) ok(`barrel exports ${exported.length} component(s): ${exported.join(", ")}`);
   else fail("ZERO_MATCH", "src/index.ts exports no PascalCase component — the library is hollow");
 } else {

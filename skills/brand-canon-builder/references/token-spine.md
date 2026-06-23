@@ -45,6 +45,12 @@ modifier, once supported) re-points it.
   `color → --color-`, `spacing → --spacing-`, `font-size → --text-`, `font-family → --font-`,
   `font-weight → --font-weight-`, `line-height → --leading-`, `border-radius → --radius-`,
   `shadow → --shadow-`.
+- **Singleton vs family.** A category with MULTIPLE values projects `--<prefix>-<name>` (e.g. a 2-radius brand
+  → `--radius-base` / `--radius-pill`, as the base.json template's example family shows); a category with a
+  SINGLE value projects the bare `--<prefix>` singleton (one radius → `--radius`, one shadow → `--shadow`, as
+  the kit/prototype templates show). The bare form is the single-value case of the family, not a namespace
+  break. The two templates illustrate the two shapes; per brand the builder emits ONE shape and keeps the
+  token tier and the kit CSS consistent with each other.
 
 ## Color — OKLCH spine + authored/derived (the binding refinement)
 

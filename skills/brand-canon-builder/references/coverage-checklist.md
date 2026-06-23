@@ -22,9 +22,9 @@ parameterized/optional dimension below — neither is a universe, both are illus
 |---|---|---|
 | 1 | Brand essence / narrative / origin / positioning / audience | ESSENCE |
 | 2 | Glossary of the system's own vocabulary | INDEX |
-| 3 | Color: primary + secondary/accent, each with a role + meaning, on an OKLCH spine | PRIMITIVES + tokens |
-| 4 | Typography: primary + secondary, with a scale | PRIMITIVES + tokens |
-| 5 | Mark forms: wordmark + symbol + primary lockup (+ secondary / monogram / seal if used) | PRIMITIVES |
+| 3 | Color: the brand's ink set (≥1), each with a role + meaning, on an OKLCH spine | PRIMITIVES + tokens |
+| 4 | Typography: the brand's typeface set (≥1), with a scale | PRIMITIVES + tokens |
+| 5 | Mark forms: the brand's mark form(s), whichever it uses (wordmark / symbol / lockup / monogram / seal) | PRIMITIVES |
 | 6 | Mark geometry: construction reference + clear-space + minimum sizes (digital AND physical) | PRIMITIVES |
 | 7 | Mark treatments (colorings) + a misuse list | PRIMITIVES |
 | 8 | Usage over imagery / backgrounds (contrast safety) | GRAMMAR |

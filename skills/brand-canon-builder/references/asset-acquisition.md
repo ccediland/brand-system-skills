@@ -72,6 +72,10 @@ detected source-type disagree, follow the token and flag the conflict (the contr
 - `get_drawings()` cannot tell which paths form one logical figure (a logo may be hundreds of disjoint
   paths); `get_images()` misses vector-drawn marks entirely. For a clean vector master, copy the mark region
   into a fresh document rather than crop (Inkscape produces huge SVG from full pages).
+- **Cheap sanity check (catch a full-page-clip-as-mark).** After extracting a mark vector, flag it if its
+  path-count or byte-size is wildly above a per-mark norm (a real mark is tens of paths / a few KB; hundreds
+  of paths or a large SVG signals a whole-page clip carrying the page's glyphs, not an isolated master) →
+  re-extract by copy-region-to-fresh-doc, or log a fidelity GAP; never canonize the bloated clip as the mark.
 - Inkscape on a flattened-image PDF yields a lossless raster copy, not a vector master.
 - Computed-style extractors sample one viewport — run several for the responsive curve.
 - A core slot whose best available source is raster-only cannot be rebuilt to a master → fidelity GAP.

@@ -56,7 +56,7 @@ Textures (rock, paper, fabric, grunge, distressed); hand-drawn/organic (ink, bru
 
 ### The decision tree (treatment → method)
 - **Procedural (SVG/CSS filter primitives)** — resolution-independent, scriptable, but performance-bounded:
-  - Natural texture (clouds, marble, granite, paper, grain): `feTurbulence` (Perlin/fractal noise; `baseFrequency`, `numOctaves`, `type=fractalNoise|turbulence`, `seed`, `stitchTiles`). Stretched noise (`baseFrequency="0.1 0.01"`) mimics wood/fabric grain.
+  - Natural texture (clouds, marble, granite, paper, grain): `feTurbulence` (Perlin/fractal noise; `baseFrequency`, `numOctaves`, `type=fractalNoise|turbulence`, `seed`, `stitchTiles`). Stretched noise (`baseFrequency="0.1 0.01"`) mimics wood/fabric grain — these parameter values are an illustrative starting recipe, tuned per artifact by visual-diff, never applied blind (mirrors `reproduction-router.md`).
   - 3D / gloss / emboss / metallic: `feDiffuseLighting` + `feSpecularLighting` (with `feDistantLight`/`fePointLight`/`feSpotLight`), using noise as a bump/surface map.
   - Organic / liquid / sketchy distortion, glitch, roughened edges: `feDisplacementMap` driven by `feTurbulence` (R/G channels displace X/Y); horizontal-stretched noise + channel split gives glitch/chromatic aberration.
   - Glass / glassmorphism: `feGaussianBlur` + noise + `feDisplacementMap` (refraction) — richer than flat CSS `backdrop-filter: blur()`.
