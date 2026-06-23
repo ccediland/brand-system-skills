@@ -12,6 +12,7 @@
 - `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` + `references/handoff-format.md`.
 - `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items).
 - `v3-execution-plan.md` (root) — the v3 execution plan (detailed gated phases + session log).
+- `v3-research-foundation.md` (root) — the frozen v3 research (resolved methods, boundaries, sources); the build phases draw from it.
 
 ## How the skills work (one line each)
 - **brand-canon-builder** — scaffold the canon → fill what the brand's material/brief supports → log the
@@ -42,7 +43,7 @@ full work-log, the v2 specs (`v2-build-spec.md`, `v2-intake-spec.md`), and the g
 ## v3 (in progress) — see `v3-execution-plan.md`
 v3 builds on the shipped v2 skills (does not restart them). Rectoral rule for ALL v3 work: **anti-determinism** —
 build and research the general capability class, never a single-brand instance; the brand is illustration only.
-The rules below are guardrails/gotchas; the staged plan + rationale live in `v3-execution-plan.md` (root) and
+The rules below are guardrails/gotchas; the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/boundaries/sources in `v3-research-foundation.md`, and
 `RESIDENT.md ## v3`.
 - **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual; treat
   `pdffonts`/embedded-font tables as corroboration only — outlined type makes them report the studio's layout

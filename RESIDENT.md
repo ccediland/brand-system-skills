@@ -58,6 +58,7 @@ domains: [brand-system, tooling]
 - `README.md` (human front door) · `RESIDENT.md` (this doc) · `CLAUDE.md` (agent ops + guardrails).
 - `dev/` — build provenance (work-log + v2 specs + `v2-backlog.md`, F-001…F-026); **gitignored, local-only, not shipped**.
 - `v3-execution-plan.md` (root, tracked) — the v3 execution plan (detailed gated phases + session log); v3's simplified goals/decisions live in this RESIDENT (`## v3`), its tech/gotchas in `CLAUDE.md`.
+- `v3-research-foundation.md` (root, tracked) — the frozen v3 research: six resolved capability classes with methods, capability boundaries, and primary sources; the build phases draw from it.
 
 ## Integrations / ritual
 - **web-stack-skills** = downstream consumer. Its `astro-css-tokens` skill ingests the DTCG `tokens/` spine
