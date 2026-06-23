@@ -118,28 +118,17 @@ domains: [brand-system, tooling]
 
 (OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
 
-## v2 — the reframe (shipped)
-The first end-to-end run on a real brownfield (print-native) pilot proved the v1 output was a **hollow
-skeleton**: structurally sound (authored/derived correct, brand-scrub correct, rules cited by ID) but
-unusable as a deliverable — no real assets, placeholder mark, fallback fonts, generic renders. The skill
-validated rule-compliance of an empty skeleton and called it done.
+## v2 — lineage (historical)
+The first real brownfield pilot proved v1 shipped a **hollow skeleton** (rule-compliant but asset-less — no
+real mark/fonts/renders, called done). v2's reframe, now shipped: **analyze published brand work across
+mediums → extract the real assets → emit a real prototype + a `/design-sync`-ready component library** by
+default; the four-layer canon is the *skeleton*, never the deliverable (scratch only on explicit instruction).
+The method lives in `skills/*` (`F-001…F-026` closed); the surface split (design→Chat, filesystem/git→Code) is
+normal flow.
 
-**Reframe (center of gravity).** Not a from-scratch, output-agnostic rule/token canon that defers assets.
-An engine that **analyzes existing published brand work across mediums → extracts the real assets →
-produces a real prototype + a Design-syncable component library, by default.** The four-layer canon is the
-*skeleton*, never the deliverable. Brands are not created from scratch unless explicitly instructed.
-
-**v2 — SHIPPED.** Scoper rewrite (PR #1) + builder pipeline Stages 0–12 (PR-B1…B5: handoff spine ·
-source-agnostic asset + font acquisition · applied-design harvest · real prototype + `/design-sync`-ready
-component-library kit · token spine · gaps · VALIDATE/AUDIT + fidelity gate · client-clean/scrub) +
-distribution (PR-B6) + skills audit-remediation (#8). The method now lives in `skills/*/SKILL.md` +
-`references/`; F-001…F-026 closed. Surface split (design → Chat, filesystem/git → Code) folded into normal flow.
-
-> **Caveat (`/design-sync` contract).** The converter contract is **server-side/version-fluid** (the base
-> command re-reads live instructions via `get_claude_design_prompt`). It was live-pinned post-GA against
-> Claude Code `v2.1.185` (core corroborated; first-line `@dsCard` marker per preview → `ds_manifest`
-> server-regenerated; `readmeHeader` coexists with `guidelinesGlob`). The builder **re-reads the live skill
-> at run time** before freezing the emitter — treat pinned field/script names as version-fluid, not frozen.
+> **`/design-sync` caveat (still binding).** The converter contract is server-side/version-fluid (re-read live
+> via `get_claude_design_prompt`); the builder re-pins at run time, so treat pinned field/script names as fluid,
+> not frozen. Step-0 re-pin procedure in `design-sync-kit.md`.
 
 ## v3 — provenance, anti-determinism, and a brand an AI can be
 v2's analyze→extract→prototype+library engine shipped and works. A fresh adversarial stress test — a third,
@@ -202,35 +191,22 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   determinism/tunnel-vision recurs at every phase. Do not retry — anti-determinism is rectoral.
 
 ## Change log
-- 2026-06-23 — **v3 Theme 2 — install integrity.** Killed the `dev/v2-build-spec.md` dangle (12 cites repointed
-  to their shipped homes or dropped; the Stage-8 `/design-sync` re-pin reconstructed into `design-sync-kit.md`);
-  single-sourced the `.design-sync` config (deleted the adapter duplicate, kit's config is canonical); neutralized
-  `canon.json` `$schema` (removed the tool-repo URL → no 404, no Stage-11 self-attribution leak); shipped a real
-  offline `package-validate.mjs` + `validate` script so no Stage-10 gate names a phantom artifact; font-acquisition
-  rider (read declared `license:` first; the →GAP-on-absent rule confirmed distinct from the SPDX-id axis).
-  F2/F12/F13/F25 closed; audit Themes 3–7 remain (OI-I). Implemented by a delegated agent, adversarially verified.
-- 2026-06-22 — **v3 transversal audit + Theme 1 seam fix.** Ran a 9-workstream + deep-seam SYSTEM/PRODUCT audit
-  (report `v3-audit—2026-06-22.md`, root; verdict QUALIFIED NO — 5 BLOCKER · 27 MAJOR; the seam wasn't a single
-  sufficient interface + dangling pointers/stale metadata). Fixed **Theme 1** — the handoff is now the single
-  sufficient interface (#20): two-track manifest, voice/value + geometry/license carriers, the 3 orphaned blocks
-  wired into Stage 0 with a live DIMENSION-MAP STOP, freshness enum unified, font `license:` opened to a declared
-  SPDX id (capability class). Remaining audit themes tracked in OI-I. Each merge adversarially verified.
-- 2026-06-22 — **v3 Phases 2–4 shipped (the skills are BUILT).** Phase 2: the v3 Chat↔Code handoff contract
-  (#12). Phase 3: `brand-canon-scoper` rewritten to it (#13). Phase 4 (builder): provenance spine +
-  stated-spec-read in capture (#14) · reproduction router + DTCG 2025.10 / OKLCH scheme engine (#16) · mandatory
-  keystone `.md` emit + fidelity gate v3 (#17); plus a spine-label harmonization (#15) and a keystone-template
-  comment fix. Each PR verified by adversarial multi-agent review before merge; OI-G resolved, OI-E moved to
-  Phase 5. Phase 5 (validation + live red-team + release) is next.
-- 2026-06-22 — **v3 scoped + Phase 1 ratified.** A stress test (3rd, independently-authored brand) exposed
-  epistemic-status loss + determinism; ran identify→pre-research→research→plan; set the v3 center (rectoral
-  anti-determinism · provenance spine · keystone north star); five-phase plan in `v3-execution-plan.md`. Carlos
-  ratified the architecture spec + the 6-section keystone schema (distilled into Decisions, no separate spec file).
-- 2026-06-22 — **v2 built & shipped.** Scoper rewrite + builder Stages 0–12 (asset/font acquisition ·
-  applied-design · prototype + `/design-sync` kit · token spine · gaps · validate/fidelity · client-clean) +
-  distribution + audit-remediation; F-001…F-026 closed; `dev/` untracked; RESIDENT/CLAUDE consolidated (PR-B7).
-  `/design-sync` live-pinned vs Claude Code `v2.1.185` (server-side/version-fluid).
-- 2026-06-21 — **Repo derived + first pilot.** Two skills + canon templates + DTCG/OKLCH spine built (GATE 1/2
-  passed); the first real brownfield run surfaced the v2 reframe (OI-C) + F-001…F-026.
+- 2026-06-23 — **Theme 2 install integrity (#21).** Killed the `dev/v2-build-spec.md` dangle (12 cites
+  repointed/dropped; Stage-8 re-pin reconstructed into `design-sync-kit.md`); `.design-sync` config
+  single-sourced; `canon.json` `$schema` neutralized; real offline `package-validate.mjs` shipped; license
+  →GAP rule confirmed distinct from the SPDX axis. F2/F12/F13/F25 closed.
+- 2026-06-22 — **Theme 1 seam fix (#20)** after the transversal audit (`v3-audit—2026-06-22.md`; QUALIFIED NO,
+  5 BLOCKER · 27 MAJOR). The handoff is made the single sufficient interface (two-track manifest · voice/value +
+  geometry/license carriers · 3 orphaned blocks wired into Stage 0 with a live DIMENSION-MAP STOP · SPDX license).
+  F1/F3-F9/F11/F28/F29/F49 closed.
+- 2026-06-22 — **v3 Phases 1–4 shipped (skills BUILT).** Phase 1 ratified; handoff contract (#12) · scoper v3
+  (#13) · builder — spine+capture (#14), reproduction+DTCG/OKLCH (#16), keystone+fidelity-gate (#17); spine
+  harmonization (#15). OI-G resolved; OI-E → Phase 5.
+- 2026-06-22 — **v3 scoped + Phase 1 ratified.** Stress test (3rd brand) exposed epistemic-status loss +
+  determinism; set the v3 center (anti-determinism · provenance spine · keystone north star); plan in
+  `v3-execution-plan.md`.
+- 2026-06-21..22 — **v2 built & shipped + repo derived.** Two skills + canon templates + DTCG/OKLCH spine
+  (GATE 1/2); builder Stages 0–12 + distribution + audit-remediation; `F-001…F-026` closed; `dev/` untracked.
 
 ## Conventions of this doc
 Timeless content undated; Open Items + change log are dated/volatile. Nothing external should cite the
