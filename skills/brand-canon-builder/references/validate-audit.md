@@ -24,9 +24,14 @@ This closes the loop: the scoper requests the asset inventory in the handoff, an
 
 Fidelity tolerance is layered by what the element is — independent of the mechanism in §3:
 
-- **Zero tolerance** on brand-defining elements: the mark and the primary color tokens — plus any
-  **graphic-code** the handoff's CORE-ASSET FIDELITY CONTRACT lists on the `NON-WAIVABLE` line. Any
-  divergence on a zero-tolerance element fails (the NON-WAIVABLE set holds even under `BUILD-MODE: v0/DEMO`).
+- **Zero tolerance** on brand-defining elements: the brand's **primary-identity carrier(s)** — resolved from
+  the DIMENSION MAP (e.g. visual mark | sonic-mark | motion-signature | other declared lead atom), NOT a
+  hardcoded visual mark — and the primary color tokens, plus any **graphic-code** the handoff's CORE-ASSET
+  FIDELITY CONTRACT lists on the `NON-WAIVABLE` line. Any divergence on a zero-tolerance element fails (the
+  NON-WAIVABLE set holds even under `BUILD-MODE: v0/DEMO`). Where the build has no build-grade producer for the
+  resolved carrier's medium (the current build is **visual-build-grade**), that carrier is a **declared
+  fidelity-blocking GAP per its role** — never a false zero-tolerance fail on a visual mark the brand does not
+  lead with, never a silent pass; the medium becomes a tracked horizon (§7b).
 - **Higher tolerance** on gradients, illustration, and incidental imagery (perceptual difference is expected;
   judge against intent, not pixels).
 - **Baselines** are per-component-variant and per-brand (the clone-per-brand model: each brand carries
@@ -41,9 +46,14 @@ evidenced. Do not mandate Storybook by default.
 
 Fidelity evidence is the convergence of four sources — all already produced by Stages 8–9:
 
-1. **Render real samples** — the deterministic HTML prototype (`assets/templates/prototype/`)
-   is the evidence. Open it and confirm the real mark, real fonts, and real imagery render on the real
-   surfaces (hero / card / control set / type spread / color blocks).
+1. **Render real samples** — the deterministic HTML prototype (`assets/templates/prototype/`) is the
+   evidence. Its **surface-set derives from the brand's primary medium**: a visual-primary brand confirms the
+   real carrier, fonts, and imagery on the visual surfaces (hero / card / control set / type spread / color
+   blocks). The current build is **visual-build-grade**: where the brand's primary medium is non-visual (sonic
+   / motion), the prototype renders a visual *context* fallback and **declares the primary-medium sample a
+   GAP** ("primary-medium render not yet a build-grade target — tracked horizon"); the §1/§2 fidelity gate
+   accepts that declared GAP (fidelity-blocking per the carrier's role) rather than demanding a render the
+   build cannot produce — no faked render, no silent pass.
 2. **The `/design-sync` converter gates** (the live `/design-sync` tool stages these server-side into
    `.ds-sync/` and runs them on the uploaded bundle — they are converter/server-side, NOT kit-shipped;
    live-pinned names, Claude Code v2.1.185):
@@ -77,8 +87,8 @@ Playwright — which adds a pixel-match VRT oracle on top of 3a:
 
 - Visual-regression via Storybook + Chromatic (default; free 5k snapshots/mo), or Percy / BackstopJS
   (free OSS) as alternatives.
-- Apply the §2 layered thresholds (zero tolerance on mark + primary color tokens; higher on
-  gradients/illustration) with per-component-variant + per-brand baselines.
+- Apply the §2 layered thresholds (zero tolerance on the §2 primary-identity carrier + primary color tokens;
+  higher on gradients/illustration) with per-component-variant + per-brand baselines.
 
 Storybook-shape is the exception, not the default; never introduce a Storybook+Playwright dependency just to
 get the oracle.
@@ -172,7 +182,12 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
     keystone → FAIL.
   - **FORM-OF-RULE only (rector guard).** This tests the SHAPE — that a conditional rule is present, that a pair
     is present — NEVER specific brand content. A monogram-only / sonic-primary / single-ink / wordmark-only brand
-    must still pass; the check is medium-agnostic and names no brand-specific rule.
+    must still pass this OPERABILITY check; it is medium-agnostic and names no brand-specific rule. **Operability
+    is distinct from build-grade fidelity:** passing §7b means the keystone is *operable* for that shape, NOT
+    that the build produces build-grade output for it. The brand's primary-carrier fidelity is gated separately
+    by §1/§2 against the carrier the DIMENSION MAP resolves; where the build has no build-grade producer for that
+    medium it emits a declared fidelity-blocking GAP and the medium is a TRACKED HORIZON — never advertised as
+    required-to-pass build-grade.
   - **`not-used(owner-declared)` resolves CLEAN.** Where a section legitimately has no rule because its
     dimension is declared `not-used(owner-declared)` (cross-check the Stage-0 DIMENSION MAP), that is not a
     missing rule — it resolves CLEAN, never FAIL. A section whose carrier is `none` but whose dimension is NOT

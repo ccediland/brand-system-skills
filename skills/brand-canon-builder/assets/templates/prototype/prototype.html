@@ -9,15 +9,25 @@
   HOW THE BUILDER FILLS IT (everything below is derived from the canon — invent nothing):
     1. Replace the :root token values with the brand's real OKLCH token values (from tokens/base+semantic).
     2. Replace the inline <svg id="brand-mark"> with the brand's REAL extracted vector mark (Stage 3).
-    3. Replace the @font-face data-URI(s) with the brand's REAL acquired, licensed fonts (Stage 4).
+    3. Replace the @font-face data-URI(s) with the brand's REAL acquired, licensed fonts (Stage 4). If the
+       brand is single-typeface, alias --font-body to --font-display (one face) and drop the type-spread's
+       pairing copy — never imply a display+body pairing the brand does not have.
     4. Replace the harvested imagery slot with a real harvested image (Stage 5), or leave the token-only
        block if none is build-grade yet (a missing build-grade image is a fidelity GAP, not a fabrication).
     5. Replace "Example Brand" / sample copy with the brand's real name + on-voice copy (from ESSENCE).
   The values shipped here are OBVIOUSLY-GENERIC placeholders so the file renders standalone before fill;
   a real brand's exact OKLCH/hex/Pantone must never live in this template.
 
-  Surfaces rendered (the fixed five — keep all; a brand that lacks one shows the token-only fallback):
-  hero · card · control set · type spread · color blocks.
+  Surfaces rendered — DERIVE the surface-set from the brand's PRIMARY MEDIUM (resolved from the DIMENSION
+  MAP); do not assume visual:
+    · visual-primary brand → the five visual surfaces below (hero · card · control set · type spread · color
+      blocks); a brand that lacks one shows the token-only fallback.
+    · non-visual-primary brand (sonic / motion / other lead medium) → this build is VISUAL-BUILD-GRADE only,
+      so render the visual context that exists AND declare the primary-medium sample a GAP: drop in a
+      clearly-labelled HTML comment reading  GAP: primary-medium (e.g. sonic / motion) sample not yet a
+      build-grade target — tracked horizon  where that sample would go (write it as a real comment in the
+      body, NOT here inside this head block). Never fake it; the Stage-10 §1/§2 fidelity gate accepts the
+      declared GAP (fidelity-blocking per the carrier's role) rather than a render this build cannot produce.
 -->
 <html lang="en">
 <head>

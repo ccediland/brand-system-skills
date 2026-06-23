@@ -5,6 +5,12 @@ A treatment is observed in Stage 5 (applied-design harvest) and reproduced in St
 kit). This reference routes any treatment to one of four reproduction methods, validates the result, and
 draws an explicit boundary where code cannot reproduce it.
 
+**Scope (honest).** The taxonomy + four methods below are the **visual axis** and are visual-build-grade. A
+brand whose primary treatment is **non-visual** — a motion signature (timing/easing identity) or a sonic
+treatment — is handled by the *primary-medium axis* (below): routed to an EXPLICIT declared GAP (a tracked
+horizon, fidelity-blocking per the carrier's role), never silently dropped and never forced through a visual
+method.
+
 Anti-determinism: this is a router over a general taxonomy, not a per-brand recipe. A specific brand's
 texture is only an instance the router classifies; never hardcode one brand's filter values as the method.
 Every treatment the builder reproduces carries the provenance spine (`gap-protocol.md`): it was observed
@@ -33,7 +39,8 @@ Every treatment the builder reproduces carries the provenance spine (`gap-protoc
 
 - **Natural texture** (clouds, marble, granite, paper, grain): `feTurbulence` (Perlin/fractal noise;
   `baseFrequency`, `numOctaves`, `type=fractalNoise|turbulence`, `seed`, `stitchTiles`). Stretched noise
-  (`baseFrequency="0.1 0.01"`) mimics wood/fabric grain.
+  (`baseFrequency="0.1 0.01"`) mimics wood/fabric grain. These parameter values are an ILLUSTRATIVE starting
+  recipe per class — tuned per artifact by the §7a visual-diff until within tolerance, never applied blind.
 - **3D / gloss / emboss / metallic**: `feDiffuseLighting` + `feSpecularLighting` (with
   `feDistantLight`/`fePointLight`/`feSpotLight`), using noise as a bump/surface map.
 - **Organic / liquid / sketchy distortion, glitch, roughened edges**: `feDisplacementMap` driven by
@@ -43,6 +50,28 @@ Every treatment the builder reproduces carries the provenance spine (`gap-protoc
   flat CSS `backdrop-filter: blur()`.
 - **Color grading / duotone / halftone-ish**: `feColorMatrix` (and `feComponentTransfer`).
 - **Compositing the stack**: `feComposite` (incl. arithmetic) + `feMerge` / `feBlend`.
+
+## Primary-medium axis — honest scope (non-visual treatments)
+
+The taxonomy and four methods above are the **visual axis**. A brand whose PRIMARY identity carrier is
+non-visual is routed here, not forced through a visual method. The cases below are ILLUSTRATIVE instances of
+the non-visual class (an OPEN capability class mirroring the DIMENSION-MAP carrier set, never an exhaustive
+two-member floor):
+
+- **Motion signature** (e.g. a timing/easing identity, a signature animation): reproduction would be
+  timing/easing curves validated by a frame-diff — **not yet a build-grade target** in this build. Route to an
+  EXPLICIT declared GAP (`primary-medium reproduction not yet build-grade — tracked horizon`), fidelity-blocking
+  per the carrier's role (`validate-audit.md` §1/§2).
+- **Sonic treatment** (e.g. a sound logo, a sonic texture): out-of-code for this build (a raster-equivalent
+  boundary) → route to a declared GAP, never a silent absence.
+- **Any other non-visual lead carrier** the DIMENSION MAP resolves that this visual-build-grade build has no
+  producer for (e.g. haptic/tactile, spatial/AR/interaction-pattern, scent/olfactory): route to the SAME
+  declared GAP (tracked horizon), fidelity-blocking per the carrier's role — never dropped for lack of a row.
+
+This keeps the router HONEST: a non-visual primary treatment is a tracked horizon carrying a declared,
+role-blocking GAP — it never falls outside the §7a gate silently, and is never approximated by a visual filter
+passed off as the real thing. (The medium-agnostic *reasoning* layers already handle these brands; only the
+build-grade *reproduction* is scoped — see RESIDENT `## v3` and `keystone-emit.md` §4.)
 
 ## Validation (every reproduction)
 
