@@ -57,8 +57,10 @@ build and research the general capability class, never a single-brand instance; 
 A full transversal audit then ran (`v3-audit—2026-06-22.md`, root; verdict QUALIFIED NO; 4 BLOCKER · 22 MAJOR);
 its remediation is shipped through **Theme 6** (handoff seam #20 · install integrity #21 · provenance spine +
 keystone operability #23 · public surface + docs sync + the pulled-forward Theme-5 F16 #24; RESIDENT compaction
-#22) — the repo now carries **zero BLOCKER**. Only Theme 7 (F10 client instrument · F32/F38) + a coverage-gap
-pass remain, tracked in `RESIDENT.md` OI-I. The rules below are guardrails/gotchas;
+#22). A fresh full system audit (#25) then drove #26 (medium scoping + keystone orphan) · #27 (client-drift +
+hygiene) · #28 (scoper client instrument + medium-agnostic intake) — so the repo now carries **zero BLOCKER and
+zero MAJOR** (F10 closed #28). Only a MINOR/NIT tail (F32 + system-audit minors) + a coverage-gap pass remain,
+tracked in `RESIDENT.md` OI-I. The rules below are guardrails/gotchas;
 the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/boundaries/sources in
 `v3-research-foundation.md`, and `RESIDENT.md ## v3`.
 - **Handoff = single sufficient interface (Theme 1).** When editing the skills, keep the seam closed both ways:
