@@ -101,6 +101,7 @@ domains: [brand-system, tooling]
 | **v3 keystone size-budget = parameter, not a hardcoded number** — conservative default (keep the keystone comfortably within resident context, fully in-context not chunked); measured figure delegated to empirical calibration in Phase 5 (ties OI-E). If the file exceeds the resident window, REFERENCE (§6) splits to retrievable knowledge; only GUARDRAIL (§5) + DESIGN-reasoning (§4) stay in-context | RAG trip-point unpublished by Anthropic; schema must not fake a number | 2026-06-22 |
 | **v3 token target = DTCG 2025.10**, but `$value` stays an OKLCH literal string — structured-color objects + resolver theming deferred (SD v5 lag, issue #1590 / OI-H) | 2025.10 is the format target; migrating `$value` now would break the build → Lego: `main` stays buildable | 2026-06-22 |
 | **v3 fidelity gate** — reproduction visual-diff vs the source (no pixel-VRT, no Storybook); keystone gate (present · 6-section · guardrail-in-tail · within budget); guardrail red-team posture-gated (regulated = BLOCKING + human sign-off; live adversarial run = Phase 5) | judge fidelity not skeleton-compliance, and make the keystone/guardrail a real gate — honest that in-context guardrails reduce ≠ eliminate jailbreak risk | 2026-06-22 |
+| **v3 Theme-1 seam: the handoff is the SINGLE SUFFICIENT INTERFACE** — two-track manifest (ASSETS checksummed / CONSUMERS live-url reachability-checked), voice/value + geometry/license carriers, every emitted block parsed in Stage 0, DIMENSION-MAP present-but-unresolved = live HALT; carrier enums are capability classes (e.g. font `license:` = declared SPDX id, never a closed floor) | the transversal audit found the seam wasn't sufficient (orphans + out-of-band reads); the rector forbids closed-enum floors | 2026-06-22 |
 
 ## Open Items
 | ID | Item | Severity | Status |
@@ -112,6 +113,7 @@ domains: [brand-system, tooling]
 | OI-F | Second v3 validation brand not chosen — must be differently-shaped (no brandbook, light-only palette, incomplete material) to test generality. | MAJOR | OPEN (Phase 5) |
 | OI-G | Graceful-degradation path for the scoper's living-questions doc when the chat env lacks a connector/filesystem. | NICE | RESOLVED (#13 scoper v3 — Stage 6: commit-where-possible, else a downloadable artifact) |
 | OI-H | Resolver-based theming for OKLCH scheme derivation rides on the v2 SD-v5 / DTCG-2025.10 pin (issue #1590) → may need a custom-transformer/Terrazzo fallback. | NICE | OPEN |
+| OI-I | v3 transversal-audit remaining remediation (Themes 2–7; full backlog in `v3-audit—2026-06-22.md`): BLOCKER F2 (`dev/v2-build-spec.md` dangle — ~13 cites to a gitignored file) · phantom `/design-sync` artifacts F12/F13 + `canon.json` `$schema` 404 F25 · provenance into the token spine F17 · keystone operability gate F15 · de-crystallize the n=2 coverage table F16 · manifests/version + docs sync F20/F23/F24/F26 · client surface F10/F38. | MAJOR | OPEN (before Phase 5) |
 
 (OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
 
@@ -162,11 +164,12 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
 - **Five axes / two columns.** Axes: coverage+epistemics · faithful capture+reproduction · horizons+keystone ·
   the Chat↔Code seam · two-surface output. Two columns that don't subsume each other: provenance discipline
   (honesty about known-vs-assumed) + faithful-capture craft (actually reproducing what is seen).
-- **Status.** Phases 1–4 COMPLETE (2026-06-22). Phase 1 ratified; Phase 2 (handoff contract, #12) · Phase 3
-  (scoper v3, #13) · Phase 4 (builder v3 — spine+capture #14, reproduction+tokens #16, keystone+fidelity-gate
-  #17) shipped to `main`, plus spine-label harmonization (#15). The v3 skills are BUILT. Phase 5 (validation on a
-  second, differently-shaped brand · live guardrail red-team · visual-diff audit · release) is next — designed
-  in Chat. Plan in `v3-execution-plan.md`.
+- **Status.** The v3 skills are BUILT (Phases 1–4 shipped to `main`, #12–#17). A full transversal SYSTEM/PRODUCT
+  audit then ran — report `v3-audit—2026-06-22.md` (root); verdict **QUALIFIED NO** (conceptually sound, but the
+  seam wasn't a single sufficient interface + dangling pointers/stale metadata; 5 BLOCKER · 27 MAJOR). **Theme 1
+  (the handoff seam) is now fixed (#20).** Remaining audit themes 2–7 are tracked in OI-I, to clear before Phase 5
+  (validation on a 2nd differently-shaped brand · live red-team · visual-diff audit · release). Plan in
+  `v3-execution-plan.md`.
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it
@@ -198,6 +201,12 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   determinism/tunnel-vision recurs at every phase. Do not retry — anti-determinism is rectoral.
 
 ## Change log
+- 2026-06-22 — **v3 transversal audit + Theme 1 seam fix.** Ran a 9-workstream + deep-seam SYSTEM/PRODUCT audit
+  (report `v3-audit—2026-06-22.md`, root; verdict QUALIFIED NO — 5 BLOCKER · 27 MAJOR; the seam wasn't a single
+  sufficient interface + dangling pointers/stale metadata). Fixed **Theme 1** — the handoff is now the single
+  sufficient interface (#20): two-track manifest, voice/value + geometry/license carriers, the 3 orphaned blocks
+  wired into Stage 0 with a live DIMENSION-MAP STOP, freshness enum unified, font `license:` opened to a declared
+  SPDX id (capability class). Remaining audit themes tracked in OI-I. Each merge adversarially verified.
 - 2026-06-22 — **v3 Phases 2–4 shipped (the skills are BUILT).** Phase 2: the v3 Chat↔Code handoff contract
   (#12). Phase 3: `brand-canon-scoper` rewritten to it (#13). Phase 4 (builder): provenance spine +
   stated-spec-read in capture (#14) · reproduction router + DTCG 2025.10 / OKLCH scheme engine (#16) · mandatory

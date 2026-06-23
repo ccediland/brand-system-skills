@@ -45,8 +45,18 @@ v3 extends the shipped v2 skills (does not restart them); **Phases 1–4 are mer
 builder are rewritten to v3 (handoff contract · provenance spine · capture · reproduction router · DTCG 2025.10 /
 OKLCH engine · the mandatory keystone · the v3 fidelity gate). Rectoral rule for ALL v3 work: **anti-determinism** —
 build and research the general capability class, never a single-brand instance; the brand is illustration only.
-The rules below are guardrails/gotchas; the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/boundaries/sources in `v3-research-foundation.md`, and
-`RESIDENT.md ## v3`.
+A full transversal audit then ran (`v3-audit—2026-06-22.md`, root; verdict QUALIFIED NO); **Theme 1 (the handoff
+seam) is fixed (#20)**, remaining themes 2–7 tracked in `RESIDENT.md` OI-I. The rules below are guardrails/gotchas;
+the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/boundaries/sources in
+`v3-research-foundation.md`, and `RESIDENT.md ## v3`.
+- **Handoff = single sufficient interface (Theme 1).** When editing the skills, keep the seam closed both ways:
+  every carrier field the handoff emits has a NAMED consumer stage in the builder (parse it in Stage 0), and the
+  builder never reads a field the contract doesn't carry. The manifest is two tracks — ASSETS (in-repo, `sha256`)
+  / CONSUMERS (live `url:`, reachability-checked, not checksummed); "never URLs" means never a DEAD/auth-walled
+  pointer, not never a live surface. DIMENSION-MAP present-but-unresolved → builder HALTs (live anti-determinism).
+  Carrier enums stay capability classes — font `license:` is a declared SPDX id (not a closed OFL/owner/GAP
+  floor); freshness is exactly `shipped | stated-old` at every hop. Keystone voice/value layers derive from WHY
+  `VOICE-EXEMPLARS`/`VALUE TRADE-OFFS` and emit a GAP where absent — never fabricate.
 - **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual; treat
   `pdffonts`/embedded-font tables as corroboration only — outlined type makes them report the studio's layout
   font or nothing.
