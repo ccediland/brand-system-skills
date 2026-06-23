@@ -297,9 +297,10 @@ unanswerable WHY is a gap to confirm, not a guess to make.
 
 #### 4a. Posture detection (detect, don't hardcode)
 The brand's posture parameterizes the builder's guardrail layer (the keystone's operational tier). Detect
-it with a question battery; never assume it from category. The posture space is a capability class:
+it with a question battery; never assume it from category. The posture space is a capability class
+(illustrative, not a closed set — record an unlisted posture verbatim):
 low-profile/conservative · high-visibility/aggressive · regulated/compliance · activist/opinionated ·
-playful/irreverent · B2B-formal. Battery:
+playful/irreverent · B2B-formal · <other-detected>. Battery:
 - **Regulatory exposure:** "Are the claims you make legally constrained? By whom?" *(→ regulated profile)*
 - **Risk appetite:** "When in doubt, does the brand stay quiet or speak boldly?" *(→ visibility setting)*
 - **Stance:** "Does the brand take public positions on issues, or stay neutral?" *(→ activist vs neutral)*
@@ -384,8 +385,8 @@ two-track manifest — checksummed ASSETS + reachability-verified CONSUMERS · `
 four-field PROVENANCE spine on every primitive · WHY carrying Personality (Aaker-5 scored) / Differential
 scales / Resonance / VALUE TRADE-OFFS / VOICE-EXEMPLARS · WHAT carrying per-mark GEOMETRY + per-font
 `license:` · TREATMENTS / DIMENSION MAP (incl. applied-expression/social) / HORIZONS / POSTURE (incl.
-visibility + audiences) blocks · per-gap provenance tag · `BUILD-MODE` with the v0/DEMO carve-out · mark +
-graphic-code non-waivable). Then tell the person exactly what to do with it:
+visibility + audiences) blocks · per-gap provenance tag · `BUILD-MODE` with the v0/DEMO carve-out · the
+primary-identity carrier + graphic-code non-waivable). Then tell the person exactly what to do with it:
 open Claude Code in (or create) the target repo, place the material per the manifest **with checksums**,
 and paste the block — it invokes `brand-canon-builder`. The block is self-contained: everything the
 builder needs to start, nothing it should discover for itself.
@@ -448,8 +449,9 @@ rule-compliance.
 - **build-grade** = vector master + commercial-licensed font files + color profiles (incl. authored spot
   where declared) + clear-space/min-size + misuse list.
 - The intake emits a fidelity contract (the handoff's CORE-ASSET FIDELITY CONTRACT block): the per-brand
-  core-asset set, each marked present/build-grade vs gap/low-fi. Mark + graphic-code are non-waivable even
-  under `BUILD-MODE: v0/DEMO`.
+  core-asset set, each marked present/build-grade vs gap/low-fi. The brand's primary-identity carrier (resolved
+  from the DIMENSION MAP, not assumed a visual mark) + graphic-code are non-waivable even under
+  `BUILD-MODE: v0/DEMO`.
 - The builder's fidelity gate consumes it: a missing or low-fidelity core asset FAILS the build — it
   does not "pass with gaps." Closes the loop from *request* (asset inventory) to *judge* (fidelity gate).
 

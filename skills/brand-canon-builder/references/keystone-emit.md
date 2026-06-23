@@ -34,20 +34,29 @@ front-matter records which section goes where (the deployment map).
 2. **THINK AS THE BRAND (operative reasoning).** Essence, positioning, and values rendered as DECISION RULES
    ("when trading off X against Y, the brand chooses Z because…"), derived from the canon ESSENCE layer (Brand
    Key essence + discriminator; Aaker/Keller) and from the handoff WHY's `VALUE TRADE-OFFS` carrier (each
-   owner-confirmed "when trading X vs Y the brand chooses Z" becomes one trade-off rule here). Where the
-   carrier is `none`, emit a tagged GAP ("trade-off rule pending owner ratification") — NEVER a fabricated
-   rule. Never adjectives.
+   owner-confirmed "when trading X vs Y the brand chooses Z" becomes one trade-off rule here). The WHY
+   `Personality (Aaker-5 scored)` and `Differential scales` carriers are **named inputs here** — render them AS
+   the reasoning behind the rules (a high Aaker score / a differential position shapes the when-X-then-Z
+   choice), never as a bare adjective or score list. Where the `VALUE TRADE-OFFS` carrier is `none`, emit a
+   tagged GAP ("trade-off rule pending owner ratification") — NEVER a fabricated rule. Never adjectives.
 3. **SPEAK AS THE BRAND (voice).** 3–5 voice attributes with behavioral definitions; a persona; audience-scoped
    registers; a banned-vocabulary + hard-"never" list; on-brand vs off-brand comparison pairs (few-shot); and a
    reusable prompt library. Derived from the canon voice / ESSENCE and from the handoff WHY's `VOICE-EXEMPLARS`
-   carrier (each per-audience `on-brand:` / `off-brand:` exemplar becomes one few-shot pair). Where the carrier
-   is `none`, emit a tagged GAP ("voice few-shot pair pending owner ratification") — NEVER a fabricated pair.
-4. **DESIGN AS THE BRAND (visual reasoning).** How the brand DECIDES color/type/spacing/asset/treatment —
-   reasoning, not values: primary reserved for X; chroma ceilings; type-scale ratio; when texture vs flat
-   (cross-ref the `reproduction-router.md` treatment decisions). **Derived from the token spine (values) +
-   GRAMMAR rules `G-*`/`ALGO-*` (combination reasoning) + PRIMITIVES per-atom intent + ESSENCE per-atom meaning
-   (the why)** — every one a NAMED canon layer/block, never an unnamed "design rationale". Each decision rule
-   here is a when-X-then-Z rule (cross-checked by `validate-audit.md` §7b), not a bare adjective.
+   carrier (each per-audience `on-brand:` / `off-brand:` exemplar becomes one few-shot pair). The WHY
+   `Personality (Aaker-5 scored)` and `Resonance` carriers **seed the voice attributes** — each high-scored
+   Aaker dimension becomes one behavioral attribute and `Resonance` sets the emotional register, rendered
+   behaviorally (never the bare score). Where the `VOICE-EXEMPLARS` carrier is `none`, emit a tagged GAP
+   ("voice few-shot pair pending owner ratification") — NEVER a fabricated pair.
+4. **DESIGN AS THE BRAND (design reasoning).** How the brand DECIDES color/type/spacing/asset/treatment — AND
+   its **primary-medium reasoning** (motion / sonic / other) where that is the brand's lead — reasoning, not
+   values: primary reserved for X; chroma ceilings; type-scale ratio; when texture vs flat (cross-ref the
+   `reproduction-router.md` treatment decisions). **Derived from the token spine (values) + GRAMMAR rules
+   `G-*`/`ALGO-*` (combination reasoning) + PRIMITIVES per-atom intent + ESSENCE per-atom meaning (the why)** —
+   every one a NAMED canon layer/block, never an unnamed "design rationale". Emit a **primary-medium** decision
+   rule where the brand leads with a non-visual medium (reference the spine's motion tokens),
+   `not-used(owner-declared)` where it does not, and a declared GAP (tracked horizon) where it IS the primary
+   medium but the build has no build-grade producer for it. Each decision rule here is a when-X-then-Z rule
+   (cross-checked by `validate-audit.md` §7b), not a bare adjective.
 5. **OPERATIONAL GUARDRAIL LAYER.** Posture-parameterized (consume the handoff POSTURE block): a
    functional-requirements tier ABOVE personality; an in-character refusal policy; audience-scoped registers
    ordered by the POSTURE `audiences:` priority list (staff / customers / press / regulators / community);

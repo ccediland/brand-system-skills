@@ -31,7 +31,7 @@ single-block property: one fenced block, self-contained.
 11. **Exhaustive dimension map** — every dimension resolves to filled / not-used / tagged-gap; none skipped.
     The SCOPER owns DIMENSION-MAP completeness — the builder STOPs only on a present-but-unresolved dimension,
     so an un-enumerated dimension is the scoper's defect, never a silent pass.
-12. **Build-mode + non-waivables** — FULL vs v0/DEMO declared; mark + graphic-code fidelity-blocking regardless.
+12. **Build-mode + non-waivables** — FULL vs v0/DEMO declared; the primary-identity carrier (resolved from the DIMENSION MAP, not assumed a visual mark) + graphic-code fidelity-blocking regardless.
 13. **Owner rule-values the gate/keystone need** — per-mark geometry, per-font license, voice-exemplars,
     value trade-offs, personality scores, posture visibility + audiences: each carried as a typed slot with
     provenance, so the builder reads them instead of re-hunting, and absence is a GAP, never a fabrication.
@@ -53,7 +53,7 @@ TARGET REPO: <real path | "create repo <name>">
   ASSETS (in-repo before build; checksummed):
     <item> · role:<REFERENCE|RAW> · fresh:<shipped|stated-old> · path:<repo path> · fidelity:<build-grade|low-fi|pointer-only> · sha256:<hash> · ingest:<vector-extract|computed-css|design-file-native|ocr-visual|font-match|n/a>
   CONSUMERS (live surfaces the brand ships today; verified by reachability, not a checksum):
-    <surface> · url:<live url> · role:CONSUMER · fresh:<shipped|stated-old> · bidirectional:<y/n> · promotion-path:<… | none> · ingest:computed-css
+    <surface> · url:<live url> · role:CONSUMER · fresh:<shipped|stated-old> · bidirectional:<y/n> · promotion-path:<… | none> · ingest:computed-css   (fixed by invariant: a live surface is always read computed-css; only the ASSETS track carries the full ingest enum)
 
 — WHY (essence) — RATIFIED (elicited + owner-confirmed) —
   Category/positioning · Audience · Feel (is / never) · Anti-promise · One line (onliness) · RTB · Voice (register/lexicon/don'ts)
@@ -83,12 +83,13 @@ TARGET REPO: <real path | "create repo <name>">
 — HORIZONS (category-detected; one-line + gap by default) —
   <horizon>: <direction one-line | not-relevant | tagged-gap> · existing-material:<y/n>
 
-— POSTURE (guardrail layer; detected, not hardcoded) —
-  profile:<low-profile|high-visibility|regulated|activist|playful|b2b-formal> · visibility:<low|moderate|high> · audiences:<ordered priority list> · regulatory:<… | none> · stance:<takes positions | neutral> · never-topics:<…> · refusal-style:<…>
+— POSTURE (guardrail layer; detected, not hardcoded; `profile` is an OPEN capability class — record an unlisted posture verbatim) —
+  profile:<low-profile|high-visibility|regulated|activist|playful|b2b-formal|<other-detected>  (illustrative set, not a closed list)> · visibility:<low|moderate|high> · audiences:<ordered priority list> · regulatory:<… | none> · stance:<takes positions | neutral> · never-topics:<…> · refusal-style:<…>
 
 — CORE-ASSET FIDELITY CONTRACT (this brand's must-haves) —
   <core slot>: <present build-grade | GAP low-fi/missing → fidelity-blocking>
-  NON-WAIVABLE even in v0/DEMO: mark · graphic-code
+  NON-WAIVABLE even in v0/DEMO: the brand's PRIMARY-IDENTITY CARRIER(S) — resolved from the DIMENSION MAP (e.g. visual mark | sonic-mark | motion-signature | other declared lead atom) · graphic-code
+  (Where the build has no build-grade producer for the resolved carrier's medium, that carrier is a DECLARED fidelity-blocking GAP per its role — never a false zero-tolerance fail on a visual mark the brand does not lead with, and never a silent pass.)
 
 — GAPS (client-language; builder formalizes to GAP-NNN) —
   <what's missing> — why:<…> · severity:<MUST/SHOULD/NICE> · provenance:<handoff-deliberate|handoff-defect|builder|skill-scope> · proposed:<…>
@@ -122,8 +123,9 @@ one, v3 wins.
   (source / confidence / owner / freshness); observed expression enters as `hypothesis`; the builder never
   promotes a one-off to a line without `owner-confirmed`. This is the v3 root-cause fix (lost epistemic status).
 - **`BUILD-MODE: v0/DEMO`** turns OPTIONAL to default-YES with a carve-out: genuinely scope-expanding
-  dimensions default NO. Mark and graphic-code stay fidelity-blocking even in demo (the NON-WAIVABLE line of
-  the fidelity contract). FULL is the normal mode.
+  dimensions default NO. The brand's primary-identity carrier (resolved from the DIMENSION MAP, not assumed a
+  visual mark) and graphic-code stay fidelity-blocking even in demo (the NON-WAIVABLE line of the fidelity
+  contract). FULL is the normal mode.
 - **The DIMENSION MAP is exhaustive and the scoper owns its completeness.** Every dimension resolves to
   `filled` / `not-used(owner-declared)` / `tagged-gap` — including `applied-expression/social`, which must
   resolve to `filled(media-attached)` / `not-used` / `tagged-gap` explicitly. A builder that receives a

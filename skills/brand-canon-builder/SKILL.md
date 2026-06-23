@@ -91,7 +91,9 @@ brief — parse every block and act on it (do not re-derive what it already carr
 
 - **`MODE`** → ANALYZE | CREATE (drives Stage 2). `BUILD-MODE` → `FULL` = the normal build; `v0/DEMO` =
   apply the OPTIONAL block's degradation (OPTIONAL defaults YES, scope-expanding dims default NO) and thread
-  that mode into Stage 8 (prototype/kit) and Stage 9 (gaps); mark + graphic-code stay non-waivable regardless.
+  that mode into Stage 8 (prototype/kit) and Stage 9 (gaps); the resolved primary-identity carrier(s) (from the
+  DIMENSION MAP — visual mark | sonic-mark | motion-signature | other lead atom) + graphic-code stay non-waivable
+  regardless (a declared fidelity-blocking GAP where the carrier's medium has no build-grade producer, never a false-fail on a visual mark).
   `TARGET REPO` → the real repo path (never invent a tree the builder can't see). `OWNERS` /
   `UNRESOLVED CONFLICTS` → ratification bookkeeping; an unresolved conflict is an open GAP, never builder-decided.
 - **`MATERIAL MANIFEST`** (two tracks) → **ASSETS**: the in-repo paths (`assets/` / `sources/`) read in
@@ -286,8 +288,11 @@ skeleton. Seven parts:
 
 - **Fidelity gate** — consume the handoff's `CORE-ASSET FIDELITY CONTRACT` (parsed at Stage 0): a missing or
   low-fidelity core asset is fidelity-blocking → the build FAILS (not "pass with gaps"); non-core gaps
-  still log and the repo stays valid (Lego). Layered thresholds: zero tolerance on the mark + primary color
-  tokens, higher on gradients/illustration; per-component-variant + per-brand baselines.
+  still log and the repo stays valid (Lego). Layered thresholds: zero tolerance on the brand's primary-identity
+  carrier(s) (resolved from the DIMENSION MAP — visual mark | sonic-mark | motion-signature | other) + primary
+  color tokens, higher on gradients/illustration; where the build has no build-grade producer for that medium
+  the carrier is a declared fidelity-blocking GAP (never a false-fail on a visual mark the brand doesn't lead
+  with); per-component-variant + per-brand baselines.
 - **Mechanism is shape-dependent** (do not mandate Storybook): package-shape (default) evidences fidelity
   via the deterministic HTML prototype (render real samples) + the kit's own offline `npm run validate`
   (`package-validate.mjs`, kit-shipped: dist/`.d.ts` present, ≥1 component exported, every referenced font

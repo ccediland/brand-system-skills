@@ -67,6 +67,15 @@ the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/bou
   Carrier enums stay capability classes — font `license:` is a declared SPDX id (not a closed OFL/owner/GAP
   floor); freshness is exactly `shipped | stated-old` at every hop. Keystone voice/value layers derive from WHY
   `VOICE-EXEMPLARS`/`VALUE TRADE-OFFS` and emit a GAP where absent — never fabricate.
+- **Medium scoping (honest, carrier-resolved).** Every layer that gates or renders a brand's identity acts on
+  the brand's PRIMARY-IDENTITY CARRIER(S) resolved from the DIMENSION MAP — an OPEN class (visual mark \|
+  sonic-mark \| motion-signature \| other declared lead atom), never a hardcoded `mark`. The current build is
+  **visual-build-grade**: where it has no build-grade producer for the resolved carrier's medium (sonic/motion),
+  the layer emits a DECLARED fidelity-blocking GAP (a tracked horizon, `RESIDENT.md` OI-J), never a false-fail on
+  a visual mark nor a silent pass. The §7b keystone OPERABILITY gate is medium-agnostic and stays distinct from
+  build-grade FIDELITY (`validate-audit.md` §1/§2, visual-scoped). The keystone consumes the WHY personality
+  carriers (Aaker-5/Differential→§2 THINK, Aaker-5/Resonance→§3 SPEAK). Posture `profile:` is an open class with
+  an `<other-detected>` escape — don't reintroduce a closed enum-as-floor.
 - **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual; treat
   `pdffonts`/embedded-font tables as corroboration only — outlined type makes them report the studio's layout
   font or nothing.
