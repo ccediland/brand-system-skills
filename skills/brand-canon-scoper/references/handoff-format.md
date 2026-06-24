@@ -87,7 +87,7 @@ TARGET REPO: <real path | "create repo <name>">
   <horizon>: <direction one-line | not-relevant | tagged-gap> · existing-material:<y/n>
 
 — POSTURE (guardrail layer; detected, not hardcoded; `profile` is an OPEN capability class — record an unlisted posture verbatim) —
-  profile:<low-profile|high-visibility|regulated|activist|playful|b2b-formal|<other-detected>  (illustrative set, not a closed list)> · visibility:<low|moderate|high> · audiences:<ordered priority list> · regulatory:<… | none> · stance:<takes positions | neutral> · never-topics:<…> · refusal-style:<…>
+  profile:<low-profile|high-visibility|regulated|activist|playful|b2b-formal|<other-detected>  (illustrative set, not a closed list)> · visibility:<low|moderate|high> · audiences:<ordered priority list> · regulatory:<named instrument — owner-stated (cited) | →GAP | none>  (owner-stated-or-GAP, never memory-asserted — EH-2) · stance:<takes positions | neutral> · never-topics:<…> · refusal-style:<…>
 
 — CORE-ASSET FIDELITY CONTRACT (this brand's must-haves) —
   <core slot>: <present build-grade | GAP low-fi/missing → fidelity-blocking>
@@ -143,5 +143,12 @@ one, v3 wins.
 - **TREATMENTS, HORIZONS, POSTURE are capability-class blocks, not brand instances.** They carry the
   scoper's observations + route-hints + detected posture as hypotheses for the builder's router / horizon
   detector / guardrail layer; none asserts a brand-specific value as settled truth.
+- **Regulatory instruments are owner-stated-or-GAP, never memory-asserted (EH-2).** The POSTURE `regulatory:`
+  field carries a NAMED legal/regulatory instrument only when the owner or their material supplied it
+  (`source: owner-stated`, cited to that source; `confidence` stays `hypothesis` until owner ratification, like
+  all posture data); otherwise it is `none` or a tagged GAP. The scoper never recalls a regulation from model
+  memory — the builder's posture→severity gate (EH-3, a forward seam) will read this field, so a memory-guessed
+  name would poison a downstream BLOCKING decision. No regulatory exposure → `regulatory: none`, never a forced
+  GAP.
 - One block, fenced, self-contained. After it, tell the person: place the material in the target repo per the
   manifest (with checksums), then open Claude Code there and paste this; it runs brand-canon-builder.
