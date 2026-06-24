@@ -3,13 +3,22 @@
 <!-- GUIDE: This registry tracks every CONSUMER of the canon and the contract it consumes by. A projection
      is any artifact derived from the canon (a website, a slide deck, a print kit, a design-tool library).
      A projection is never a second source of truth — the canon wins (INDEX › Precedence). This file also
-     declares the machine interchange contract and the HARVEST-then-REMOVE manifest for junk. -->
+     declares the machine interchange contract and the HARVEST-then-REMOVE manifest for junk.
+
+     MACHINE CONTRACT (audit-lint R6a / MT-1): the `consumes` column is machine-readable — a list of the
+     token aliases `{tier.category.name}` the projection derives from, separated by `;`. You MAY pin a value
+     with ` = <value>` (e.g. `{semantic.color.action}` = `oklch(0.62 0.13 255)`) to assert byte-equality
+     with the spine. The `source` column is `derived | authored`. R6 reconciles every `derived` row: each
+     consumed alias must resolve in the token spine, and any pinned value must byte-equal the spine-resolved
+     value — a stale pin or a renamed/removed alias is DRIFT and FAILS the gate. `authored` rows (e.g. an
+     authored print spot value, per the Interchange contract `source` flag) are truth and are NOT
+     re-derived/checked. List ONLY aliases the canon actually defines — never a raw value as a second source. -->
 
 ## Projection registry
 
-| Consumer | Role | Re-projects | Status |
-|---|---|---|---|
-| {{consumer name / id}} | {{downstream \| bidirectional}} | {{what it derives from the canon}} | {{KEEP \| SUPERSEDED}} |
+| Consumer | Role | consumes | source | Status |
+|---|---|---|---|---|
+| {{consumer name / id}} | {{downstream \| bidirectional}} | {{`{tier.category.name}` alias(es), `;`-separated; optional ` = <pinned value>`}} | {{derived \| authored}} | {{KEEP \| SUPERSEDED}} |
 
 Bidirectional consumers are both downstream consumers AND upstream sources of design intent. Their
 promotion path: a non-token design decision proven in the consumer → reviewed → abstracted to

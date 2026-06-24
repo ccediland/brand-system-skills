@@ -26,8 +26,8 @@
     "font-family": {
       "$type": "fontFamily",
       "body": {
-        "$value": "Body Face, system-ui, sans-serif",
-        "$description": "matched ⇒ capped at hypothesis (R2); tracked by exactly one open GAP (R5)",
+        "$value": "\"Body Face\", system-ui, sans-serif",
+        "$description": "matched ⇒ capped at hypothesis (R2); tracked by exactly one open GAP (R5). QUOTED stack — R6a regression guard: a derived projection pins this byte-for-byte incl. the quotes.",
         "$extensions": { "brand": {
           "provenance": { "source": "matched", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "stated-old" },
           "gap": "GAP-002",

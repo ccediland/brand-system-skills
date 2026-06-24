@@ -8,7 +8,10 @@
 
   HOW THE BUILDER FILLS IT (everything below is derived from the canon — invent nothing):
     1. Replace the :root token values with the brand's real OKLCH token values (from tokens/base+semantic).
-    2. Replace the inline <svg id="brand-mark"> with the brand's REAL extracted vector mark (Stage 3).
+    2. Fill <svg id="brand-mark"> by inlining the geometry FROM the single source `canon/mark.svg`
+       (Stage 3) — do NOT hand-type it. Copy mark.svg's geometry verbatim so this prototype, the kit's
+       Mark.tsx, and mark.svg stay byte-equal; audit-lint R6b FAILS the build on any divergence. The
+       shipped prototype stays zero-dep/offline: inline the geometry, never <use>/<link>/fetch the file.
     3. Replace the @font-face data-URI(s) with the brand's REAL acquired, licensed fonts (Stage 4). If the
        brand is single-typeface, alias --font-body to --font-display (one face) and drop the type-spread's
        pairing copy — never imply a display+body pairing the brand does not have.
@@ -134,7 +137,8 @@
 <body>
 <div class="wrap">
 
-  <!-- mark: BUILDER replace this inline SVG with the brand's REAL extracted vector mark (Stage 3) -->
+  <!-- mark: BUILDER inline the geometry FROM canon/mark.svg (the single source) — byte-equal across the
+       prototype + kit Mark.tsx; never hand-type it (audit-lint R6b enforces single-sourcing) -->
   <div class="mark" aria-label="Example Brand logo">
     <svg id="brand-mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
       <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>

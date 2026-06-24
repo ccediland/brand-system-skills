@@ -24,11 +24,24 @@
 
 ## Tooling — emitted gates (run from the EMITTED client repo root)
 The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
-- **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance & completeness gate** (MT-3/4/5; rules
-  R0–R5). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
-  `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`. Zero-dep Node. Self-test from THIS repo:
+- **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance, completeness & reconciliation gate**
+  (MT-1/3/4/5; rules R0–R6). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
+  `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`, and (for R6) `satellites/projections.md`,
+  `canon/mark.svg`, and the generated `.html`/`.css` artifacts. Zero-dep Node. Self-test from THIS repo:
   `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
   (exit 0) and `…/fixtures/seeded-violation` (exit 1).
+  - **R0–R5 (MT-3/4/5)** — provenance & completeness (each value token's provenance block on closed enums;
+    corroborated ⇒ ≥2 distinct hashed sources; inferred/matched ⇒ hypothesis; path-bound sha256; value→token/GAP;
+    one GAP back-ref). See `references/validate-audit.md` §5a.
+  - **R6 (MT-1) — cross-artifact reconciliation / drift.** **R6a** every `derived` projection in
+    `satellites/projections.md` consumes only aliases that resolve in the spine, and any pinned value byte-equals
+    the spine-resolved value (drift FAILS); `source: authored` rows are truth and are **skipped** (the authored
+    carve-out). **R6b** the protected mark geometry is single-sourced from **`canon/mark.svg`** — each rendered
+    instance (prototype `#brand-mark`, kit `Mark.tsx`) must be byte-equal to it; a brand with **no visual mark
+    and no rendered instance is N/A → PASS** (medium-agnostic — never a false fail on a sonic/verbal brand).
+    **R6c** every local `@import`/`url()`/`href`/`src` in a generated artifact resolves to an existing file.
+    `canon/mark.svg` is the ONE renderable mark source; `canon.json`/PRIMITIVES § Mark stay metadata-only. The
+    projection registry's `consumes`/`source` columns are the machine linkage R6a reads.
 - **`python tools/source-recover.py <url> [--from --to]`** — MT-3 **archived-source recovery**: Wayback CDX +
   raw `id_` fetch, occupant disambiguation, SHA-256 → `sources/MANIFEST.json`. Identity/date verification is an
   AGENT step (Stage 3), not the script's. Dep: `requests`.

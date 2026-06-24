@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- SEEDED fixture prototype. Two planted R6 violations:
+     · R6b — the mark below DIVERGES from canon/mark.svg (circle r="9" vs the canonical r="7").
+     · R6c — a dangling `@import "./missing.css"` that resolves to no file. -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Seeded Brand — prototype</title>
+<style>
+  @import "./missing.css";
+  :root { --color-brand: oklch(0.62 0.13 255); --color-brand-fg: oklch(0.99 0 0); }
+</style>
+</head>
+<body>
+  <div class="mark" aria-label="Seeded Brand logo">
+    <svg id="brand-mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
+      <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>
+      <circle cx="16" cy="16" r="9" fill="var(--color-brand-fg)"/>
+    </svg>
+  </div>
+</body>
+</html>
