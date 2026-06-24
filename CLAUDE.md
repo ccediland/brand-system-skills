@@ -12,10 +12,10 @@
   `tools/fixtures/` the gate's own clean + seeded-violation acceptance proof, not emitted to clients).
 - `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` + `references/` (`handoff-format.md`,
   `elicitation-bank.md`, `detection-batteries.md` — the interview bank + detection batteries externalized at SH-1).
-- `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items).
-- `v4-roadmap.md` (root, tracked) — the v4 operating document (change-set, stage map, session log). The v3 root
-  docs (`v3-execution-plan.md`, `v3-research-foundation.md`, `v3-system-audit—2026-06-23.md`) were removed in the
-  v4 consolidation; their record lives in the closed-PR history + `v4-roadmap.md`.
+- `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items — the single durable record).
+- The v3 root docs (`v3-execution-plan.md`, `v3-research-foundation.md`, `v3-system-audit—2026-06-23.md`) were
+  removed in the v4 consolidation, and the v4 roadmap (`v4-roadmap.md`) was retired at the v4 ship; their record
+  lives in the closed-PR + git history + `RESIDENT.md` (`## v3` / `## v4`).
 
 ## How the skills work (one line each)
 - **brand-canon-builder** — scaffold the canon → fill what the brand's material/brief supports → log the
@@ -129,7 +129,7 @@ extract → prototype + Design-syncable library engine (the v2 pipeline is compl
 full work-log, the v2 specs (`v2-build-spec.md`, `v2-intake-spec.md`), and the granular backlog
 (`v2-backlog.md`, F-001…F-026) live in the **gitignored `dev/`** directory — local provenance, not shipped.
 
-## v3 (skills built; Phase 5 validation next) — record in `v4-roadmap.md` + `RESIDENT.md ## v3`
+## v3 (skills built; Phase 5 validation next) — record in `RESIDENT.md ## v3`
 v3 extends the shipped v2 skills (does not restart them); **Phases 1–4 are merged to `main`** — the scoper and
 builder are rewritten to v3 (handoff contract · provenance spine · capture · reproduction router · DTCG 2025.10 /
 OKLCH engine · the mandatory keystone · the v3 fidelity gate). Rectoral rule for ALL v3 work: **anti-determinism** —
@@ -142,8 +142,8 @@ hygiene) · #28 (scoper client instrument + medium-agnostic intake) · #29 (ledg
 MINOR/NIT tail + coverage-gap) — so the **entire audit ledger is CLOSED: zero BLOCKER, MAJOR, MINOR and NIT**,
 except the deliberate F55 (bold-density deviation) + OI-J (sonic/motion build-grade horizon). Both audit reports
 are closed baselines; only the Phase-5 validation run remains. The rules below are guardrails/gotchas;
-the staged plan + the resolved methods/boundaries/sources are recorded in `v4-roadmap.md` + the closed-PR
-history (the v3 root docs were removed in the v4 consolidation), with the durable summary in `RESIDENT.md ## v3`.
+the staged plan + the resolved methods/boundaries/sources are recorded in the closed-PR
+history (the v3 root docs were removed in the v4 consolidation), with the durable summary in `RESIDENT.md ## v3` / `## v4`.
 - **Handoff = single sufficient interface (Theme 1).** When editing the skills, keep the seam closed both ways:
   every carrier field the handoff emits has a NAMED consumer stage in the builder (parse it in Stage 0), and the
   builder never reads a field the contract doesn't carry. The manifest is two tracks — ASSETS (in-repo, `sha256`)
