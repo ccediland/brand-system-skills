@@ -246,6 +246,155 @@ const add = (id, title, violations, note) => results.push({ id, title, status: v
   add('R5', 'MT-5 · every hypothesis/inferred/matched/traced token → exactly one open GAP', v);
 }
 
+// ---------- R6 (MT-1): cross-artifact reconciliation & drift ----------
+// THE RECONCILIATION GATE. A downstream artifact may not DRIFT from its single source.
+// Like R0–R5 it is GENERAL (anti-determinism rector): it asserts NO specific projection,
+// mark, or value exists — only that whatever DOES exist reconciles with the spine / its
+// single source. A brand with no projections, no visual mark, or only `authored` values
+// passes CLEAN. Three checks, reported under one rule with [R6a]/[R6b]/[R6c]-tagged messages:
+//   R6a — every `derived` projection's consumed alias resolves in the spine, and any pinned
+//         value byte-equals the spine-resolved value. `authored` projections are truth → skipped.
+//   R6b — the protected mark geometry is single-sourced: each rendered instance is byte-equal
+//         (whitespace/JSX-normalized) to canon/mark.svg. No mark source + no instances ⇒ N/A PASS.
+//   R6c — every LOCAL @import / url() / href / src in a generated .html/.css artifact resolves.
+
+// spine resolver — follow aliases to a terminal $value (null if it does not resolve)
+const tokenByPath = new Map(tokens.map((t) => [t.path, t]));
+function resolveSpineValue(path, seen = new Set()) {
+  if (seen.has(path)) return null;                 // alias cycle → unresolved
+  seen.add(path);
+  const t = tokenByPath.get(path);
+  if (!t) return null;                             // dangling / renamed reference
+  if (t.isAlias) return resolveSpineValue(String(t.value).trim().replace(/^\{|\}$/g, ''), seen);
+  return t.value;
+}
+
+// recursive file walk (skips inputs / build / dot dirs; never throws on a bad entry)
+function walkFiles(exts, skip = new Set(['node_modules', 'sources', 'audit'])) {
+  const out = [];
+  const rec = (abs) => {
+    let entries; try { entries = readdirSync(abs, { withFileTypes: true }); } catch { return; }
+    for (const e of entries) {
+      const p = join(abs, e.name);
+      if (e.isDirectory()) { if (!skip.has(e.name) && !e.name.startsWith('.')) rec(p); }
+      else if (e.isFile() && exts.some((x) => e.name.endsWith(x))) out.push(p);
+    }
+  };
+  rec(ROOT);
+  return out;
+}
+
+// extract the inner geometry of an <svg> (optionally the one carrying a given id), then normalize
+const extractSvgInner = (text, id) => {
+  if (text == null) return null;
+  const re = id
+    ? new RegExp(`<svg\\b[^>]*\\bid=["']${id}["'][^>]*>([\\s\\S]*?)<\\/svg>`, 'i')
+    : /<svg\b[^>]*>([\s\S]*?)<\/svg>/i;
+  const m = text.match(re);
+  return m ? m[1] : null;
+};
+const normGeom = (inner) => (inner == null ? null : inner
+  .replace(/<!--[\s\S]*?-->/g, '')                                    // strip comments
+  .replace(/>\s+</g, '><')                                           // no whitespace between tags
+  .replace(/<([a-z][\w:-]*)((?:\s[^<>]*?)?)>\s*<\/\1\s*>/gi, '<$1$2/>') // explicit-empty <tag></tag> ≡ self-closing <tag/>
+  .replace(/\s*\/>/g, '/>')                                          // JSX " />" → "/>"
+  .replace(/\s+/g, ' ')                                              // collapse remaining whitespace runs
+  .trim());
+
+{
+  const v = [];
+
+  // ---- R6a · projection drift ----
+  let derivedProjCount = 0;
+  const projText = readText(join(ROOT, 'satellites', 'projections.md'));
+  if (projText) {
+    let inReg = false, header = null;
+    for (const line of projText.split('\n')) {
+      if (/^##\s/.test(line)) { inReg = /projection\s+registry/i.test(line); header = null; continue; }
+      if (!inReg || !line.trim().startsWith('|')) continue;
+      const cells = line.split('|').slice(1, -1).map((c) => c.trim());
+      if (!cells.length || /^[-:\s]+$/.test(cells.join(''))) continue;        // separator row
+      if (!header) { header = cells.map((c) => c.toLowerCase()); continue; }  // header row
+      const ci = header.findIndex((h) => h.includes('consumes'));
+      const si = header.findIndex((h) => h.includes('source'));
+      const name = (cells[0] || '(unnamed)').replace(/`/g, '');
+      const consumesCell = ci >= 0 ? (cells[ci] || '') : '';
+      const sourceCell = si >= 0 ? (cells[si] || '') : '';
+      if (name.includes('{{') || consumesCell.includes('{{')) continue;       // template placeholder row
+      if (/\bauthored\b/i.test(sourceCell)) continue;                         // carve-out: authored is truth, not re-derived
+      derivedProjCount++;
+      // Parse the consumes cell by ALIAS BOUNDARIES — NOT by `;`, because `;` can appear inside a value
+      // (e.g. a CSS transition list). Drop markdown code backticks (display only, never semantic); each
+      // {alias}'s pin is the text from after it up to the NEXT {alias}. Quotes are part of the value and
+      // are NEVER stripped (a quoted CSS font stack must byte-equal its own quoted spine value).
+      const cellClean = consumesCell.replace(/`/g, '');
+      const am = [...cellClean.matchAll(/\{([a-z][a-z0-9_.\-]*)\}/gi)];
+      for (let i = 0; i < am.length; i++) {
+        const alias = am[i][1];
+        const segStart = am[i].index + am[i][0].length;
+        const segEnd = i + 1 < am.length ? am[i + 1].index : cellClean.length;
+        const seg = cellClean.slice(segStart, segEnd).trim().replace(/;\s*$/, '').trim(); // strip only the trailing separator
+        const pin = seg.startsWith('=') ? seg.slice(1).trim() : null;
+        const resolved = resolveSpineValue(alias);
+        if (resolved == null) {
+          v.push(`[R6a] projection "${name}" (satellites/projections.md) consumes {${alias}} which does not resolve to a spine leaf (drift: renamed/removed token)`);
+        } else if (pin != null && pin !== '' && pin !== String(resolved).trim()) {
+          v.push(`[R6a] projection "${name}" (satellites/projections.md) pins {${alias}}="${pin}" but the spine resolves it to "${resolved}" (drift)`);
+        }
+      }
+    }
+  }
+
+  // ---- R6b · protected mark single-source ----
+  const markSrc = readText(join(ROOT, 'canon', 'mark.svg'));
+  const canonical = markSrc == null ? null : normGeom(extractSvgInner(markSrc) ?? markSrc);
+  const instances = [];
+  // HTML: only an <svg> that ITSELF carries id="brand-mark" is a mark instance (not a <section id="brand-mark"> anchor).
+  for (const f of walkFiles(['.html', '.htm'])) {
+    const text = readText(f);
+    if (text && /<svg\b[^>]*\bid=["']brand-mark["']/i.test(text)) instances.push({ file: rel(f), inner: normGeom(extractSvgInner(text, 'brand-mark')) });
+  }
+  // Kit: the brand-mark component is the kit's Mark.{tsx,jsx,js} — a Mark.* OUTSIDE the kit is a different/decorative component.
+  for (const f of walkFiles(['.tsx', '.jsx', '.js'])) {
+    if (!(f.includes('/design-sync-kit/') && /\/Mark\.(?:tsx|jsx|js)$/.test(f))) continue;
+    const text = readText(f);
+    if (text && /<svg\b/.test(text)) instances.push({ file: rel(f), inner: normGeom(extractSvgInner(text)) });
+  }
+  if (canonical == null) {
+    // No canonical source → a violation only if something DOES render a mark (else N/A: sonic/verbal/no-mark brand).
+    for (const ins of instances) v.push(`[R6b] ${ins.file} renders a brand mark but no canonical single-source canon/mark.svg exists (mark geometry not single-sourced)`);
+  } else {
+    for (const ins of instances) {
+      if (ins.inner == null) v.push(`[R6b] ${ins.file} — could not extract mark geometry to reconcile against canon/mark.svg`);
+      else if (ins.inner !== canonical) v.push(`[R6b] ${ins.file} — mark geometry diverges from canon/mark.svg (re-typed/drifted, not single-sourced at the fill-step)`);
+    }
+  }
+
+  // ---- R6c · asset refs resolve ----
+  // Match ASSET refs only — CSS @import / url(), and href/src/data on asset-loading elements.
+  // Deliberately NOT a generic href: an <a href="/about"> is NAVIGATION, not an asset, and must not be policed.
+  const refRe = /@import\s+(?:url\(\s*)?["']?([^"')\s]+)|url\(\s*["']?([^"')\s]+)|<(?:link|img|script|use|image|source|track|embed|iframe|object|video|audio)\b[^>]*?\b(?:xlink:href|href|src|data)\s*=\s*["']?([^"')\s]+)/gi;
+  const safeDecode = (u) => { try { return decodeURIComponent(u); } catch { return u; } };
+  const isLocalRef = (u) => u && !/^(?:[a-z][a-z0-9+.\-]*:|\/\/|#|data:)/i.test(u) && !u.startsWith('var(') && u !== 'currentColor';
+  const looksLikePath = (u) => /\//.test(u) || /^\.\.?\//.test(u) || /\.[a-z0-9]{1,8}([?#].*)?$/i.test(u); // a slash or a file-extension-like suffix
+  for (const f of walkFiles(['.html', '.htm', '.css'])) {
+    const text = readText(f); if (!text) continue;
+    const dir = f.slice(0, f.lastIndexOf('/'));
+    const seen = new Set(); let m; refRe.lastIndex = 0;
+    while ((m = refRe.exec(text))) {
+      const raw = m[1] || m[2] || m[3]; const u = safeDecode(raw);
+      if (!isLocalRef(raw) || !isLocalRef(u)) continue;  // reject if raw OR decoded is non-local (e.g. %23 → #, an in-SVG fragment)
+      if (!looksLikePath(u)) continue;                   // only check refs that look like a local file path
+      const clean = u.split(/[?#]/)[0]; if (!clean || seen.has(clean)) continue; seen.add(clean);
+      const target = clean.startsWith('/') ? join(ROOT, clean) : join(dir, clean);
+      if (!existsSync(target)) v.push(`[R6c] ${rel(f)} references "${raw}" which does not resolve to an existing file (dangling import/asset)`);
+    }
+  }
+
+  add('R6', 'MT-1 · cross-artifact reconciliation — R6a projection drift · R6b mark single-source · R6c asset refs resolve', v,
+    `${derivedProjCount} derived projection(s), ${instances.length} mark instance(s), canon/mark.svg ${canonical == null ? 'absent (N/A unless a mark is rendered)' : 'present'}`);
+}
+
 // ---------- report ----------
 const failed = results.filter((r) => r.status === 'FAIL');
 const stamp = process.env.AUDIT_LINT_DATE || '';

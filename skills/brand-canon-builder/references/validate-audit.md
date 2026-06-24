@@ -123,7 +123,7 @@ ratified WHY is never silently kept.
 - **Universality stress test** — three arbitrary artifacts the canon names nowhere (span media); each must
   resolve through the derivation method without being enumerated. (`gap-protocol.md`.)
 
-## 5a. Provenance & completeness lint — the executable gate (MT-3/4/5, BLOCKING)
+## 5a. Provenance, completeness & reconciliation lint — the executable gate (MT-1/3/4/5, BLOCKING)
 
 The provenance/completeness rules above are not prose-trust — they are an executable gate. Run, from the
 emitted-repo root:
@@ -145,13 +145,25 @@ node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
 - **R4 (MT-5)** — every value/scheme named in a canon layer or ALGO maps to a token artifact OR an open `GAP-NNN`.
 - **R5 (MT-5)** — every `hypothesis`/`inferred`/`matched`/`traced` token carries EXACTLY ONE open `GAP-NNN` in
   its own `$extensions.brand.gap` back-reference.
+- **R6 (MT-1)** — cross-artifact RECONCILIATION (the drift gate; additionally reads `satellites/projections.md`,
+  `canon/mark.svg`, and the generated `.html`/`.css` artifacts): **R6a** every `derived` projection's consumed
+  `{tier.category.name}` alias resolves in the spine, and any pinned value byte-equals the spine-resolved value
+  — a stale pin or a renamed/removed alias is DRIFT (`source: authored` rows are truth and are skipped); **R6b**
+  the protected mark geometry is single-sourced — each rendered instance (the prototype's `#brand-mark`, the
+  kit's `Mark.tsx`) is byte-equal (whitespace/JSX-normalized) to `canon/mark.svg`, the one renderable source
+  (`canon.json`/PRIMITIVES § Mark stay metadata-only); **R6c** every LOCAL `@import`/`url()`/`href`/`src` in a
+  generated artifact resolves to an existing file (no dangling import/asset).
 
 **Prerequisite — `CHECKSUMS.txt` covers `sources/**`.** R3 is only meaningful if every source-of-record is
 hashed: the build SHA-256-hashes every file under `sources/**` (incl. recovered `sources/wayback/**`) into
 `CHECKSUMS.txt` (`asset-acquisition.md` § CHECKSUMS). A `corroborated`/`computed-css` token whose source is
 absent from `CHECKSUMS.txt` fails R3. The lint is medium-agnostic and value-blind — a monogram-only /
 single-ink / sonic-primary brand whose dimensions are `not-used(owner-declared)` passes clean (it names no
-value the lint can fail on); it never asserts a specific value exists.
+value the lint can fail on); it never asserts a specific value exists. **R6 is equally general** (anti-determinism
+rector): a brand with no `satellites/projections.md`, or only `authored` rows, passes R6a; a brand with no
+visual mark and no rendered mark instance is R6b **N/A → PASS** (never a false zero-mark fail on a sonic /
+verbal / motion-primary brand); a self-contained artifact with no local refs passes R6c. R6 asserts only that
+whatever DOES exist reconciles with its single source — never that a projection, a mark, or a value exists.
 
 ## 6. Client-confirmation is a HUMAN gate
 
@@ -268,9 +280,11 @@ The build is done only when: every core asset is present + build-grade (§1); `[
 resolved for core faces; the hollow-render gate is clean and `package-validate.mjs` exits 0 — the kit's
 offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip
 has run (package-shape) — or the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
-rule/voice violations; the three retained checks pass; **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-3/4/5
-provenance & completeness gate: R0–R5), with `CHECKSUMS.txt` hashing every file under `sources/**` so the R3
-source-of-record check is meaningful;** **every reproduced treatment passes the §7a visual-diff
+rule/voice violations; the three retained checks pass; **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-1/3/4/5
+provenance, completeness & reconciliation gate: R0–R6), with `CHECKSUMS.txt` hashing every file under
+`sources/**` so the R3 source-of-record check is meaningful, and no R6 drift — every `derived` projection
+reconciles with the spine, the protected mark is single-sourced from `canon/mark.svg`, and every asset ref
+resolves;** **every reproduced treatment passes the §7a visual-diff
 (or degrades / logs a GAP) AND has committed its persisted evidence artifact to `audit/fidelity/<treatment-id>/`
 (source + reproduction + recorded verdict — absence FAILS); the keystone is present, six-section,
 guardrail-in-tail, within budget (structural), AND passes the §7b CONTENT check (THINK + DESIGN-as each carry

@@ -1,0 +1,13 @@
+<!-- {{BRAND}} mark — THE single renderable source of the protected mark geometry.
+     Single-sourced (audit-lint R6b): prototype.html and the kit's Mark.tsx inline THIS
+     geometry verbatim at the Stage-3 fill-step, so all three stay byte-equal. canon.json ›
+     mark and PRIMITIVES § Mark stay metadata-only (viewBox / ratio / minPx / construction /
+     clear-space / misuse) — the renderable vector lives ONLY here.
+     BUILDER: replace the placeholder geometry below with the brand's REAL extracted vector
+     mark (Stage 3). Fill from the token spine via var(--color-brand) / var(--color-brand-fg)
+     (or currentColor), never a baked literal. The shape below is an OBVIOUSLY-GENERIC
+     placeholder so the file renders standalone before fill; no real brand geometry lives here. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-hidden="true">
+  <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>
+  <circle cx="16" cy="16" r="7" fill="var(--color-brand-fg)"/>
+</svg>

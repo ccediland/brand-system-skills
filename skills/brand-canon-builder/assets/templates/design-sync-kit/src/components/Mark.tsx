@@ -1,9 +1,11 @@
 import * as React from "react";
 
 /**
- * The brand mark. BUILDER: replace the inline SVG paths with the brand's REAL extracted vector mark
- * (Stage 3). Inline it (not an <img src> to an asset dir) so previews render self-contained in the
- * design pane. The mark is never recreated, recolored, or distorted by a consumer — that is a GRAMMAR rule.
+ * The brand mark. BUILDER: inline the geometry FROM the single source `canon/mark.svg` (Stage 3) — copy
+ * it verbatim so prototype.html, this component, and mark.svg stay byte-equal; audit-lint R6b FAILS the
+ * build on any divergence (the mark is single-sourced, never re-typed per artifact). Inline it (not an
+ * <img src> to an asset dir) so previews render self-contained in the design pane. The mark is never
+ * recreated, recolored, or distorted by a consumer — that is a GRAMMAR rule.
  */
 export interface MarkProps {
   /** Rendered height in CSS units. */
