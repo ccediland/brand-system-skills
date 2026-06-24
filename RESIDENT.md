@@ -233,8 +233,9 @@ v4 turns the builder's prose discipline into **executable gates that exit non-ze
 the builder-keystone: the emitted client repo is **self-validating** (regression-ready) and **machine-true**, not
 prose-true. Two gates, two ecosystems, one persisted-evidence model.
 
-- **`tools/audit-lint.mjs` — provenance / completeness / reconciliation (R0–R6, BLOCKING, zero-dep Node).** Run
-  from the emitted-repo root; exit 1 on any violation; writes `audit/lint/report.md`.
+- **`tools/audit-lint.mjs` — provenance / completeness / reconciliation (R0–R8, BLOCKING, zero-dep Node).** Run
+  from the emitted-repo root; exit 1 on any violation; writes `audit/lint/report.md`. (R0–R6 detailed here; R7
+  schemes-are-tokens and R8 prototype-completeness are added in Stages C and D below.)
   - **R0–R5 (MT-3/4/5, Stage B-1).** Every value token carries a `$extensions.brand.provenance` block on closed
     source/confidence enums; `corroborated` ⇒ ≥2 distinct hashed sources; `inferred`/`matched` ⇒ `hypothesis`;
     `computed-css`/`corroborated`/`owner-confirmed` ⇒ a path-bound `sha256` in `CHECKSUMS.txt`; every named
@@ -255,7 +256,7 @@ prose-true. Two gates, two ecosystems, one persisted-evidence model.
   pixel-VRT** against a reference render (none exists, §3a). Deps are import-guarded (missing → `pip install …`
   + exit 3); the **non-visual** path (`--medium non-visual`) needs none of them.
 - **Persisted-evidence model (both gates).** Verdicts are committed, re-auditable artifacts, never transient:
-  `audit/lint/report.md` (R0–R6) and `audit/fidelity/<treatment-id>/{source, reproduction, diff.png,
+  `audit/lint/report.md` (R0–R8) and `audit/fidelity/<treatment-id>/{source, reproduction, diff.png,
   scores.json}` (the numeric scores + thresholds + verdict — re-readable without cv2). Absence of the evidence
   for a reproduced treatment FAILS §7a.
 - **Invariants (hold across both gates).** *Brand-agnostic + medium-agnostic* — every gate tests the SHAPE of a
