@@ -29,8 +29,12 @@
 
   Surfaces rendered — DERIVE the surface-set from the brand's PRIMARY MEDIUM (resolved from the DIMENSION
   MAP); do not assume visual:
-    · visual-primary brand → the five visual surfaces below (hero · card · control set · type spread · color
-      blocks); a brand that lacks one shows the token-only fallback.
+    · visual-primary brand → the brandbook surfaces below: hero · how-the-brand-decides · control set · cards ·
+      type spread · color blocks · lexicon · misuse · color-schemes · decisions-for-you. Render EACH only if the
+      canon carries it (derive from the filled canon + the dimension map; never a fixed checklist); a section
+      with no canon material shows the token-only fallback, is omitted, or is marked a GAP — never invented.
+      The decisions-for-you panel is client-language only — no operator vocab / gap ids (the client-clean
+      deny-lint scans this file).
     · non-visual-primary brand (sonic / motion / other lead medium) → this build is VISUAL-BUILD-GRADE only,
       so render the visual context that exists AND declare the primary-medium sample a GAP: drop in a
       clearly-labelled HTML comment reading  GAP: primary-medium (e.g. sonic / motion) sample not yet a
@@ -153,6 +157,44 @@
   .swatch .chip { height: 5rem; }
   .swatch .label { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
   .swatch .label code { color: var(--color-muted); }
+
+  /* brandbook docs (D-2a): reasoning · lexicon · misuse · schemes · decisions */
+  .rules { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+  .rules li { background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius); padding: var(--space-2) var(--space-3); max-width: none; }
+  .rules b { color: var(--color-brand); }
+  .lexicon { display: grid; gap: 0; }
+  .lexicon .row { display: grid; grid-template-columns: 14rem 1fr; gap: var(--space-2);
+    padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border); }
+  .lexicon .term { font-weight: 600; font-family: var(--font-display); }
+  .misuse { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--space-2); }
+  .misuse div { background: var(--color-surface); border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent); border-radius: var(--radius); padding: var(--space-2) var(--space-3); }
+  .scheme-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--space-2); }
+  .scheme-cards .sc { border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; }
+  .scheme-cards .sc .bar { height: 3rem; display: flex; }
+  .scheme-cards .sc .bar span { flex: 1; }
+  .scheme-cards .sc .name { padding: 0.5rem 0.75rem; font-size: 0.85rem; color: var(--color-muted); }
+  .decisions { display: grid; gap: var(--space-2); }
+  .decision { background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius); padding: var(--space-3); display: flex; gap: var(--space-3);
+    align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+  .decision[data-confirmed="yes"] { border-color: var(--color-brand); }
+  .decision .ask { max-width: 42rem; }
+  .decision .ask p { margin: var(--space-1) 0 0; color: var(--color-muted); }
+  .decision button { font: inherit; font-weight: 600; cursor: pointer; white-space: nowrap;
+    border-radius: calc(var(--radius) - 0.25rem); border: 1px solid var(--color-border);
+    background: var(--color-bg); color: var(--color-fg); padding: 0.5em 1.1em; }
+  .decision[data-confirmed="yes"] button { background: var(--color-brand); color: var(--color-brand-fg); border-color: transparent; }
+
+  /* design bar (D-2a): one explicit phone↔desktop breakpoint (layout is otherwise intrinsic via clamp/auto-fit) */
+  @media (max-width: 40rem) {
+    .wrap { padding: var(--space-3) var(--space-2); }
+    .hero { padding: var(--space-4) var(--space-3); }
+    .lexicon .row { grid-template-columns: 1fr; gap: 0; padding-bottom: var(--space-1); }
+    .decision { flex-direction: column; }
+    .decision button { width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -178,6 +220,17 @@
       <button class="btn btn-primary">Primary action</button>
       <button class="btn btn-secondary">Secondary</button>
     </div>
+  </section>
+
+  <!-- THINK / HOW THE BRAND DECIDES (D-2a): one client-language line per when-X-then-Z decision rule, from
+       the canon's THINK reasoning (the keystone §2 source) rendered in plain words — NEVER operator vocab.
+       BUILDER: render only if the canon carries decision rules; omit if it carries none (never invent one). -->
+  <section>
+    <h2>How the brand decides</h2>
+    <ul class="rules">
+      <li><b>When speed and craft conflict,</b> the brand chooses craft — a thing worth making is worth finishing.</li>
+      <li><b>When a choice is unclear,</b> the brand asks "does this help or hurt the brand?" and lets the answer decide.</li>
+    </ul>
   </section>
 
   <!-- CONTROL SET -->
@@ -233,6 +286,57 @@
     </div>
   </section>
 
+  <!-- LEXICON (D-2a): the brand's own vocabulary, from INDEX + the voice lexicon. BUILDER: one row per term
+       the brand always uses (its meaning in this brand). Omit the section if the canon names no lexicon. -->
+  <section>
+    <h2>Lexicon</h2>
+    <div class="lexicon">
+      <div class="row"><span class="term">The mark</span><span>the symbol-and-name lockup — our primary signature.</span></div>
+      <div class="row"><span class="term">House voice</span><span>warm, plain, never showy — the way we sound everywhere.</span></div>
+      <div class="row"><span class="term">Surface</span><span>any place the brand appears — a page, a label, a screen.</span></div>
+    </div>
+  </section>
+
+  <!-- MISUSE (D-2a): what NOT to do with the mark, from GRAMMAR/PRIMITIVES misuse rules, in plain client
+       language. BUILDER: one card per prohibited treatment. Omit the section if the canon declares none. -->
+  <section>
+    <h2>Misuse</h2>
+    <div class="misuse">
+      <div><b>Don't</b> stretch, squash, or rotate the mark.</div>
+      <div><b>Don't</b> recolor the mark outside the palette.</div>
+      <div><b>Don't</b> place the mark on a busy or low-contrast background.</div>
+    </div>
+  </section>
+
+  <!-- COLOR SCHEMES (D-2a): documents the schemes the brand ships (the live toggle is in Controls). BUILDER:
+       render this ONLY when canon.json › schemes has >1 non-deferred scheme — one card per materialized
+       scheme (values from tokens/schemes/<id>.json). A FLAT (single-scheme) brand DELETES this section. -->
+  <section>
+    <h2>Color schemes</h2>
+    <div class="scheme-cards">
+      <div class="sc"><div class="bar"><span style="background:var(--color-surface)"></span><span style="background:var(--color-brand)"></span><span style="background:var(--color-accent)"></span><span style="background:var(--color-fg)"></span></div><div class="name">Light scheme — the default surface</div></div>
+      <div class="sc"><div class="bar"><span style="background:oklch(0.25 0.02 250)"></span><span style="background:oklch(0.55 0.15 250)"></span><span style="background:oklch(0.72 0.17 60)"></span><span style="background:oklch(0.96 0.01 250)"></span></div><div class="name">Dark scheme — low-light surface</div></div>
+    </div>
+  </section>
+
+  <!-- DECISIONS FOR YOU (D-2a): the owner's open ratification decisions, in PLAIN CLIENT LANGUAGE — never
+       operator vocab, never gap ids (the client-clean deny-lint scans this file). BUILDER: one card per open
+       owner decision, phrased as a plain "confirm / approve / choose" line. Omit if there are none. The
+       Confirm button is cosmetic (inline, offline); real ratification is the human sign-off, never auto-stamped. -->
+  <section>
+    <h2>Decisions for you</h2>
+    <div class="decisions">
+      <div class="decision" data-confirmed="no">
+        <div class="ask"><b>Confirm the official brand color.</b><p>Your social posts use a brighter blue than the printed menu — tell us which one is official and we'll lock it in.</p></div>
+        <button type="button">Confirm</button>
+      </div>
+      <div class="decision" data-confirmed="no">
+        <div class="ask"><b>Approve the logo usage rules.</b><p>Clear-space and minimum size are set — confirm they read right for your team, or tell us what to change.</p></div>
+        <button type="button">Confirm</button>
+      </div>
+    </div>
+  </section>
+
 </div>
 <script>
   /* SCHEME TOGGLE (C-3) — INLINE, no import / no module / no network (keeps the prototype zero-toolchain
@@ -245,6 +349,23 @@
     var apply = function () { document.documentElement.dataset.scheme = sel.value; };
     sel.addEventListener("change", apply);
     apply();
+  })();
+
+  /* DECISIONS-FOR-YOU panel (D-2a) — INLINE, no import / no module / no network (keeps the prototype
+     zero-toolchain and offline). The Confirm toggle is COSMETIC only; real ratification is the human PR
+     sign-off, never auto-stamped. Guarded: no-op if the panel is absent (a brand with no open decisions). */
+  (function () {
+    var panel = document.querySelector(".decisions");
+    if (!panel) return;
+    panel.addEventListener("click", function (e) {
+      var b = e.target.closest("button");
+      if (!b) return;
+      var card = b.closest(".decision");
+      if (!card) return;
+      var on = card.getAttribute("data-confirmed") === "yes";
+      card.setAttribute("data-confirmed", on ? "no" : "yes");
+      b.textContent = on ? "Confirm" : "Confirmed ✓";
+    });
   })();
 </script>
 </body>

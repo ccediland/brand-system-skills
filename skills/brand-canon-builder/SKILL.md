@@ -250,8 +250,15 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
 
 - **(a) The presentable prototype.** Copy `assets/templates/prototype/prototype.html` into the repo
   and fill it from the canon: OKLCH token values inline, the real extracted mark as inline SVG/data-URI,
-  acquired fonts via `@font-face`/data-URI, harvested imagery — rendering hero, card, control set, type
-  spread, color blocks. Reproduce any brand treatment via `references/reproduction-router.md`
+  acquired fonts via `@font-face`/data-URI, harvested imagery. The prototype is the COMPLETE INTERACTIVE
+  BRANDBOOK (RV-5), not a UI demo: render one surface per canon section the brand HAS — DERIVE the surface-set
+  from the PRIMARY MEDIUM + the dimension map (never a fixed checklist, never assume visual) — across the
+  visual surfaces (hero · controls · cards · type spread · color blocks) AND the documentation surfaces
+  (how-the-brand-decides / THINK rules in client language · lexicon · misuse · color-schemes when >1 scheme),
+  PLUS a "Decisions for you" panel surfacing the owner's open decisions in PLAIN CLIENT LANGUAGE (never
+  operator vocab / gap ids — the Stage-11 client-clean deny-lint scans it). A section with no canon material is
+  omitted or marked a GAP, never invented. Keep the design bar: a hero focal anchor, a responsive width
+  breakpoint (layout otherwise intrinsic via clamp/auto-fit), colour-as-system. Reproduce any brand treatment via `references/reproduction-router.md`
   (procedural SVG-filter / generative-lib / vector-trace / raster-required), validated by visual diff against
   the source; a treatment that can't be brought within tolerance degrades a method or becomes a fidelity GAP.
   It is self-contained and deterministic (opens in any browser, no toolchain) — the artifact you show a
