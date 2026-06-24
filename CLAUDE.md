@@ -114,6 +114,11 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   `asset-acquisition.md` (the ingest-token map). SH-3: the scoper does **not** trigger for brand-voice-only
   guideline generation (discriminator = whole-task-vs-part-of-canon, never brand age) — and never suppresses
   full-canon scoping that includes voice.
+- **Process discipline (Stage F — TA-1…4).** Multi-session tempo (progress is evidence-of-process, never
+  wall-clock); the client register is firewalled from operator terseness/speed/assumption preferences (the §6
+  self-check scans register leakage; operator directness governs the internal surface only); proceed-assumptions
+  surface as explicit CONFIRM lines; a blocked/failed retrieval is never a positive status. Doctrine in
+  `scoper/references/process-discipline.md`.
 - **Mirror web-stack-skills' marketplace conventions** so the two interoperate (same manifest/skill layout).
 
 ## Provenance / build memory
