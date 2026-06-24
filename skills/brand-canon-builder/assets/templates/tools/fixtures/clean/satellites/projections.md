@@ -10,6 +10,7 @@
 |---|---|---|---|---|
 | web (marketing site) | downstream | `{semantic.color.action}` = `oklch(0.62 0.13 255)`; `{semantic.color.foreground}` = `oklch(0.30 0 0)` | derived | KEEP |
 | slides (deck) | downstream | `{semantic.font-family.body}` = `"Body Face", system-ui, sans-serif` | derived | KEEP |
+| overlay (alpha) | downstream | `{base.color.tint}` = `oklch(0.62 0.13 255 / 0.5)` | derived | KEEP |
 | print one-sheet | downstream | `{semantic.color.action}` = `oklch(0.55 0.10 30)` | authored | KEEP |
 
 The print row is `source: authored` — an authored spot value that is truth and is not re-derived
@@ -18,5 +19,6 @@ from OKLCH; R6a does not fail it even though its value differs from the derived 
 ## Interchange contract (machine)
 
 - **Tokens:** DTCG `tokens/` in tiers. Aliases `{tier.category.name}`, pointing to a leaf.
-- **Color spine:** OKLCH literal in `$value`; other spaces honor the `source:"authored"|"derived"` flag
-  (authored print values are truth and are not re-derived from OKLCH).
+- **Color spine:** structured-OKLCH `$value` object `{colorSpace, components, alpha, hex}` (C-1); a `derived`
+  projection pins the **canonical serialized form** the gate emits — `oklch(L C H)` or `oklch(L C H / a)`. Other
+  spaces honor the `source:"authored"|"derived"` flag (authored print values are truth, not re-derived).

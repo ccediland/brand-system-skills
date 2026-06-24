@@ -1,11 +1,11 @@
 {
   "base": {
-    "$description": "BASE tier — raw, primitive values. First tier of the standard DTCG base/semantic/component convention. Read with usesDtcg:true. path[0] is always 'base'. COLOR: $value is the OKLCH interchange spine as a literal string; never pre-convert to hex. Other spaces live in $extensions.brand.spaces, each flagged source 'derived' (auto-generated from OKLCH) or source 'authored' (a value the brand DECLARES as truth, e.g. a spot/CMYK print color, which must NOT be re-derived from OKLCH because spot colors do not round-trip). PROVENANCE: every emitted token ALSO carries $extensions.brand.provenance {source, confidence, owner, freshness} per token-spine.md — the source/confidence axes are ORTHOGONAL (authored|derived describes the space; the confidence ladder hypothesis|corroborated|owner-confirmed gates the status). The provenance block is shown on REPRESENTATIVE tokens here as the illustrative pattern; emit it on EVERY token. category names at path[1] follow the namespace convention (color, spacing, font-size, font-family, font-weight, line-height, border-radius, shadow). NOTE: these are illustrative example values — replace them with the brand's own. Plain prose is used instead of brace-placeholders here because the curly-brace syntax is reserved for DTCG aliases.",
+    "$description": "BASE tier — raw, primitive values. First tier of the standard DTCG base/semantic/component convention. Read with usesDtcg:true. path[0] is always 'base'. COLOR: $value is the DTCG structured-OKLCH object {colorSpace:'oklch', components:[L,C,H], alpha, hex} (DTCG Color 2025.10) — OKLCH is the canonical perceptual spine; $value.hex is the sRGB render fallback (NOT a second source of truth). Other spaces (rgb/cmyk/pantone) live in $extensions.brand.spaces, each flagged source 'derived' (auto-generated from OKLCH) or source 'authored' (a value the brand DECLARES as truth, e.g. a spot/CMYK print color, which must NOT be re-derived from OKLCH because spot colors do not round-trip); the spaces source axis is unchanged by the structured-$value migration. PROVENANCE: every emitted token ALSO carries $extensions.brand.provenance {source, confidence, owner, freshness} per token-spine.md — the source/confidence axes are ORTHOGONAL (authored|derived describes the space; the confidence ladder hypothesis|corroborated|owner-confirmed gates the status). The provenance block is shown on REPRESENTATIVE tokens here as the illustrative pattern; emit it on EVERY token. category names at path[1] follow the namespace convention (color, spacing, font-size, font-family, font-weight, line-height, border-radius, shadow). NOTE: these are illustrative example values — replace them with the brand's own. Plain prose is used instead of brace-placeholders here because the curly-brace syntax is reserved for DTCG aliases.",
     "color": {
       "$type": "color",
       "brand-1": {
-        "$value": "oklch(0.62 0.13 255)",
-        "$description": "primary brand ink (example value — replace)",
+        "$value": { "colorSpace": "oklch", "components": [0.62, 0.13, 255], "alpha": 1, "hex": "#5a7fb0" },
+        "$description": "primary brand ink (example value — replace). Structured-OKLCH $value; hex is the sRGB fallback.",
         "$extensions": {
           "brand": {
             "role": "primary action",
@@ -24,8 +24,8 @@
         }
       },
       "brand-2": {
-        "$value": "oklch(0.68 0.15 145)",
-        "$description": "accent ink (example showing an AUTHORED print value)",
+        "$value": { "colorSpace": "oklch", "components": [0.68, 0.15, 145], "alpha": 1, "hex": "#3fa46d" },
+        "$description": "accent ink (example showing an AUTHORED print value). Structured-OKLCH $value; authored CMYK/Pantone stay in $extensions.brand.spaces.",
         "$extensions": {
           "brand": {
             "role": "attention / accent",
@@ -48,12 +48,12 @@
         }
       },
       "neutral-ink": {
-        "$value": "oklch(0.30 0 0)",
+        "$value": { "colorSpace": "oklch", "components": [0.30, 0, 0], "alpha": 1, "hex": "#3a3a3a" },
         "$description": "darkest anchor / body text",
         "$extensions": { "brand": { "role": "ink", "spaces": { "hex": { "value": "#3a3a3a", "source": "derived" } } } }
       },
       "neutral-bg": {
-        "$value": "oklch(1 0 0)",
+        "$value": { "colorSpace": "oklch", "components": [1, 0, 0], "alpha": 1, "hex": "#ffffff" },
         "$description": "default light canvas",
         "$extensions": { "brand": { "role": "background", "spaces": { "hex": { "value": "#ffffff", "source": "derived" } } } }
       }

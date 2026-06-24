@@ -10,12 +10,15 @@ syntax, `$value`/`$type`/`$description`, atomic + composite types, aliases via `
 color with `colorSpace` (incl. `oklch`), and **resolvers** (sets + modifiers + `resolutionOrder`) as the
 standard theming mechanism. Files use `.tokens.json`; media type `application/design-tokens+json`.
 
-**Tooling-lag caveat (binding).** Full 2025.10 + resolver support is still landing in
-Style Dictionary v5 (issue #1590), and SD's object/structured color trips a known split bug. Until that
-lands, author the **operative `$value` as an OKLCH literal string** (below) — which SD v4/v5 consume — and
-treat 2025.10 structured-color and resolver theming as the target with a documented fallback
-(custom-transformer or Terrazzo). Do not migrate `$value` to structured-color objects while the chosen build
-tool cannot consume them; that would break the pipeline (Lego property: main stays buildable).
+**Structured-OKLCH `$value` (adopted in Stage C-1).** Colour value-tokens carry the DTCG **structured-OKLCH
+object** `{ "colorSpace": "oklch", "components": [L, C, H], "alpha": 1, "hex": "#rrggbb" }` — OKLCH the canonical
+perceptual spine, `hex` the sRGB render fallback. The stable 2025.10 spec makes the structured object the
+canonical value. **Forward-constraint (Stage C-2 — when a build-time materializer / Style Dictionary is
+introduced):** structured colour MUST route through SD's `color/oklch` transform (SD ≥ 5.3) or a preprocessor —
+NEVER raw SD `$value` consumption, which still trips SD's object/structured-color split bug (`-value`/`-unit`,
+issue #1590). C-1 introduces **no** SD, so the bug is not triggered here. Resolver theming remains a draft and is
+implemented as a controlled convention (Stage C-2), never an authoritative standard. (Lego property: `main`
+stays buildable — C-1 changes only the `$value` format + the audit-lint R6a serializer in lockstep.)
 
 ## Tiering (standard DTCG convention)
 
@@ -35,11 +38,11 @@ modifier, once supported) re-points it.
 - `usesDtcg: true` — DTCG `$type` / `$value` syntax (not legacy `value`).
 - Every leaf token has a `$type` (inherit from the group via a `$type` on the group object). Common types:
   `color`, `dimension`, `number`, `fontFamily`, `fontWeight`, `duration`, `cubicBezier`, `shadow`.
-- **`$value` is a plain string** (or a number / cubic-bezier array where the type requires) — never a
-  nested object. Object color/shadow values trip a known Style Dictionary bug that splits them into
-  `-value`/`-unit` vars. So shadows are authored as plain composite CSS strings. (This is the operative
-  reason the OKLCH literal string — not 2025.10 structured color — is the `$value` today; see the
-  tooling-lag caveat above.)
+- **`$value` shape by type.** A COLOUR `$value` is the DTCG **structured-OKLCH object** (above, adopted in
+  C-1). Every OTHER `$value` stays a plain string / number / cubic-bezier array — never a nested object: object
+  SHADOW / composite values still trip the Style Dictionary `-value`/`-unit` split bug, so shadows are authored
+  as plain composite CSS strings. (Only colour migrates to the structured object in C-1; composites stay
+  strings until their tooling lands. See the structured-OKLCH note above.)
 - **Aliases** are `{tier.category.name}` — no `.value` suffix, pointing to a leaf, not a group.
 - **Category names** at `path[1]` follow the namespace convention so they map cleanly:
   `color → --color-`, `spacing → --spacing-`, `font-size → --text-`, `font-family → --font-`,
@@ -54,8 +57,9 @@ modifier, once supported) re-points it.
 
 ## Color — OKLCH spine + authored/derived (the binding refinement)
 
-- `$value` is a literal OKLCH string: `"oklch(L C H)"`. OKLCH is the canonical perceptual spine and the
-  interchange value. Do not pre-convert to hex in `$value`.
+- `$value` is the **structured-OKLCH object** `{ "colorSpace": "oklch", "components": [L, C, H], "alpha": 1,
+  "hex": "#rrggbb" }` (C-1). OKLCH is the canonical perceptual spine and interchange value; `hex` is the sRGB
+  render fallback (not a second source of truth). Do not treat hex as the operative value.
 - Consumers MUST emit `oklch()` via an OKLCH-preserving transform — never `color/css` or
   `transformGroup:'css'`, which gamut-map to sRGB and discard OKLCH precision. (The mechanism is the
   consumer's; the requirement is pinned.)

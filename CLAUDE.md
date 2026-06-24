@@ -35,7 +35,9 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
     one GAP back-ref). See `references/validate-audit.md` §5a.
   - **R6 (MT-1) — cross-artifact reconciliation / drift.** **R6a** every `derived` projection in
     `satellites/projections.md` consumes only aliases that resolve in the spine, and any pinned value byte-equals
-    the spine-resolved value (drift FAILS); `source: authored` rows are truth and are **skipped** (the authored
+    the spine-resolved value — **both sides routed through one canonical serializer (`serializeValue`, C-1) so a
+    structured-OKLCH `$value` reconciles against a pinned `oklch(L C H)` / `oklch(L C H / a)` form; never
+    `String(object)`** (drift FAILS); `source: authored` rows are truth and are **skipped** (the authored
     carve-out). **R6b** the protected mark geometry is single-sourced from **`canon/mark.svg`** — each rendered
     instance (prototype `#brand-mark`, kit `Mark.tsx`) must be byte-equal to it; a brand with **no visual mark
     and no rendered instance is N/A → PASS** (medium-agnostic — never a false fail on a sonic/verbal brand).
@@ -153,10 +155,14 @@ the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/bou
   resolves clean); guardrail red-team battery + expected-refusal contract EMITTED + COMMITTED to `audit/redteam/`
   even when non-blocking (empty = FAIL), posture-gated — regulated postures BLOCK + need human sign-off, the live
   adversarial run is Phase 5 (deferral does not void the committed artifacts).
-- **Tokens/scheme.** DTCG **2025.10** is the format target, but `$value` stays an OKLCH literal string —
-  structured-color objects + resolver theming are deferred (SD v5 lag, issue #1590 / OI-H) so `main` stays
-  buildable (Lego). OKLCH is the general scheme-derivation engine (light/dark, high-contrast, sub-brand); emit
-  `oklch()` via `color/oklch`, never `color/css`.
+- **Tokens/scheme.** DTCG **2025.10** is the format target. **Colour `$value` is the structured-OKLCH object
+  `{colorSpace, components, alpha, hex}` (migrated in Stage C-1); audit-lint R6a serializes structured + legacy
+  string values through ONE canonical serializer so the drift gate stays green.** Composite values (shadows) stay
+  plain strings (the SD `-value`/`-unit` split bug). Resolver theming stays deferred (SD v5 lag, issue #1590 /
+  OI-H) and is a controlled convention in **C-2**. **Forward (C-2):** when a build-time materializer / Style
+  Dictionary is added, structured colour MUST route through `color/oklch` (SD ≥ 5.3) or a preprocessor — never
+  raw SD `$value`, never `color/css` (gamut-maps to sRGB). OKLCH is the general scheme-derivation engine
+  (light/dark, high-contrast, sub-brand).
 
 ## Flujo (Carlos)
 Work on a `claude/<name>` branch, never main; PR + wait for OK before merge. Respond to Carlos in es-MX
