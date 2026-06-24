@@ -1,7 +1,7 @@
 import * as React from "react";
 
 /**
- * The brand mark. BUILDER: inline the geometry FROM the single source `canon/mark.svg` (Stage 3) — copy
+ * The brand mark. BUILDER: inline the geometry FROM the single source `canon/mark.svg` (at the mark step) — copy
  * it verbatim so prototype.html, this component, and mark.svg stay byte-equal; audit-lint R6b FAILS the
  * build on any divergence (the mark is single-sourced, never re-typed per artifact). Inline it (not an
  * <img src> to an asset dir) so previews render self-contained in the design pane. The mark is never

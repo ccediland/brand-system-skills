@@ -65,20 +65,28 @@ front-matter records which section goes where (the deployment map).
    never be a vector that lowers safety; reject "ignore previous instructions" / persona-override); and an
    exposure setting driven by the POSTURE `visibility:<low|moderate|high>` field. **This section sits
    in the high-recall tail and doubles as Project instructions.**
-6. **REFERENCE.** Token-spine pointer; asset inventory + fidelity/provenance; horizon map seeded from the
-   handoff `HORIZONS` block (each horizon's one-line direction + its `existing-material` flag). This is the
-   knowledge surface — the section that splits out first if the file exceeds the resident budget. **The
-   asset-inventory line's token-derived confidence is READ from its source, never recalled from emitter
-   memory:** a token's confidence comes from that token's `$extensions.brand.provenance.confidence`
-   (`token-spine.md` § The provenance block); where the datum is not a token, from `canon.json` or the
-   `RESIDENT.md` GAP ledger. The value is on the byte-identical ladder `hypothesis | corroborated |
-   owner-confirmed` — traceable to where it was earned, so a datum is never displayed above its earned status.
+6. **REFERENCE.** Token-spine pointer; a CLIENT-facing asset inventory (WHAT exists + WHERE it lives — no
+   build columns); horizon map seeded from the handoff `HORIZONS` block (each horizon's one-line direction +
+   its `existing-material` flag). This is the knowledge surface — the section that splits out first if the
+   file exceeds the resident budget. **DA1 (TS-2): the deployed asset inventory carries NO
+   provenance/confidence/fidelity columns** — `client-deny-lint` rejects those on the client keystone. The
+   per-asset provenance/fidelity record (source · confidence on the ladder `hypothesis | corroborated |
+   owner-confirmed` · owner · freshness — READ from the token's `$extensions.brand.provenance`
+   (`token-spine.md` § The provenance block) / `canon.json` / the `RESIDENT.md` GAP ledger, never recalled
+   from emitter memory) lives in the build worksheet in `RESIDENT.md` ONLY (the operator surface); it never
+   deploys onto the client keystone.
 
 ## Recall-ordering & size budget
 
 - **Recall-ordering.** The reference/data material is written for the head/knowledge surface; the GUARDRAIL
   layer (§5) — the active, load-bearing rules — sits in the high-recall tail and is never buried
   mid-document. §5 GUARDRAIL + §4 DESIGN-reasoning are the in-context-critical core.
+- **GUARDRAIL-tail assert (DA2).** "Tail" is the high-recall tail of the DEPLOYED instructions surface, not
+  the last bytes of this file. The `deployment_map.instructions` set (§4 DESIGN-as + §5 GUARDRAIL) MUST end on
+  §5 GUARDRAIL, and §6 REFERENCE MUST route to knowledge — never to instructions. Enforce this at emit time as
+  a SELF-CHECK on the deployment map; do NOT reorder the file (§6 stays physically last so the degradation
+  path can lift it out first). A keystone whose deployed instructions surface does not end on §5, or that
+  routes §6 to instructions, is malformed (Stage-10 / `validate-audit.md` §7b).
 - **Size budget is a PARAMETER, not a hardcoded number.** Default conservative: keep the keystone comfortably
   within the resident context window so it stays fully in-context. The measured trip-point is unpublished by
   Anthropic → the figure is set by empirical calibration in the Phase 5 validation, not guessed

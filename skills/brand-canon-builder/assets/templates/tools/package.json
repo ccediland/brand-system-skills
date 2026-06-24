@@ -1,0 +1,15 @@
+{
+	"name": "brand-canon-tools",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"description": "Build-time validation tools for a brand canon. client-deny-lint requires a parser (rehype/parse5); the other tools are zero-dep.",
+	"scripts": {
+		"deny-lint": "node client-deny-lint.mjs"
+	},
+	"devDependencies": {
+		"parse5": "^8.0.1",
+		"rehype-parse": "^9.0.1",
+		"unified": "^11.0.5"
+	}
+}
