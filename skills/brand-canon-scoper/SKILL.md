@@ -20,6 +20,7 @@ if you're already in Claude Code with a filesystem, you can skip the scoper and 
 ## Reference materials — load when relevant
 This SKILL.md is the workflow + gates. Load the reference only when its stage is reached:
 - `references/handoff-format.md` — the v3 handoff contract: the single self-contained fenced block this skill compiles at Stage 7 (two-track manifest · 4-field provenance spine · WHY/WHAT/HOW/DIMENSION-MAP/POSTURE/HORIZONS carriers). Load when compiling or validating the handoff.
+- `references/process-discipline.md` — the TEMPO doctrine (TA-1) + the verify-the-exact-claim rationale (TA-4); load at the gated pipeline's proceed-points.
 
 ## What it does NOT do
 It does not scaffold files, write tokens, or build the canon. No filesystem work. It does not eyedropper a
@@ -86,6 +87,10 @@ you compile the handoff. The blocking gates trace to the two v1 failures (asset-
 issued; WHY invented) plus the single client-surface flow — the intake (3.5), the pre-compile review (6),
 and the Final Brand Brief approval (7a).
 
+**TEMPO doctrine (TA-1).** Scoping is multi-session / multi-day; the BLOCKING gates above always run; progress
+is **evidence-of-process** (gated DELIVERABLEs exist), **never wall-clock** (`references/process-discipline.md`).
+**Assumption ledger (TA-3):** every proceed-assumption surfaces as an explicit CONFIRM line (gate-3.5) — nothing inferred silently.
+
 | # | Stage | What happens | Gate | DELIVERABLE |
 |---|---|---|---|---|
 | 1 | Mode determination | One defaulted question (ANALYZE default) | one defaulted question | mode card (mode + rationale) · stage 1 of 9 |
@@ -123,6 +128,8 @@ highest-authority and the freshest sources surface first, and so staleness is ca
 3. **Stale-vs-fresh reconciliation (tag only).** When a brandbook says one thing and shipped work shows
    another, you only *tag* the divergence (freshness + a gap flag); the builder reconciles precedence
    (repo > external reference; shipped > stated for specifics; identity/stated > shipped for meaning).
+4. **Verify-the-exact-claim (TA-4).** A blocked/failed retrieval is NEVER a positive status — verified/liveness needs a successful read of the exact thing claimed, not an adjacent signal;
+   it stays `hypothesis` or a GAP, never `shipped`/`corroborated` on a guess (no new status word; `references/process-discipline.md`).
 
 Open discovery prompt (not a medium checklist):
 
@@ -356,11 +363,17 @@ To-confirm line:
 *fuente*. The point is the register, not the length.)
 
 **Client-surface self-check — BLOCKING.** Before presenting the External client instrument and the Living
-questions doc, scan both surfaces for the operator class (GAP-NNN, Stage-N, provenance/confidence grades,
-build-grade, RACI, tool-failure or cost/credit reasoning, severity-as-operator-token). Any hit is a defect:
-rewrite it in client language or move it to the Internal status surface. Neither client surface clears gate 6
-with operator vocabulary present. This is brand-agnostic — it tests for the vocabulary class, never any
-brand's content; a monogram-only or sonic-primary brand passes clean.
+questions doc, scan both for TWO leakage classes — (1) **operator vocabulary** (GAP-NNN, Stage-N,
+provenance/confidence grades, build-grade, RACI, tool-failure/cost reasoning, severity-as-operator-token); and
+(2) **operator register/preference leakage (TA-2)** — the client surface gone terse, assumption-laden, or
+terms unglossed because the operator's user-profile preference toward terseness/speed/proceed-by-assumption
+bled in. Any hit is a defect: a **register** hit → rewrite in the §6 client register (warm, plain, owner's
+language, every term glossed; compare the §6 worked example); a **vocabulary** hit → rewrite in client language
+or move to the Internal status surface. **Register/preference firewall (TA-2):** the client register inherits
+NO operator terseness/speed/assumption preference; **mirror-guard** — it governs the CLIENT register ONLY,
+preserving legitimate operator directness on the Internal status surface + handoff. Neither client surface
+clears gate 6 with either class present. Brand-agnostic — tests the form (vocabulary + register), never brand
+content.
 
 Gate. The owner reviews and confirms/corrects the external instrument; only then do you compile.
 
@@ -389,8 +402,10 @@ axes (`source` / `confidence` / GAP), never any brand's content. Verify:
 - **(b) Regulatory instruments.** Every named legal/regulatory instrument is `source: owner-stated` cited to
   the owner or a manifest item — never memory-asserted; a name tagged `owner-stated` with no cited source is a
   defect. The POSTURE `regulatory:` field carries no model-recalled regulation name.
+- **(c) Proceed-assumptions (TA-3).** Every assumption made to advance carries an explicit CONFIRM line
+  (gate-3.5 mechanism); a proceed-assumption with no CONFIRM line — anything inferred silently — is a defect.
 Any violation is a BLOCKING defect: re-status the datum to a GAP (or, for a field the owner closed, an
-owner-declared `none`) or elicit it before compiling. Brand-agnostic by construction — a brand with no
+owner-declared `none`), add the missing CONFIRM line, or elicit it before compiling. Brand-agnostic by construction — a brand with no
 regulatory exposure (`regulatory: none`) and any owner-declared `none` field both pass clean; absence is never
 forced into a GAP.
 
