@@ -27,9 +27,13 @@
 //             key (confidence|source|provenance|…) within KEY_WINDOW chars BEFORE the value.
 //             "confidence: owner-confirmed" fires; "our founding hypothesis", "matched to its
 //             provenance documentation", "owner-confirmed listings" pass.
-//           - asset-origin (harvested|redrawn) fires only with an asset noun
-//             (image|logo|mark|…) within NEAR_WINDOW chars. "harvested image" fires; "beans
-//             harvested at dawn … the logo on the bag" passes (logo is too far).
+//           - asset-origin (harvested|redrawn) fires only in the "origin: …" annotation form
+//             OR within ASSET_WINDOW chars of a BUILD-CONTEXT token (raster|snapshot|Wayback|
+//             CDX|capture|source CSS|eyedrop|build-grade|low-fi|Stage-N). An asset noun
+//             (logo/mark/wordmark) is NOT a signal — heritage copy where the owner narrates
+//             their own brand ("our logo was redrawn by hand", "the mark was harvested from
+//             old signage", "the wordmark, redrawn for the anniversary") must pass.
+//             "harvested image once Stage 5 finds a build-grade one" fires (Stage 5 nearby).
 //           - numeric stage-label (Stage 7 / Stage-2) fires only near a build-context word.
 //             "rebuild at Stage 5" fires; "Stage 7 is our flagship venue" passes.
 //           - Wayback fires only near an archive word; unratified only near a ratification
@@ -72,18 +76,24 @@ try {
 
 // ── windows + shared context vocabularies ───────────────────────────────────────────────
 const KEY_WINDOW = 24; // provenance key must sit this close BEFORE an annotation value
-const NEAR_WINDOW = 16; // asset noun this close to harvested/redrawn
 const CTX_WINDOW = 28; // build/archive/ratification context this close to the ambiguous token
+const ASSET_WINDOW = 16; // a BUILD-CONTEXT token must START within this many chars of an asset-origin verb
 
 const PROV_KEY =
 	/(?:confidence|provenance|source|freshness|fidelity|epistemic|status|grade)/i;
-const ASSET_NOUN =
-	/(?:image|imagery|asset|mark|logo|vector|artwork|graphic|photo|illustration|sample)/i;
 const BUILD_CTX =
 	/(?:build|pipeline|fidelity|gate|emit|scaffold|reproduc|harvest|extract|audit|capture|token|canon|gap)/i;
 const ARCHIVE_CTX = /(?:machine|archive|snapshot|crawl|scrape|wayback)/i;
 const RATIF_CTX =
 	/(?:pending|sign-?off|owner|gap|provenance|approv|unconfirmed|ratify)/i;
+
+// asset-origin: see the MATCHING MODEL note. Fires via the "origin: …" annotation OR a BUILD-CONTEXT token —
+// NEVER via an asset noun (logo/mark/wordmark), which false-fails heritage copy.
+const ASSET_VERB = /\b(?:harvested|redrawn)\b/gi;
+const ASSET_BUILD_CTX =
+	"(?:raster|snapshot|wayback|\\bCDX\\b|captured?|source[-\\s]?css|eyedrop|build-grade|low-fi|Stage[-\\s]?(?:\\d+|N))";
+const ORIGIN_KEY =
+	/(?:origin|sourcing|provenance|source|fidelity|acquisition)\s*[:=]\s*$/i;
 
 // DISTINCTIVE: matched anywhere — these never appear in legitimate brand copy.
 const DISTINCTIVE = [
@@ -114,12 +124,6 @@ const KEYED = [
 // NEAR: ambiguous word fires only if a context token sits within `window` chars on EITHER
 // side (the match span itself is excluded from the context search).
 const NEAR = [
-	{
-		cls: "asset-origin",
-		word: /\b(?:harvested|redrawn)\b/gi,
-		ctx: ASSET_NOUN,
-		window: NEAR_WINDOW,
-	},
 	{
 		cls: "stage-label",
 		word: /\bStage[-\s]?\d+\b/g,
@@ -162,6 +166,25 @@ const VISIBLE_ATTRS = [
 // fold unicode hyphen look-alikes to ASCII '-' so they cannot evade the hyphen patterns
 // (1:1 char replacement → indices stay aligned with the original for line/col reporting).
 const normalize = (s) => s.replace(/[‐‑]/g, "-");
+
+// does a context token (built from `ctxSource`) START within `window` chars of [mStart, mEnd)?
+// (a context match overlapping the verb span is ignored, so the verb cannot satisfy its own context.)
+function ctxNear(value, mStart, mEnd, ctxSource, window) {
+	const re = new RegExp(ctxSource, "gi");
+	let c;
+	while ((c = re.exec(value)) !== null) {
+		if (c[0].length === 0) {
+			re.lastIndex++;
+			continue;
+		}
+		const cStart = c.index;
+		const cEnd = cStart + c[0].length;
+		if (cEnd > mStart && cStart < mEnd) continue; // overlaps the verb match
+		const gap = cStart >= mEnd ? cStart - mEnd : mStart - cEnd;
+		if (gap <= window) return true;
+	}
+	return false;
+}
 
 // ── AST walk: collect text, comment, and visible-attribute strings ──────────────────────
 function collectNodes(tree) {
@@ -222,6 +245,24 @@ function scanString(raw, kind) {
 			if (ctx.test(before) || ctx.test(after)) push(cls, m); // context excludes the match span
 			if (m.index === word.lastIndex) word.lastIndex++;
 		}
+	}
+	// asset-origin (harvested|redrawn): "origin: …" annotation OR a BUILD-CONTEXT token within ASSET_WINDOW —
+	// never an asset noun. "harvested image once Stage 5 finds a build-grade one" fires; "our logo was redrawn
+	// by hand" passes.
+	ASSET_VERB.lastIndex = 0;
+	let av;
+	while ((av = ASSET_VERB.exec(value)) !== null) {
+		const before = value.slice(Math.max(0, av.index - KEY_WINDOW), av.index);
+		const byKey = ORIGIN_KEY.test(before);
+		const byCtx = ctxNear(
+			value,
+			av.index,
+			av.index + av[0].length,
+			ASSET_BUILD_CTX,
+			ASSET_WINDOW,
+		);
+		if (byKey || byCtx) push("asset-origin", av);
+		if (av.index === ASSET_VERB.lastIndex) ASSET_VERB.lastIndex++;
 	}
 	return hits;
 }
