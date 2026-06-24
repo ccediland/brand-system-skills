@@ -1,0 +1,13 @@
+{
+  "$description": "Fixture canon mirror. Single scheme 'day' (the default) — materialized by the semantic color set, so R4's scheme check resolves clean with no extra token tags required.",
+  "schemes": {
+    "default": "day",
+    "day": { "mode": "light", "dominant": "action" }
+  },
+  "ruleIndex": {
+    "G-COLOR-01": "contrast floor by role"
+  },
+  "algorithms": {
+    "ALGO-CONTRAST-ROLE": { "in": ["textRole", "background"], "out": ["roleToken", "minRatio"], "rules": ["G-COLOR-01"] }
+  }
+}

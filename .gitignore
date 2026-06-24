@@ -13,3 +13,7 @@ dist/
 
 # Build provenance (gitignored — not shipped)
 dev/
+
+# Python bytecode
+__pycache__/
+*.pyc

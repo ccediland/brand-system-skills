@@ -152,7 +152,10 @@ equivalent fields before proceeding.)
 
 ### Stage 1 — Scaffold (always first)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
-root (`README.md`, `CLAUDE.md`, `RESIDENT.md`) and `tokens/*` into `tokens/`. Create `assets/` (source
+root (`README.md`, `CLAUDE.md`, `RESIDENT.md`), `tokens/*` into `tokens/`, and `tools/*` into `tools/`
+(`audit-lint.mjs` — the Stage-10 provenance/completeness gate; `source-recover.py` — MT-3 archived-source
+recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
+a seeded-violation sample), not client material. Create `assets/` (source
 binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the
 `assets/`+`sources/` material convention. This creates the valid, empty-but-structured baseplate before any content. Fill the obvious
 header fields (`{{BRAND}}`, `{{BRAND_OWNERS}}`, `{{DATE}}`, repo/org).
@@ -185,7 +188,11 @@ where the manifest leaves it `n/a` do you fall back to selecting the technique b
 (existing DTCG/token files > repo vector masters > website extraction > PDF > design-tool exports > social) —
 never assume a PDF. Assemble the best-fidelity asset per canon slot with precedence (authored print > sampled;
 shipped/site > old brandbook; vector master > raster; existing tokens > extraction). The slot-need-vs-source-exists
-delta is a per-slot fidelity GAP. (Full method: `references/asset-acquisition.md`.)
+delta is a per-slot fidelity GAP. **When the live site is dead/blocked**, recover the source-of-record from
+the archive with `tools/source-recover.py` (Wayback CDX + raw `id_` fetch) — then run the identity+date gate
+(MT-3): confirm the capture is the right brand (occupant disambiguation) and reconcile `captureTs` vs the
+page's self-reported "Last Published" BEFORE trusting any value; hash every recovered file under `sources/**`
+into `CHECKSUMS.txt`. (Full method: `references/asset-acquisition.md` § Archived-source recovery.)
 
 ### Stage 4 — Font acquisition · BLOCKING (core)
 Read `references/font-acquisition.md`. **Read each face's handoff `license:` field first** (a declared
@@ -288,7 +295,7 @@ the universality stress test is the real net.
 
 ### Stage 10 — VALIDATE / AUDIT + fidelity gate · BLOCKING
 Read `references/validate-audit.md`. Judge the build on fidelity, not rule-compliance of an empty
-skeleton. Seven parts:
+skeleton. Eight parts:
 
 - **Fidelity gate** — consume the handoff's `CORE-ASSET FIDELITY CONTRACT` (parsed at Stage 0): a missing or
   low-fidelity core asset is fidelity-blocking → the build FAILS (not "pass with gaps"); non-core gaps
@@ -307,6 +314,11 @@ skeleton. Seven parts:
   Storybook + Playwright) adds a pixel-match VRT oracle (Chromatic default; Percy / BackstopJS alternatives).
 - **Content audit** — rule-by-rule audit of all written + visual content (authored AND generated) against the
   `G-*`/`ALGO-*` GRAMMAR rules and ESSENCE/voice (anti-promise, lexicon, don'ts).
+- **Provenance & completeness lint (executable, BLOCKING)** — run `node tools/audit-lint.mjs` from the emitted
+  repo root: exit 0 required (MT-3/4/5, R1–R5 — corroborated⇒≥2 distinct hashed sources; inferred/matched capped
+  at hypothesis; computed-css/corroborated/owner-confirmed⇒a `sourceRef.sha256` in `CHECKSUMS.txt`; every named
+  value/scheme→token or open GAP; every uncertain token→exactly one open GAP). Requires `CHECKSUMS.txt` to hash
+  every file under `sources/**`. (`validate-audit.md` §5a.)
 - **Render real samples** — the Stage-8 HTML prototype is the evidence.
 - **Reproduction visual-diff (treatments)** — every reproduced treatment (Stage 5 → Stage 8 via
   `reproduction-router.md`) passes a perceptual visual-diff against the Stage-5 source (no pixel-VRT, no

@@ -1,0 +1,43 @@
+{
+  "base": {
+    "color": {
+      "$type": "color",
+      "r1bad": {
+        "$value": "oklch(0.62 0.13 255)",
+        "$description": "R1 VIOLATION — confidence corroborated but only ONE distinct sourceRef file",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".x", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
+        } }
+      },
+      "r2bad": {
+        "$value": "oklch(0.68 0.15 145)",
+        "$description": "R2 VIOLATION — source inferred must be capped at hypothesis, here it is corroborated",
+        "$extensions": { "brand": {
+          "provenance": { "source": "inferred", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-010",
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".x", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/b.txt", "selector": "p1", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c" }
+          ]
+        } }
+      },
+      "r3bad": {
+        "$value": "oklch(0.55 0.10 30)",
+        "$description": "R3 VIOLATION — source computed-css but sourceRef sha256 is NOT in CHECKSUMS.txt",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-011",
+          "sourceRef": [ { "file": "sources/c.css", "selector": ".y", "line": 1, "sha256": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef" } ]
+        } }
+      },
+      "r5bad": {
+        "$value": "oklch(0.40 0.02 250)",
+        "$description": "R5 VIOLATION — confidence hypothesis but maps to ZERO open GAP-NNN",
+        "$extensions": { "brand": {
+          "provenance": { "source": "declared-spec", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "stated-old" }
+        } }
+      }
+    }
+  }
+}

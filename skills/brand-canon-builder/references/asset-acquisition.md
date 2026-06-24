@@ -67,6 +67,46 @@ instead of re-deriving routing from a detected source-type. Each of the five tok
 selecting the row itself. A declared token always wins over re-derivation; if the declared token and the
 detected source-type disagree, follow the token and flag the conflict (the contract is the brief).
 
+## Archived-source recovery + identity/date gate (live site dead/blocked) — MT-3
+
+When a brand's live site is dead, parked, or bot-walled, recover the source-of-record from the Internet
+Archive instead of eyedropping a raster (a dead brand inverts the fidelity strategy — archived CSS beats
+sampling a screenshot). Run `tools/source-recover.py <url> [--from --to]`:
+
+1. **CDX list** — `web.archive.org/cdx/search/cdx?...&filter=statuscode:200&collapse=digest` enumerates the
+   200 captures by digest.
+2. **Raw fetch (`id_`)** — `web.archive.org/web/<ts>id_/<url>` returns the raw archived bytes with no Wayback
+   overlay (the un-rewritten source the build reads).
+3. **Occupant disambiguation (gate before trust).** A domain can change hands, so a capture may be a different
+   occupant than the brand. The script FLAGS and surfaces — it does not decide: 3xx redirects, registrar-parking
+   / `suspendedpage.cgi` markers, digest discontinuities across the timeline, plus the page's self-ID signals
+   (`<title>`, `og:site_name`, copyright owner) and its self-reported "Last Published"/updated date.
+4. **Hash + manifest** — SHA-256 each fetched file; write `sources/MANIFEST.json`
+   `{file, url, captureTs, digest, sha256, selfPublished?, identitySignals[]}`.
+
+**Identity verification is an AGENT step, not the script's (the core of MT-3).** The script surfaces signals +
+dates; the builder (this stage) must (a) CONFIRM the capture is the intended brand from the identitySignals
+(the CDX-occupant trap), and (b) RECONCILE `captureTs` against the page's self-reported `selfPublished` ("Last
+Published") before trusting any value. Only after that pass may a value be recorded `source: computed-css` (and
+never above `hypothesis` without owner ratification); a failed/ambiguous pass → GAP, not a guess. The `sha256`
+the script records is what `tools/audit-lint.mjs` R3 later checks against `CHECKSUMS.txt`.
+
+**The Webflow / Finsweet `fs-styleguide` case (generalized).** A Webflow site built on the Finsweet style-guide
+component exposes its palette + type as utility classes and CSS custom properties — a color-sample class
+carrying the literal value, and `:root` custom properties. Recover the archived stylesheet via the steps above,
+read the declared color values from the `fs-styleguide` color-sample classes and the type stack from the utility
+classes / `@font-face`, and treat them as the stated spec (`source: computed-css`, hypothesis until
+owner-confirmed). This is ONE instance of the general rule — read declared values from the recovered CSS custom
+properties + utility classes of ANY structured site; never hardcode the Finsweet class names as the method.
+
+## CHECKSUMS — hash every source-of-record (closes the un-hashed-source miss)
+
+The build SHA-256-hashes **every file under `sources/**`** into `CHECKSUMS.txt` at the emitted-repo root
+(`<sha256>  <path>`, the `sha256sum` format) — including recovered `sources/wayback/**`. This is what makes a
+`corroborated`/`computed-css` token's `sourceRef.sha256` checkable (MT-3/R3): a value claiming a
+source-of-record not hashed in `CHECKSUMS.txt` fails `audit-lint.mjs`. Closes the v3 miss where `CHECKSUMS.txt`
+omitted `sources/wayback/` and the source-of-record went un-hashed.
+
 ## Fidelity ceilings (design these into the GAP logic)
 
 - `get_drawings()` cannot tell which paths form one logical figure (a logo may be hundreds of disjoint

@@ -11,8 +11,12 @@ colors. Each datum carries four fields:
 
 - **source** — where it came from: `declared-spec` (the brand's stated truth) / `owner-stated` /
   `extracted-vector` / `computed-css` / `design-file` / `matched` / `traced` / `inferred`.
-- **confidence** — `hypothesis` (observed/derived, unconfirmed) → `corroborated` (independent sources agree)
-  → `owner-confirmed` (the owner ratified it).
+- **confidence** — `hypothesis` (observed/derived, unconfirmed) → `corroborated` → `owner-confirmed` (the
+  owner ratified it). **The ladder is a GATE, not a gloss (MT-4, enforced by `tools/audit-lint.mjs` R1/R2):**
+  `corroborated` requires **≥2 _distinct_ source artifacts that agree** — two references to the *same* file is
+  one source, not corroboration; and a value whose `source` is `inferred` or `matched` is **capped at
+  `hypothesis`** — it may never be stamped `corroborated`/`owner-confirmed` on inference alone (a
+  `source: inferred` + `confidence: corroborated` token is the exact contradiction the lint rejects).
 - **owner** — who ratifies it (the Accountable for that slot, from the handoff `OWNERS`).
 - **freshness** — the pinned value enum `shipped | stated-old` (`shipped` = fresh/live; `stated-old` =
   declared but not the current shipped reality). The same two literals are used at every hop — the handoff
@@ -27,6 +31,15 @@ Hard rules:
 - **A datum is never used at a status it has not earned.** The `authored|derived` flag in the token spine
   (`token-spine.md`) is this spine's color-specific projection: `source: declared-spec`/`owner-stated` →
   `authored` (never re-derived); `source: computed-css`/`matched`/`inferred` → `derived`.
+- **No `corroborated`/`computed-css` value without a hashed, identity-verified source-of-record (MT-3,
+  `audit-lint.mjs` R3).** Any token at `confidence: corroborated`/`owner-confirmed`, or with `source:
+  computed-css`, MUST carry a `$extensions.brand.sourceRef` whose `sha256` is listed in `CHECKSUMS.txt` — and
+  the build SHA-256-hashes **every file under `sources/**`** into `CHECKSUMS.txt` (`asset-acquisition.md`), so
+  the source-of-record is auditable. The source must be **identity-and-date verified** before it is trusted:
+  the snapshot is confirmed the right brand (not a prior/later occupant) and its capture date reconciled
+  against the page's self-reported "Last Published" — `tools/source-recover.py` surfaces those signals, the
+  Stage-3 agent adjudicates them. An unhashed or unverified source keeps the value at `hypothesis` or makes it
+  a GAP; it is never silently promoted.
 
 ## Logging a gap
 

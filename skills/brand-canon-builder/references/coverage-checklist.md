@@ -46,7 +46,7 @@ A brand that does not use one writes "not used" in the slot — the slot stays, 
 - **Volatile values** (prices, hours, contact, inventory) → DATA POINTER.
 - **Legal / confidentiality / governance** → a non-canon meta note at most; never a design truth.
 
-## Two coverage checks beyond the floor (shipped v3 behavior)
+## Three coverage checks beyond the floor (shipped v3 behavior + v4 ledger gate)
 
 - **Provenance coverage.** Every landed datum carries its 4-field provenance spine, and every emitted token its
   `$extensions.brand.provenance` (`token-spine.md` § The provenance block) — a value present but held at an
@@ -54,6 +54,15 @@ A brand that does not use one writes "not used" in the slot — the slot stays, 
 - **Keystone operability.** The mandatory keystone passes the Stage-10 §7b content check (`validate-audit.md`):
   the core sections carry when-X-then-Z rules / on-off pairs (form-of-rule only — never fixed brand content),
   not bare adjectives. A structurally-present but operationally-hollow keystone is not "covered".
+- **Ledger completeness (MT-5 — executable, `tools/audit-lint.mjs` R4/R5).** The canon names nothing it does
+  not account for, and tracks every uncertain value. (a) **R4** — every value or scheme NAMED in a canon layer
+  (`canon/*.md`) or an ALGO (`canon.json` algorithms/ruleIndex) maps to EITHER a token artifact OR an open
+  `GAP-NNN`; a named value with neither is a completeness hole (a dangling reference), not a complete canon.
+  (b) **R5** — every token at `confidence: hypothesis` or `source ∈ {inferred, matched, traced}` maps to
+  EXACTLY ONE open `GAP-NNN`; an uncertain value tracked by zero gaps is an unlogged hole, and one tracked by
+  several is an ambiguous ledger. This is the universality stress test's machine-checkable companion — it does
+  not assert any specific value exists (a `not-used(owner-declared)` dimension names nothing and resolves
+  clean), it asserts that whatever IS named is either built or honestly tracked.
 
 ## Severity (for any unmet item)
 

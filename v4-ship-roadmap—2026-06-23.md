@@ -244,7 +244,28 @@ Stages group the Phase-0 mechanisms by gate-family. Order respects dependencies 
 - **n.4 Analysis of results** — independent verification via Composio before approving; deltas; next stage unblocks. `[PENDING]`
 
 ### 3.1 Stage A — Two-surface `[PENDING]`
-### 3.2 Stage B — Machine-true evidence `[PENDING]`
+### 3.2 Stage B — Machine-true evidence `[IN PROGRESS]`
+
+Stage B (MT-1…MT-5) instantiates the builder's prose evidence rules as gates that FAIL. Executed in sub-stages
+by gate-family; this is the live ledger.
+
+#### B-1 — Provenance & completeness gates (MT-3, MT-4, MT-5) `[CODE DONE — PR open; awaiting Composio verify + ratify]`
+
+- **B-1.1 Chat analysis + decision.** Pre-resolved: collapse the provenance/confidence prose into ONE executable
+  gate `tools/audit-lint.mjs` — R1 corroboration ≥2 *distinct* sources · R2 inferred/matched capped at hypothesis ·
+  R3 computed-css/corroborated/owner-confirmed needs a hashed source-of-record · R4 every named value/scheme → token
+  or open GAP · R5 every uncertain token → exactly one open GAP; add the per-token `sourceRef` harvest field; build
+  the MT-3 archived-source recovery helper `tools/source-recover.py` (identity verification stays an AGENT step);
+  extend `CHECKSUMS.txt` to `sources/**`. Rector guard: every rule general + value-blind (a monogram-only / single-ink /
+  sonic-primary brand passes clean).
+- **B-1.2 Hand-off → Code.** This stage's self-contained paste block — branch `v4/stage-b1-provenance-gates` (off the v4 roadmap base).
+- **B-1.3 Code results** `[2026-06-23 · PR #__ · branch v4/stage-b1-provenance-gates]`. Landed:
+  - NEW `tools/audit-lint.mjs` — zero-dep Node; executable R1–R5; exit 1 on violation; report → `audit/lint/report.md`.
+  - NEW `tools/source-recover.py` — Wayback CDX + raw `id_` fetch, occupant disambiguation, SHA-256 → `sources/MANIFEST.json`.
+  - NEW `tools/fixtures/{clean,seeded-violation}` — the acceptance proof: CLEAN exits 0, SEEDED-VIOLATION exits 1 (all five rules trip).
+  - SPEC wired: `gap-protocol` (MT-3/4 hard rules) · `token-spine` (+`sourceRef` field, MT-4 gate) · `asset-acquisition` (archived recovery + CHECKSUMS-covers-`sources/**`, Finsweet generalized) · `reproduction-router` (archived identity/date inheritance) · `coverage-checklist` (3rd check: ledger completeness) · `validate-audit` (§5a lint + Gate summary) · `SKILL.md` (Stage 1 emits `tools/`, Stage 3 recovery pointer, Stage 10 lint part) · `CLAUDE.md` (tooling + repo-map).
+  - Acceptance pasted in the Code report: `audit-lint` exit 0 (CLEAN) / exit 1 (SEEDED); `source-recover` smoke test ≥1 capture + `MANIFEST.json`. **No `RESIDENT.md` change** (Phase 4.1 owns it). **Stopped before merge.**
+- **B-1.4 Analysis of results** `[PENDING — Chat verifies the PR independently via Composio, then ratifies the merge with `--squash --delete-branch`]`.
 ### 3.3 Stage C — Schemes are tokens `[PENDING]`
 ### 3.4 Stage D — Human-legible complete review surface `[PENDING]`
 ### 3.5 Stage E — Epistemic honesty enforcement `[PENDING]`
@@ -269,3 +290,4 @@ Stages group the Phase-0 mechanisms by gate-family. Order respects dependencies 
 ## Session log
 
 - **2026-06-23** — Roadmap opened. Phase 0 frozen: consolidated both phases' findings (scoper behavioral #1–#7 + structural S1–S6; the withdrawn #8; builder self-review across 10 dimensions + external-audit corrections) and the full change set (24 mechanisms in 7 gate-families). v4 thesis locked: *make the anti-determinism rector executable gates across both skills*, with the human-legible/complete client review surface as the cross-phase convergence. Phase-1 read-only verification hand-off written and ready. Phases 2–4 scaffolded and gated. Next action: run the Phase-1 hand-off in Claude Code; paste the report into 1.3.
+- **2026-06-23** — **Stage B-1 (provenance & completeness gates, MT-3/4/5) executed in Code** → branch `v4/stage-b1-provenance-gates`, PR #__. Instantiated the v4 thesis as runnable checks: `tools/audit-lint.mjs` (R1–R5, exits 1 on violation) + `tools/source-recover.py` (MT-3 archived recovery, identity verification kept an agent step) + `tools/fixtures/{clean,seeded-violation}` (the acceptance proof: exit 0 / exit 1). Wired the gate through gap-protocol · token-spine (+`sourceRef`) · asset-acquisition (+ CHECKSUMS-covers-`sources/**`) · reproduction-router · coverage-checklist (3rd check) · validate-audit (§5a) · SKILL.md · CLAUDE.md. `RESIDENT.md` untouched (Phase 4.1 owns it). **Stopped before merge** — Chat verifies via Composio, then ratifies. Next: Stage C (schemes-are-tokens) unblocks on B merge.

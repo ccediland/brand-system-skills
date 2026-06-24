@@ -123,6 +123,32 @@ ratified WHY is never silently kept.
 - **Universality stress test** — three arbitrary artifacts the canon names nowhere (span media); each must
   resolve through the derivation method without being enumerated. (`gap-protocol.md`.)
 
+## 5a. Provenance & completeness lint — the executable gate (MT-3/4/5, BLOCKING)
+
+The provenance/completeness rules above are not prose-trust — they are an executable gate. Run, from the
+emitted-repo root:
+
+```
+node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
+```
+
+`audit-lint.mjs` (`assets/templates/tools/`) reads `tokens/*.json`, `canon/*.md` + `canon/canon.json`,
+`RESIDENT.md` (the Open Items/Gaps table) and `CHECKSUMS.txt`, writes `audit/lint/report.md`, and enforces:
+
+- **R1 (MT-4)** — `confidence: corroborated` ⇒ ≥2 `sourceRef` entries with DISTINCT `file`.
+- **R2 (MT-4)** — `source ∈ {inferred, matched}` ⇒ `confidence` is `hypothesis`.
+- **R3 (MT-3)** — `source: computed-css` OR `confidence ∈ {corroborated, owner-confirmed}` ⇒ a `sourceRef`
+  whose `sha256` is in `CHECKSUMS.txt`.
+- **R4 (MT-5)** — every value/scheme named in a canon layer or ALGO maps to a token artifact OR an open `GAP-NNN`.
+- **R5 (MT-5)** — every `hypothesis`/`inferred`/`matched`/`traced` token maps to EXACTLY ONE open `GAP-NNN`.
+
+**Prerequisite — `CHECKSUMS.txt` covers `sources/**`.** R3 is only meaningful if every source-of-record is
+hashed: the build SHA-256-hashes every file under `sources/**` (incl. recovered `sources/wayback/**`) into
+`CHECKSUMS.txt` (`asset-acquisition.md` § CHECKSUMS). A `corroborated`/`computed-css` token whose source is
+absent from `CHECKSUMS.txt` fails R3. The lint is medium-agnostic and value-blind — a monogram-only /
+single-ink / sonic-primary brand whose dimensions are `not-used(owner-declared)` passes clean (it names no
+value the lint can fail on); it never asserts a specific value exists.
+
 ## 6. Client-confirmation is a HUMAN gate
 
 Confirmation is never self-certification:
@@ -238,7 +264,9 @@ The build is done only when: every core asset is present + build-grade (§1); `[
 resolved for core faces; the hollow-render gate is clean and `package-validate.mjs` exits 0 — the kit's
 offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip
 has run (package-shape) — or the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
-rule/voice violations; the three retained checks pass; **every reproduced treatment passes the §7a visual-diff
+rule/voice violations; the three retained checks pass; **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-3/4/5
+provenance & completeness gate: R1–R5), with `CHECKSUMS.txt` hashing every file under `sources/**` so the R3
+source-of-record check is meaningful;** **every reproduced treatment passes the §7a visual-diff
 (or degrades / logs a GAP) AND has committed its persisted evidence artifact to `audit/fidelity/<treatment-id>/`
 (source + reproduction + recorded verdict — absence FAILS); the keystone is present, six-section,
 guardrail-in-tail, within budget (structural), AND passes the §7b CONTENT check (THINK + DESIGN-as each carry
