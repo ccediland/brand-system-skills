@@ -6,7 +6,7 @@
       "name": "brand-system",
       "source": "./",
       "description": "Build a canonical, brand-agnostic, output-agnostic brand source for any brand — a four-layer canon + DTCG/OKLCH token spine — then a real prototype, a /design-sync-ready component library, and a single attachable keystone .md an AI can think, speak, and design as the brand. Analyzes published work by default, or authors from a ratified brief.",
-      "version": "0.3.0"
+      "version": "0.4.0"
     }
   ]
 }
