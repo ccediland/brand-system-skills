@@ -40,7 +40,7 @@
 - **G-COMPOSE-04** — {{premium depth (optional): surfaces use the elevation atoms; depth never on the mark}}
 
 ## §7 Pattern & imagery
-- **G-PATTERN-01** *(optional)* — {{how the graphic-code pattern/texture is applied — palette-disciplined, supporting, never competing with the mark or harming legibility (see PRIMITIVES › Pattern)}}
+- **G-PATTERN-01** *(optional)* — {{how the graphic-code pattern/texture is applied — palette-disciplined, supporting, never competing with the mark or harming legibility}}. It meets PRIMITIVES › Pattern's **decorative contrast band** (the brand-fixed opacity/contrast band; escalate to WCAG 3:1 when it carries meaning/state) — resolved by `ALGO-CONTRAST-ROLE`'s graphic-code row (§10), no longer ratio-less.
 - **G-IMG-01** — {{image grade/treatment; mark-over-image placement & contrast safety}}
 - **G-IMG-02** — {{what generation is/ isn't allowed for (subjects vs backgrounds)}}
 
@@ -67,8 +67,9 @@
   G-MARK-01/02. {{decision table: by available space pick arrangement (lockup → wordmark/symbol → monogram
   → seal as space shrinks / per role); by background pick treatment (contrast-safe); below the legibility
   floor step up to a simpler arrangement.}}
-- **ALGO-CONTRAST-ROLE** `(text role/size, background) → role token + min ratio` — enforces G-COLOR-02.
-  {{table}}
+- **ALGO-CONTRAST-ROLE** `(role/size or graphic-code device, background) → role token + min ratio/band` — enforces G-COLOR-02, G-PATTERN-01.
+  {{table — text-role rows: each text/background pairing meets the role's minimum ratio, BY ROLE not by recolor; the legal bar is WCAG 2.x AA}}
+  - **graphic-code / decorative row (additive, C-3):** a decorative graphic-code device (pattern · texture · screen · tint) → its **PRIMITIVES brand-fixed opacity/contrast band** is the PRIMARY rule; **escalate to WCAG 3:1 (SC 1.4.11)** when the device carries meaning or state (encodes status, is interactive). APCA Lc 15 is an INTERNAL perceptual reference only; **WCAG 2.x AA remains the legal bar — no APCA substitution.** Spec-level: enforced by review against PRIMITIVES › Pattern, not an executable gate.
 - **ALGO-MOTION-GATE** `(effect kind) → run | reduce | off` — enforces G-MOTION-01/03. {{decision table
   keyed on effect class + reduced-motion behavior}}
 - **ALGO-VOICE-CHECK** `(copy) → pass | fix` — enforces G-VOICE-02. {{reject-list (forbidden claims/terms)

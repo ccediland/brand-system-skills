@@ -172,7 +172,14 @@ the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/bou
   v5 lag, issue #1590 / OI-H) and is a controlled convention layered over those sets, never raw `.resolver.json`. **Forward (C-2):** when a build-time materializer / Style
   Dictionary is added, structured colour MUST route through `color/oklch` (SD ≥ 5.3) or a preprocessor — never
   raw SD `$value`, never `color/css` (gamut-maps to sRGB). OKLCH is the general scheme-derivation engine
-  (light/dark, high-contrast, sub-brand).
+  (light/dark, high-contrast, sub-brand). **Scheme toggle (C-3):** the prototype renders a live `[data-scheme]`
+  toggle (inline `<script>` + one `:root[data-scheme="<id>"]` block per materialized scheme) ONLY when >1
+  non-deferred scheme exists; a flat brand drops it. `[data-scheme]` wins over `@media (prefers-color-scheme)`,
+  which stays the no-JS fallback. Prototype stays zero-toolchain/offline — inline `<style>`+`<script>` only.
+- **Decorative contrast (C-3, SPEC — no gate).** A graphic-code device's contrast lives in PRIMITIVES › Pattern
+  as a **brand-fixed opacity/contrast band** (PRIMARY), escalating to **WCAG 3:1 (SC 1.4.11)** when it carries
+  meaning/state; resolved by GRAMMAR `ALGO-CONTRAST-ROLE`'s graphic-code row + `G-PATTERN-01`. APCA Lc 15 is an
+  internal reference only; **WCAG 2.x AA is the legal bar — no APCA substitution.** Not an executable validator.
 
 ## Flujo (Carlos)
 Work on a `claude/<name>` branch, never main; PR + wait for OK before merge. Respond to Carlos in es-MX

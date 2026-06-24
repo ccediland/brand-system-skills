@@ -18,6 +18,12 @@
     4. Replace the harvested imagery slot with a real harvested image (Stage 5), or leave the token-only
        block if none is build-grade yet (a missing build-grade image is a fidelity GAP, not a fabrication).
     5. Replace "Example Brand" / sample copy with the brand's real name + on-voice copy (from ESSENCE).
+    6. SCHEME TOGGLE (C-3): when `canon.json › schemes` has >1 NON-deferred scheme, render the toggle in the
+       Controls section AND emit one `:root[data-scheme="<id>"]` block per materialized scheme (values from
+       `tokens/schemes/<id>.json`), and keep the inline toggle <script>. For a FLAT (single-scheme) brand,
+       DELETE the toggle control, the `:root[data-scheme]` blocks, and the script — keep only the light `:root`
+       (+ the optional prefers-color-scheme dark). `[data-scheme]` (set by the toggle) WINS over the OS media
+       query; the `@media (prefers-color-scheme: dark)` block stays as the no-JS fallback for the dark scheme.
   The values shipped here are OBVIOUSLY-GENERIC placeholders so the file renders standalone before fill;
   a real brand's exact OKLCH/hex/Pantone must never live in this template.
 
@@ -67,6 +73,21 @@
       --color-fg: oklch(0.96 0.01 250); --color-muted: oklch(0.72 0.02 250);
       --color-border: oklch(0.32 0.02 250); --color-brand-fg: oklch(0.99 0.005 250);
     }
+  }
+
+  /* ---- per-scheme overrides for the live toggle (C-3). BUILDER: emit ONE :root[data-scheme="<id>"] block
+     per materialized scheme (canon.json › schemes; values from tokens/schemes/<id>.json) ONLY when >1
+     non-deferred scheme exists; a FLAT brand DELETES these blocks + the toggle + the script. [data-scheme]
+     (set by the inline toggle below) WINS over the OS media query; the @media block above is the no-JS
+     fallback. The two generic blocks below mirror the light :root / dark @media as the illustrative shape. ---- */
+  :root[data-scheme="light"] {
+    --color-bg: oklch(0.99 0.005 250); --color-surface: oklch(0.97 0.01 250);
+    --color-fg: oklch(0.22 0.02 250); --color-muted: oklch(0.55 0.02 250); --color-border: oklch(0.90 0.01 250);
+  }
+  :root[data-scheme="dark"] {
+    --color-bg: oklch(0.20 0.02 250); --color-surface: oklch(0.25 0.02 250);
+    --color-fg: oklch(0.96 0.01 250); --color-muted: oklch(0.72 0.02 250);
+    --color-border: oklch(0.32 0.02 250); --color-brand-fg: oklch(0.99 0.005 250);
   }
 
   * { box-sizing: border-box; }
@@ -168,6 +189,13 @@
       <button class="btn btn-accent">Accent</button>
       <input class="field" type="text" placeholder="Input field" aria-label="Sample input" />
       <select class="field" aria-label="Sample select"><option>Option one</option><option>Option two</option></select>
+      <!-- SCHEME TOGGLE (C-3): BUILDER renders this ONLY when canon.json › schemes has >1 non-deferred scheme;
+           one <option value="<scheme-id>"> per materialized scheme. A FLAT brand DELETES this control + the
+           :root[data-scheme] blocks + the toggle <script>. -->
+      <select id="scheme-toggle" class="field" aria-label="Color scheme">
+        <option value="light">Light scheme</option>
+        <option value="dark">Dark scheme</option>
+      </select>
     </div>
   </section>
 
@@ -206,5 +234,18 @@
   </section>
 
 </div>
+<script>
+  /* SCHEME TOGGLE (C-3) — INLINE, no import / no module / no network (keeps the prototype zero-toolchain
+     and offline). Sets <html data-scheme="…"> from the toggle; the :root[data-scheme] CSS above then wins
+     over prefers-color-scheme. Guarded: if the control is absent (a FLAT brand that deleted it) this is a
+     no-op, and the page falls back to :root + the OS media query. BUILDER: ship this only with the toggle. */
+  (function () {
+    var sel = document.getElementById("scheme-toggle");
+    if (!sel) return;
+    var apply = function () { document.documentElement.dataset.scheme = sel.value; };
+    sel.addEventListener("change", apply);
+    apply();
+  })();
+</script>
 </body>
 </html>
