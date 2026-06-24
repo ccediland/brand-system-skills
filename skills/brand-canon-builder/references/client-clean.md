@@ -35,6 +35,23 @@ The test: every line in the client canon must trace to the client's material (or
 GAP). If it traces to a method/reference/example brand instead, strip it. A rule that only ever made
 sense for the reference brand does not belong in this client's canon.
 
+**Deterministic half — `client-deny-lint.mjs` (TS-2).** The judgment trace above keeps its half; the
+operator-vocabulary residue now also has a deterministic catch, mirroring §1's attribution grep but at AST
+level. Run `tools/client-deny-lint.mjs` over the EMITTED client surfaces — AFTER the §3 strip below has
+removed `{{…}}` and GUIDE/builder comments (linting the raw template is a usage error, not a finding). It
+parses HTML, Markdown, and code/style files with rehype/parse5 and scans text nodes, comment nodes, AND
+client-visible attributes (alt / title / aria-label / placeholder) for the operator-vocabulary class
+(GAP-NNN, Stage-N, build-grade, provenance/confidence grades, OFL, harvested / redrawn / Wayback,
+unratified), exiting non-zero on any hit. Coverage explicitly INCLUDES the **keystone deploy sections**, the
+**prototype's visible body**, and the **design-sync-kit source** (`.css` / `.ts` / `.tsx` / `.mjs`) —
+surfaces §1's grep does not reach today. (Builder chatter in CSS `/* */` or JS `//` comments is NOT removed
+by the §3 HTML-comment strip, so such comments must themselves carry no deny vocab.) It is brand-agnostic
+(vocabulary classes, never brand content) and composes with §1's grep; the ambiguous classes are
+context-bound so ordinary brand copy does not false-fail — provenance grades/verbs (hypothesis / corroborated
+/ owner-confirmed, matched / inferred / traced) fire only in the `key: value` annotation form, numeric stage
+labels only beside a build-context word, harvested / redrawn only beside an asset noun (a "founding
+hypothesis", a "Stage 7 venue", "beans harvested at dawn" all pass).
+
 ## 3. {{PLACEHOLDER}} leftovers + scaffolding chatter
 
 The client deliverable must read as finished:
@@ -61,6 +78,7 @@ The build reaches "done" only when the client repo is clean:
 
 - zero tool/skill attribution (§1),
 - zero reference-brand bleed — everything traces to the client's material or an honest GAP (§2),
+- zero operator-vocab on the emitted client surfaces — `client-deny-lint` exits 0 (§2),
 - zero surviving `{{…}}` and zero GUIDE/builder chatter (§3),
 - no auto-stamped ratification; state is unratified-pending until the owner signs off (§4).
 

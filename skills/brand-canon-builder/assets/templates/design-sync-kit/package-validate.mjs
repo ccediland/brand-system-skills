@@ -1,6 +1,6 @@
 // package-validate.mjs — the kit's OWN offline pre-flight gate (run via `npm run validate`).
 //
-// This is the kit-shipped, toolchain-free honesty check the Stage-10 fidelity gate can run BEFORE any
+// This is the kit-shipped, toolchain-free honesty check the fidelity gate can run BEFORE any
 // /design-sync round-trip — distinct from the live converter's own `.ds-sync/package-validate.mjs` (which
 // the /design-sync tool stages server-side and runs on the uploaded bundle). This one only inspects what
 // the kit can see locally, so the gate is honest + offline-runnable.

@@ -111,11 +111,11 @@ deployment_map:
 ### Token spine
 - {{path/pointer to tokens/ + the operative $value format (OKLCH literal string)}}.
 ### Asset inventory
-<!-- Each asset's token-derived confidence is READ from the token's $extensions.brand.provenance (or
-     canon.json / the RESIDENT GAP ledger) — traceable to source, never recalled from emitter memory. Confidence
-     is on the byte-identical ladder hypothesis | corroborated | owner-confirmed; freshness is shipped | stated-old. -->
-- {{asset}} — fidelity {{build-grade | low-fi | gap}}; provenance {{source | confidence (read from
-  $extensions.brand.provenance.confidence) | owner | freshness}}.
+<!-- Client-facing inventory: WHAT exists and WHERE it lives, in plain terms — no build columns. The
+     build-time per-asset record (its epistemic/fidelity grades + sourcing) is the build worksheet in
+     RESIDENT.md ONLY — the operator surface; it never deploys onto this client keystone. DA1 (TS-2): the
+     deployed asset ledger carries client fields only (client-deny-lint guards this surface). -->
+- {{asset}} — {{role, e.g. primary lockup / body face / palette}}; lives in {{where it lives, e.g. the brand kit}}.
 ### Horizon map
 <!-- Seed from the handoff HORIZONS block (each horizon's one-line direction + its existing-material flag). -->
 - {{relevant horizon}} — {{one-line direction}}; tracked gap: {{GAP-NNN or none}}.

@@ -6,7 +6,7 @@
   family with no @font-face → [FONT_MISSING].
 
   BUILDER: keep the @import line first; fill the tokens from tokens/*.json and the @font-face from the
-  brand's REAL licensed fonts (Stage 4). Values below are obviously-generic placeholders.
+  brand's REAL licensed fonts (at the font step). Values below are obviously-generic placeholders.
 */
 
 /* compiled component CSS the converter writes — keep this import (it is the build's, not hand-authored) */
