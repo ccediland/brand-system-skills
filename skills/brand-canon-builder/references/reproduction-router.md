@@ -40,7 +40,7 @@ Every treatment the builder reproduces carries the provenance spine (`gap-protoc
 - **Natural texture** (clouds, marble, granite, paper, grain): `feTurbulence` (Perlin/fractal noise;
   `baseFrequency`, `numOctaves`, `type=fractalNoise|turbulence`, `seed`, `stitchTiles`). Stretched noise
   (`baseFrequency="0.1 0.01"`) mimics wood/fabric grain. These parameter values are an ILLUSTRATIVE starting
-  recipe per class — tuned per artifact by the §7a visual-diff until within tolerance, never applied blind.
+  recipe per class — tuned per artifact by the §7a measured diff until within tolerance, never applied blind.
 - **3D / gloss / emboss / metallic**: `feDiffuseLighting` + `feSpecularLighting` (with
   `feDistantLight`/`fePointLight`/`feSpotLight`), using noise as a bump/surface map.
 - **Organic / liquid / sketchy distortion, glitch, roughened edges**: `feDisplacementMap` driven by
@@ -75,13 +75,15 @@ build-grade *reproduction* is scoped — see RESIDENT `## v3` and `keystone-emit
 
 ## Validation (every reproduction)
 
-Validate each reproduction by **visual diff against the source artifact** (overlay / perceptual
-comparison); tune filter parameters until within tolerance. A reproduction that cannot be brought within
-tolerance is not done — it either degrades to a lower method (procedural → vector-trace → raster) or becomes
-a fidelity GAP. This visual-diff check is the reproduction half of the Stage-10 fidelity gate
-(`validate-audit.md` §7a). **The verdict must leave a trace:** §7a commits the source capture + the
-reproduction render + the recorded within/outside-tolerance verdict to `audit/fidelity/<treatment-id>/` in the
-emitted repo; absence of that artifact for a reproduced treatment FAILS the gate.
+Validate each reproduction by a **measured diff against the source artifact** — `tools/fidelity-diff.py`
+(MT-2) co-registers the reproduction onto the Stage-5 source capture (ORB+RANSAC) and computes ΔE2000 +
+SSIM/pixelmatch (and glyph metrics for type); tune filter parameters until the scores clear the §2 tier bound.
+A reproduction that cannot be brought within tolerance is not done — it either degrades to a lower method
+(procedural → vector-trace → raster) or becomes a fidelity GAP. This measured-diff check is the reproduction
+half of the Stage-10 fidelity gate (`validate-audit.md` §7a), which owns persistence + pass/fail. **The verdict
+must leave a trace:** §7a commits the source capture + the reproduction render + the registered `diff.png` + the
+`scores.json` (numeric scores + thresholds + within/outside-tolerance verdict) to `audit/fidelity/<treatment-id>/`
+in the emitted repo; absence of that artifact for a reproduced treatment FAILS the gate.
 
 **Archived-source treatments inherit the identity/date gate (MT-3).** When the source artifact a treatment is
 reproduced from is an ARCHIVED capture (recovered via `asset-acquisition.md` § Archived-source recovery), its
