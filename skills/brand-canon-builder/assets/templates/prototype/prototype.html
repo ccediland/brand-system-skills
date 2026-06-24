@@ -202,7 +202,9 @@
 
   <!-- mark: BUILDER inline the geometry FROM canon/mark.svg (the single source) — byte-equal across the
        prototype + kit Mark.tsx; never hand-type it (audit-lint R6b enforces single-sourcing) -->
-  <div class="mark" aria-label="Example Brand logo">
+  <!-- data-canon-section markers (D-2b): each tags the canon section a surface documents; audit-lint R8
+       requires every PRESENT canon section (by machine signal) to have a marker OR an open-GAP deferral. -->
+  <div class="mark" data-canon-section="mark" aria-label="Example Brand logo">
     <svg id="brand-mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
       <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>
       <circle cx="16" cy="16" r="7" fill="var(--color-brand-fg)"/>
@@ -211,7 +213,7 @@
   </div>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" data-canon-section="essence">
     <h2>Prototype</h2>
     <h1>A real, on-brand surface — not a placeholder skeleton.</h1>
     <p class="lede">This page renders the brand on real surfaces using the canon's own tokens, mark, and
@@ -225,7 +227,7 @@
   <!-- THINK / HOW THE BRAND DECIDES (D-2a): one client-language line per when-X-then-Z decision rule, from
        the canon's THINK reasoning (the keystone §2 source) rendered in plain words — NEVER operator vocab.
        BUILDER: render only if the canon carries decision rules; omit if it carries none (never invent one). -->
-  <section>
+  <section data-canon-section="think">
     <h2>How the brand decides</h2>
     <ul class="rules">
       <li><b>When speed and craft conflict,</b> the brand chooses craft — a thing worth making is worth finishing.</li>
@@ -266,7 +268,7 @@
   </section>
 
   <!-- TYPE SPREAD -->
-  <section class="type-spread">
+  <section class="type-spread" data-canon-section="type">
     <h2>Type</h2>
     <div class="display">Display 3rem</div>
     <h1 style="font-size:2rem">Heading 2rem</h1>
@@ -276,7 +278,7 @@
   </section>
 
   <!-- COLOR BLOCKS -->
-  <section>
+  <section data-canon-section="color">
     <h2>Color</h2>
     <div class="swatches">
       <div class="swatch"><div class="chip" style="background:var(--color-brand)"></div><div class="label">Brand<br><code>--color-brand</code></div></div>
@@ -288,7 +290,7 @@
 
   <!-- LEXICON (D-2a): the brand's own vocabulary, from INDEX + the voice lexicon. BUILDER: one row per term
        the brand always uses (its meaning in this brand). Omit the section if the canon names no lexicon. -->
-  <section>
+  <section data-canon-section="lexicon">
     <h2>Lexicon</h2>
     <div class="lexicon">
       <div class="row"><span class="term">The mark</span><span>the symbol-and-name lockup — our primary signature.</span></div>
@@ -299,7 +301,7 @@
 
   <!-- MISUSE (D-2a): what NOT to do with the mark, from GRAMMAR/PRIMITIVES misuse rules, in plain client
        language. BUILDER: one card per prohibited treatment. Omit the section if the canon declares none. -->
-  <section>
+  <section data-canon-section="misuse">
     <h2>Misuse</h2>
     <div class="misuse">
       <div><b>Don't</b> stretch, squash, or rotate the mark.</div>
@@ -311,7 +313,7 @@
   <!-- COLOR SCHEMES (D-2a): documents the schemes the brand ships (the live toggle is in Controls). BUILDER:
        render this ONLY when canon.json › schemes has >1 non-deferred scheme — one card per materialized
        scheme (values from tokens/schemes/<id>.json). A FLAT (single-scheme) brand DELETES this section. -->
-  <section>
+  <section data-canon-section="schemes">
     <h2>Color schemes</h2>
     <div class="scheme-cards">
       <div class="sc"><div class="bar"><span style="background:var(--color-surface)"></span><span style="background:var(--color-brand)"></span><span style="background:var(--color-accent)"></span><span style="background:var(--color-fg)"></span></div><div class="name">Light scheme — the default surface</div></div>

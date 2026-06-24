@@ -167,6 +167,18 @@ node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
   FAILS, naming the missing role-keys. The deferred escape is a tracked GAP (R0/R5 still apply to whatever
   tokens exist), never a bypass. A single-scheme (flat) brand materializes its one default set; a repo with no
   `schemes` block is a vacuous PASS. `audit-lint.mjs` also loads the per-scheme `tokens/schemes/*.json` sets.
+- **R8 (RV-5)** — prototype completeness: every canon section that is PRESENT by a brand-content-blind machine
+  signal maps to a LIVE `[data-canon-section="<id>"]` surface in a generated `.html` brandbook OR an open
+  `GAP-NNN` deferral (a marker carrying `data-gap="GAP-NNN"`). A marker that lives only inside an HTML comment
+  or an inert `<template>` is stripped before the scan — it is not a rendered surface. The present-set is
+  DERIVED, never a fixed brandbook checklist: `essence` (the `canon/01-*` essence layer) · `color` (color
+  tokens) · `type` (typography / `font-*` / `line-height` tokens) · `mark` (`canon/mark.svg` present) ·
+  `schemes` (`canon.json` names ≥1). ANTI-DETERMINISM: a
+  not-used/absent section needs no surface — a flat brand (no named schemes) needs no schemes surface, a sonic
+  / no-mark brand needs no mark surface, a build with no generated `.html` yet is a vacuous PASS. The
+  documentation surfaces (lexicon / misuse / think) are tagged for clarity but NOT machine-required — their
+  presence is not brand-content-blind detectable, so gating them would false-fail minimal brands. Shaped like
+  R4/R7 (present → a surface OR an open GAP); value-blind (reads section PRESENCE, never brand content).
 
 **Prerequisite — `CHECKSUMS.txt` covers `sources/**`.** R3 is only meaningful if every source-of-record is
 hashed: the build SHA-256-hashes every file under `sources/**` (incl. recovered `sources/wayback/**`) into
@@ -306,7 +318,7 @@ resolved for core faces; the hollow-render gate is clean and `package-validate.m
 offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip
 has run (package-shape) — or the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
 rule/voice violations; the three retained checks pass; **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-1/3/4/5 + SC-1
-provenance, completeness, reconciliation & scheme gate: R0–R7 — every named scheme a complete materialized set or a deferred+GAP), with `CHECKSUMS.txt` hashing every file under
+provenance, completeness, reconciliation & scheme gate: R0–R8 — every named scheme a complete materialized set or a deferred+GAP, and every present canon section a brandbook surface or an open GAP), with `CHECKSUMS.txt` hashing every file under
 `sources/**` so the R3 source-of-record check is meaningful, and no R6 drift — every `derived` projection
 reconciles with the spine, the protected mark is single-sourced from `canon/mark.svg`, and every asset ref
 resolves;** **every reproduced treatment passes the §7a MEASURED diff (`tools/fidelity-diff.py`: ΔE2000 + SSIM/pixelmatch

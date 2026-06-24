@@ -1,0 +1,36 @@
+{
+  "$description": "Fixture canon mirror. Three schemes: day (default) + night materialized as COMPLETE role sets (tokens/schemes/<id>.json, scheme-tagged) by scheme-derive.mjs; print is status:\"deferred\" + GAP-022. R7 checks role-key parity vs the default; R4 (loose) still passes.",
+  "ruleIndex": {
+    "G-COLOR-01": "contrast floor by role"
+  },
+  "algorithms": {
+    "ALGO-CONTRAST-ROLE": {
+      "in": [
+        "textRole",
+        "background"
+      ],
+      "out": [
+        "roleToken",
+        "minRatio"
+      ],
+      "rules": [
+        "G-COLOR-01"
+      ]
+    },
+    "ALGO-SCHEME-DERIVE": {
+      "in": [
+        "mode",
+        "dominant"
+      ],
+      "out": [
+        "scheme",
+        "roleTokens"
+      ],
+      "rules": [
+        "G-SCHEME-01",
+        "G-SCHEME-02",
+        "G-COLOR-01"
+      ]
+    }
+  }
+}

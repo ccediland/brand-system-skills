@@ -1,0 +1,46 @@
+{
+  "base": {
+    "color": {
+      "$type": "color",
+      "ink": {
+        "$value": { "colorSpace": "oklch", "components": [0.30, 0, 0], "alpha": 1, "hex": "#3a3a3a" },
+        "$description": "owner-confirmed declared truth — carries its hashed source-of-record (R3). Structured-OKLCH $value (C-1).",
+        "$extensions": { "brand": {
+          "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:ink", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9", "captureTs": "20230124000000", "selfPublished": "2023-01" }
+        } }
+      },
+      "brand": {
+        "$value": { "colorSpace": "oklch", "components": [0.62, 0.13, 255], "alpha": 1, "hex": "#5a7fb0" },
+        "$description": "corroborated — two DISTINCT hashed sources (R1 + R3); materializes the default scheme (R4). Structured-OKLCH $value (C-1).",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [
+            { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc", "captureTs": "20230124000000", "selfPublished": "2023-01" },
+            { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+          ]
+        } }
+      },
+      "tint": {
+        "$value": { "colorSpace": "oklch", "components": [0.62, 0.13, 255], "alpha": 0.5, "hex": "#5a7fb080" },
+        "$description": "C-1 structured-OKLCH regression guard with ALPHA ≠ 1 — the R6a serializer must emit the `oklch(L C H / a)` form; a projection pins this byte-for-byte.",
+        "$extensions": { "brand": {
+          "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:tint", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+        } }
+      }
+    },
+    "font-family": {
+      "$type": "fontFamily",
+      "body": {
+        "$value": "\"Body Face\", system-ui, sans-serif",
+        "$description": "matched ⇒ capped at hypothesis (R2); tracked by exactly one open GAP (R5). QUOTED stack — R6a regression guard: a derived projection pins this byte-for-byte incl. the quotes.",
+        "$extensions": { "brand": {
+          "provenance": { "source": "matched", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "stated-old" },
+          "gap": "GAP-002",
+          "sourceRef": { "file": "sources/site.css", "selector": "@font-face", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc" }
+        } }
+      }
+    }
+  }
+}

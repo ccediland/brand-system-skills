@@ -462,6 +462,51 @@ const normGeom = (inner) => (inner == null ? null : inner
   add('R7', 'SC-1 · every named scheme → a COMPLETE materialized set (role-key parity with default) OR status:"deferred" + one open GAP', v, `${named.length} named scheme(s); default "${defaultScheme ?? '—'}" role-keys: ${ref.size}`);
 }
 
+// R8 (RV-5): prototype completeness — every PRESENT canon section (by brand-content-blind machine signal) is
+// rendered as a brandbook surface (a [data-canon-section="<id>"] element in a generated .html) OR carries an
+// open GAP-NNN deferral (data-gap). ANTI-DETERMINISM (rector): the present-set is DERIVED from machine signals
+// (tokens / canon.json / canon files), NEVER a fixed brandbook checklist — a not-used/absent section needs no
+// surface (a flat brand has no schemes section; a sonic / no-mark brand needs no mark section). Shaped like
+// R4/R7 (present → satisfied OR open GAP). Value-blind: reads section PRESENCE, never brand content. The doc
+// sections (lexicon/misuse/think) are tagged for clarity but NOT machine-required here — their presence is not
+// brand-content-blind detectable, so gating them would false-fail minimal brands.
+{
+  const v = [];
+  const present = [];
+  if (listFiles('canon', '.md').some((f) => /\/01-[^/]*\.md$/i.test(f))) present.push(['essence', 'canon/01-*.md essence layer present']);
+  if (hasColorToken) present.push(['color', 'color tokens present']);
+  if (tokens.some((t) => /(?:^|\.)(?:typography|type|font[a-z-]*|line-height)(?:\.|$)/i.test(t.path))) present.push(['type', 'typography/font tokens present']);
+  if (existsSync(join(ROOT, 'canon', 'mark.svg'))) present.push(['mark', 'canon/mark.svg present']);
+  if (namedSchemes.length >= 1) present.push(['schemes', `canon.json names ${namedSchemes.length} scheme(s)`]);
+
+  // collect prototype surface markers from generated HTML: id -> { surfaced, gaps:Set }
+  const markers = new Map();
+  const htmlFiles = walkFiles(['.html', '.htm']);
+  for (const f of htmlFiles) {
+    const raw = readText(f); if (!raw) continue;
+    // a marker that lives ONLY inside an HTML comment or an inert <template> is NOT a rendered surface — strip
+    // both before matching (mirrors R6b's comment-strip). The <meta>/<html>-attr edge stays a documented residual.
+    const text = raw.replace(/<!--[\s\S]*?-->/g, '').replace(/<template\b[^>]*>[\s\S]*?<\/template>/gi, '');
+    for (const m of text.matchAll(/data-canon-section\s*=\s*["']([a-z][a-z0-9-]*)["']([^>]*)/gi)) {
+      const id = m[1].toLowerCase();
+      const gapM = (m[2] || '').match(/data-gap\s*=\s*["'](GAP-\d+)["']/i);
+      const rec = markers.get(id) || { surfaced: false, gaps: new Set() };
+      if (gapM) rec.gaps.add(gapM[1].toUpperCase()); else rec.surfaced = true;
+      markers.set(id, rec);
+    }
+  }
+  if (htmlFiles.length) {  // no generated prototype yet (e.g. pre-Stage-8 / non-visual build) ⇒ R8 vacuous
+    for (const [id, why] of present) {
+      const rec = markers.get(id);
+      if (rec && rec.surfaced) continue;                                // rendered as a brandbook surface
+      if (rec && [...rec.gaps].some((g) => openGaps.has(g))) continue;  // deferred to an OPEN GAP
+      v.push(`[R8] canon section "${id}" is present (${why}) but the generated prototype renders no [data-canon-section="${id}"] surface and declares no open GAP — a present canon section must be a brandbook surface OR carry an open GAP-NNN deferral (data-gap)`);
+    }
+  }
+  add('R8', 'RV-5 · prototype completeness — every present canon section → a brandbook surface OR an open GAP', v,
+    `${present.length} present section(s) [${present.map((p) => p[0]).join(', ') || '—'}]; ${markers.size} surface marker(s); ${htmlFiles.length} html file(s)`);
+}
+
 // ---------- report ----------
 const failed = results.filter((r) => r.status === 'FAIL');
 const stamp = process.env.AUDIT_LINT_DATE || '';
