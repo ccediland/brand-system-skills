@@ -1,12 +1,12 @@
 ---
 title: brand-system-skills — v4 Ship Roadmap (consolidated)
 status: in-progress
-current_phase: Phase 3 (staged change execution) — Stage B-1 shipped, unmerged
+current_phase: Phase 3 (staged change execution) — Stage B-1 MERGED; A, B-2, C–G pending
 last_updated: 2026-06-23
 home_base: chat (claude.ai)
-next_action: run the repo-cleanup hand-off (decontaminate PR #31, land this doc + remove v3 docs, delete stale branches); Chat re-verifies the decontaminated PR #31 diff, then Carlos ratifies the squash-merge; then pick the next stage (A or B-2)
+next_action: pick the next stage (A two-surface, or B-2 reconciliation + measurement) and run its inner cycle n.1 → n.4
 repo: ccediland/brand-system-skills (public Claude Code plugin)
-main_head: 658ab59
+main_head: ade191c (Stage B-1 merged)
 plugin_version: 0.3.0
 resident: RESIDENT.md at repo root — final reconciliation at Phase 4.1; durable per-stage changes migrate at relevant stage closes
 applies_to: brand-canon-scoper (Chat) + brand-canon-builder (Code), v4
@@ -105,14 +105,14 @@ These are the load-bearing tooling and spec decisions; the stages that consume t
 
 ### Shipped: Stage B-1 (MT-3, MT-4, MT-5)
 
-PR #31, branch `v4/stage-b1-provenance-gates`, head `8c25446` — open against `main`, not merged, stopped before merge for Composio verification.
+MERGED to `main` (`ade191c`) — PR #31 squash-merged after Chat re-verified the decontaminated 28-file diff (no roadmap doc); the branch was decontaminated (the roadmap doc removed) so only code landed. `tools/audit-lint.mjs`, `tools/source-recover.py`, `tools/fixtures/`, and the wired specs are on `main`.
 
 - New gate `tools/audit-lint.mjs` (Node, zero-dep) — exits 1 on violation, report to `audit/lint/report.md`. Rules: R0 provenance present plus closed enums (no token evades the conditional rules by dropping its provenance block; aliases exempt); R1 `corroborated` ⇒ ≥2 distinct source files; R2 `inferred`/`matched` capped at `hypothesis`; R3 `computed-css`/`corroborated`/`owner-confirmed` ⇒ a `sourceRef.sha256` in CHECKSUMS path-bound to its own file; R4 every named value/scheme ⇒ a token or an open GAP; R5 every uncertain token ⇒ exactly one open GAP via `$extensions.brand.gap`.
 - New helper `tools/source-recover.py` (Python) — Wayback CDX, raw `id_` fetch, occupant disambiguation, surfaces title/copyright/Last-Published, SHA-256 to `sources/MANIFEST.json`. Identity verification stays an agent step.
 - Proof: CLEAN fixture exits 0 (R0–R5 pass), SEEDED fixture exits 1 (one dedicated trip per rule). 29 files changed; spec wired into `gap-protocol.md`, `token-spine.md`, `asset-acquisition.md`, `reproduction-router.md`, `coverage-checklist.md`, `validate-audit.md`, `SKILL.md`, `tokens/base.json`. `CLAUDE.md` updated; `RESIDENT.md` untouched.
 - Two hardenings added by the adversarial review (kept as standing practice): R0 was added beyond the literal R1–R5 (closes the "delete the provenance block to evade everything" bypass); R3 was strengthened to path-bound (hash-membership alone let a token borrow any listed hash). A false-positive that would have failed correctly-built repos was caught and fixed (30/30 reviewer expectations match).
 - Chat-verified independently (2026-06-23): the gate was run on both fixtures — CLEAN exits 0 with R0–R5 all PASS, SEEDED exits 1 with all six rules firing one precise message each; `RESIDENT.md` is byte-identical to `main`; no brand-specific value appears in the gate or the wired specs. The code is sound and mergeable.
-- Decontamination required before merge: the branch was cut from `v4/roadmap`, so PR #31's tree carries the old roadmap doc among its 29 files. Before merge, remove the roadmap doc from the branch tip so the squash diff is the 28 code files only; Chat re-verifies that decontaminated diff, then the squash-merge is ratified. The roadmap doc lands separately as `v4-roadmap.md` (see Finalize).
+- Landed clean: the branch was decontaminated (the inherited roadmap doc removed) so the squash diff was 28 code files only; Chat re-verified that diff before the merge. The roadmap doc lives separately as `v4-roadmap.md` at `main` root (this file).
 
 ## Preserve — do not break
 
@@ -193,7 +193,7 @@ Ratification-gated mechanisms (flag at the owning stage's n.1, do not auto-proce
 
 ## Current state
 
-Phase 3 is in progress. Stage B-1 is shipped and Chat-verified (the gate passes clean and fails on a seeded violation; RESIDENT untouched; no brand leak), sitting in PR #31 against `main`, unmerged. A repo cleanup is the immediate work: decontaminate PR #31 (the roadmap doc must come off its branch), land this file as `v4-roadmap.md` at `main` root, remove the superseded v3 root docs, and delete the stale branches (`v4/roadmap`, `v3/audit`, `claude/v3-plan`) and close PR #19. `main` is at `658ab59`, plugin `0.3.0`. No other stage has started. The change set, targets, and research constraints are locked above; nothing downstream needs re-deriving.
+Phase 3 is in progress. Stage B-1 is MERGED to `main` (`ade191c`): the provenance & completeness gate (`tools/audit-lint.mjs`, R0–R5), the recovery helper (`tools/source-recover.py`), the fixtures, and the wired specs are live. The repo is clean — only the `main` branch exists, there are no open PRs, the v3 root docs are removed, and `v4-roadmap.md` is the single roadmap at root. Plugin still `0.3.0` (bump is Phase 4.3). No other stage has started. The change set, targets, and research constraints are locked above; nothing downstream needs re-deriving. The next move is to pick and run the next stage.
 
 ## Decisions made
 
@@ -217,11 +217,9 @@ Phase 3 is in progress. Stage B-1 is shipped and Chat-verified (the gate passes 
 
 ## Next actions
 
-1. Run the repo-cleanup hand-off in Code: decontaminate PR #31 (remove the roadmap doc from its branch so the squash diff is 28 code files), reconfirm the gate, and STOP before the merge; commit `v4-roadmap.md` to `main` root and `git rm` the three v3 root docs; close PR #19; delete branches `v4/roadmap`, `v3/audit`, `claude/v3-plan`.
-2. Chat re-verifies the decontaminated PR #31 diff via Composio (28 code files, no roadmap doc).
-3. Carlos ratifies the PR #31 squash-merge (`--squash --delete-branch` — this also removes `v4/stage-b1-provenance-gates`).
-4. Pick the next stage — A or B-2 — Carlos's call.
-5. Run that stage's inner cycle: n.1 Chat design and decisions → n.2 hand-off → n.3 Code → n.4 Composio verify.
+1. Pick the next stage — A (two-surface) or B-2 (reconciliation + measurement). Both are dependency-free roots given B-1 is in; B-2 finishes the builder keystone and unblocks C, A unblocks D. Carlos's call.
+2. Run that stage's inner cycle: n.1 Chat design + decisions (re-pin targets against current `main` by section/rule name) → n.2 one self-contained hand-off → n.3 Code executes and reports → n.4 Chat verifies via Composio, then the merge is ratified.
+3. Keep the exploit-repo adversarial review per gate stage; prove each new gate fails on a seeded violation and passes clean before merge.
 
 ## Session log
 
@@ -230,6 +228,7 @@ Phase 3 is in progress. Stage B-1 is shipped and Chat-verified (the gate passes 
 - 2026-06-23 — Phase 2 done: tooling and spec decisions pinned (DTCG 2025.10 stable with draft resolver; SD v5.4.4 with structured OKLCH; ΔE2000 + ORB+RANSAC + fontTools; rehype/parse5; WCAG 2.x legal bar with a brand-fixed decorative band).
 - 2026-06-23 — Stage B-1 shipped (PR #31, unmerged): `audit-lint.mjs` (R0–R5) plus `source-recover.py` plus spec wiring across 8 files; adversarial review added R0, path-bound R3, and fixed a good-repo false-positive (30/30). Pending: Composio verification plus merge ratification.
 - 2026-06-23 — Roadmap consolidated from scratch into this file (`v4-roadmap.md`, the operating document going forward, at `main` root); stage order restored to the dependency graph; RESIDENT-touch rule revised to per-relevant-stage plus a 4.1 reconciliation.
+- 2026-06-23 — Repo untangled and B-1 LANDED. Cleanup executed: `v4-roadmap.md` committed to `main` root, the three v3 root docs removed, PR #19 closed, branches `v4/roadmap` / `v3/audit` / `claude/v3-plan` deleted. PR #31 decontaminated to 28 code files, Chat re-verified the diff via Composio, then squash-merged → `main` `ade191c`; its branch auto-deleted. Repo state: only `main`, no open PRs, the gate + helper + specs live.
 - 2026-06-23 — B-1 code Chat-verified by running the gate on both fixtures (clean exit 0 / seeded exit 1, all rules firing; RESIDENT untouched; no brand leak). Branch/PR topology verified via Composio: the roadmap doc had diverged across `v4/roadmap` (6 commits, no PR) and PR #31 (carries it among 29 files). Cleanup planned: decontaminate PR #31 to code-only, land `v4-roadmap.md` on `main`, remove the v3 root docs, delete stale branches, close PR #19.
 
 ## Resume
