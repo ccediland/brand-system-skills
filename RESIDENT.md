@@ -339,10 +339,19 @@ positive status — stays `hypothesis` or a GAP, no new status word). TA-1 + TA-
 and the CONSUMERS `ingest:` is the same open class as the ASSETS track (SH-2); a non-trigger clause distinguishes
 canon-pipeline scoping from brand-voice-only guideline generation (SH-3). PRs: SH-1 #40 · SH-2/SH-3 #50.
 
-> Golden-set: **`ccediland/heresto-brand` (external repo) is the canonical golden-set regression fixture** —
-> 4/4 checks intact, branch/commit pins recorded in `v4-roadmap.md`. The FREEZE (recording each gate's expected
-> verdicts at a pinned commit) is Phase 4.2, not done here. Still deferred to Phase-5: the live red-team RUN, the
-> executable R9, and a second differently-shaped validation brand (OI-F).
+> Golden-set: **`ccediland/heresto-brand` (external repo) is the canonical golden-set regression fixture.**
+> **Pinned (Phase 4.2):** `ccediland/heresto-brand` @ `78f1cd9` (build-branch HEAD, immutable SHA — `main` @
+> `ba63d72` empty; PR #1 open, unmerged, unratified-pending) against this repo's gates @ `ef8f386`.
+> **Integrity:** 4/4 manual checks intact (build-branch @ 78f1cd9 · main @ ba63d72 · PR #1 open+unmerged ·
+> planted hostile inputs present) — a v3-validated baseline whose existing evidence is `audit/fidelity/*/verdict.md`,
+> the redteam `battery.md` + `expected-refusal-contract.md`, and `audit/fidelity-gate.md`.
+> **Phase-5 deferral:** the build is v3-era and FAILS the v4 gates by construction (R6a structured-OKLCH · R6b
+> `canon/mark.svg` · R7 materialized schemes · R8 `data-canon-section` markers), so capturing the v4
+> expected-verdicts (R0–R8 + fidelity-diff + client-deny-lint + scheme-derive) requires a v4 rebuild of Heresto —
+> the FIRST Phase-5 item (the golden-set is gated at Phase-5 per `## Roadmap — post-v3 horizons`). Still deferred
+> to Phase-5: the live red-team RUN, the executable R9, and a second differently-shaped validation brand (OI-F).
+> **Privacy:** heresto-brand is private; this record pins commit/repo + check structure only — never Heresto's
+> brand values.
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it
