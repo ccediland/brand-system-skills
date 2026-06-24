@@ -75,18 +75,21 @@ over-interview" rule.
 ## The gated pipeline
 
 Run this fixed sequence. Each BLOCKING gate must be satisfied or explicitly waived by the person before
-you compile the handoff. The three blocking gates are exactly the two v1 failures (asset-inventory never
-issued; WHY invented) plus the pre-compile client review.
+you compile the handoff. The blocking gates trace to the two v1 failures (asset-inventory never
+issued; WHY invented) plus the single client-surface flow — the intake (3.5), the pre-compile review (6),
+and the Final Brand Brief approval (7a).
 
 | # | Stage | What happens | Gate |
 |---|---|---|---|
 | 1 | Mode determination | One defaulted question (ANALYZE default) | one defaulted question |
 | 2 | Material protocol | Brandbook-/social-first discovery; inventory each thing by function with epistemic + freshness tags; the dimension map | route depth |
 | 3 | Asset-inventory request | Itemized request against what the canon needs, with a fidelity rubric | BLOCKING |
+| 3.5 | Discovery & Intake Instrument | fillable doc, every line CONFIRM/ASK/REQUEST, emission default; chat resolves, never replaces | BLOCKING |
 | 4 | Elicitation instrument | Layer-mapped interview; WHY elicited + ratified never inferred; plus posture detection + horizon detection | BLOCKING |
 | 5 | Multi-decider consolidation | Attribute voices, name the Accountable per slot, cluster rambling input | converge to one set |
 | 6 | Three-surface review | Internal status + external client instrument + living questions doc; owner reviews | BLOCKING |
-| 7 | Handoff compile | Emit the single machine-readable block (`references/handoff-format.md`) | emit once 1–6 clear |
+| 7a | Final Brand Brief | the client review resolved to ratified-complete; the BLOCKING client approval | BLOCKING |
+| 7b | Handoff compile | emit the single machine block (`references/handoff-format.md`) AFTER 7a sign-off | emit once 7a clears |
 
 ## Stage detail
 
@@ -211,6 +214,16 @@ Inventory-request text (translate to the owner's language at runtime):
 > a naming/verbal system — tell us that's the primary, and send its editable master + spec (or the best
 > recording you have, marked as a reference): we rate it build-grade / reference / missing on the same scale."
 
+### 3.5 Discovery & Intake Instrument — BLOCKING (gate 3.5)
+A single fillable instrument, emitted by DEFAULT (not optional). Every line is tagged: **CONFIRM** (what we
+already believe, for the owner to ratify) / **ASK** (what we put as an open question) / **REQUEST** (material
+or assets we need). The chat RESOLVES it in session — filling, confirming, collecting — and never replaces it
+with loose conversation. Register: the worked-example register of §6 (warm, plain Mexican Spanish for a
+non-design owner-operator; design terms glossed inline by example) — do not duplicate that example here, it
+governs. This is the FIRST checkpoint of the single client-surface flow (see §6 "One client-surface flow,
+three checkpoints"): its CONFIRM / ASK / REQUEST lines mature into the §6 review and the gate-7a brief, never
+into a throwaway side-doc.
+
 ### 4. Elicitation instrument — BLOCKING (gate 4)
 The centerpiece. Hard rule: the WHY is elicited, never inferred. If the owner cannot answer, it becomes a
 gap to confirm — never a scoper guess. Depth follows the corollary: deep where the answer lives only in a
@@ -310,8 +323,21 @@ Two-ledger split. These docs list gaps in client language. The builder formalize
 canonical `GAP-NNN` ledger in `RESIDENT.md` at build time (`gap-protocol.md`). The scoper never owns GAP
 IDs; your severity tags + provenance tags here seed the builder's formalization.
 
-### 7. Handoff compile
-Produce ONE machine-readable, fenced block following `references/handoff-format.md` (the v3 contract:
+One client-surface flow, three checkpoints. The gate-3.5 intake (CONFIRM / ASK / REQUEST), this External
+client instrument (Found / Missing / To-confirm), and the gate-7a Final Brand Brief are not three parallel
+docs — they are ONE instrument maturing through the flow: same register, same language, same lineage. The
+taxonomy maps across maturities: CONFIRM → Found, ASK → To-confirm, REQUEST → Missing. Gate 7a is this very
+review resolved to full ratification.
+
+### 7a. Final Brand Brief — BLOCKING (gate 7a)
+The close of the single client-surface flow: the §6 review carried to ratified-complete, in client language
+(the §6 register — warm, plain, the owner's language, every design term glossed). This is the BLOCKING client
+APPROVAL — nothing is compiled without it. It is the §6 External client instrument resolved so every Found /
+Missing / To-confirm line is settled: each gap accepted or owned with a resolution, every "to confirm"
+confirmed, the WHY ratified. The owner signs off on this human-readable brief, not on the machine block.
+
+### 7b. Handoff compile (gate 7b)
+Produced ONLY after the 7a sign-off. Produce ONE machine-readable, fenced block following `references/handoff-format.md` (the v3 contract:
 two-track manifest — checksummed ASSETS + reachability-verified CONSUMERS · `ingest:` method per item · the
 four-field PROVENANCE spine on every primitive · WHY carrying Personality (Aaker-5 scored) / Differential
 scales / Resonance / VALUE TRADE-OFFS / VOICE-EXEMPLARS · WHAT carrying per-mark GEOMETRY + per-font
