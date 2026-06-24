@@ -81,6 +81,7 @@ TARGET REPO: <real path | "create repo <name>">
 — DIMENSION MAP (every dimension resolves; none skipped silently; scoper owns completeness) —
   <dimension>: <filled | not-used(owner-declared) | tagged-gap>
   applied-expression/social: <filled(media-attached) | not-used(owner-declared) | tagged-gap>   (must resolve explicitly)
+  consultation-surface: always-required   (PERMANENT — never resolves to filled/not-used/tagged-gap; gate 5 is unconditional, RV-4)
 
 — HORIZONS (category-detected; one-line + gap by default) —
   <horizon>: <direction one-line | not-relevant | tagged-gap> · existing-material:<y/n>
