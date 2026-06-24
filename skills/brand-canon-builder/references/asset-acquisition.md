@@ -58,9 +58,9 @@ instead of re-deriving routing from a detected source-type. Each of the five tok
 | `ingest:` token | Routes to (matrix row) | What it tells the builder to do |
 |---|---|---|
 | `vector-extract` | Drive/repo vector masters · Brandbook-PDF vector paths | extract embedded vector paths to a clean master (SVG direct / `illustrator-parser-pdfcpu` / Ghostscript / PyMuPDF `get_drawings()` + copy-region) |
-| `computed-css` | Live website(s) · the CONSUMERS track | headless computed-style read (Dembrandt `--dtcg`, OKLCH) on the reachable `url:`; download `@font-face` files; read declared font-stack + custom-property colors as the stated spec, pixel corroborates only |
+| `computed-css` | Live **CSS-readable** website(s) · CSS-readable CONSUMER surfaces | headless computed-style read (Dembrandt `--dtcg`, OKLCH) on the reachable `url:`; download `@font-face` files; read declared font-stack + custom-property colors as the stated spec, pixel corroborates only |
 | `design-file-native` | Existing DTCG/token files · Design-tool exports (Figma/Canva) | ingest the native source directly to the DTCG spine (Figma variables/styles via Tokens Studio; CSS vars 1:1; Canva export ≈ brandbook PDF) — read, don't re-sample |
-| `ocr-visual` | Brandbook PDF (stated-spec read) · raster references | OCR/visual read of the page text + swatch labels for the declared font name + declared HEX/Pantone (`source: declared-spec`); a flattened-image source yields a reference, not a master |
+| `ocr-visual` | Brandbook PDF (stated-spec read) · raster references · a **live-but-raster CONSUMER surface** (image feed / gallery — reachable by `url:` but not computed-style-readable) | OCR/visual read of the page text + swatch labels for the declared font name + declared HEX/Pantone (`source: declared-spec`); a flattened-image source — static OR a live raster feed — yields a reference, not a master |
 | `font-match` | (degraded face path; feeds Stage 4) | image-based font-matching for an unnamed/outlined face — the value enters at `confidence: hypothesis`, owner-confirm before canonizing; no match → MUST-HAVE fidelity GAP |
 
 `n/a` (or an absent token) is the only case where the builder falls back to detecting the source-type and

@@ -1,6 +1,6 @@
 ---
 name: brand-canon-scoper
-description: "Scope a brand in conversation (no filesystem needed): interview the owner, request and structure their brand material and intent, detect brand posture and horizons, resolve every dimension to filled/not-used/tagged-gap, and compile a single ready-to-paste handoff block that the brand-canon-builder skill runs in Claude Code to build the brand canon. Use this in Claude.ai chat when someone wants to start a brand system, design system, brand canon, brand guidelines, or design tokens but isn't in a coding environment yet. Triggers on \"help me scope our brand\", \"I want to start a brand system but I'm in chat\", \"gather what we need for our design system\", \"prep our brand for the builder\". Its ONLY job is to interview, structure, detect, and emit one machine-readable handoff plus a client instrument — it does not build the canon, infer the WHY, extract primitive values, or promote an observation to a brand rule without owner confirmation."
+description: "Scope a brand in conversation (no filesystem needed): interview the owner, request and structure their brand material and intent, detect brand posture and horizons, resolve every dimension to filled/not-used/tagged-gap, and compile a single ready-to-paste handoff block that the brand-canon-builder skill runs in Claude Code to build the brand canon. Use this in Claude.ai chat when someone wants to start a brand system, design system, brand canon, brand guidelines, or design tokens but isn't in a coding environment yet. Triggers on \"help me scope our brand\", \"I want to start a brand system but I'm in chat\", \"gather what we need for our design system\", \"prep our brand for the builder\". Its ONLY job is to interview, structure, detect, and emit one machine-readable handoff plus a client instrument — it does not build the canon, infer the WHY, extract primitive values, or promote an observation to a brand rule without owner confirmation. Do NOT trigger for brand-voice-only guideline generation — writing tone-of-voice / voice guidelines for an existing brand as the whole task is a narrower sibling task, not this canon pipeline; \"brand guidelines\" still triggers when it is part of scoping a full brand canon. This carve-out is voice-as-the-whole-task only and never suppresses full-canon scoping."
 ---
 
 # Brand Canon Scoper
@@ -26,6 +26,13 @@ It does not scaffold files, write tokens, or build the canon. No filesystem work
 color, read geometry off a PDF/site, extract embedded vectors, or finalize the WHY without the owner's
 ratification. It does not crystallize an observed one-off as a brand line. It scopes, structures, detects,
 and hands off.
+
+**Non-trigger (vs brand-voice).** It does not engage for brand-voice-only guideline generation — a request to
+write tone-of-voice / voice guidelines for a brand (new or existing), with no full canon to scope, is a
+narrower sibling task — the discriminator is whole-task-vs-part-of-canon, never brand age. The scoper engages only when the job is scoping a full brand canon (where voice / "brand
+guidelines" is one part of the whole). Mirror guard: voice-as-the-whole-task is out of scope, but a
+full-canon request that *includes* voice IS in scope — this clause must never suppress legitimate canon
+scoping (a false-negative trigger is as much a defect as a false fire).
 
 ## Rectoral rule — anti-determinism
 Every part of this skill reasons in general capability classes, not a single-brand instance. The dimension
