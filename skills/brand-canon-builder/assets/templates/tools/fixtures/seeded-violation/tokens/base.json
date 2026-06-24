@@ -3,16 +3,16 @@
     "color": {
       "$type": "color",
       "r1bad": {
-        "$value": "oklch(0.62 0.13 255)",
-        "$description": "R1 VIOLATION — confidence corroborated but only ONE distinct sourceRef file",
+        "$value": { "colorSpace": "oklch", "components": [0.62, 0.13, 255], "alpha": 1, "hex": "#5a7fb0" },
+        "$description": "R1 VIOLATION — confidence corroborated but only ONE distinct sourceRef file (structured $value; R1 reads sourceRef, not $value)",
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "sourceRef": [ { "file": "sources/a.css", "selector": ".x", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
         } }
       },
       "r2bad": {
-        "$value": "oklch(0.68 0.15 145)",
-        "$description": "R2 VIOLATION — source inferred must be capped at hypothesis, here it is corroborated",
+        "$value": { "colorSpace": "oklch", "components": [0.68, 0.15, 145], "alpha": 1, "hex": "#3fa46d" },
+        "$description": "R2 VIOLATION — source inferred must be capped at hypothesis, here it is corroborated (structured $value; R2 reads source/confidence)",
         "$extensions": { "brand": {
           "provenance": { "source": "inferred", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "gap": "GAP-010",
@@ -23,8 +23,8 @@
         } }
       },
       "r3bad": {
-        "$value": "oklch(0.55 0.10 30)",
-        "$description": "R3 VIOLATION — source computed-css but sourceRef sha256 is NOT in CHECKSUMS.txt",
+        "$value": { "colorSpace": "oklch", "components": [0.55, 0.10, 30], "alpha": 1, "hex": "#b06a4f" },
+        "$description": "R3 VIOLATION — source computed-css but sourceRef sha256 is NOT in CHECKSUMS.txt (structured $value; R3 reads sourceRef)",
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
           "gap": "GAP-011",
@@ -32,15 +32,15 @@
         } }
       },
       "r5bad": {
-        "$value": "oklch(0.40 0.02 250)",
-        "$description": "R5 VIOLATION — confidence hypothesis but maps to ZERO open GAP-NNN",
+        "$value": { "colorSpace": "oklch", "components": [0.40, 0.02, 250], "alpha": 1, "hex": "#3d4a5c" },
+        "$description": "R5 VIOLATION — confidence hypothesis but maps to ZERO open GAP-NNN. ALSO the structured-OKLCH spine value the seeded R6a drift resolves to (a string pin ≠ its serialized form).",
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "stated-old" }
         } }
       },
       "r0bad": {
-        "$value": "oklch(0.50 0.05 120)",
-        "$description": "R0 VIOLATION — off-ladder provenance (junk source + confidence) that would otherwise evade every conditional rule",
+        "$value": { "colorSpace": "oklch", "components": [0.50, 0.05, 120], "alpha": 1, "hex": "#6a7a4a" },
+        "$description": "R0 VIOLATION — off-ladder provenance (junk source + confidence) that would otherwise evade every conditional rule (structured $value; R0 reads provenance)",
         "$extensions": { "brand": {
           "provenance": { "source": "guessed", "confidence": "probably", "owner": "demo-owner", "freshness": "shipped" }
         } }

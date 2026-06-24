@@ -269,6 +269,34 @@ function resolveSpineValue(path, seen = new Set()) {
   return t.value;
 }
 
+// canonical value serializer (the structured-OKLCH lockstep, Stage C-1). Turns a $value into ONE stable
+// string so a projection pin byte-compares against a structured OR a legacy-string spine value. Migration-
+// tolerant: accepts a DTCG structured-colour object {colorSpace, components, alpha, hex} AND a legacy literal
+// string. Canonical form: `<space>(c c c)` / `<space>(c c c / a)`; numbers normalized (0.30→0.3), alpha 1 or
+// absent dropped on BOTH branches, colourSpace lowercased, arrays bracketed — so both sides agree. Never String(object).
+const canonNum = (n) => { const x = Number(n); return Number.isFinite(x) ? String(x) : String(n).trim(); };
+const canonAlpha = (a) => (a == null || Number(a) === 1 ? '' : ` / ${canonNum(a)}`);
+function serializeValue(v) {
+  if (v == null) return '';
+  if (typeof v === 'object' && !Array.isArray(v)) {
+    if (v.colorSpace && Array.isArray(v.components)) {
+      return `${String(v.colorSpace).toLowerCase()}(${v.components.map(canonNum).join(' ')}${canonAlpha(v.alpha)})`;
+    }
+    return JSON.stringify(v);                         // any other object → stable JSON
+  }
+  if (Array.isArray(v)) return `[${v.map(canonNum).join(', ')}]`; // cubic-bezier etc. → bracketed bare numbers (author-matchable)
+  const s = String(v).trim().replace(/\s+/g, ' ');
+  const sb = s.match(/^\[(.*)\]$/);                   // a bracketed-array pin → same bracketed canonical form
+  if (sb) return `[${sb[1].split(/[\s,]+/).filter(Boolean).map(canonNum).join(', ')}]`;
+  const m = s.match(/^([a-z][a-z-]*)\(([^)]*)\)$/i);  // colour/timing func string → normalize numeric args + alpha
+  if (!m) return s;                                   // plain string (font stack, hex, …) → whitespace-normalized
+  const fn = m[1].toLowerCase();
+  const parts = m[2].trim().split(/\s*\/\s*/);
+  const nums = parts[0].trim().split(/[\s,]+/).filter(Boolean).map(canonNum);
+  if (fn === 'cubic-bezier') return `[${nums.join(', ')}]`; // cubicBezier func form ≡ the DTCG array form (unambiguous, safe)
+  return `${fn}(${nums.join(' ')}${canonAlpha(parts[1])})`;
+}
+
 // recursive file walk (skips inputs / build / dot dirs; never throws on a bad entry)
 function walkFiles(exts, skip = new Set(['node_modules', 'sources', 'audit'])) {
   const out = [];
@@ -338,8 +366,8 @@ const normGeom = (inner) => (inner == null ? null : inner
         const resolved = resolveSpineValue(alias);
         if (resolved == null) {
           v.push(`[R6a] projection "${name}" (satellites/projections.md) consumes {${alias}} which does not resolve to a spine leaf (drift: renamed/removed token)`);
-        } else if (pin != null && pin !== '' && pin !== String(resolved).trim()) {
-          v.push(`[R6a] projection "${name}" (satellites/projections.md) pins {${alias}}="${pin}" but the spine resolves it to "${resolved}" (drift)`);
+        } else if (pin != null && pin !== '' && serializeValue(pin) !== serializeValue(resolved)) {  // serialize BOTH sides (structured-OKLCH lockstep, C-1)
+          v.push(`[R6a] projection "${name}" (satellites/projections.md) pins {${alias}}="${pin}" but the spine resolves it to "${serializeValue(resolved)}" (drift)`);
         }
       }
     }

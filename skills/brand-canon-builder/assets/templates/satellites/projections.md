@@ -7,12 +7,15 @@
 
      MACHINE CONTRACT (audit-lint R6a / MT-1): the `consumes` column is machine-readable — a list of the
      token aliases `{tier.category.name}` the projection derives from, separated by `;`. You MAY pin a value
-     with ` = <value>` (e.g. `{semantic.color.action}` = `oklch(0.62 0.13 255)`) to assert byte-equality
-     with the spine. The `source` column is `derived | authored`. R6 reconciles every `derived` row: each
-     consumed alias must resolve in the token spine, and any pinned value must byte-equal the spine-resolved
-     value — a stale pin or a renamed/removed alias is DRIFT and FAILS the gate. `authored` rows (e.g. an
-     authored print spot value, per the Interchange contract `source` flag) are truth and are NOT
-     re-derived/checked. List ONLY aliases the canon actually defines — never a raw value as a second source. -->
+     with ` = <canonical serialized value>` to assert byte-equality with the spine. Since a colour `$value` is
+     the structured-OKLCH object (C-1), the pin is the **canonical serialized form** the gate emits —
+     `oklch(L C H)` or `oklch(L C H / a)`, numbers normalized (e.g. `0.30` → `0.3`); e.g.
+     `{semantic.color.action}` = `oklch(0.62 0.13 255)`. The `source` column is `derived | authored`. R6
+     reconciles every `derived` row by SERIALIZING both the pin and the spine value through one canonical
+     serializer, then byte-comparing — a stale pin or a renamed/removed alias is DRIFT and FAILS the gate.
+     `authored` rows (e.g. an authored print spot value, per the Interchange contract `source` flag) are truth
+     and are NOT re-derived/checked. List ONLY aliases the canon actually defines — never a raw value as a
+     second source. -->
 
 ## Projection registry
 
