@@ -130,7 +130,7 @@ ratified WHY is never silently kept.
 - **Universality stress test** — three arbitrary artifacts the canon names nowhere (span media); each must
   resolve through the derivation method without being enumerated. (`gap-protocol.md`.)
 
-## 5a. Provenance, completeness & reconciliation lint — the executable gate (MT-1/3/4/5, BLOCKING)
+## 5a. Provenance, completeness, reconciliation & scheme lint — the executable gate (MT-1/3/4/5 + SC-1, BLOCKING)
 
 The provenance/completeness rules above are not prose-trust — they are an executable gate. Run, from the
 emitted-repo root:
@@ -160,6 +160,13 @@ node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
   kit's `Mark.tsx`) is byte-equal (whitespace/JSX-normalized) to `canon/mark.svg`, the one renderable source
   (`canon.json`/PRIMITIVES § Mark stay metadata-only); **R6c** every LOCAL `@import`/`url()`/`href`/`src` in a
   generated artifact resolves to an existing file (no dangling import/asset).
+- **R7 (SC-1)** — every scheme named in `canon.json › schemes` maps to a COMPLETE materialized role-token set
+  OR a `status:"deferred"` + exactly one open `GAP-NNN`. A complete set = scheme-tagged tokens (under
+  `scheme.<id>.*`, `$extensions.brand.scheme:"<id>"`, materialized by `tools/scheme-derive.mjs` as structured
+  OKLCH) covering the SAME role-keys as the DEFAULT scheme's set; a partial/absent set with no deferred+GAP
+  FAILS, naming the missing role-keys. The deferred escape is a tracked GAP (R0/R5 still apply to whatever
+  tokens exist), never a bypass. A single-scheme (flat) brand materializes its one default set; a repo with no
+  `schemes` block is a vacuous PASS. `audit-lint.mjs` also loads the per-scheme `tokens/schemes/*.json` sets.
 
 **Prerequisite — `CHECKSUMS.txt` covers `sources/**`.** R3 is only meaningful if every source-of-record is
 hashed: the build SHA-256-hashes every file under `sources/**` (incl. recovered `sources/wayback/**`) into
@@ -298,8 +305,8 @@ The build is done only when: every core asset is present + build-grade (§1); `[
 resolved for core faces; the hollow-render gate is clean and `package-validate.mjs` exits 0 — the kit's
 offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip
 has run (package-shape) — or the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
-rule/voice violations; the three retained checks pass; **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-1/3/4/5
-provenance, completeness & reconciliation gate: R0–R6), with `CHECKSUMS.txt` hashing every file under
+rule/voice violations; the three retained checks pass; **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-1/3/4/5 + SC-1
+provenance, completeness, reconciliation & scheme gate: R0–R7 — every named scheme a complete materialized set or a deferred+GAP), with `CHECKSUMS.txt` hashing every file under
 `sources/**` so the R3 source-of-record check is meaningful, and no R6 drift — every `derived` projection
 reconciles with the spine, the protected mark is single-sourced from `canon/mark.svg`, and every asset ref
 resolves;** **every reproduced treatment passes the §7a MEASURED diff (`tools/fidelity-diff.py`: ΔE2000 + SSIM/pixelmatch

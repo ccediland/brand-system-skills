@@ -33,6 +33,18 @@ standard — not because any one consumer uses it):
 semantic tier flows through. The tier a consumer themes is `semantic` — one scheme override (or one resolver
 modifier, once supported) re-points it.
 
+### Scheme materialization (`$extensions.brand.scheme`, SC-1)
+
+N named schemes in `canon/canon.json › schemes` become N COMPLETE materialized role-token sets, NOT prose. A
+zero-dep preprocessor `tools/scheme-derive.mjs` (the runnable `ALGO-SCHEME-DERIVE`, 03-grammar §10 — NOT Style
+Dictionary, which would trip the structured-colour `-value`/`-unit` split) derives each scheme from the base
+palette by its `{mode, dominant}` and writes `tokens/schemes/<id>.json`: every role token a structured-OKLCH
+object tagged **`$extensions.brand.scheme:"<id>"`**, entering at `confidence:"hypothesis"` + the scheme's
+tracking GAP (a derived palette is unratified until owner-confirmed). The DEFAULT scheme's set is materialized
+and tagged too; it defines the role-key parity. A scheme marked `status:"deferred"` emits NO set and carries a
+logged `GAP-NNN` instead. `audit-lint` R7 enforces this (complete set OR deferred+GAP). The Resolver Module
+(DTCG draft) remains a controlled convention layered over these sets — never raw SD `.resolver.json` (#1590).
+
 ## Authoring rules (hard)
 
 - `usesDtcg: true` — DTCG `$type` / `$value` syntax (not legacy `value`).

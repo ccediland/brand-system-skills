@@ -1,13 +1,16 @@
 {
-  "$description": "Fixture canon mirror. Single scheme 'day' (the default) — materialized by the semantic color set, so R4's scheme check resolves clean with no extra token tags required.",
+  "$description": "Fixture canon mirror. Three schemes: day (default) + night materialized as COMPLETE role sets (tokens/schemes/<id>.json, scheme-tagged) by scheme-derive.mjs; print is status:\"deferred\" + GAP-022. R7 checks role-key parity vs the default; R4 (loose) still passes.",
   "schemes": {
     "default": "day",
-    "day": { "mode": "light", "dominant": "action" }
+    "day": { "mode": "light", "dominant": "action", "gap": "GAP-020" },
+    "night": { "mode": "dark", "dominant": "action", "gap": "GAP-021" },
+    "print": { "mode": "contrast", "dominant": "foreground", "status": "deferred", "gap": "GAP-022" }
   },
   "ruleIndex": {
     "G-COLOR-01": "contrast floor by role"
   },
   "algorithms": {
-    "ALGO-CONTRAST-ROLE": { "in": ["textRole", "background"], "out": ["roleToken", "minRatio"], "rules": ["G-COLOR-01"] }
+    "ALGO-CONTRAST-ROLE": { "in": ["textRole", "background"], "out": ["roleToken", "minRatio"], "rules": ["G-COLOR-01"] },
+    "ALGO-SCHEME-DERIVE": { "in": ["mode", "dominant"], "out": ["scheme", "roleTokens"], "rules": ["G-SCHEME-01", "G-SCHEME-02", "G-COLOR-01"] }
   }
 }

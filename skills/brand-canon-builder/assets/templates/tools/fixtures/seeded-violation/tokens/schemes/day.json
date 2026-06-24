@@ -1,0 +1,11 @@
+{
+  "scheme": {
+    "day": {
+      "color": {
+        "$type": "color",
+        "foreground": { "$value": { "colorSpace": "oklch", "components": [0.30, 0, 0], "alpha": 1, "hex": "#2e2e2e" }, "$description": "day · foreground (complete seed)", "$extensions": { "brand": { "scheme": "day", "role": "foreground", "provenance": { "source": "declared-spec", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" }, "gap": "GAP-020" } } },
+        "action": { "$value": { "colorSpace": "oklch", "components": [0.62, 0.13, 255], "alpha": 1, "hex": "#4c88d3" }, "$description": "day · action (complete seed)", "$extensions": { "brand": { "scheme": "day", "role": "action", "provenance": { "source": "declared-spec", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" }, "gap": "GAP-020" } } }
+      }
+    }
+  }
+}

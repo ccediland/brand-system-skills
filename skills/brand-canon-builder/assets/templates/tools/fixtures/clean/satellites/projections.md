@@ -11,6 +11,7 @@
 | web (marketing site) | downstream | `{semantic.color.action}` = `oklch(0.62 0.13 255)`; `{semantic.color.foreground}` = `oklch(0.30 0 0)` | derived | KEEP |
 | slides (deck) | downstream | `{semantic.font-family.body}` = `"Body Face", system-ui, sans-serif` | derived | KEEP |
 | overlay (alpha) | downstream | `{base.color.tint}` = `oklch(0.62 0.13 255 / 0.5)` | derived | KEEP |
+| app (day scheme) | downstream | `{scheme.day.color.action}` = `oklch(0.62 0.13 255)` | derived | KEEP |
 | print one-sheet | downstream | `{semantic.color.action}` = `oklch(0.55 0.10 30)` | authored | KEEP |
 
 The print row is `source: authored` — an authored spot value that is truth and is not re-derived
