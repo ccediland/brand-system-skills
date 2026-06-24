@@ -79,17 +79,19 @@ you compile the handoff. The blocking gates trace to the two v1 failures (asset-
 issued; WHY invented) plus the single client-surface flow — the intake (3.5), the pre-compile review (6),
 and the Final Brand Brief approval (7a).
 
-| # | Stage | What happens | Gate |
-|---|---|---|---|
-| 1 | Mode determination | One defaulted question (ANALYZE default) | one defaulted question |
-| 2 | Material protocol | Brandbook-/social-first discovery; inventory each thing by function with epistemic + freshness tags; the dimension map | route depth |
-| 3 | Asset-inventory request | Itemized request against what the canon needs, with a fidelity rubric | BLOCKING |
-| 3.5 | Discovery & Intake Instrument | fillable doc, every line CONFIRM/ASK/REQUEST, emission default; chat resolves, never replaces | BLOCKING |
-| 4 | Elicitation instrument | Layer-mapped interview; WHY elicited + ratified never inferred; plus posture detection + horizon detection | BLOCKING |
-| 5 | Multi-decider consolidation | Attribute voices, name the Accountable per slot, cluster rambling input | converge to one set |
-| 6 | Three-surface review | Internal status + external client instrument + living questions doc; owner reviews | BLOCKING |
-| 7a | Final Brand Brief | the client review resolved to ratified-complete; the BLOCKING client approval | BLOCKING |
-| 7b | Handoff compile | emit the single machine block (`references/handoff-format.md`) AFTER 7a sign-off | emit once 7a clears |
+| # | Stage | What happens | Gate | DELIVERABLE |
+|---|---|---|---|---|
+| 1 | Mode determination | One defaulted question (ANALYZE default) | one defaulted question | mode card (mode + rationale) · stage 1 of 9 |
+| 2 | Material protocol | Brandbook-/social-first discovery; inventory each thing by function with epistemic + freshness tags; the dimension map | route depth | dimension map + material inventory · stage 2 of 9 |
+| 3 | Asset-inventory request | Itemized request against what the canon needs, with a fidelity rubric | BLOCKING | itemized asset request · stage 3 of 9 |
+| 3.5 | Discovery & Intake Instrument | fillable doc, every line CONFIRM/ASK/REQUEST, emission default; chat resolves, never replaces | BLOCKING | Discovery & Intake Instrument — client instrument v1 · stage 4 of 9 |
+| 4 | Elicitation instrument | Layer-mapped interview; WHY elicited + ratified never inferred; plus posture detection + horizon detection | BLOCKING | elicited WHY/ESSENCE record · stage 5 of 9 |
+| 5 | Multi-decider consolidation | Attribute voices, name the Accountable per slot, cluster rambling input | BLOCKING | consolidated per-slot set + conflicts list (OWNERS) · stage 6 of 9 |
+| 6 | Three-surface review | Internal status + external client instrument + living questions doc; owner reviews | BLOCKING | External client instrument — client instrument v2 · stage 7 of 9 |
+| 7a | Final Brand Brief | the client review resolved to ratified-complete; the BLOCKING client approval | BLOCKING | ratified Final Brand Brief — client instrument vFinal (signed) · stage 8 of 9 |
+| 7b | Handoff compile | emit the single machine block (`references/handoff-format.md`) AFTER 7a sign-off | emit once 7a clears | machine handoff block · stage 9 of 9 |
+
+No gate clears without emitting its DELIVERABLE, dated (ISO) and versioned. The 3.5 / 6 / 7a deliverables are the SAME client instrument at successive versions (v1 → v2 → vFinal), per §6 "One client-surface flow".
 
 ## Stage detail
 
@@ -156,6 +158,10 @@ unresolved; an un-enumerated dimension is the scoper's own defect (it lands as a
 a silent pass. One dimension is named explicitly so it can never be dropped: **applied-expression/social**
 resolves to `filled(media-attached)` / `not-used(owner-declared)` / `tagged-gap` — a live applied surface is
 carried in the CONSUMERS track, static applied media in ASSETS, and if neither exists the dimension is a gap.
+
+A second dimension is PERMANENT and not brand-enumerated: **consultation-surface: always-required** — unlike
+every other dimension it never resolves to `filled` / `not-used` / `tagged-gap`; it is fixed always-required,
+because gate 5 (the consultation / external-review framing) runs for every brand, even a stated sole-decider (RV-4).
 
 ### 3. Asset-inventory request — BLOCKING (gate 3)
 A blocking precondition — its absence in v1 was the single largest cause of the hollow build. Issue an
@@ -266,6 +272,12 @@ Unstructured input. Owners ramble, jump, contradict. You:
 
 Output: one consolidated, per-slot confirmed set plus an explicit list of unresolved multi-decider
 conflicts.
+
+Consultation-surface — unconditional. Gate 5 runs ALWAYS — it is BLOCKING, not waivable. A stated
+sole-decider does NOT collapse it to an in-session decision: even with a single Accountable, the confirm-back
+loop and the surface-disagreement framing still apply (reflect the structured version back, name any tension,
+route it as a decision to be made — never paper over). The external-review / consultation framing is a
+permanent property of the flow, not a step a one-person brand skips.
 
 ### 6. Three-surface review — BLOCKING (gate 6)
 The pre-compile review. No silent handoff. v3 splits the single v2 review doc into three surfaces by
