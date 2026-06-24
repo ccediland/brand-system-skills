@@ -104,7 +104,9 @@ brief — parse every block and act on it (do not re-derive what it already carr
   today — verify each url is REACHABLE before reading it, then ANALYZE harvests from them (Stages 2 / 5). If
   the manifest points anywhere the builder cannot reach — Project knowledge, a dead Claude.ai/Downloads link,
   an auth-walled resource — stop and report. (This typed CONSUMERS carrier replaces the old undeclared
-  "plus any live-URL pointers" aside.)
+  "plus any live-URL pointers" aside.) A CONSUMER is **not** computed-css-only: it routes by its own declared
+  `ingest:` (`computed-css` for a CSS-readable live site; `ocr-visual` for a live-but-raster surface — an image
+  feed / gallery reachable by `url:` but not computed-style-readable) — see *Route by declared `ingest:`* next.
 - **Route by declared `ingest:`** → each ASSETS/CONSUMERS item carries an `ingest:` token
   (`vector-extract | computed-css | design-file-native | ocr-visual | font-match | n/a`). Consume that token
   as the authoritative HOW-to-read and route to the matching acquisition technique (Stage 3,

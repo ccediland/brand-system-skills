@@ -55,7 +55,7 @@ TARGET REPO: <real path | "create repo <name>">
   ASSETS (in-repo before build; checksummed):
     <item> · role:<REFERENCE|RAW> · fresh:<shipped|stated-old> · path:<repo path> · fidelity:<build-grade|low-fi|pointer-only> · sha256:<hash> · ingest:<vector-extract|computed-css|design-file-native|ocr-visual|font-match|n/a>
   CONSUMERS (live surfaces the brand ships today; verified by reachability, not a checksum):
-    <surface> · url:<live url> · role:CONSUMER · fresh:<shipped|stated-old> · bidirectional:<y/n> · promotion-path:<… | none> · ingest:computed-css   (fixed by invariant: a live surface is always read computed-css; only the ASSETS track carries the full ingest enum)
+    <surface> · url:<live url> · role:CONSUMER · fresh:<shipped|stated-old> · bidirectional:<y/n> · promotion-path:<… | none> · ingest:<computed-css | ocr-visual | …>   (computed-css BY DEFAULT — a CSS-readable live site; a live-but-raster surface reachable by `url:` but not computed-style-readable, e.g. an image feed / gallery, declares `ocr-visual`. `ingest:` on CONSUMERS is the SAME open class as the ASSETS track — vector-extract|computed-css|design-file-native|ocr-visual|font-match|n/a — never a closed css/raster enum; a future live medium is not excluded.)
 
 — WHY (essence) — RATIFIED (elicited + owner-confirmed) —
   Category/positioning · Audience · Feel (is / never) · Anti-promise · One line (onliness) · RTB · Voice (register/lexicon/don'ts)
