@@ -37,6 +37,13 @@
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "stated-old" }
         } }
+      },
+      "r0bad": {
+        "$value": "oklch(0.50 0.05 120)",
+        "$description": "R0 VIOLATION — off-ladder provenance (junk source + confidence) that would otherwise evade every conditional rule",
+        "$extensions": { "brand": {
+          "provenance": { "source": "guessed", "confidence": "probably", "owner": "demo-owner", "freshness": "shipped" }
+        } }
       }
     }
   }

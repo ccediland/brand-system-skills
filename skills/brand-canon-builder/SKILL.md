@@ -315,10 +315,11 @@ skeleton. Eight parts:
 - **Content audit** — rule-by-rule audit of all written + visual content (authored AND generated) against the
   `G-*`/`ALGO-*` GRAMMAR rules and ESSENCE/voice (anti-promise, lexicon, don'ts).
 - **Provenance & completeness lint (executable, BLOCKING)** — run `node tools/audit-lint.mjs` from the emitted
-  repo root: exit 0 required (MT-3/4/5, R1–R5 — corroborated⇒≥2 distinct hashed sources; inferred/matched capped
-  at hypothesis; computed-css/corroborated/owner-confirmed⇒a `sourceRef.sha256` in `CHECKSUMS.txt`; every named
-  value/scheme→token or open GAP; every uncertain token→exactly one open GAP). Requires `CHECKSUMS.txt` to hash
-  every file under `sources/**`. (`validate-audit.md` §5a.)
+  repo root: exit 0 required (MT-3/4/5, R0–R5 — every value token carries valid-enum provenance;
+  corroborated⇒≥2 distinct hashed sources; inferred/matched capped at hypothesis; computed-css/corroborated/
+  owner-confirmed⇒a `sourceRef.sha256` in `CHECKSUMS.txt` bound to that file; every named value/scheme→token or
+  open GAP; every uncertain token→exactly one open GAP via its `$extensions.brand.gap`). Requires `CHECKSUMS.txt`
+  to hash every file under `sources/**`. (`validate-audit.md` §5a.)
 - **Render real samples** — the Stage-8 HTML prototype is the evidence.
 - **Reproduction visual-diff (treatments)** — every reproduced treatment (Stage 5 → Stage 8 via
   `reproduction-router.md`) passes a perceptual visual-diff against the Stage-5 source (no pixel-VRT, no

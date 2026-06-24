@@ -136,6 +136,17 @@ WHERE-FROM: the exact, hashed source-of-record the value was read from.
   `provenance` block is shown on representatives). **Every harvested token carries it.** A purely-aliased token
   (a `semantic`/`component` alias) inherits its source-of-record from the base leaf it points at and carries none.
 
+### Gap back-reference + ladder closure (MT-5/R5 + the gate's R0)
+
+- An **uncertain** token (`confidence: hypothesis`, or `source ∈ {inferred, matched, traced}`) carries
+  `$extensions.brand.gap: "GAP-NNN"` — the back-reference to the ONE open gap that tracks it (MT-5/R5).
+  Resolve to exactly one open gap or the gate fails; a `not-used(owner-declared)` dimension produces no token
+  to track and is clean.
+- The gate's **R0** enforces ladder closure: every value (non-alias) token MUST carry a `provenance` block whose
+  `source` is on the closed source enum and whose `confidence` is one of `hypothesis | corroborated |
+  owner-confirmed` — no missing block, no fourth value/synonym. (This is the executable form of the "every
+  emitted token carries provenance / byte-identical ladder" rule in `gap-protocol.md` + `CLAUDE.md`.)
+
 ## OKLCH scheme-derivation engine (one transformation space)
 
 OKLCH (L = perceptual lightness 0–1, C = chroma, H = hue 0–360) is perceptually uniform and decouples

@@ -135,12 +135,16 @@ node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
 `audit-lint.mjs` (`assets/templates/tools/`) reads `tokens/*.json`, `canon/*.md` + `canon/canon.json`,
 `RESIDENT.md` (the Open Items/Gaps table) and `CHECKSUMS.txt`, writes `audit/lint/report.md`, and enforces:
 
+- **R0 (MT-3/4)** — every VALUE token (non-alias) carries `$extensions.brand.provenance` with `source` on the
+  closed source enum and `confidence` ∈ `{hypothesis, corroborated, owner-confirmed}`. (Closes the "omit or
+  typo the provenance block and evade every conditional rule below" bypass; aliases inherit and are exempt.)
 - **R1 (MT-4)** — `confidence: corroborated` ⇒ ≥2 `sourceRef` entries with DISTINCT `file`.
 - **R2 (MT-4)** — `source ∈ {inferred, matched}` ⇒ `confidence` is `hypothesis`.
 - **R3 (MT-3)** — `source: computed-css` OR `confidence ∈ {corroborated, owner-confirmed}` ⇒ a `sourceRef`
-  whose `sha256` is in `CHECKSUMS.txt`.
+  whose `sha256` is in `CHECKSUMS.txt` **bound to that exact `file` path** (a borrowed/ghost-file hash fails).
 - **R4 (MT-5)** — every value/scheme named in a canon layer or ALGO maps to a token artifact OR an open `GAP-NNN`.
-- **R5 (MT-5)** — every `hypothesis`/`inferred`/`matched`/`traced` token maps to EXACTLY ONE open `GAP-NNN`.
+- **R5 (MT-5)** — every `hypothesis`/`inferred`/`matched`/`traced` token carries EXACTLY ONE open `GAP-NNN` in
+  its own `$extensions.brand.gap` back-reference.
 
 **Prerequisite — `CHECKSUMS.txt` covers `sources/**`.** R3 is only meaningful if every source-of-record is
 hashed: the build SHA-256-hashes every file under `sources/**` (incl. recovered `sources/wayback/**`) into
@@ -265,7 +269,7 @@ resolved for core faces; the hollow-render gate is clean and `package-validate.m
 offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip
 has run (package-shape) — or the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
 rule/voice violations; the three retained checks pass; **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-3/4/5
-provenance & completeness gate: R1–R5), with `CHECKSUMS.txt` hashing every file under `sources/**` so the R3
+provenance & completeness gate: R0–R5), with `CHECKSUMS.txt` hashing every file under `sources/**` so the R3
 source-of-record check is meaningful;** **every reproduced treatment passes the §7a visual-diff
 (or degrades / logs a GAP) AND has committed its persisted evidence artifact to `audit/fidelity/<treatment-id>/`
 (source + reproduction + recorded verdict — absence FAILS); the keystone is present, six-section,

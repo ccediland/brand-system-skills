@@ -25,7 +25,7 @@
 ## Tooling — emitted gates (run from the EMITTED client repo root)
 The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
 - **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance & completeness gate** (MT-3/4/5; rules
-  R1–R5). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
+  R0–R5). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
   `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`. Zero-dep Node. Self-test from THIS repo:
   `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
   (exit 0) and `…/fixtures/seeded-violation` (exit 1).
