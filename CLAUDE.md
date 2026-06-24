@@ -83,11 +83,16 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   gate). This covers `.gitignore`, configs, and every dotfile too: a brand-scrub *pattern* must generalize
   (`**/brandbook*.pdf`), never name a brand (the M2 leak hid in `.gitignore`). Example/illustrative token
   values must be obviously generic (never a real brand's exact OKLCH/hex/Pantone).
-- **Token contract is load-bearing.** Keep the DTCG token templates valid and projecting cleanly into
-  downstream consumers: OKLCH literal in `$value`; plain-string values; `{tier.category.name}` aliases;
-  category names on the namespace convention (a single-value category projects a bare `--<prefix>` singleton,
-  e.g. one radius → `--radius`; a multi-value one projects `--<prefix>-<name>`); `source:"authored"|"derived"`
-  on extension color spaces. See `skills/brand-canon-builder/references/token-spine.md`.
+- **Token contract is load-bearing.** Keep the DTCG token templates (DTCG 2025.10) valid and projecting cleanly
+  into downstream consumers: colour `$value` is the **structured-OKLCH object** `{colorSpace, components, alpha,
+  hex}` (C-1; `hex` = sRGB fallback, not a second source of truth; other spaces live in `$extensions.brand.spaces`
+  flagged `source:"authored"|"derived"`); composite values (shadows) stay plain strings (the SD `-value`/`-unit`
+  split bug); `{tier.category.name}`
+  aliases; category names on the namespace convention (a single-value category projects a bare `--<prefix>`
+  singleton, e.g. one radius → `--radius`; a multi-value one projects `--<prefix>-<name>`). Schemes are
+  MATERIALIZED — N named schemes → N complete role-token sets via `tools/scheme-derive.mjs` (zero-dep), enforced
+  by `audit-lint` R7; the Resolver Module is deferred (SD-v5 lag, issue #1590 / OI-H). Structured-colour + scheme
+  architecture: RESIDENT `## v4`; token shape: `references/token-spine.md`.
 - **Generative over catalog.** Never add a per-output section to a template; absorb the need as a rule.
 - **Install integrity (Theme 2).** A shipped file must point at zero unshipped paths — never cite `dev/`
   (gitignored) from `skills/`; if a method lives only in `dev/`, harvest it into the shipped reference that owns
@@ -121,97 +126,57 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   surface as explicit CONFIRM lines; a blocked/failed retrieval is never a positive status. Doctrine in
   `scoper/references/process-discipline.md`.
 - **Mirror web-stack-skills' marketplace conventions** so the two interoperate (same manifest/skill layout).
-
-## Provenance / build memory
-This repo was derived in a bounded "Phase 4" job — abstracting the method from one mature brand canon and
-validating coverage against a second, independently-authored one — then rebuilt in v2 into an analyze →
-extract → prototype + Design-syncable library engine (the v2 pipeline is complete; see `RESIDENT.md`). The
-full work-log, the v2 specs (`v2-build-spec.md`, `v2-intake-spec.md`), and the granular backlog
-(`v2-backlog.md`, F-001…F-026) live in the **gitignored `dev/`** directory — local provenance, not shipped.
-
-## v3 (skills built; Phase 5 validation next) — record in `RESIDENT.md ## v3`
-v3 extends the shipped v2 skills (does not restart them); **Phases 1–4 are merged to `main`** — the scoper and
-builder are rewritten to v3 (handoff contract · provenance spine · capture · reproduction router · DTCG 2025.10 /
-OKLCH engine · the mandatory keystone · the v3 fidelity gate). Rectoral rule for ALL v3 work: **anti-determinism** —
-build and research the general capability class, never a single-brand instance; the brand is illustration only.
-A full transversal audit then ran (report `v3-audit—2026-06-22.md` — in PR #19's closed history, never merged to main; verdict QUALIFIED NO; 4 BLOCKER · 22 MAJOR);
-its remediation is shipped through **Theme 6** (handoff seam #20 · install integrity #21 · provenance spine +
-keystone operability #23 · public surface + docs sync + the pulled-forward Theme-5 F16 #24; RESIDENT compaction
-#22). A fresh full system audit (#25) then drove #26 (medium scoping + keystone orphan) · #27 (client-drift +
-hygiene) · #28 (scoper client instrument + medium-agnostic intake) · #29 (ledger close — F45 last leak + the
-MINOR/NIT tail + coverage-gap) — so the **entire audit ledger is CLOSED: zero BLOCKER, MAJOR, MINOR and NIT**,
-except the deliberate F55 (bold-density deviation) + OI-J (sonic/motion build-grade horizon). Both audit reports
-are closed baselines; only the Phase-5 validation run remains. The rules below are guardrails/gotchas;
-the staged plan + the resolved methods/boundaries/sources are recorded in the closed-PR
-history (the v3 root docs were removed in the v4 consolidation), with the durable summary in `RESIDENT.md ## v3` / `## v4`.
-- **Handoff = single sufficient interface (Theme 1).** When editing the skills, keep the seam closed both ways:
-  every carrier field the handoff emits has a NAMED consumer stage in the builder (parse it in Stage 0), and the
-  builder never reads a field the contract doesn't carry. The manifest is two tracks — ASSETS (in-repo, `sha256`)
-  / CONSUMERS (live `url:`, reachability-checked, not checksummed); "never URLs" means never a DEAD/auth-walled
-  pointer, not never a live surface. DIMENSION-MAP present-but-unresolved → builder HALTs (live anti-determinism).
-  Carrier enums stay capability classes — font `license:` is a declared SPDX id (not a closed OFL/owner/GAP
-  floor); freshness is exactly `shipped | stated-old` at every hop. Keystone voice/value layers derive from WHY
-  `VOICE-EXEMPLARS`/`VALUE TRADE-OFFS` and emit a GAP where absent — never fabricate. The kit shape is a carried
-  datum too — `existing-component-stack:<storybook+playwright | other | none>` (default `none` → package-shape),
-  read at Stage 8, never re-hunted.
-- **Medium scoping (honest, carrier-resolved).** Every layer that gates or renders a brand's identity acts on
-  the brand's PRIMARY-IDENTITY CARRIER(S) resolved from the DIMENSION MAP — an OPEN class (visual mark \|
-  sonic-mark \| motion-signature \| other declared lead atom), never a hardcoded `mark`. The current build is
-  **visual-build-grade**: where it has no build-grade producer for the resolved carrier's medium (sonic/motion),
-  the layer emits a DECLARED fidelity-blocking GAP (a tracked horizon, `RESIDENT.md` OI-J), never a false-fail on
-  a visual mark nor a silent pass. The §7b keystone OPERABILITY gate is medium-agnostic and stays distinct from
-  build-grade FIDELITY (`validate-audit.md` §1/§2, visual-scoped). The keystone consumes the WHY personality
-  carriers (Aaker-5/Differential→§2 THINK, Aaker-5/Resonance→§3 SPEAK). Posture `profile:` is an open class with
-  an `<other-detected>` escape — don't reintroduce a closed enum-as-floor.
-- **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual; treat
-  `pdffonts`/embedded-font tables as corroboration only — outlined type makes them report the studio's layout
-  font or nothing.
-- **Provenance spine (4 fields per datum).** Every datum carries source / confidence / owner /
-  freshness, generalizing v2's `authored|derived`. Observed expression enters as `hypothesis`; promoting a
-  one-off to a brand line requires `owner-confirmed`. A datum is never used at a status it has not earned (a
-  MATCHED/INFERRED value is not canonized unconfirmed). **Token emission (Stage 7):** every emitted token carries
-  `$extensions.brand.provenance` {source, confidence, owner, freshness} — `authored|derived` is the source axis
-  ONLY and is orthogonal to the confidence ladder (an `authored` value can still be `hypothesis`). Confidence
-  ladder is byte-identical at every hop: `hypothesis | corroborated | owner-confirmed` — no fourth value/synonym
-  (the keystone reads its asset-line confidence FROM the token's `$extensions.brand.provenance`, never recalled).
-- **Adaptive dimension map.** Every brand dimension resolves explicitly to `filled` /
-  `not-used(owner-declared)` / `tagged-gap` — none skipped silently. A builder that receives an unresolved
-  dimension STOPS and reports. The current dimension catalogue (capture · reproduction · keystone · guardrails ·
-  horizons · tokens) is an illustrative instance of the mechanism, never a closed universe (anti-determinism).
+- **Handoff = single sufficient interface.** Keep the Chat→Code seam closed both ways: every carrier the handoff
+  emits has a NAMED builder consumer (parsed in Stage 0); the builder never reads an uncarried field. Two-track
+  manifest — ASSETS (in-repo, `sha256`) / CONSUMERS (live `url:`, reachability-checked, not checksummed): a
+  DEAD/auth-walled pointer is forbidden, a live surface is not. DIMENSION-MAP present-but-unresolved → builder
+  HALTs. Carrier enums stay capability classes (font `license:` = a declared SPDX id, not a closed floor;
+  freshness = `shipped | stated-old`); the kit shape is a carried datum (`existing-component-stack:`) read at
+  Stage 8, never re-hunted; keystone voice/value derive from the WHY exemplars, GAP where absent — never fabricate.
+- **Medium scoping (carrier-resolved).** Every layer that gates or renders identity acts on the brand's
+  PRIMARY-IDENTITY CARRIER(S) resolved from the DIMENSION MAP — an OPEN class (visual mark \| sonic-mark \|
+  motion-signature \| other), never a hardcoded `mark`. The build is visual-build-grade; a carrier whose medium
+  has no build-grade producer (sonic/motion) → a DECLARED fidelity-blocking GAP (OI-J), never a false-fail nor a
+  silent pass. §7b keystone OPERABILITY (medium-agnostic) stays distinct from build-grade FIDELITY (§1/§2,
+  visual). Posture `profile:` is open-class with an `<other-detected>` escape — no closed enum-as-floor.
+- **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual;
+  `pdffonts`/embedded-font tables corroborate only — outlined type makes them report the studio's layout font or
+  nothing.
+- **Provenance spine (4 fields per datum).** Every datum + every emitted token carries
+  `$extensions.brand.provenance` {source, confidence, owner, freshness}. `authored|derived` is the SOURCE axis
+  ONLY, ORTHOGONAL to the confidence ladder `hypothesis | corroborated | owner-confirmed` (an `authored` value
+  can still be `hypothesis`); no fourth value/synonym at any hop. Observed expression enters as `hypothesis`; a
+  one-off → brand line needs `owner-confirmed`; a datum is never used above the status it earned; the keystone
+  READS its confidence FROM the token, never recalls it.
+- **Adaptive dimension map.** Every brand dimension resolves explicitly to `filled` / `not-used(owner-declared)`
+  / `tagged-gap` — none skipped silently; an unresolved dimension STOPS the builder. The dimension catalogue is
+  an illustrative instance of the mechanism, never a closed universe (anti-determinism).
 - **Faithful capture.** Clean vectors via PyMuPDF `page.get_drawings()` or copy-region-to-new-doc (a full-page
-  Inkscape open yields a bloated, non-isolated SVG); image font-matching for unnamed faces; fidelity rating +
+  Inkscape open yields a bloated, non-isolated SVG); image font-matching for unnamed faces; a fidelity rating +
   provenance per artifact.
 - **Reproduction router (treatment→method).** Procedural SVG filters (`feTurbulence` texture · `feDisplacementMap`
-  organic/glitch · `feDiffuse`+`feSpecularLighting` 3D/gloss/emboss · `feGaussianBlur` glass · `feColorMatrix`
-  grading) / generative lib (rough.js) / vector-trace / raster-required. Validate by visual diff. `feTurbulence`
-  is CPU-heavy → constrain or rasterize; photography + bespoke illustration are raster-required.
-- **Keystone `.md` (mandatory v3 output, Stage 8.5).** A single attachable think/speak/design + guardrail file
-  (6-section schema in `references/keystone-emit.md`); keep it within a Claude Project's resident context (RAG
+  organic/glitch · `feDiffuse`+`feSpecularLighting` 3D/gloss/emboss · `feGaussianBlur` glass · `feColorMatrix` grading)
+  / generative lib (rough.js) / vector-trace / raster-required; validate by visual diff. `feTurbulence` is
+  CPU-heavy → constrain or rasterize; photography + bespoke illustration are raster-required.
+- **Keystone `.md` (mandatory output, Stage 8.5).** A single attachable think/speak/design + guardrail file
+  (6-section schema in `references/keystone-emit.md`), kept within a Claude Project's resident context (RAG
   trip-point unpublished → size is a parameter, calibrated in Phase 5; data first, instructions last for recall).
-- **Fidelity gate v3 (Stage 10, `references/validate-audit.md` §7).** Reproduction visual-diff vs the source
-  (perceptual overlay, no pixel-VRT, no Storybook) → commits persisted evidence to `audit/fidelity/<treatment-id>/`
-  (source + reproduction + recorded verdict; absence = FAIL); keystone gate (present · 6-section ·
-  guardrail-in-tail · within budget) PLUS a §7b FORM-OF-RULE content check (THINK + DESIGN-as each ≥1
-  when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no bare-adjective core section; `not-used(owner-declared)`
-  resolves clean); guardrail red-team battery + expected-refusal contract EMITTED + COMMITTED to `audit/redteam/`
-  even when non-blocking (empty = FAIL), posture-gated — regulated postures BLOCK + need human sign-off, the live
-  adversarial run is Phase 5 (deferral does not void the committed artifacts).
-- **Tokens/scheme.** DTCG **2025.10** is the format target. **Colour `$value` is the structured-OKLCH object
-  `{colorSpace, components, alpha, hex}` (migrated in Stage C-1); audit-lint R6a serializes structured + legacy
-  string values through ONE canonical serializer so the drift gate stays green.** Composite values (shadows) stay
-  plain strings (the SD `-value`/`-unit` split bug). Schemes are MATERIALIZED (C-2): N named schemes → N complete `$extensions.brand.scheme`-tagged role-token
-  sets via `tools/scheme-derive.mjs` (zero-dep, NOT SD), enforced by R7. The Resolver Module stays deferred (SD
-  v5 lag, issue #1590 / OI-H) and is a controlled convention layered over those sets, never raw `.resolver.json`. **Forward (C-2):** when a build-time materializer / Style
-  Dictionary is added, structured colour MUST route through `color/oklch` (SD ≥ 5.3) or a preprocessor — never
-  raw SD `$value`, never `color/css` (gamut-maps to sRGB). OKLCH is the general scheme-derivation engine
-  (light/dark, high-contrast, sub-brand). **Scheme toggle (C-3):** the prototype renders a live `[data-scheme]`
-  toggle (inline `<script>` + one `:root[data-scheme="<id>"]` block per materialized scheme) ONLY when >1
-  non-deferred scheme exists; a flat brand drops it. `[data-scheme]` wins over `@media (prefers-color-scheme)`,
-  which stays the no-JS fallback. Prototype stays zero-toolchain/offline — inline `<style>`+`<script>` only.
-- **Decorative contrast (C-3, SPEC — no gate).** A graphic-code device's contrast lives in PRIMITIVES › Pattern
-  as a **brand-fixed opacity/contrast band** (PRIMARY), escalating to **WCAG 3:1 (SC 1.4.11)** when it carries
-  meaning/state; resolved by GRAMMAR `ALGO-CONTRAST-ROLE`'s graphic-code row + `G-PATTERN-01`. APCA Lc 15 is an
-  internal reference only; **WCAG 2.x AA is the legal bar — no APCA substitution.** Not an executable validator.
+- **Fidelity + keystone gate (Stage 10, `references/validate-audit.md` §7).** Reproduction fidelity is MEASURED
+  against the source capture (`tools/fidelity-diff.py`, ΔE2000/SSIM — NOT a pixel-VRT, no eyeball verdict);
+  persisted evidence to `audit/fidelity/<treatment-id>/`, absence = FAIL. Keystone gate: present · 6-section ·
+  guardrail-in-tail · within budget, PLUS a §7b FORM-OF-RULE content check (THINK + DESIGN-as each ≥1
+  when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no bare-adjective core). Guardrail red-team battery +
+  expected-refusal contract COMMITTED to `audit/redteam/` even when non-blocking (empty = FAIL), posture-gated
+  (regulated → BLOCK + human sign-off; the live run is Phase-5, deferral does not void the committed artifacts).
+- **Decorative contrast (SPEC — no executable gate).** A graphic-code device's contrast lives in PRIMITIVES ›
+  Pattern as a brand-fixed opacity/contrast band (PRIMARY), escalating to WCAG 3:1 (SC 1.4.11) when it carries
+  meaning/state; resolved by GRAMMAR `ALGO-CONTRAST-ROLE`'s graphic-code row + `G-PATTERN-01`. APCA Lc 15 is an internal reference
+  only; WCAG 2.x AA is the legal bar — no APCA substitution.
+
+## Provenance / build memory
+Derived in a bounded Phase-4 job (method abstracted from one mature canon, coverage validated against a second),
+then rebuilt v2 → v3 → v4; full lineage in `RESIDENT.md`. The work-log + v2 specs + the `F-001…F-026` backlog
+live in the **gitignored `dev/`** directory — local provenance, not shipped.
 
 ## Flujo (Carlos)
 Work on a `claude/<name>` branch, never main; PR + wait for OK before merge. Respond to Carlos in es-MX
