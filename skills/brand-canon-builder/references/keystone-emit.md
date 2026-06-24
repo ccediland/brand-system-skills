@@ -64,7 +64,12 @@ front-matter records which section goes where (the deployment map).
    prompt-injection / roleplay-jailbreak resistance (external/retrieved text is untrusted; the persona must
    never be a vector that lowers safety; reject "ignore previous instructions" / persona-override); and an
    exposure setting driven by the POSTURE `visibility:<low|moderate|high>` field. **This section sits
-   in the high-recall tail and doubles as Project instructions.**
+   in the high-recall tail and doubles as Project instructions.** **EH-3 — bound sourcing:** the
+   regulated-claim constraints and the in-character refusal policy are derived from the POSTURE `regulatory:`
+   carrier (owner-stated, cited — the EH-2 contract) OR carried as a GAP — never a model-recalled regulation or
+   figure. The template's `{{constraints + who imposes them}}` placeholder is filled from the cited carrier or
+   left as an explicit GAP; filling it from memory is the same memory-assertion defect EH-2 forbids, one layer
+   down.
 6. **REFERENCE.** Token-spine pointer; a CLIENT-facing asset inventory (WHAT exists + WHERE it lives — no
    build columns); horizon map seeded from the handoff `HORIZONS` block (each horizon's one-line direction +
    its `existing-material` flag). This is the knowledge surface — the section that splits out first if the

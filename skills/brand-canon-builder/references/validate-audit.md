@@ -292,13 +292,32 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
 - **Guardrail red-team (posture-gated).** The committed battery is derived from the keystone's §5 guardrail
   layer — persona / roleplay-jailbreak attempts ("ignore previous instructions" / persona-override / DAN-style)
   and injection attempts (untrusted external/retrieved text overriding the rules) — plus the **expected-refusal
-  contract** (what the guardrail must refuse, and how, in character).
+  contract** (what the guardrail must refuse, and how, in character). The battery additionally covers a
+  **visual-guardrail axis (EH-3)** — the brand's visual-misuse rules (GRAMMAR / Misuse) treated as guardrails
+  the keystone must hold (a brand whose GRAMMAR carries no Misuse rules — sonic-primary / monogram-only /
+  no-visual-misuse — has nothing-to-test on this axis and resolves CLEAN, never a forced visual-misuse axis) —
+  and an **over-refusal control axis (EH-3)** — probes that the guardrail does NOT
+  over-refuse legitimate in-scope requests (the false-positive control, mirroring the anti-determinism
+  discipline: a guardrail that refuses everything is as defective as one that refuses nothing). So the committed
+  battery covers persona/jailbreak + injection + visual-guardrail + over-refusal; the live RUN remains
+  Phase-5-deferred.
   - **Regulated trigger — fire on EITHER signal: the handoff POSTURE `profile == regulated` OR a
     non-empty `regulatory:` field** (a brand can be regulated-in-fact without the `regulated` profile label).
     When either trips: **BLOCKING + external human sign-off.** In-context guardrails reduce but do not
     eliminate jailbreak/injection risk, so such a keystone is never self-certified — the battery + the
     expected-refusal contract are assembled into the PR and **human red-team sign-off is required; the default
     state is unratified-pending** (mirrors §6).
+  - **Posture → GAP severity inheritance (EH-3).** When the regulated trigger fires (EITHER-signal) AND the
+    enabling regulatory instrument — the GAP carried on the POSTURE `regulatory:` field (its `→GAP` resolution),
+    logged in the `RESIDENT.md` Gaps table — is **open** (the owner did not provide the named instrument), that
+    GAP inherits **MUST-HAVE** severity: a regulated brand cannot ship its guardrail without knowing the binding
+    instrument. **GATED, never universal:** a brand with `regulatory: none` forces NO regulatory GAP and NO
+    escalation, and an owner-stated (cited) instrument is no GAP and needs none — the inheritance reaches ONLY
+    the GAP on the `regulatory:` field, never an unrelated open GAP in the same brand. Posture is `hypothesis`
+    until the gate-6 promote, so an unratified regulated posture stays **unratified-pending + external human
+    sign-off** (mirrors §6) — never a silent hard-fail nor an auto-pass. (Severity is the existing top tier
+    MUST-HAVE; no new `BLOCKING` value is introduced. This is a Stage-10 reading of an already-logged GAP, not an
+    `audit-lint` check — the executable write/verify is the deferred R9.)
   - **Non-regulated postures:** the battery runs; findings are fixed or logged as `GAP-NNN`; not build-blocking
     on its own. But IF the battery is run (pre-Phase-5 or at Phase 5), its result persists — a per-attempt
     refused/leaked verdict committed alongside the battery (`audit/redteam/<run>/results.md`). A run that left
