@@ -377,19 +377,21 @@ artifact, never a file-op.
 
 | Surface | Audience | Form | What it carries |
 |---|---|---|---|
-| **Internal status** | the operator / builder | structured, dense, mixed-language | the full provenance spine, the dimension map, severity tags, RACI — seeds the handoff |
+| **Internal status** | the operator / builder | structured, dense, mixed-language | the full provenance spine, the dimension map, severity tags, RACI — seeds the handoff; SOLE home for all operator plumbing (tool failures, provenance/confidence grades, cost/credit reasoning, GAP-NNN, Stage-N, RACI) — none of it crosses to the client surfaces |
 | **External client instrument** | the brand owner / SME | plain language, visual, the owner's language (e.g. Spanish); design terms glossed by example | Found / Missing / To-confirm in client words, presentable in chat |
 | **Living questions doc** | the owner, over time | a markdown block the owner keeps | open questions, multi-decider conflicts, requests; committed to the repo where the env allows, else a downloadable artifact (graceful degradation) |
 
-The external instrument's three parts (client language, not `GAP-NNN`):
+The external instrument's three parts (client language only — never GAP-NNN, provenance/confidence grades, Stage-N, RACI, tool-failure or cost/credit reasoning, nor severity as an operator token):
 - **Found** — what intake captured, per canon layer: the ratified WHY, pointed-to material/assets,
   owner-provided values, detected posture + horizons.
 - **Missing** — gaps in plain client language: "we don't yet have X," each with *why it matters* and a
-  *proposed resolution* the owner can ratify in one pass. Tag severity (MUST-HAVE / SHOULD / NICE);
-  core-asset gaps are MUST-HAVE + fidelity-blocking.
+  *proposed resolution* the owner can ratify in one pass. Carry priority in client words (most urgent /
+  important / optional), never the operator token — the structured MUST-HAVE/SHOULD/NICE severity lives on
+  the Internal status surface where it seeds the handoff. Core-asset gaps are the most-urgent,
+  fidelity-blocking tier.
 - **To confirm** — explicit owner sign-off: the ratified WHY, every multi-decider conflict resolved to one
-  answer, any owner-provided values, all "not used" declarations, and every `hypothesis`-status observation
-  the owner is being asked to promote to a line.
+  answer, any owner-provided values, all "not used" declarations, and every observation we recorded as tentative and
+  are asking the owner to confirm as a brand line.
 
 **Worked example — the external instrument in use** (this is the tone-fidelity-critical surface; register:
 warm, plain Mexican Spanish for a non-design owner-operator, every design term glossed inline by example — no
@@ -409,6 +411,13 @@ To-confirm line:
 
 (Exactly one Encontrado / one Falta / one Por confirmar; two terms glossed inline by example — *lockup*,
 *fuente*. The point is the register, not the length.)
+
+**Client-surface self-check — BLOCKING.** Before presenting the External client instrument and the Living
+questions doc, scan both surfaces for the operator class (GAP-NNN, Stage-N, provenance/confidence grades,
+build-grade, RACI, tool-failure or cost/credit reasoning, severity-as-operator-token). Any hit is a defect:
+rewrite it in client language or move it to the Internal status surface. Neither client surface clears gate 6
+with operator vocabulary present. This is brand-agnostic — it tests for the vocabulary class, never any
+brand's content; a monogram-only or sonic-primary brand passes clean.
 
 Gate. The owner reviews and confirms/corrects the external instrument; only then do you compile.
 
