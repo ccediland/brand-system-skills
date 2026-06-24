@@ -10,22 +10,25 @@
   `assets/templates/` (the canon skeletons + DTCG token spine + satellites + docs + prototype + design-sync
   kit + Claude Design adapter + `tools/` — emitted gates `audit-lint.mjs` · `source-recover.py`, with
   `tools/fixtures/` the gate's own clean + seeded-violation acceptance proof, not emitted to clients).
-- `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` + `references/handoff-format.md`.
+- `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` + `references/` (`handoff-format.md`,
+  `elicitation-bank.md`, `detection-batteries.md` — the interview bank + detection batteries externalized at SH-1).
 - `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items).
 - `v3-execution-plan.md` (root) — the v3 execution plan (detailed gated phases + session log).
 - `v3-research-foundation.md` (root) — the frozen v3 research (resolved methods, boundaries, sources); the build phases draw from it.
 
 ## How the skills work (one line each)
 - **brand-canon-builder** — scaffold the canon → fill what the brand's material/brief supports → log the
-  rest as tracked `GAP-NNN` → emit the DTCG/OKLCH token spine → attach the Claude Design adapter (default
-  ON) → validate.
-- **brand-canon-scoper** — in chat (no filesystem), interview + compile one ready-to-paste handoff block for
-  the builder.
+  rest as tracked `GAP-NNN` → emit the DTCG/OKLCH token spine → render the Stage-8 prototype as the **complete
+  interactive brandbook** (manifest sections + "Decisions for you" panel, RV-5) → attach the Claude Design
+  adapter (default ON) → validate.
+- **brand-canon-scoper** — in chat (no filesystem), interview + emit the **client-surface flow** (one
+  instrument, three checkpoints: gate 3.5 intake → gate 6 review → gate 7a Final Brand Brief, the BLOCKING
+  client approval) → compile one ready-to-paste 7b handoff block for the builder, only after sign-off.
 
 ## Tooling — emitted gates (run from the EMITTED client repo root)
 The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
 - **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance, completeness & reconciliation gate**
-  (MT-1/3/4/5 + SC-1; rules R0–R7). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
+  (MT-1/3/4/5 + SC-1 + RV-5; rules R0–R8). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
   `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`, and (for R6) `satellites/projections.md`,
   `canon/mark.svg`, and the generated `.html`/`.css` artifacts. Zero-dep Node. Self-test from THIS repo:
   `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
@@ -44,6 +47,10 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
     **R6c** every local `@import`/`url()`/`href`/`src` in a generated artifact resolves to an existing file.
     `canon/mark.svg` is the ONE renderable mark source; `canon.json`/PRIMITIVES § Mark stay metadata-only. The
     projection registry's `consumes`/`source` columns are the machine linkage R6a reads.
+  - **R8 (RV-5, Stage D)** — prototype completeness: every present canon section → a `data-canon-section`
+    brandbook surface OR an open GAP. Reads present sections by machine signal (never a fixed checklist —
+    flat/monogram/sonic/non-visual pass clean); markers inside HTML comments / inert `<template>` are stripped
+    before the scan; no `.html` is a vacuous PASS. See `references/validate-audit.md` §5a.
 - **`python tools/source-recover.py <url> [--from --to]`** — MT-3 **archived-source recovery**: Wayback CDX +
   raw `id_` fetch, occupant disambiguation, SHA-256 → `sources/MANIFEST.json`. Identity/date verification is an
   AGENT step (Stage 3), not the script's. Dep: `requests`.
