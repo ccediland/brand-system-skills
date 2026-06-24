@@ -102,6 +102,51 @@ So EVERY emitted token carries the full provenance spine (`gap-protocol.md` § T
   the value's handoff/extraction provenance (it enters at `hypothesis`, is promoted only on owner confirmation).
 - `freshness` uses the pinned `shipped | stated-old` literal — the same two values at every hop, never a synonym.
 
+### Confidence↔source is a GATE, not advice (MT-4 — `tools/audit-lint.mjs` R1/R2)
+
+The ladder is checkable, mirroring `gap-protocol.md`: `confidence: corroborated` requires **≥2 _distinct_
+source artifacts** (R1 — two refs to the same file is one source), and a `source` of `inferred`/`matched` is
+**capped at `hypothesis`** (R2). A `semantic`-tier token stamped `source: inferred` + `confidence:
+corroborated` is the canonical contradiction the lint fails the build on.
+
+### Harvest provenance — `$extensions.brand.sourceRef` (MT-3 — `audit-lint.mjs` R3)
+
+Beyond the `provenance` block (the WHO/HOW-confident), every HARVESTED token also carries a `sourceRef` — the
+WHERE-FROM: the exact, hashed source-of-record the value was read from.
+
+```
+"$extensions": { "brand": { "sourceRef": {
+  "file": "<path under sources/**, hashed in CHECKSUMS.txt>",
+  "selector": "<CSS selector / swatch label / page region the value was read at>",
+  "line": <line number in that source file>,
+  "sha256": "<sha256 of the source file — MUST appear in CHECKSUMS.txt>",
+  "captureTs": "<Wayback capture timestamp, when recovered from an archive>",
+  "selfPublished": "<the page's own 'Last Published' date — reconciled vs captureTs before trusting>"
+} } }
+```
+
+- `sourceRef` may be a single object OR an **array**; a `corroborated` token carries **≥2 entries with
+  distinct `file` values** — the two independent artifacts MT-4/R1 demands.
+- Any token at `corroborated`/`owner-confirmed`, or with `source: computed-css`, MUST carry a `sourceRef`
+  whose `sha256` is in `CHECKSUMS.txt` (MT-3/R3) — the build SHA-256-hashes every file under `sources/**`
+  (`asset-acquisition.md`). The lint fails the build otherwise.
+- `captureTs`/`selfPublished` carry the archived-source identity+date trail (`source-recover.py`,
+  `asset-acquisition.md` § Archived-source recovery): the agent reconciles them before the value is trusted.
+- The template applies `sourceRef` to its REPRESENTATIVE token as the illustrative pattern (the same way the
+  `provenance` block is shown on representatives). **Every harvested token carries it.** A purely-aliased token
+  (a `semantic`/`component` alias) inherits its source-of-record from the base leaf it points at and carries none.
+
+### Gap back-reference + ladder closure (MT-5/R5 + the gate's R0)
+
+- An **uncertain** token (`confidence: hypothesis`, or `source ∈ {inferred, matched, traced}`) carries
+  `$extensions.brand.gap: "GAP-NNN"` — the back-reference to the ONE open gap that tracks it (MT-5/R5).
+  Resolve to exactly one open gap or the gate fails; a `not-used(owner-declared)` dimension produces no token
+  to track and is clean.
+- The gate's **R0** enforces ladder closure: every value (non-alias) token MUST carry a `provenance` block whose
+  `source` is on the closed source enum and whose `confidence` is one of `hypothesis | corroborated |
+  owner-confirmed` — no missing block, no fourth value/synonym. (This is the executable form of the "every
+  emitted token carries provenance / byte-identical ladder" rule in `gap-protocol.md` + `CLAUDE.md`.)
+
 ## OKLCH scheme-derivation engine (one transformation space)
 
 OKLCH (L = perceptual lightness 0–1, C = chroma, H = hue 0–360) is perceptually uniform and decouples

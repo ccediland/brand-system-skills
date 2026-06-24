@@ -86,15 +86,19 @@
       "$type": "fontFamily",
       "display": {
         "$value": "Display Typeface, system-ui, sans-serif",
-        "$description": "REPRESENTATIVE non-color token carrying the provenance spine — the spine is not color-only; emit it on every token regardless of $type.",
+        "$description": "REPRESENTATIVE non-color token carrying the provenance spine AND the harvest sourceRef — the spine is not color-only; emit both on every harvested token regardless of $type. (source computed-css + confidence corroborated is consistent: corroborated needs >=2 distinct hashed sources, shown below. Illustrative source values — replace; the sha256s must each appear in CHECKSUMS.txt.)",
         "$extensions": {
           "brand": {
             "provenance": {
-              "source": "matched",
+              "source": "computed-css",
               "confidence": "corroborated",
               "owner": "example-brand-owner",
               "freshness": "shipped"
-            }
+            },
+            "sourceRef": [
+              { "file": "sources/site/styles.css", "selector": ".brand-display", "line": 42, "sha256": "sha256 of styles.css — must appear in CHECKSUMS.txt", "captureTs": "wayback capture ts if archived", "selfPublished": "page Last Published date if archived" },
+              { "file": "sources/brandbook.pdf", "selector": "type-spec", "line": 1, "sha256": "sha256 of brandbook.pdf — must appear in CHECKSUMS.txt" }
+            ]
           }
         }
       },

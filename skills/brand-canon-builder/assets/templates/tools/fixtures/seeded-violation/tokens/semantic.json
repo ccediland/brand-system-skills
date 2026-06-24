@@ -1,0 +1,9 @@
+{
+  "semantic": {
+    "$description": "Aliases resolve (so R4 fails ONLY on the planted ghost value, not here). The semantic color set also materializes the default scheme so the scheme check stays clean.",
+    "color": {
+      "$type": "color",
+      "foreground": { "$value": "{base.color.r5bad}" }
+    }
+  }
+}

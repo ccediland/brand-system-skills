@@ -1,0 +1,11 @@
+{
+  "$description": "Seeded canon mirror — default scheme materialized by the semantic set, so the scheme check passes and R4 fails only on the planted ghost value in 00-index.md.",
+  "schemes": {
+    "default": "day",
+    "day": { "mode": "light", "dominant": "foreground" }
+  },
+  "ruleIndex": { "G-COLOR-01": "contrast floor by role" },
+  "algorithms": {
+    "ALGO-CONTRAST-ROLE": { "in": ["textRole", "background"], "out": ["roleToken", "minRatio"], "rules": ["G-COLOR-01"] }
+  }
+}

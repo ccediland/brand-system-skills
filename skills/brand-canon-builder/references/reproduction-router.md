@@ -83,6 +83,13 @@ a fidelity GAP. This visual-diff check is the reproduction half of the Stage-10 
 reproduction render + the recorded within/outside-tolerance verdict to `audit/fidelity/<treatment-id>/` in the
 emitted repo; absence of that artifact for a reproduced treatment FAILS the gate.
 
+**Archived-source treatments inherit the identity/date gate (MT-3).** When the source artifact a treatment is
+reproduced from is an ARCHIVED capture (recovered via `asset-acquisition.md` § Archived-source recovery), its
+values are not trusted until the same identity+date pass clears: the capture is confirmed the right brand (not a
+prior/later domain occupant) and its `captureTs` reconciled against the page's self-reported "Last Published".
+Until then the treatment's harvested values stay `hypothesis` (or become a GAP) — a reproduction validated
+against an unverified-occupant capture is within tolerance of a snapshot, not of the BRAND.
+
 ## Boundaries (where the router stops)
 
 - **Fidelity boundary — raster-required.** Photographic imagery, complex hand-made illustration, and any

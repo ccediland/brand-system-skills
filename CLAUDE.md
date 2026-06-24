@@ -8,7 +8,8 @@
 - `.claude-plugin/marketplace.json` · `plugin.json` — marketplace + plugin manifests (mirror `web-stack-skills`).
 - `skills/brand-canon-builder/` — Code-side builder: `SKILL.md`, `references/` (the method knowledge),
   `assets/templates/` (the canon skeletons + DTCG token spine + satellites + docs + prototype + design-sync
-  kit + Claude Design adapter).
+  kit + Claude Design adapter + `tools/` — emitted gates `audit-lint.mjs` · `source-recover.py`, with
+  `tools/fixtures/` the gate's own clean + seeded-violation acceptance proof, not emitted to clients).
 - `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` + `references/handoff-format.md`.
 - `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items).
 - `v3-execution-plan.md` (root) — the v3 execution plan (detailed gated phases + session log).
@@ -20,6 +21,17 @@
   ON) → validate.
 - **brand-canon-scoper** — in chat (no filesystem), interview + compile one ready-to-paste handoff block for
   the builder.
+
+## Tooling — emitted gates (run from the EMITTED client repo root)
+The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
+- **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance & completeness gate** (MT-3/4/5; rules
+  R0–R5). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
+  `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`. Zero-dep Node. Self-test from THIS repo:
+  `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
+  (exit 0) and `…/fixtures/seeded-violation` (exit 1).
+- **`python tools/source-recover.py <url> [--from --to]`** — MT-3 **archived-source recovery**: Wayback CDX +
+  raw `id_` fetch, occupant disambiguation, SHA-256 → `sources/MANIFEST.json`. Identity/date verification is an
+  AGENT step (Stage 3), not the script's. Dep: `requests`.
 
 ## Standing guardrails (apply when editing THIS repo's templates/skills)
 - **Brand-agnostic + output-agnostic, always.** The templates must contain zero real brand specifics and no

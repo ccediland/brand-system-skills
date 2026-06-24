@@ -1,0 +1,39 @@
+{
+  "base": {
+    "color": {
+      "$type": "color",
+      "ink": {
+        "$value": "oklch(0.30 0 0)",
+        "$description": "owner-confirmed declared truth — carries its hashed source-of-record (R3)",
+        "$extensions": { "brand": {
+          "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:ink", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9", "captureTs": "20230124000000", "selfPublished": "2023-01" }
+        } }
+      },
+      "brand": {
+        "$value": "oklch(0.62 0.13 255)",
+        "$description": "corroborated — two DISTINCT hashed sources (R1 + R3); materializes the default scheme (R4)",
+        "$extensions": { "brand": {
+          "scheme": "day",
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [
+            { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc", "captureTs": "20230124000000", "selfPublished": "2023-01" },
+            { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+          ]
+        } }
+      }
+    },
+    "font-family": {
+      "$type": "fontFamily",
+      "body": {
+        "$value": "Body Face, system-ui, sans-serif",
+        "$description": "matched ⇒ capped at hypothesis (R2); tracked by exactly one open GAP (R5)",
+        "$extensions": { "brand": {
+          "provenance": { "source": "matched", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "stated-old" },
+          "gap": "GAP-002",
+          "sourceRef": { "file": "sources/site.css", "selector": "@font-face", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc" }
+        } }
+      }
+    }
+  }
+}

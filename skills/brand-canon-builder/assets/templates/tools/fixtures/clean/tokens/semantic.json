@@ -1,0 +1,14 @@
+{
+  "semantic": {
+    "$description": "Intent aliases — every $value resolves to a real base leaf (R4 alias resolution). Aliases carry no provenance; the spine token they point at does.",
+    "color": {
+      "$type": "color",
+      "foreground": { "$value": "{base.color.ink}" },
+      "action":     { "$value": "{base.color.brand}" }
+    },
+    "font-family": {
+      "$type": "fontFamily",
+      "body": { "$value": "{base.font-family.body}" }
+    }
+  }
+}
