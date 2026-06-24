@@ -75,6 +75,7 @@ sizes below the floor; intruding the clear space; low-contrast placement; any of
 - **Construction principle:** {{how the pattern is built — from the symbol, a motif, a texture concept}}
 - **Palette discipline:** {{which inks/tints it may use; opacity/scale rules}}
 - **Role:** {{support/enrichment — never competes with the mark or harms legibility}}
+- **Decorative contrast band (C-3):** {{each graphic-code device declares a target OPACITY / contrast-vs-ground — e.g. a tint at N% over the surface ink}}. The brand-fixed band is the **PRIMARY** rule. **Escalate to WCAG 3:1 (SC 1.4.11)** when the device carries **meaning or state** (encodes status, is interactive, or is the sole carrier of information); a purely decorative device stays at the brand band. APCA Lc 15 is an **internal perceptual reference only** — **WCAG 2.x AA remains the legal bar; no APCA substitution.** (Resolved by GRAMMAR `ALGO-CONTRAST-ROLE`'s graphic-code row; spec-level, not an executable gate. A brand with no graphic-code device writes "not used".)
 
 ## Iconography
 

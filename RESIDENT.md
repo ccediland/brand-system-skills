@@ -219,7 +219,7 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   horizon). Both audit reports are closed baselines. Only the Phase-5 validation run remains (2nd
   differently-shaped brand · live red-team · visual-diff audit · release). Plan in `v3-execution-plan.md`.
 
-## v4 — builder validation architecture (Stage B keystone)
+## v4 — builder validation architecture + token engine (Stages B–C)
 v4 turns the builder's prose discipline into **executable gates that exit non-zero on violation**. Stage B is
 the builder-keystone: the emitted client repo is **self-validating** (regression-ready) and **machine-true**, not
 prose-true. Two gates, two ecosystems, one persisted-evidence model. (Operating plan: `v4-roadmap.md`.)
@@ -258,6 +258,28 @@ prose-true. Two gates, two ecosystems, one persisted-evidence model. (Operating 
 - **Tooling split by native ecosystem.** JSON/token/cross-reference linting is **Node** (zero-dep, the kit's
   ecosystem); image diff / co-registration / glyph metrics are **Python** (OpenCV / scikit-image / fontTools).
   Build-time gates ship into the client repo so it self-validates; the runtime component kit stays Node-only.
+
+**Stage C — the token engine (CLOSED).** The colour token format and the scheme system became machine-true:
+- **Structured-OKLCH `$value` (C-1).** A colour token's `$value` is the DTCG structured object
+  `{colorSpace:"oklch", components:[L,C,H], alpha, hex}` (hex = sRGB fallback; the `$extensions.brand.spaces`
+  source axis is preserved). `audit-lint` R6a serializes both a projection pin and the spine value through ONE
+  canonical serializer (`oklch(L C H[ / a])`), so the drift gate reconciles structured + legacy-string values
+  with no `String(object)`. R0–R5 stay value-blind (they read provenance, never `$value`).
+- **Schemes-are-tokens (C-2).** N named `canon.json › schemes` become N COMPLETE materialized role-token sets
+  via the runnable **`ALGO-SCHEME-DERIVE`** (03-grammar §10 + `canon.json.algorithms`) + a zero-dep
+  **`tools/scheme-derive.mjs`** (NOT Style Dictionary): each role a structured-OKLCH object derived from the
+  base palette by `{mode, dominant}` (light=identity · dark=invert-L on neutrals + lift non-dominant chromatic ·
+  contrast=push neutrals to the L extreme; hex via in-process OKLCH→sRGB), written to `tokens/schemes/<id>.json`,
+  tagged `$extensions.brand.scheme:"<id>"`. New **R7** fails any named scheme without a COMPLETE set (role-key
+  parity with the default) OR `status:"deferred"` + its declared open GAP id (a tracked GAP bound to the id, not
+  a name-match — never a bypass). The lint loader reads `tokens/schemes/*.json`, so scheme tokens are first-class
+  under R0–R6. The DTCG Resolver Module (draft) stays a controlled convention over these sets, never raw SD.
+- **Scheme toggle + decorative contrast (C-3).** The prototype renders a live `[data-scheme]` toggle (inline
+  `<script>`, offline — `[data-scheme]` wins over the OS media query, which stays the no-JS fallback) when >1
+  scheme is materialized; a flat brand drops it. GRAMMAR `ALGO-CONTRAST-ROLE` gains a graphic-code row and
+  PRIMITIVES › Pattern a **decorative contrast band**: a brand-fixed opacity/contrast band is the PRIMARY rule,
+  escalating to **WCAG 3:1 (SC 1.4.11)** when the device carries meaning/state; APCA Lc 15 is an internal
+  reference only; **WCAG 2.x AA is the legal bar (no APCA substitution)**. Spec-level — no executable gate.
 
 > Deferred to Phase 4.1 (not backfilled here): the Heresto golden-set + the second validation brand, and the
 > v3-audit-closure reconciliation. The v2/v3 sections above remain the record for those.
