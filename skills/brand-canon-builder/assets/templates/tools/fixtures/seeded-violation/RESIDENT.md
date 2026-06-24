@@ -9,3 +9,4 @@ the R5 token deliberately has NO gap, and the R4 ghost value has NO gap.
 |---------|-------------------------|--------------------|------------|------------|----------------------------|--------|
 | GAP-010 | r2bad provenance review | source discipline  | SHOULD     | builder    | owner ratifies or downgrades | OPEN   |
 | GAP-011 | r3bad source-of-record  | hashed source      | MUST-HAVE  | builder    | hash + identity-verify       | OPEN   |
+| GAP-020 | scheme palettes (derived) | unratified        | SHOULD     | builder    | owner ratifies derived palette | OPEN   |

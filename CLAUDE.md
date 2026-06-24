@@ -25,7 +25,7 @@
 ## Tooling — emitted gates (run from the EMITTED client repo root)
 The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
 - **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance, completeness & reconciliation gate**
-  (MT-1/3/4/5; rules R0–R6). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
+  (MT-1/3/4/5 + SC-1; rules R0–R7). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
   `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`, and (for R6) `satellites/projections.md`,
   `canon/mark.svg`, and the generated `.html`/`.css` artifacts. Zero-dep Node. Self-test from THIS repo:
   `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
@@ -58,6 +58,15 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   (numpy, opencv-python-headless, scikit-image, pillow; fontTools for `--font`) are **import-guarded**: missing →
   a clear `pip install …` + exit 3, never a stack trace; the non-visual path needs none of them. Self-test
   fixtures + generator: `tools/fixtures/fidelity/` (`gen.py` → source/within/within_shift/mid/out `.png`).
+- **`node tools/scheme-derive.mjs [repo-root]`** — SC-1 the **ALGO-SCHEME-DERIVE materializer** (Stage C-2;
+  build-time, zero-dep Node, **NOT Style Dictionary**). Reads `canon/canon.json › schemes` + `tokens/base.json`
+  + `tokens/semantic.json` (role→anchor); for each NON-deferred scheme derives the semantic colour roles in
+  OKLCH by `{mode, dominant}` (light=identity · dark=invert-L on neutrals + lift non-dominant chromatic ·
+  contrast=push neutrals to the L extreme; C/H preserved, hex via in-process OKLCH→sRGB) and writes
+  `tokens/schemes/<id>.json` — every token a structured-OKLCH object tagged **`$extensions.brand.scheme:"<id>"`**,
+  entering at `confidence:"hypothesis"` + the scheme's tracking GAP. A `status:"deferred"` scheme emits no set
+  (carries a GAP). **audit-lint R7** (loaded from `tokens/schemes/*.json` too) fails any named scheme without a
+  COMPLETE set (role-key parity with the default) or a deferred+GAP; single-scheme/flat brands pass clean.
 
 ## Standing guardrails (apply when editing THIS repo's templates/skills)
 - **Brand-agnostic + output-agnostic, always.** The templates must contain zero real brand specifics and no
@@ -158,8 +167,9 @@ the staged plan lives in `v3-execution-plan.md` (root), the resolved methods/bou
 - **Tokens/scheme.** DTCG **2025.10** is the format target. **Colour `$value` is the structured-OKLCH object
   `{colorSpace, components, alpha, hex}` (migrated in Stage C-1); audit-lint R6a serializes structured + legacy
   string values through ONE canonical serializer so the drift gate stays green.** Composite values (shadows) stay
-  plain strings (the SD `-value`/`-unit` split bug). Resolver theming stays deferred (SD v5 lag, issue #1590 /
-  OI-H) and is a controlled convention in **C-2**. **Forward (C-2):** when a build-time materializer / Style
+  plain strings (the SD `-value`/`-unit` split bug). Schemes are MATERIALIZED (C-2): N named schemes → N complete `$extensions.brand.scheme`-tagged role-token
+  sets via `tools/scheme-derive.mjs` (zero-dep, NOT SD), enforced by R7. The Resolver Module stays deferred (SD
+  v5 lag, issue #1590 / OI-H) and is a controlled convention layered over those sets, never raw `.resolver.json`. **Forward (C-2):** when a build-time materializer / Style
   Dictionary is added, structured colour MUST route through `color/oklch` (SD ≥ 5.3) or a preprocessor — never
   raw SD `$value`, never `color/css` (gamut-maps to sRGB). OKLCH is the general scheme-derivation engine
   (light/dark, high-contrast, sub-brand).

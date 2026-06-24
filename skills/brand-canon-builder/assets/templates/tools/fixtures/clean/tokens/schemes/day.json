@@ -1,0 +1,73 @@
+{
+  "scheme": {
+    "day": {
+      "color": {
+        "$type": "color",
+        "foreground": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0,
+              0
+            ],
+            "alpha": 1,
+            "hex": "#2e2e2e"
+          },
+          "$description": "day scheme · foreground (derived from the base palette by ALGO-SCHEME-DERIVE; light mode)",
+          "$extensions": {
+            "brand": {
+              "scheme": "day",
+              "role": "foreground",
+              "provenance": {
+                "source": "declared-spec",
+                "confidence": "hypothesis",
+                "owner": "ALGO-SCHEME-DERIVE (derived) — pending owner ratification",
+                "freshness": "shipped"
+              },
+              "spaces": {
+                "hex": {
+                  "value": "#2e2e2e",
+                  "source": "derived"
+                }
+              },
+              "gap": "GAP-020"
+            }
+          }
+        },
+        "action": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.62,
+              0.13,
+              255
+            ],
+            "alpha": 1,
+            "hex": "#4c88d3"
+          },
+          "$description": "day scheme · action (derived from the base palette by ALGO-SCHEME-DERIVE; light mode)",
+          "$extensions": {
+            "brand": {
+              "scheme": "day",
+              "role": "action",
+              "provenance": {
+                "source": "declared-spec",
+                "confidence": "hypothesis",
+                "owner": "ALGO-SCHEME-DERIVE (derived) — pending owner ratification",
+                "freshness": "shipped"
+              },
+              "spaces": {
+                "hex": {
+                  "value": "#4c88d3",
+                  "source": "derived"
+                }
+              },
+              "gap": "GAP-020"
+            }
+          }
+        }
+      }
+    }
+  }
+}

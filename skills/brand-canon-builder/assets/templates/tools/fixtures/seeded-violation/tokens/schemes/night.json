@@ -1,0 +1,10 @@
+{
+  "scheme": {
+    "night": {
+      "color": {
+        "$type": "color",
+        "foreground": { "$value": { "colorSpace": "oklch", "components": [0.70, 0, 0], "alpha": 1, "hex": "#9e9e9e" }, "$description": "night · foreground — PARTIAL set (action deliberately MISSING → R7 violation)", "$extensions": { "brand": { "scheme": "night", "role": "foreground", "provenance": { "source": "declared-spec", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" }, "gap": "GAP-020" } } }
+      }
+    }
+  }
+}

@@ -9,3 +9,6 @@ Open Items / Gaps table for open `GAP-NNN`.
 |---------|----------------------------|-----------------------|------------|------------|--------------------------------|--------|
 | GAP-001 | accent ink                 | secondary palette     | SHOULD     | builder    | sample + owner-confirm          | OPEN   |
 | GAP-002 | body typeface (matched)    | reading face          | MUST-HAVE  | builder    | owner ratifies the font match   | OPEN   |
+| GAP-020 | day scheme palette         | derived, unratified   | SHOULD     | builder    | owner ratifies derived palette  | OPEN   |
+| GAP-021 | night scheme palette       | derived, unratified   | SHOULD     | builder    | owner ratifies derived palette  | OPEN   |
+| GAP-022 | print scheme (deferred)    | not yet materialized  | SHOULD     | builder    | derive print set when scoped    | OPEN   |

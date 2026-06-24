@@ -104,6 +104,10 @@ function walkTokens(node, path, file) {
 
 const tokenFiles = listFiles('tokens', '.json');
 for (const f of tokenFiles) { const j = readJSON(f); if (j) walkTokens(j, [], rel(f)); }
+// C-2: per-scheme materialized sets live one level down in tokens/schemes/ — load them too so the
+// scheme-tagged tokens are subject to R0–R6 (provenance/etc.) and visible to R7's role-key parity check.
+const schemeFiles = listFiles('tokens/schemes', '.json');
+for (const f of schemeFiles) { const j = readJSON(f); if (j) walkTokens(j, [], rel(f)); }
 const hasColorToken = tokens.some((t) => t.path.split('.').includes('color'));
 
 // ---------- CHECKSUMS.txt → path→sha256 map (sha256sum format: "<hash>  <path>") ----------
@@ -421,6 +425,41 @@ const normGeom = (inner) => (inner == null ? null : inner
 
   add('R6', 'MT-1 · cross-artifact reconciliation — R6a projection drift · R6b mark single-source · R6c asset refs resolve', v,
     `${derivedProjCount} derived projection(s), ${instances.length} mark instance(s), canon/mark.svg ${canonical == null ? 'absent (N/A unless a mark is rendered)' : 'present'}`);
+}
+
+
+// R7 (SC-1): every named scheme → a COMPLETE materialized role-token set (role-key parity with the
+// DEFAULT scheme) OR status:"deferred" + exactly one open GAP. The deferred escape is a tracked GAP,
+// never a bypass; the default scheme itself must be materialized (it defines the parity). General /
+// value-blind: a single-scheme (flat) brand materializes one default set and passes; no schemes block ⇒ vacuous.
+{
+  const v = [];
+  const schemeDefs = (canonJson && canonJson.schemes && typeof canonJson.schemes === 'object') ? canonJson.schemes : {};
+  const isDeferred = (def) => def && typeof def === 'object' && /^deferred$/i.test(String(def.status ?? ''));
+  const roleKeysOf = (s) => new Set(
+    tokens.filter((t) => t.scheme === s && t.path.startsWith(`scheme.${s}.`))
+          .map((t) => t.path.slice(`scheme.${s}.`.length)));
+  const named = Object.keys(schemeDefs).filter((k) => !k.startsWith('$') && k !== 'default');
+  const ref = defaultScheme ? roleKeysOf(defaultScheme) : new Set();
+  const liveNamed = named.filter((s) => !isDeferred(schemeDefs[s]));
+  if (defaultScheme && liveNamed.length && ref.size === 0) {
+    v.push(`[R7] default scheme "${defaultScheme}" has NO materialized role-token set (no token tagged $extensions.brand.scheme:"${defaultScheme}" under scheme.${defaultScheme}.*); it defines the role-key parity every scheme must meet`);
+  }
+  for (const s of named) {
+    if (isDeferred(schemeDefs[s])) {
+      // Bind the deferred scheme to its DECLARED tracking GAP id (schemes.<id>.gap), then require that exact
+      // id be OPEN — NOT a name-match in RESIDENT prose (which collides with ordinary words / sibling rows).
+      const gapId = (schemeDefs[s].gap ? String(schemeDefs[s].gap).match(/GAP-\d+/i)?.[0]?.toUpperCase() : null) || null;
+      if (!gapId) v.push(`[R7] scheme "${s}" is status:"deferred" but declares no tracking GAP (set canon.json › schemes.${s}.gap to its open GAP-NNN) — deferred is a tracked GAP, not a bypass`);
+      else if (!openGaps.has(gapId)) v.push(`[R7] scheme "${s}" is status:"deferred" with tracking GAP ${gapId}, but ${gapId} is not OPEN in RESIDENT.md — a deferred scheme needs exactly one OPEN tracking GAP`);
+      continue;
+    }
+    const keys = roleKeysOf(s);
+    if (keys.size === 0) { v.push(`[R7] scheme "${s}" (canon.json › schemes) has NO materialized token set and is not status:"deferred" + GAP — run scheme-derive.mjs, or mark it deferred`); continue; }
+    const missing = [...ref].filter((k) => !keys.has(k));
+    if (missing.length) v.push(`[R7] scheme "${s}" materialized set is INCOMPLETE — missing role-key(s) [${missing.join(', ')}] present in the default scheme "${defaultScheme}" (N schemes ⇒ N COMPLETE sets, or status:"deferred" + GAP)`);
+  }
+  add('R7', 'SC-1 · every named scheme → a COMPLETE materialized set (role-key parity with default) OR status:"deferred" + one open GAP', v, `${named.length} named scheme(s); default "${defaultScheme ?? '—'}" role-keys: ${ref.size}`);
 }
 
 // ---------- report ----------

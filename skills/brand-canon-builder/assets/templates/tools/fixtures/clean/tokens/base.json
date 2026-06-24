@@ -14,7 +14,6 @@
         "$value": { "colorSpace": "oklch", "components": [0.62, 0.13, 255], "alpha": 1, "hex": "#5a7fb0" },
         "$description": "corroborated — two DISTINCT hashed sources (R1 + R3); materializes the default scheme (R4). Structured-OKLCH $value (C-1).",
         "$extensions": { "brand": {
-          "scheme": "day",
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "sourceRef": [
             { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc", "captureTs": "20230124000000", "selfPublished": "2023-01" },

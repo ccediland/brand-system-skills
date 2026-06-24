@@ -34,7 +34,8 @@
   "schemes": {
     "$note": "Schemes are derivations of the palette (mirror of GRAMMAR §1). Role values live in tokens.json → color.semantic.",
     "default": "{{scheme id}}",
-    "{{SCHEME_ID}}": { "mode": "{{light|dark|...}}", "dominant": "{{ink role}}" }
+    "{{SCHEME_ID}}": { "mode": "{{light|dark|contrast|...}}", "dominant": "{{lead ink role}}", "gap": "{{GAP-NNN tracking the derived palette}}" },
+    "{{DEFERRED_SCHEME_ID}}": { "mode": "{{...}}", "dominant": "{{...}}", "status": "deferred", "gap": "{{GAP-NNN — not yet materialized}}" }
   },
 
   "mark": {
@@ -71,6 +72,7 @@
     "$note": "Typed (inputs)→output procedures (mirror of GRAMMAR §10).",
     "ALGO-MARK-RESOLVE": { "in": ["space", "background", "priority"], "out": ["arrangement", "treatment", "asset"], "rules": ["G-MARK-01", "G-MARK-02"] },
     "ALGO-CONTRAST-ROLE": { "in": ["textRole", "background"], "out": ["roleToken", "minRatio"], "rules": ["G-COLOR-02"] },
-    "ALGO-VOICE-CHECK": { "in": ["copy"], "out": ["pass|fix"], "rules": ["G-VOICE-02"] }
+    "ALGO-VOICE-CHECK": { "in": ["copy"], "out": ["pass|fix"], "rules": ["G-VOICE-02"] },
+    "ALGO-SCHEME-DERIVE": { "in": ["mode", "dominant"], "out": ["scheme", "roleTokens"], "rules": ["G-SCHEME-01", "G-SCHEME-02", "G-COLOR-01"] }
   }
 }
