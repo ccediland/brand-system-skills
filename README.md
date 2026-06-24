@@ -1,5 +1,7 @@
 # brand-system-skills
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![Claude Code plugin](https://img.shields.io/badge/Claude_Code-plugin-d97757.svg)](https://github.com/ccediland/brand-system-skills) [![Sibling: web-stack-skills](https://img.shields.io/badge/sibling-web--stack--skills-555.svg)](https://github.com/ccediland/web-stack-skills)
+
 A Claude Code plugin that turns any brand into a **canonical, brand-agnostic, output-agnostic source of
 truth** — a four-layer brand canon plus a DTCG/OKLCH token spine — and then builds a **real, presentable
 prototype, a `/design-sync`-ready component library, and a single attachable keystone `.md` an AI can think,
@@ -39,6 +41,26 @@ no real assets is not done.
 **The Lego principle:** the canon is always creatable and valid — even for a brand with nothing. Whatever is
 missing resolves to a goal, a tracked gap, and a skeleton slot, never a blocked empty shell.
 
+## Machine-true, not prose-true
+
+Most brand systems *describe* their discipline; this one **ships executable gates into the emitted repo**, so the
+output validates itself and stays regression-ready. Each gate exits non-zero on violation and runs locally (or in
+the emitted repo's CI):
+
+- **Provenance, completeness & reconciliation** — `audit-lint` (zero-dep, R0–R8, BLOCKING): every value token
+  carries hashed provenance; a `corroborated` value needs ≥2 distinct cited sources; every named value or scheme
+  resolves to a real token or an open `GAP-NNN`; downstream projections may not drift from the token spine; every
+  present canon section surfaces in the brandbook or an open gap.
+- **Measured fidelity** — `fidelity-diff.py`: a reproduction is scored against its real source by **ΔE2000 + SSIM
+  + glyph metrics**, not an eyeball verdict, with the thresholds and result committed as re-auditable evidence.
+- **Materialized colour schemes** — `scheme-derive.mjs`: every named scheme becomes a complete OKLCH-derived
+  token set (or a tracked gap) — no scheme ships as prose.
+- **Client-surface firewall** — `client-deny-lint.mjs`: build-grade operator vocabulary can't leak into anything
+  a client reviews.
+
+Every gate is **brand-agnostic** — it tests the *shape* of a rule, never specific brand content — so a
+monogram-only, single-ink, or sonic-primary brand passes clean.
+
 ## Install
 
 ```
@@ -61,4 +83,6 @@ chat, ask to scope your brand and `brand-canon-scoper` hands you a block for the
 
 ## Status
 
-See [`RESIDENT.md`](./RESIDENT.md) for architecture, decisions, integrations, and Open Items. MIT licensed.
+**`v0.4.0`** — v4 shipped: the executable gates above (machine-true provenance + measured fidelity + materialized
+schemes + the client-surface firewall) and the two-surface scoper flow. See [`RESIDENT.md`](./RESIDENT.md) for
+architecture, decisions, integrations, and Open Items. MIT licensed.
