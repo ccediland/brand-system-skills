@@ -26,7 +26,8 @@ domains: [brand-system, tooling]
   into an engine that analyzes existing published brand work across mediums → extracts the real assets →
   produces a real prototype + a Design-syncable component library by default.** The canon is the skeleton,
   never the deliverable. See `## v2`.
-- **v3 (skills built; validation next):** a fresh adversarial stress test (a third, independently-authored brand) exposed failure classes v2's gates miss — all reducing to lost epistemic status. v3's **rectoral constraint is anti-determinism**; its **north star** is a single attachable file an AI can *think / speak / design as* the brand; its **spine** is provenance on every datum. **Phases 1–4 shipped to `main`** (handoff contract · scoper v3 · builder v3 — capture/spine, reproduction+tokens, keystone+fidelity-gate); the transversal-audit (#19) and a fresh full system audit (#25), remediated across fix-passes #20–#29, leave the **entire audit ledger CLOSED — zero BLOCKER/MAJOR/MINOR/NIT** except the deliberate F55 (bold-density deviation) + the OI-J horizon; only the Phase-5 validation run remains. Plan in `v3-execution-plan.md`. See `## v3`.
+- **v3 (skills built; validation next):** a fresh adversarial stress test (a third, independently-authored brand) exposed failure classes v2's gates miss — all reducing to lost epistemic status. v3's **rectoral constraint is anti-determinism**; its **north star** is a single attachable file an AI can *think / speak / design as* the brand; its **spine** is provenance on every datum. **Phases 1–4 shipped to `main`** (handoff contract · scoper v3 · builder v3 — capture/spine, reproduction+tokens, keystone+fidelity-gate); the transversal-audit (#19) and a fresh full system audit (#25), remediated across fix-passes #20–#29, leave the **entire audit ledger CLOSED — zero BLOCKER/MAJOR/MINOR/NIT** except the deliberate F55 (bold-density deviation) + the OI-J horizon; only the Phase-5 validation run remains. See `## v3` (the v3 plan/research docs were removed in the v4 consolidation; record in closed-PR history + `v4-roadmap.md`).
+- **v4 (Phase 3 COMPLETE):** v4 turned the prose discipline into **executable gates** across both skills — all 7 stages (A–G) closed, all 23 mechanisms shipped to `main` (only R9, the executable posture→GAP-severity gate, deferred to Phase-5). The builder emits a self-validating client repo (`audit-lint` R0–R8 + measured fidelity + scheme materializer + client deny-lint); the scoper runs one client-surface flow plus epistemic-honesty + process-discipline self-checks. Next: golden-set freeze (Heresto) + ship. Operating doc: `v4-roadmap.md`. See `## v4`.
 
 ## Architecture & why
 - **Four-question canon.** Every design truth answers *where-start / why / what / how*; each owned by one
@@ -52,13 +53,18 @@ domains: [brand-system, tooling]
 - `.claude-plugin/marketplace.json` · `plugin.json` — marketplace + plugin manifests (mirror web-stack-skills).
 - `skills/brand-canon-builder/` — `SKILL.md` + `references/` (architecture, coverage-checklist, gap-protocol,
   token-spine, analyze, create, asset-acquisition, font-acquisition, design-sync-kit, claude-design-adapter,
-  validate-audit, client-clean) + `assets/templates/` (canon skeletons, DTCG token spine, canon.json,
-  satellites, docs, prototype, design-sync kit, Claude Design adapter).
-- `skills/brand-canon-scoper/` — `SKILL.md` + `references/handoff-format.md`.
-- `README.md` (human front door) · `RESIDENT.md` (this doc) · `CLAUDE.md` (agent ops + guardrails).
+  reproduction-router, keystone-emit, validate-audit, client-clean) + `assets/templates/` (canon skeletons,
+  DTCG token spine, canon.json, satellites, docs, prototype, design-sync kit, Claude Design adapter, and the
+  emitted-gate suite `tools/` — `audit-lint.mjs` (R0–R8) · `source-recover.py` · `fidelity-diff.py` ·
+  `scheme-derive.mjs` · `client-deny-lint.mjs`, with `tools/fixtures/` the gates' own clean + seeded acceptance proof).
+- `skills/brand-canon-scoper/` — `SKILL.md` + `references/` (`handoff-format.md`, `elicitation-bank.md`,
+  `detection-batteries.md`, `process-discipline.md`).
+- `README.md` (human front door) · `RESIDENT.md` (this doc) · `CLAUDE.md` (agent ops + guardrails) ·
+  `v4-roadmap.md` (root, tracked — the v4 operating document: change-set, stage map, session log).
 - `dev/` — build provenance (work-log + v2 specs + `v2-backlog.md`, F-001…F-026); **gitignored, local-only, not shipped**.
-- `v3-execution-plan.md` (root, tracked) — the v3 execution plan (detailed gated phases + session log); v3's simplified goals/decisions live in this RESIDENT (`## v3`), its tech/gotchas in `CLAUDE.md`.
-- `v3-research-foundation.md` (root, tracked) — the frozen v3 research: six resolved capability classes with methods, capability boundaries, and primary sources; the build phases draw from it.
+- The v3 root docs (`v3-execution-plan.md`, `v3-research-foundation.md`, `v3-system-audit—2026-06-23.md`) were
+  removed in the v4 consolidation; their record lives in the closed-PR history + `v4-roadmap.md`. Historical
+  mentions in `## v3` / `## Change log` below are append-only record, superseded by this note.
 
 ## Integrations / ritual
 - **web-stack-skills** = downstream consumer. Its `astro-css-tokens` skill ingests the DTCG `tokens/` spine
@@ -128,7 +134,7 @@ domains: [brand-system, tooling]
 | OI-G | Graceful-degradation path for the scoper's living-questions doc when the chat env lacks a connector/filesystem. | NICE | RESOLVED (#13 scoper v3 — Stage 6: commit-where-possible, else a downloadable artifact) |
 | OI-H | Resolver-based theming for OKLCH scheme derivation rides on the v2 SD-v5 / DTCG-2025.10 pin (issue #1590) → may need a custom-transformer/Terrazzo fallback. | NICE | OPEN |
 | OI-J | **Non-visual-primary build-grade reproduction** (sonic / motion) is a tracked HORIZON, explicitly NOT a blocker: the reasoning layers are already medium-agnostic and a non-visual primary carrier resolves to a declared fidelity-blocking GAP today (honest scoping, #26). Producing build-grade output for a motion signature (timing/easing + frame-diff) or a sonic mark is a NEW capability MILESTONE, post-Phase-5. | NICE | OPEN (horizon, post-Phase-5) |
-| OI-I | v3 transversal-audit + system-audit remediation — **FULLY REMEDIATED (#29).** Both `v3-audit—2026-06-22.md` (#19, 4 BLOCKER · 22 MAJOR · 24 MINOR · 6 NIT) and `v3-system-audit—2026-06-23.md` (#25) are closed across PRs #20–#29: every BLOCKER, MAJOR, MINOR and NIT cleared (handoff seam #20 · install integrity #21 · provenance/keystone #23 · public surface + F16 #24 · medium scoping + keystone orphan #26 · client-drift + hygiene #27 · scoper instrument + intake #28 · ledger close + F45/F32/F30 + tail #29). The coverage-gap pass (research-foundation, satellites, client-doc templates) was folded into #27/#29 and is clean. The ONLY un-closed items are deliberate: **F55** (bold-density — a documented practitioner deviation, see *Documented deviations* below) · **F31** (the handoff `motion:` line is kept as a single prose token for the not-used default; a motion-token downstream consumer is the OI-A bridge horizon) · **OI-J** (sonic/motion build-grade reproduction — a post-Phase-5 horizon). The #25 report (`v3-system-audit—2026-06-23.md`) is at root on main; the #19 report (`v3-audit—2026-06-22.md`) lives at the root of the open `v3/audit` branch (PR #19, never merged to main, reached via `git show v3/audit:…`) — both are CLOSED baselines, not open work. | — | RESOLVED (#29) |
+| OI-I | v3 transversal-audit + system-audit remediation — **FULLY REMEDIATED (#29).** Both `v3-audit—2026-06-22.md` (#19, 4 BLOCKER · 22 MAJOR · 24 MINOR · 6 NIT) and `v3-system-audit—2026-06-23.md` (#25) are closed across PRs #20–#29: every BLOCKER, MAJOR, MINOR and NIT cleared (handoff seam #20 · install integrity #21 · provenance/keystone #23 · public surface + F16 #24 · medium scoping + keystone orphan #26 · client-drift + hygiene #27 · scoper instrument + intake #28 · ledger close + F45/F32/F30 + tail #29). The coverage-gap pass (research-foundation, satellites, client-doc templates) was folded into #27/#29 and is clean. The ONLY un-closed items are deliberate: **F55** (bold-density — a documented practitioner deviation, see *Documented deviations* below) · **F31** (the handoff `motion:` line is kept as a single prose token for the not-used default; a motion-token downstream consumer is the OI-A bridge horizon) · **OI-J** (sonic/motion build-grade reproduction — a post-Phase-5 horizon). Both reports were removed in the v4 consolidation (the #25 root doc deleted; the #19 `v3/audit` branch deleted); their record now lives in the closed-PR history (#19–#29) + `v4-roadmap.md` — both remain CLOSED baselines, not open work. | — | RESOLVED (#29) |
 
 (OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
 
@@ -219,7 +225,7 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   horizon). Both audit reports are closed baselines. Only the Phase-5 validation run remains (2nd
   differently-shaped brand · live red-team · visual-diff audit · release). Plan in `v3-execution-plan.md`.
 
-## v4 — builder validation architecture + token engine + review surface (Stages B–D)
+## v4 — builder validation architecture + token engine + review surface (Stages A–G)
 v4 turns the builder's prose discipline into **executable gates that exit non-zero on violation**. Stage B is
 the builder-keystone: the emitted client repo is **self-validating** (regression-ready) and **machine-true**, not
 prose-true. Two gates, two ecosystems, one persisted-evidence model. (Operating plan: `v4-roadmap.md`.)
@@ -304,8 +310,39 @@ to a non-design owner without oral transfer, and the prototype becomes the compl
   signal, never a fixed checklist — flat/monogram/sonic/non-visual pass clean). Gate-summary is now R0–R8.
 - PRs: D-1a #41 · D-1b #42 · D-2a #44 · D-2b #45.
 
-> Deferred to Phase 4.1 (not backfilled here): the Heresto golden-set + the second validation brand, and the
-> v3-audit-closure reconciliation. The v2/v3 sections above remain the record for those.
+**Stage A — the two-surface split (CLOSED).** The scoper's operator-surface and client-surface are distinct
+artifacts, not one undifferentiated stream (TS-1); a client-surface **deny-lint** (`tools/client-deny-lint.mjs`,
+rehype/parse5 over text + comment + visible-attribute nodes, run on the §3-stripped emitted surface) firewalls
+operator vocabulary out of every client-facing surface, and the keystone is split so its GUARDRAIL layer is
+genuinely last in deployed instructions (TS-2). PRs: A-1 #37 · A-2 #38.
+
+**Stage E — epistemic-honesty enforcement (CLOSED).** Scoper: an **EH self-check (BLOCKING, gate-7a
+precondition)** holds owner-meaning fields (personality / differential / resonance / intended meaning) and
+named regulatory instruments to `owner-stated`(cited) / owner-declared `none` / GAP — never scoper-derived,
+never memory-asserted, never above `hypothesis` without ratification (EH-1/EH-2); the POSTURE `regulatory:`
+carrier is owner-stated-cited-or-GAP. Builder: `validate-audit.md §7b` makes the regulated trigger inherit
+**MUST-HAVE** to the enabling regulatory GAP (gated — `regulatory: none` forces nothing), binds the keystone §5
+regulated-claim constraints + refusal policy to that cited carrier, and adds visual-guardrail + over-refusal
+axes to the red-team battery (EH-3). The **executable R9** posture→GAP-severity gate (posture in `canon.json` +
+Severity parsing in `audit-lint`) is deferred to Phase-5 with the live red-team RUN. PRs: E-1 #47 · E-2a #48.
+
+**Stage F — process discipline (CLOSED).** TEMPO doctrine (multi-session; the BLOCKING gates always run;
+progress is evidence-of-process, never wall-clock); a register/preference firewall (the client register
+inherits no operator terseness/speed/assumption preference — the §6 self-check scans register leakage; the
+mirror-guard preserves legitimate operator directness on the internal surface); an assumption ledger
+(proceed-assumption → explicit CONFIRM line); and verify-the-exact-claim (a blocked/failed retrieval is never a
+positive status — stays `hypothesis` or a GAP, no new status word). TA-1 + TA-4 doctrine lives in
+`brand-canon-scoper/references/process-discipline.md`. PRs: F #52.
+
+**Stage G — structural hygiene (CLOSED).** The scoper interview bank + detection batteries are externalized to
+`references/` (SH-1, keeps `SKILL.md` < 500); a live-but-raster CONSUMER surface declares `ingest:ocr-visual`
+and the CONSUMERS `ingest:` is the same open class as the ASSETS track (SH-2); a non-trigger clause distinguishes
+canon-pipeline scoping from brand-voice-only guideline generation (SH-3). PRs: SH-1 #40 · SH-2/SH-3 #50.
+
+> Golden-set: **`ccediland/heresto-brand` (external repo) is the canonical golden-set regression fixture** —
+> 4/4 checks intact, branch/commit pins recorded in `v4-roadmap.md`. The FREEZE (recording each gate's expected
+> verdicts at a pinned commit) is Phase 4.2, not done here. Still deferred to Phase-5: the live red-team RUN, the
+> executable R9, and a second differently-shaped validation brand (OI-F).
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it
