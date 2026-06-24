@@ -95,6 +95,17 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   is single-sourced in the kit (`design-sync-kit/.design-sync/config.json`); the adapter references it, never a
   duplicate. No gate (validate-audit.md) may name an artifact that isn't shipped or honestly attributed — the kit
   ships a real offline `package-validate.mjs`.
+- **Epistemic honesty (Stage E — EH-1/EH-2/EH-3).** Scoper: an **EH self-check (BLOCKING, gate-7a precondition)**
+  holds that owner-meaning fields (personality / differential / resonance / intended meaning) and named
+  regulatory instruments resolve to `owner-stated`(cited) / owner-declared `none` / GAP — never scoper-derived,
+  never memory-asserted, never above `hypothesis` without ratification (EH-1/EH-2); the `regulatory:` carrier is
+  owner-stated-cited-or-GAP. Builder: `validate-audit.md §7b` makes the regulated trigger inherit **MUST-HAVE**
+  to the enabling regulatory GAP (gated — `regulatory: none` forces nothing; no new `BLOCKING` severity), binds
+  the keystone §5 regulated-claim constraints + refusal policy to that cited `regulatory:` carrier (or GAP, never
+  memory-recalled), and adds visual-guardrail + over-refusal axes to the red-team battery (EH-3). **R9 — the
+  EXECUTABLE posture→GAP-severity gate (a `posture` block in `canon.json` + Severity-column parsing in
+  `audit-lint`) is DEFERRED to Phase-5 with the live red-team RUN;** EH-3 ships as prose, so `audit-lint` stays
+  R0–R8.
 - **Mirror web-stack-skills' marketplace conventions** so the two interoperate (same manifest/skill layout).
 
 ## Provenance / build memory
