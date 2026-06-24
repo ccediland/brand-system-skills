@@ -1,12 +1,12 @@
 ---
 title: brand-system-skills — v4 Ship Roadmap (consolidated)
 status: in-progress
-current_phase: Phase 3 — Stages A, B, C CLOSED; D, E, F, G pending
+current_phase: Phase 3 — Stages A, B, C CLOSED; D scoper-side done (D-1a, D-1b); G SH-1 done; remaining: D-2 (RV-5), E, SH-2/SH-3
 last_updated: 2026-06-24
 home_base: chat (claude.ai)
-next_action: pick the next stage among free roots (D unblocked by A+C; E, G free) and run its inner cycle
+next_action: run D-2 (RV-5, builder Stage-8 brandbook) to CLOSE Stage D; or pick E / SH-2-3
 repo: ccediland/brand-system-skills (public Claude Code plugin)
-main_head: 12618b68bfbc03ea2adfa0803374a77ffdd56479 (Stages A + B + C all CLOSED on main; A-1 #37 · A-2 #38 · B #31/#32/#33 · C #34/#35/#36)
+main_head: d5f50a37d23b6beeb21768e5a22e9f6da88440a7 (Stages A/B/C CLOSED; D scoper-side done — D-1a #41, D-1b #42; G SH-1 #40; RV-5 closes D, pending)
 plugin_version: 0.3.0
 resident: RESIDENT.md at repo root — final reconciliation at Phase 4.1; durable per-stage changes migrate at relevant stage closes
 applies_to: brand-canon-scoper (Chat) + brand-canon-builder (Code), v4
@@ -19,7 +19,7 @@ applies_to: brand-canon-scoper (Chat) + brand-canon-builder (Code), v4
 ## TL;DR
 
 - v4 thesis: both skills declare a discipline in prose but never instantiate it as a gate. v4 makes the gates real — separate surfaces as distinct artifacts, values measured and byte-reconciled, completeness enforced — across both skills.
-- Position: Phases 0–2 are done (problem ledger frozen, findings verified against `main`, research pinned). **Stages A, B, and C are CLOSED** on `main` (HEAD `12618b6`): Stage B (MT-1…MT-5 — audit-lint R0–R7 + the measured fidelity gate), Stage C (SC-1 — schemes-as-tokens + structured-OKLCH + the live scheme toggle + decorative-contrast spec), and Stage A (TS-1 operator/client confinement + TS-2 client-surface deny-list). Remaining work: Stages D, E, F, G, then finalize and ship.
+- Position: Phases 0–2 are done (problem ledger frozen, findings verified against `main`, research pinned). **Stages A, B, and C are CLOSED** on `main` (HEAD `12618b6`): Stage B (MT-1…MT-5 — audit-lint R0–R7 + the measured fidelity gate), Stage C (SC-1 — schemes-as-tokens + structured-OKLCH + the live scheme toggle + decorative-contrast spec), and Stage A (TS-1 operator/client confinement + TS-2 client-surface deny-list). Stage D's scoper side (RV-1…4) is done (#41, #42) and Stage G's SH-1 is done (#40); remaining: RV-5 (closes D), Stage E, SH-2/SH-3 (rest of G), then F (needs D closed) and finalize.
 - The change set is 23 mechanisms in 7 families, mapped to Phase-3 stages. Each is a concrete add/change/remove on a named file.
 - Two invariants that override convenience, repeated because downstream summaries drop caveats: (1) every gate is brand-agnostic — it tests the shape of a rule, never specific brand content; a monogram-only / single-ink / sonic-primary brand must pass clean. (2) A gate that fails correctly-built repos is worse than no gate — every gate stage runs an exploit-repo adversarial review before merge.
 - RESIDENT.md is touched at relevant stage closes (durable architecture only) and reconciled once at Phase 4.1 — not on every step.
@@ -69,10 +69,10 @@ Each mechanism is a concrete change on the builder or scoper. `Sk`: S scoper, B 
 | MT-4 | B | B-1 (done) | `corroborated` requires ≥2 distinct source artifacts; `inferred`/`matched` are capped at `hypothesis`. |
 | MT-5 | B | B-1 (done) | Every value or scheme named in a canon layer or an ALGO maps to a token artifact or a GAP; every `hypothesis`/`inferred`/`matched`/`traced` token maps to exactly one open GAP. |
 | SC-1 | B | C (done) | N canon schemes become N materialized token sets via a runnable `ALGO-SCHEME-DERIVE` (or an unbuilt scheme carries `$extensions.brand.status:"deferred"` plus a logged GAP); the validator fails when a named scheme has no token artifact; Stage 8 renders a live scheme toggle when more than one scheme exists. Adds a graphic-code contrast spec: PRIMITIVES fixes each device's target opacity/contrast-vs-ground and `ALGO-CONTRAST-ROLE` gains a graphic-code row. |
-| RV-1 | S | D | Split gate 7 into 7a, a human-readable Final Brand Brief that is the BLOCKING client approval, then 7b, the machine handoff produced only after sign-off. |
-| RV-2 | S | D | Gate 3.5, a Discovery and Intake Instrument: one fillable doc, every line tagged CONFIRM / ASK / REQUEST; emission is default, not optional; chat resolves it, never replaces it. |
-| RV-3 | S | D | Deliverable-per-gate: a mandatory DELIVERABLE column; each gate emits a named, dated, versioned artifact plus a `stage N of M` marker; no gate clears without it. |
-| RV-4 | S | D | Consultation-surface invariant: gate 5 is unconditional; a stated sole-decider does not waive external-review framing; add `consultation-surface: always-required` as a permanent dimension. |
+| RV-1 | S | D (done) | Split gate 7 into 7a, a human-readable Final Brand Brief that is the BLOCKING client approval, then 7b, the machine handoff produced only after sign-off. |
+| RV-2 | S | D (done) | Gate 3.5, a Discovery and Intake Instrument: one fillable doc, every line tagged CONFIRM / ASK / REQUEST; emission is default, not optional; chat resolves it, never replaces it. |
+| RV-3 | S | D (done) | Deliverable-per-gate: a mandatory DELIVERABLE column; each gate emits a named, dated, versioned artifact plus a `stage N of M` marker; no gate clears without it. |
+| RV-4 | S | D (done) | Consultation-surface invariant: gate 5 is unconditional; a stated sole-decider does not waive external-review framing; add `consultation-surface: always-required` as a permanent dimension. |
 | RV-5 | B | D | Stage-8 redefinition: the prototype becomes the complete interactive brandbook — a 1:1 section manifest from canon plus keystone (lexicon, Misuse, schemes, THINK rules) plus a "Decisions for you" ratification panel — with a completeness gate, a design bar (hero focal anchor, responsive `@media`, colour-as-system), and the TS-2 firewall. |
 | EH-1 | S | E | Personality, differential, resonance, and any owner-meaning field must be elicited or marked GAP — never scoper-derived, never above `hypothesis` without ratification. |
 | EH-2 | S | E | The scoper searches for named legal/regulatory instruments (or carries them as an explicit GAP for the builder) — never asserts them from memory. |
@@ -81,7 +81,7 @@ Each mechanism is a concrete change on the builder or scoper. `Sk`: S scoper, B 
 | TA-2 | S | F | Register firewall: the client surface inherits no operator preference toward terseness/speed/assumption; operator directness governs the internal surface only. Hard to author — the skill must explicitly firewall its client register from the user-profile preferences that bleed pervasively. |
 | TA-3 | S | F | Assumption ledger: every proceed-assumption surfaces as an explicit CONFIRM line; nothing inferred silently. |
 | TA-4 | S | F | Verify-the-exact-claim guard: a blocked or failed retrieval may never be recorded as a positive status; liveness/`verified` requires a successful read, not an adjacent signal. |
-| SH-1 | S | G | Externalize the interview bank and detection batteries into `references/` (e.g. `elicitation-bank.md`, `detection-batteries.md`); drops SKILL.md off the 500-line ceiling and lightens the always-on load. |
+| SH-1 | S | G (done) | Externalize the interview bank and detection batteries into `references/` (e.g. `elicitation-bank.md`, `detection-batteries.md`); drops SKILL.md off the 500-line ceiling and lightens the always-on load. |
 | SH-2 | S | G | The CONSUMERS track gains an `ingest` value for live-but-raster surfaces (allow `ocr-visual` there, or add a `media-type:` axis orthogonal to reachability). |
 | SH-3 | S | G | A non-trigger clause distinguishing the canon-pipeline scoper from `brand-voice` guideline generation. No external research; resolved in-Chat. |
 
@@ -132,10 +132,10 @@ Order follows the dependency graph (keystones first; the prototype-completeness 
 | A | Two-surface | TS-1, TS-2 | S+B | — | **CLOSED** (A-1 #37, A-2 #38) | CLAUDE + log |
 | B | Machine-true evidence (builder keystone) | MT-1…MT-5 | B | — | **CLOSED** (B-1 #31, B-2a #32, B-2b #33 — MT-1…MT-5) | RESIDENT + CLAUDE + log |
 | C | Schemes are tokens | SC-1 | B | B | **CLOSED** (C-1 #34, C-2 #35, C-3 #36 — SC-1) | RESIDENT + CLAUDE + log |
-| D | Human-legible complete review surface | RV-1…RV-5 | S+B | A, C | pending — unblocked (needs A+C, both closed) | RESIDENT + CLAUDE + log |
+| D | Human-legible complete review surface | RV-1…RV-5 | S+B | A, C | in progress — D-1a #41 (RV-1/RV-2) + D-1b #42 (RV-3/RV-4) merged; RV-5 (D-2, builder) pending | RESIDENT + CLAUDE + log |
 | E | Epistemic honesty enforcement | EH-1, EH-2, EH-3 | S+B | B | pending | CLAUDE + log |
 | F | Process tempo + assumption discipline | TA-1…TA-4 | S | A, D | pending | log |
-| G | Structural hygiene | SH-1, SH-2, SH-3 | S | — | pending | CLAUDE + log |
+| G | Structural hygiene | SH-1, SH-2, SH-3 | S | — | in progress — SH-1 #40 merged; SH-2/SH-3 pending | CLAUDE + log |
 
 Anchor discipline: at each stage's n.1, re-pin every target against then-current `main` by section name or rule ID. The skill files are rewritten repeatedly downstream, so line numbers drift — names are the contract.
 
@@ -169,6 +169,7 @@ Ratification-gated mechanisms (flag at the owning stage's n.1, do not auto-proce
 
 ### Stage D — Human-legible complete review surface (RV-1…RV-5)
 
+- Status: **in progress** — scoper side done (D-1a #41: RV-1 7a/7b split + RV-2 gate-3.5 intake; D-1b #42: RV-3 DELIVERABLE column + stage N-of-9, RV-4 gate-5 unconditional + `consultation-surface: always-required`). RV-5 (builder Stage-8 brandbook) pending — it CLOSES Stage D.
 - Change (scoper): split gate 7 into 7a Final Brand Brief (BLOCKING approval) and 7b machine handoff (RV-1); add gate 3.5, the fillable CONFIRM/ASK/REQUEST instrument (RV-2); add the DELIVERABLE column and `stage N of M` markers (RV-3); make gate 5 unconditional and add `consultation-surface: always-required` (RV-4). Targets `scoper/SKILL.md` (Stage 7, new gate 3.5, the gated pipeline, Stage 5) and `handoff-format.md`.
 - Change (builder): redefine Stage 8 so the prototype is the complete interactive brandbook with a 1:1 section manifest, a "Decisions for you" panel, a completeness gate, a design bar, and the TS-2 firewall (RV-5). Targets `builder/SKILL.md` Stage 8, `prototype.html`, `validate-audit.md`, `coverage-checklist.md`.
 - Reconciliation (mandatory): RV-2's intake instrument, RV-1's 7a brief, and the existing Stage-6 external instrument must collapse into one client-surface flow, not three parallel instruments.
@@ -186,6 +187,7 @@ Ratification-gated mechanisms (flag at the owning stage's n.1, do not auto-proce
 
 ### Stage G — Structural hygiene (SH-1, SH-2, SH-3)
 
+- Status: **in progress** — SH-1 #40 merged (interview bank → `references/elicitation-bank.md` + detection batteries → `references/detection-batteries.md`; SKILL.md 508→393, under 500). SH-2 + SH-3 pending.
 - Change (scoper): externalize the interview bank and detection batteries to `references/` (SH-1, drops SKILL.md off the 500 ceiling); add the CONSUMERS `ingest` value for live-but-raster surfaces (SH-2); add the sibling non-trigger clause vs `brand-voice` (SH-3, in-Chat, no research). Targets `scoper/SKILL.md` (Stage 4 bank, description) and `handoff-format.md` (CONSUMERS).
 - Optional sequencing: SH-1 is dependency-free and a pure move, so pulling it forward lets D/E/F edit the slimmed file. Low value, zero risk; Carlos's call.
 - Ratify: SH-2 (CONSUMERS contract), SH-3 (trigger/scope).
@@ -198,7 +200,7 @@ Ratification-gated mechanisms (flag at the owning stage's n.1, do not auto-proce
 
 ## Current state
 
-Phase 3 is in progress with **Stages A, B, and C all CLOSED** on `main` (`12618b6`). Live on `main`: the provenance / completeness / reconciliation gate (`tools/audit-lint.mjs`, **R0–R7**), the recovery helper (`tools/source-recover.py`), the measured fidelity gate (`tools/fidelity-diff.py`, ΔE2000 / SSIM / glyph), the scheme materializer (`tools/scheme-derive.mjs`, `ALGO-SCHEME-DERIVE`), the structured-OKLCH `$value` migration, `canon/mark.svg` single-sourcing, the live `[data-scheme]` scheme toggle + decorative-contrast spec, the client-surface deny-list (`tools/client-deny-lint.mjs`, TS-2) wired into the Stage-11 client-clean scrub, and the scoper's operator/client confinement + gate-6 self-check (TS-1). RESIDENT.md carries the durable Stage-B/C architecture. The repo is clean — only `main`, 0 open PRs; the v3 root docs are removed and `v4-roadmap.md` is the single roadmap at root. Plugin still `0.3.0` (bump is Phase 4.3). The change set, targets, and research constraints are locked above; nothing downstream needs re-deriving. The next move is to pick a free root — **D** (now unblocked: needs A+C, both closed), **E** (epistemic honesty), or **G** (structural hygiene) — and run its inner cycle.
+Phase 3 is in progress on `main` (`d5f50a3`). **Stages A, B, and C are CLOSED**; **Stage D's scoper side is done** (D-1a #41 + D-1b #42) and **Stage G's SH-1 is done** (#40). Live on `main`: the builder gate suite (`tools/audit-lint.mjs` R0–R7, `tools/source-recover.py`, `tools/fidelity-diff.py` ΔE2000/SSIM/glyph, `tools/scheme-derive.mjs` `ALGO-SCHEME-DERIVE`, `tools/client-deny-lint.mjs` TS-2), the structured-OKLCH `$value` migration, `canon/mark.svg` single-sourcing, the live `[data-scheme]` toggle + decorative-contrast spec; and scoper-side, the operator/client confinement + gate-6 self-check (TS-1), the **client-surface flow** — gate 3.5 intake + 7a Final Brand Brief / 7b machine handoff + the one-flow reconciliation (RV-1/RV-2), the **DELIVERABLE column + stage N-of-9** and **gate-5-unconditional + `consultation-surface: always-required`** (RV-3/RV-4) — and SH-1's externalized interview bank + detection batteries (`SKILL.md` 393 < 500). RESIDENT.md carries the durable Stage-B/C architecture. The repo is clean — only `main`, 0 open PRs; `v4-roadmap.md` is the single roadmap at root. Plugin still `0.3.0` (bump is Phase 4.3). The change set, targets, and research constraints are locked above; nothing downstream needs re-deriving. Next: **RV-5** (builder Stage-8 brandbook) CLOSES Stage D; **E** (epistemic honesty); **SH-2/SH-3** close Stage G; then **F** (needs D closed) and finalize.
 
 ## Decisions made
 
@@ -216,13 +218,13 @@ Phase 3 is in progress with **Stages A, B, and C all CLOSED** on `main` (`12618b
 
 ## Open questions and blockers
 
-- Stages A, B, and C are CLOSED on `main` (`12618b6`). The free roots are now **D** (human-legible review surface — unblocked: needs A+C, both closed), **E** (epistemic honesty — needs B, done), and **G** (structural hygiene — free); **F** still needs A + D. Carlos picks the next root.
+- Stages A, B, C are CLOSED; Stage D's scoper side (RV-1…4, #41/#42) and Stage G's SH-1 (#40) are merged. The live roots are now **RV-5** (builder Stage-8 brandbook — CLOSES Stage D), **E** (epistemic honesty — needs B, done), and **SH-2/SH-3** (the rest of G); **F** needs Stage D fully closed (RV-5). Carlos picks the next.
 - RESOLVED (was: PR #31 branched from `v4/roadmap`): PR #31 was decontaminated to code-only and squash-merged (`ade191c`); `v4-roadmap.md` landed separately on `main` root with cleanup complete at `b3ed6c7`. B-2a's PR is branched cleanly from `origin/main` (`b3ed6c7`), so this does not recur.
 - The ratification-gated mechanisms (RV-1, RV-4, SH-2, SH-3) need Carlos's sign-off when their stages reach n.1.
 
 ## Next actions
 
-1. Pick the next stage among the free roots — **D** (human-legible review surface; unblocked by A+C), **E** (epistemic honesty), or **G** (structural hygiene). Carlos's call.
+1. Run **D-2 (RV-5)** — the builder Stage-8 interactive brandbook — to CLOSE Stage D; or pick **E** (epistemic honesty) or **SH-2/SH-3** (the rest of G). Carlos's call.
 2. Run that stage's inner cycle: n.1 Chat design + decisions (re-pin targets against current `main` by section/rule name) → n.2 one self-contained hand-off → n.3 Code executes and reports → n.4 Chat verifies via Composio, then the merge is ratified.
 3. Keep the exploit-repo adversarial review per gate stage; prove each new gate fails on a seeded violation and passes clean before merge.
 
@@ -245,6 +247,9 @@ Phase 3 is in progress with **Stages A, B, and C all CLOSED** on `main` (`12618b
 - 2026-06-24 — Stage B CLOSED: B-2a (MT-1, cross-artifact reconciliation/drift → audit-lint R6a/b/c) and B-2b (MT-2, measured fidelity → tools/fidelity-diff.py, ΔE2000/SSIM/glyph) merged; builder keystone complete.
 - 2026-06-24 — Stage C CLOSED: SC-1 — ALGO-SCHEME-DERIVE materializer (tools/scheme-derive.mjs), audit-lint R7 (scheme-set completeness), structured-OKLCH $value migration (C-1), live scheme toggle + decorative-contrast spec (C-3).
 - 2026-06-24 — Stage A CLOSED: A-1 (TS-1, #37) rigorous operator/client confinement + gate-6 self-check in scoper; A-2 (TS-2, #38) client-surface deny-list AST lint (tools/client-deny-lint.mjs, rehype/parse5, text+comment+attr) wired into the client-clean Stage-11 scrub, keystone GUARDRAIL-tail assert, client-clean now names the keystone, prototype body leak fixed. Exploit review hardened the matcher; an independent Chat pass caught and fixed an asset-origin heritage-copy false-fail (rebind to build-context) before merge.
+- 2026-06-24 — SH-1 (#40) CLOSED: scoper interview bank → references/elicitation-bank.md + detection batteries → references/detection-batteries.md; SKILL.md 508→393 (<500); gate-4 contract + pointers retained. Pure faithful move.
+- 2026-06-24 — D-1a (#41): gate 7 → 7a Final Brand Brief (BLOCKING client approval) + 7b machine handoff (post-signoff); new gate 3.5 intake (CONFIRM/ASK/REQUEST, emission default); the three client instruments reconciled into ONE flow, three checkpoints (CONFIRM→Found · ASK→To-confirm · REQUEST→Missing). RV-1 + RV-2.
+- 2026-06-24 — D-1b (#42): DELIVERABLE column + stage N-of-9 per gate (RV-3); gate 5 unconditional/BLOCKING (sole-decider doesn't waive external-review) + consultation-surface: always-required permanent dimension (RV-4). Scoper side of Stage D complete.
 
 ## Resume
 
