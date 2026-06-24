@@ -34,6 +34,13 @@ Fidelity tolerance is layered by what the element is — independent of the mech
   lead with, never a silent pass; the medium becomes a tracked horizon (§7b).
 - **Higher tolerance** on gradients, illustration, and incidental imagery (perceptual difference is expected;
   judge against intent, not pixels).
+- **Measured thresholds (MT-2).** These tiers are enforced as the NUMERIC bounds `tools/fidelity-diff.py` (§7a)
+  checks against the Stage-5 source capture: **ΔE2000 ≤ 1.0** on the zero-tolerance set (the resolved
+  primary-identity carrier + the primary colour tokens + any NON-WAIVABLE graphic-code), **≤ 2.0** default,
+  raised on incidental imagery; plus an **SSIM / pixelmatch** structure bound per tier. Loosening a tier RAISES
+  the bound — it NEVER removes the metric (a looser tier still measures; it does not waive measurement). A
+  non-visual carrier has no pixels to measure and resolves to a declared GAP (§7a, medium-agnostic), never a
+  false zero-tolerance fail.
 - **Baselines** are per-component-variant and per-brand (the clone-per-brand model: each brand carries
   its own baselines, never shared across brands).
 - **Named tolerance (auditable).** The zero-tolerance assignment — which elements §2 holds at zero tolerance
@@ -185,34 +192,45 @@ stage only references the human-gate principle and assembles the evidence.)
 
 Two v3 gates layered on top of §1–6.
 
-### 7a. Reproduction visual-diff (treatments) — ties `reproduction-router.md`
+### 7a. Reproduction measured-diff (treatments) — ties `reproduction-router.md`
 
 Every brand TREATMENT the build reproduced (classified at Stage 5, reproduced at Stage 8 via
-`reproduction-router.md`) is validated by **visual diff against the source artifact** — a perceptual overlay of
-the reproduction over the Stage-5 source capture, not a pixel-VRT against a reference render. This is the
-reproduction half of the fidelity gate the router points at.
+`reproduction-router.md`) is validated by a **MEASURED diff against the source artifact** (MT-2):
+`tools/fidelity-diff.py` co-registers the reproduction onto the Stage-5 source capture (ORB feature match +
+RANSAC homography, resampled to the same DPI) and computes **ΔE2000** (perceptual colour distance) + **SSIM /
+pixelmatch** (structure), plus **fontTools per-glyph metrics** for type treatments. It measures against the
+**Stage-5 source capture — NOT a pixel-VRT against a reference render** (none exists; see §3a). The build-time
+tool's deps are import-guarded and its verdict persists as a committed `scores.json`, so the gate is auditable
+later without re-running cv2. This is the reproduction half of the fidelity gate the router points at.
 
-- **Within tolerance → pass.** Apply the §2 layered thresholds: zero tolerance where the treatment is
-  brand-defining (a mark's texture, a signature finish), higher tolerance on incidental texture/illustration
-  (judge against intent, not pixels).
+- **Within tolerance → pass.** Apply the §2 layered thresholds as the tool's **numeric bounds** (ΔE2000 ≤ 2.0
+  default, ≤ 1.0 on a zero-tolerance core colour; SSIM/pixelmatch per tier): the computed scores must clear the
+  tier's bound. Zero tolerance where the treatment is brand-defining (a mark's texture, a signature finish),
+  higher tolerance on incidental texture/illustration — a looser tier RAISES the bound, it never waives the
+  measurement.
 - **Cannot be brought within tolerance → not done.** It degrades to a lower method (procedural → vector-trace →
   raster-required) or becomes a fidelity `GAP-NNN`. A procedural approximation passed off as the real treatment
   is a fail, never a pass.
-- **Shape note.** In package-shape (the default) this is the manual/perceptual overlay above — it does **not**
-  introduce a pixel-VRT and does **not** mandate Storybook + Playwright. The Storybook-shape pixel-match VRT
-  (§3b) stays the exception, used only when the brand already ships that stack.
-- **Persisted evidence (BLOCKING — the diff must leave a trace).** A human eyeballing an overlay and saying
-  "looks fine" is not auditable. For every reproduced treatment, the build commits an evidence artifact to the
-  emitted repo at **`audit/fidelity/<treatment-id>/`**, holding three things: (1) the Stage-5 **source capture**,
-  (2) the **reproduction** render, and (3) a recorded **verdict** (`within-tolerance` | `outside-tolerance →
-  degraded to <method>` | `outside-tolerance → GAP-NNN`) naming the §2 threshold tier applied. **Absence of the
-  artifact for a reproduced treatment = §7a gate FAIL** (you cannot claim a visual-diff that left no evidence).
-  Cross-check `audit/fidelity/` against the authoritative reproduced-treatment set (Stage-5 classification →
-  Stage-8 reproduction, each treatment carrying its provenance-spine entry): a treatment on that set with no
-  artifact FAILS; a treatment dropped from the set must carry a `GAP-NNN`, never a silent disappearance.
-  This is the persisted half of the reproduction gate `reproduction-router.md` § Validation points at — the
-  router tunes parameters until within tolerance; §7a records the resulting verdict + the two images that prove
-  it. (No artifact is required for a brand that reproduced no treatment — the directory is simply absent.)
+- **Shape note.** In package-shape (the default) this is the **measured diff against the source capture** above
+  — it does **not** introduce a pixel-VRT and does **not** mandate Storybook + Playwright. The Storybook-shape
+  pixel-match VRT (§3b) stays the exception, used only when the brand already ships that stack.
+- **Persisted evidence (BLOCKING — the measurement must leave a trace).** A human eyeballing an overlay is not
+  auditable, and neither is a score nobody can re-read. For every reproduced treatment, `fidelity-diff.py`
+  commits to the emitted repo at **`audit/fidelity/<treatment-id>/`**: (1) the Stage-5 **source capture**, (2)
+  the **reproduction** render, (3) the registered **`diff.png`**, and (4) **`scores.json`** — the numeric ΔE2000
+  / SSIM / glyph deltas, the §2 thresholds applied, and the recorded **verdict** (`within-tolerance` |
+  `outside-tolerance → degraded to <method>` | `outside-tolerance → GAP-NNN`). `scores.json` IS the recorded
+  verdict and is re-auditable WITHOUT re-running cv2. **Absence of the artifact for a reproduced treatment = §7a
+  gate FAIL** (you cannot claim a measured diff that left no evidence). Cross-check `audit/fidelity/` against the
+  authoritative reproduced-treatment set (Stage-5 classification → Stage-8 reproduction, each treatment carrying
+  its provenance-spine entry): a treatment on that set with no artifact FAILS; a treatment dropped from the set
+  must carry a `GAP-NNN`, never a silent disappearance. This is the persisted half of the reproduction gate
+  `reproduction-router.md` § Validation points at — the router tunes parameters until within tolerance; §7a
+  records the resulting scores + verdict + the images that prove it. **Medium-agnostic:** a non-visual primary
+  carrier (sonic / motion / …) has no reproduction to measure — `fidelity-diff.py --medium non-visual` records a
+  declared fidelity-blocking GAP for that carrier and PASSES, never a false outside-tolerance (the build-level
+  block is owned by §1/§2 + §7b). (No artifact is required for a brand that reproduced no treatment — the
+  directory is simply absent.)
 
 ### 7b. Keystone gate — exists, well-formed, red-team
 
@@ -284,9 +302,10 @@ rule/voice violations; the three retained checks pass; **`node tools/audit-lint.
 provenance, completeness & reconciliation gate: R0–R6), with `CHECKSUMS.txt` hashing every file under
 `sources/**` so the R3 source-of-record check is meaningful, and no R6 drift — every `derived` projection
 reconciles with the spine, the protected mark is single-sourced from `canon/mark.svg`, and every asset ref
-resolves;** **every reproduced treatment passes the §7a visual-diff
-(or degrades / logs a GAP) AND has committed its persisted evidence artifact to `audit/fidelity/<treatment-id>/`
-(source + reproduction + recorded verdict — absence FAILS); the keystone is present, six-section,
+resolves;** **every reproduced treatment passes the §7a MEASURED diff (`tools/fidelity-diff.py`: ΔE2000 + SSIM/pixelmatch
++ glyph metrics against the Stage-5 source capture — not a pixel-VRT) (or degrades / logs a GAP) AND has
+committed its persisted evidence to `audit/fidelity/<treatment-id>/`
+(source + reproduction + `diff.png` + `scores.json` recorded verdict — absence FAILS); the keystone is present, six-section,
 guardrail-in-tail, within budget (structural), AND passes the §7b CONTENT check (THINK + DESIGN-as each carry
 ≥1 when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no core section a bare adjective list — form-of-rule only,
 `not-used(owner-declared)` resolves clean); the red-team battery + expected-refusal contract are EMITTED and

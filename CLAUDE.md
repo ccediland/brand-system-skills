@@ -45,6 +45,17 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
 - **`python tools/source-recover.py <url> [--from --to]`** — MT-3 **archived-source recovery**: Wayback CDX +
   raw `id_` fetch, occupant disambiguation, SHA-256 → `sources/MANIFEST.json`. Identity/date verification is an
   AGENT step (Stage 3), not the script's. Dep: `requests`.
+- **`python tools/fidelity-diff.py --treatment <id> --source <src.png> --reproduction <render.png>`** — MT-2 the
+  **measured reproduction-fidelity gate** (the §7a verdict; build-time, not a runtime/client dep). Co-registers
+  the reproduction onto the **Stage-5 source capture** (ORB+RANSAC) and computes **ΔE2000** + **SSIM/pixelmatch**
+  (+ **fontTools** glyph metrics for type). Verdict vs the §2 tiers (ΔE2000 ≤ 2.0 default, ≤ 1.0 core colour;
+  loosening RAISES the bound, never waives it) → `within-tolerance` (exit 0) / `outside-tolerance` (exit 1; with
+  `--gap` a declared tracked GAP passes) / non-visual carrier `--medium non-visual` → declared GAP (exit 0).
+  Writes **`audit/fidelity/<treatment-id>/scores.json`** (numeric scores + thresholds + verdict — re-auditable
+  WITHOUT cv2) + a `diff.png` heatmap. It measures against the SOURCE capture — **not a pixel-VRT** (§3a). Deps
+  (numpy, opencv-python-headless, scikit-image, pillow; fontTools for `--font`) are **import-guarded**: missing →
+  a clear `pip install …` + exit 3, never a stack trace; the non-visual path needs none of them. Self-test
+  fixtures + generator: `tools/fixtures/fidelity/` (`gen.py` → source/within/within_shift/mid/out `.png`).
 
 ## Standing guardrails (apply when editing THIS repo's templates/skills)
 - **Brand-agnostic + output-agnostic, always.** The templates must contain zero real brand specifics and no

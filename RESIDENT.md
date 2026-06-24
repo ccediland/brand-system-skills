@@ -4,7 +4,7 @@ description: "Living resident doc for brand-system-skills — a Claude Code plug
   build a generic, brand-agnostic, output-agnostic brand canon (four layers + DTCG/OKLCH token spine) for
   any brand. Use when any session touches this repo, its skills, the canon template, the token interchange
   contract, or its relationship to web-stack-skills. Canonical at the source; any mirror is read-only."
-last_updated: 2026-06-22
+last_updated: 2026-06-24
 applies_to: Repo ccediland/brand-system-skills — the brand-canon builder/scoper skills + canon template
 canonical: github
 domains: [brand-system, tooling]
@@ -218,6 +218,49 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   MAJOR, MINOR and NIT**, except the deliberate F55 (bold-density deviation) and OI-J (sonic/motion build-grade
   horizon). Both audit reports are closed baselines. Only the Phase-5 validation run remains (2nd
   differently-shaped brand · live red-team · visual-diff audit · release). Plan in `v3-execution-plan.md`.
+
+## v4 — builder validation architecture (Stage B keystone)
+v4 turns the builder's prose discipline into **executable gates that exit non-zero on violation**. Stage B is
+the builder-keystone: the emitted client repo is **self-validating** (regression-ready) and **machine-true**, not
+prose-true. Two gates, two ecosystems, one persisted-evidence model. (Operating plan: `v4-roadmap.md`.)
+
+- **`tools/audit-lint.mjs` — provenance / completeness / reconciliation (R0–R6, BLOCKING, zero-dep Node).** Run
+  from the emitted-repo root; exit 1 on any violation; writes `audit/lint/report.md`.
+  - **R0–R5 (MT-3/4/5, Stage B-1).** Every value token carries a `$extensions.brand.provenance` block on closed
+    source/confidence enums; `corroborated` ⇒ ≥2 distinct hashed sources; `inferred`/`matched` ⇒ `hypothesis`;
+    `computed-css`/`corroborated`/`owner-confirmed` ⇒ a path-bound `sha256` in `CHECKSUMS.txt`; every named
+    value/scheme → a token artifact OR an open `GAP-NNN`; every uncertain token → exactly one open GAP. The
+    archived-source identity+date gate feeds it via `tools/source-recover.py` (MT-3) + `CHECKSUMS.txt`.
+  - **R6 (MT-1, Stage B-2a) — cross-artifact reconciliation / drift.** A downstream artifact may not drift from
+    its single source: **R6a** every `derived` projection in `satellites/projections.md` consumes only aliases
+    that resolve in the spine and any pinned value byte-equals the spine-resolved value (`source: authored` rows
+    are truth, skipped); **R6b** the protected mark geometry is single-sourced from **`canon/mark.svg`** (the
+    prototype `#brand-mark` + kit `Mark.tsx` byte-equal to it; `canon.json`/PRIMITIVES § Mark stay
+    metadata-only); **R6c** every local asset ref resolves. The projection registry's `consumes`/`source`
+    columns are the machine linkage.
+- **`tools/fidelity-diff.py` — MEASURED reproduction fidelity (MT-2, Stage B-2b, build-time Python).** Replaces
+  the old §7a human/perceptual "looks-fine" verdict with a measured one: co-registers the reproduction onto the
+  **Stage-5 source capture** (ORB+RANSAC) and computes **ΔE2000** + **SSIM/pixelmatch** (+ fontTools glyph
+  metrics for type), verdicting against the §2 numeric tiers (ΔE2000 ≤ 2.0 default, ≤ 1.0 core colour;
+  loosening RAISES the bound, never waives the metric). It measures against the source capture — **not a
+  pixel-VRT** against a reference render (none exists, §3a). Deps are import-guarded (missing → `pip install …`
+  + exit 3); the **non-visual** path (`--medium non-visual`) needs none of them.
+- **Persisted-evidence model (both gates).** Verdicts are committed, re-auditable artifacts, never transient:
+  `audit/lint/report.md` (R0–R6) and `audit/fidelity/<treatment-id>/{source, reproduction, diff.png,
+  scores.json}` (the numeric scores + thresholds + verdict — re-readable without cv2). Absence of the evidence
+  for a reproduced treatment FAILS §7a.
+- **Invariants (hold across both gates).** *Brand-agnostic + medium-agnostic* — every gate tests the SHAPE of a
+  rule, never named brand content; a monogram-only / single-ink / sonic-primary / motion-primary brand passes
+  clean (a non-visual carrier resolves to a declared fidelity-blocking GAP, never a false-fail). *A gate that
+  fails correctly-built repos is worse than no gate* — every gate stage ships only after an exploit-repo
+  adversarial review (fresh hostile repos, multiple reviewers) proves it fails on a seeded violation AND passes
+  on clean + tricky-but-correct fixtures. Acceptance fixtures live beside each tool (`tools/fixtures/`).
+- **Tooling split by native ecosystem.** JSON/token/cross-reference linting is **Node** (zero-dep, the kit's
+  ecosystem); image diff / co-registration / glyph metrics are **Python** (OpenCV / scikit-image / fontTools).
+  Build-time gates ship into the client repo so it self-validates; the runtime component kit stays Node-only.
+
+> Deferred to Phase 4.1 (not backfilled here): the Heresto golden-set + the second validation brand, and the
+> v3-audit-closure reconciliation. The v2/v3 sections above remain the record for those.
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it

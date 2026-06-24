@@ -1,12 +1,12 @@
 ---
 title: brand-system-skills — v4 Ship Roadmap (consolidated)
 status: in-progress
-current_phase: Phase 3 (staged change execution) — Stage B-1 MERGED; B-2a (MT-1) shipped on branch (PR open); A, B-2b (MT-2), C–G pending
-last_updated: 2026-06-23
+current_phase: Phase 3 (staged change execution) — Stage B-1 + B-2a MERGED; B-2b (MT-2) shipped on branch (PR open) → CLOSES Stage B; A, C–G pending
+last_updated: 2026-06-24
 home_base: chat (claude.ai)
-next_action: verify + ratify-merge B-2a (MT-1 reconciliation, PR on v4/stage-b2a-reconciliation), then pick the next stage (A two-surface, or B-2b measurement) and run its inner cycle n.1 → n.4
+next_action: verify + ratify-merge B-2b (MT-2 measured fidelity, PR on v4/stage-b2b-fidelity) — closes Stage B (MT-1…MT-5 all in); then pick the next stage (A two-surface, or C schemes-are-tokens — now unblocked by B) and run its inner cycle n.1 → n.4
 repo: ccediland/brand-system-skills (public Claude Code plugin)
-main_head: b3ed6c7 (Stage B-1 merged + docs cleanup; B-2a/MT-1 lives on branch v4/stage-b2a-reconciliation until merged)
+main_head: d0d2480 (Stage B-1 + B-2a/MT-1 merged; B-2b/MT-2 lives on branch v4/stage-b2b-fidelity until merged)
 plugin_version: 0.3.0
 resident: RESIDENT.md at repo root — final reconciliation at Phase 4.1; durable per-stage changes migrate at relevant stage closes
 applies_to: brand-canon-scoper (Chat) + brand-canon-builder (Code), v4
@@ -19,7 +19,7 @@ applies_to: brand-canon-scoper (Chat) + brand-canon-builder (Code), v4
 ## TL;DR
 
 - v4 thesis: both skills declare a discipline in prose but never instantiate it as a gate. v4 makes the gates real — separate surfaces as distinct artifacts, values measured and byte-reconciled, completeness enforced — across both skills.
-- Position: Phases 0–2 are done (problem ledger frozen, findings verified against `main`, research pinned). Stage B-1 is MERGED to `main` (ade191c, PR #31; docs cleanup at `b3ed6c7`). Stage B-2a (MT-1 cross-artifact reconciliation) is shipped on branch `v4/stage-b2a-reconciliation` (PR open, pending Chat-verify + ratified merge). Remaining work: Stage B-2b (MT-2 measurement), then Stages A, C, D, E, F, G, then finalize and ship.
+- Position: Phases 0–2 are done (problem ledger frozen, findings verified against `main`, research pinned). Stage B-1 (MT-3/4/5) and B-2a (MT-1 reconciliation) are MERGED to `main` (HEAD `d0d2480`). Stage B-2b (MT-2 measured fidelity) is shipped on branch `v4/stage-b2b-fidelity` (PR open) and CLOSES Stage B on merge (MT-1…MT-5 all in). Remaining work: Stages A, C, D, E, F, G, then finalize and ship.
 - The change set is 23 mechanisms in 7 families, mapped to Phase-3 stages. Each is a concrete add/change/remove on a named file.
 - Two invariants that override convenience, repeated because downstream summaries drop caveats: (1) every gate is brand-agnostic — it tests the shape of a rule, never specific brand content; a monogram-only / single-ink / sonic-primary brand must pass clean. (2) A gate that fails correctly-built repos is worse than no gate — every gate stage runs an exploit-repo adversarial review before merge.
 - RESIDENT.md is touched at relevant stage closes (durable architecture only) and reconciled once at Phase 4.1 — not on every step.
@@ -130,7 +130,7 @@ Order follows the dependency graph (keystones first; the prototype-completeness 
 | Stage | Theme | Mechanisms | Sk | Depends on | Status | Docs on close |
 |---|---|---|---|---|---|---|
 | A | Two-surface | TS-1, TS-2 | S+B | — | pending | CLAUDE + log |
-| B | Machine-true evidence (builder keystone) | MT-1…MT-5 | B | — | B-1 (MT-3/4/5) merged; B-2a (MT-1) shipped/PR; B-2b (MT-2) pending | RESIDENT + CLAUDE + log |
+| B | Machine-true evidence (builder keystone) | MT-1…MT-5 | B | — | B-1 (MT-3/4/5) + B-2a (MT-1) merged; B-2b (MT-2) shipped/PR → **CLOSES on merge** | RESIDENT + CLAUDE + log |
 | C | Schemes are tokens | SC-1 | B | B | pending | RESIDENT + CLAUDE + log |
 | D | Human-legible complete review surface | RV-1…RV-5 | S+B | A, C | pending | RESIDENT + CLAUDE + log |
 | E | Epistemic honesty enforcement | EH-1, EH-2, EH-3 | S+B | B | pending | CLAUDE + log |
@@ -151,8 +151,8 @@ Ratification-gated mechanisms (flag at the owning stage's n.1, do not auto-proce
 ### Stage B — Machine-true evidence (MT-1…MT-5)
 
 - B-1 (MT-3/4/5): MERGED to `main` (ade191c, PR #31; docs cleanup at `b3ed6c7`) — see What is already done.
-- B-2a (MT-1): SHIPPED on branch `v4/stage-b2a-reconciliation` (PR open, pending Chat-verify + ratified merge). `audit-lint.mjs` gains **rule R6 (MT-1)**, the cross-artifact reconciliation / drift gate, exiting non-zero on drift: **R6a** every `derived` projection's consumed alias resolves in the spine and any pinned value byte-equals the spine-resolved value (`authored` rows are truth → skipped); **R6b** the protected mark geometry is single-sourced from the NEW `canon/mark.svg` (the prototype `#brand-mark` + kit `Mark.tsx` must be byte-equal to it; a brand with no visual mark + no rendered instance is N/A → PASS); **R6c** every local `@import`/`url()`/`href`/`src` resolves. `satellites/projections.md` gains machine-readable `consumes`/`source` columns; `canon.json`/PRIMITIVES § Mark stay metadata-only. Wired into `validate-audit.md` §5a + Gate summary; fixtures extended (clean exit 0, R0–R6 PASS; seeded exit 1, R6 fires on a drifted projection + a divergent mark + a dangling @import). Targets `validate-audit.md`, `satellites/projections.md`, `prototype.html`, kit `Mark.tsx`, new `canon/mark.svg`, `audit-lint.mjs`. R0–R5 unchanged; §7a/§3a/§2 untouched (reserved for B-2b).
-- B-2b (MT-2): PENDING. Replace the §7a perceptual verdict with a measured one — a registered same-DPI 8-bit diff (ΔE2000 ≤ 2.0; ≤ 1.0 on the mark's core color; SSIM/pixel for structure) on ORB+RANSAC co-registered images, plus fontTools glyph metrics; applies to the zero-tolerance carriers and treatments. New tool `tools/fidelity-diff.py` (Python). Targets `validate-audit.md` §2 and §7a, `reproduction-router.md` Validation.
+- B-2a (MT-1): MERGED to `main` (PR #32, in `d0d2480`). `audit-lint.mjs` gained **rule R6 (MT-1)**, the cross-artifact reconciliation / drift gate: R6a projection drift, R6b protected-mark single-source from `canon/mark.svg`, R6c asset-ref resolution; `satellites/projections.md` gained `consumes`/`source` columns. Wired into `validate-audit.md` §5a + Gate summary; R0–R5 unchanged.
+- B-2b (MT-2): SHIPPED on branch `v4/stage-b2b-fidelity` (PR open, pending Chat-verify + ratified merge) — **CLOSES Stage B**. New build-time tool **`tools/fidelity-diff.py`** replaces the §7a perceptual verdict with a MEASURED one: co-registers the reproduction onto the Stage-5 source capture (ORB+RANSAC) and computes ΔE2000 (≤ 2.0 default, ≤ 1.0 core colour) + SSIM/pixelmatch + fontTools glyph metrics, writing `audit/fidelity/<treatment-id>/scores.json` (re-auditable without cv2). Measures against the source capture — NOT a pixel-VRT (§3a preserved). Medium-agnostic: a non-visual carrier → declared GAP, never a false-fail; deps import-guarded (non-visual path needs none). Wired into `validate-audit.md` §7a + §2 + the Gate-summary §7a clause, and `reproduction-router.md` § Validation. Synthetic fixtures `tools/fixtures/fidelity/`. §3a/§5a + the Gate-summary R0–R6 clause byte-untouched; `audit-lint.mjs` untouched. RESIDENT.md gains its first v4 section (Stage-B close).
 - Scope boundary: §3a "no pixel-VRT for component renders" stays — MT-2 measures the mark, primary colors, and treatments, not component renders.
 - Consumes: ΔE2000 / ORB+RANSAC / fontTools (MT-2); SD custom formats and SVG `<use>` (MT-1).
 
@@ -193,7 +193,7 @@ Ratification-gated mechanisms (flag at the owning stage's n.1, do not auto-proce
 
 ## Current state
 
-Phase 3 is in progress. Stage B-1 is MERGED to `main` (`ade191c`): the provenance & completeness gate (`tools/audit-lint.mjs`, R0–R5), the recovery helper (`tools/source-recover.py`), the fixtures, and the wired specs are live. Stage B-2a (MT-1) is now shipped on branch `v4/stage-b2a-reconciliation` (PR open, pending verify + merge): `audit-lint.mjs` gains rule R6 (now R0–R6) and `canon/mark.svg` becomes the single renderable mark source. On `main` the repo is otherwise clean — the v3 root docs are removed and `v4-roadmap.md` is the single roadmap at root. Plugin still `0.3.0` (bump is Phase 4.3). The change set, targets, and research constraints are locked above; nothing downstream needs re-deriving. The next move is to verify + merge B-2a, then pick and run the next stage.
+Phase 3 is in progress. Stage B-1 (MT-3/4/5) + B-2a (MT-1) are MERGED to `main` (`d0d2480`): the provenance / completeness / reconciliation gate (`tools/audit-lint.mjs`, R0–R6), the recovery helper (`tools/source-recover.py`), `canon/mark.svg` single-sourcing, and the wired specs are live. Stage B-2b (MT-2) is now shipped on branch `v4/stage-b2b-fidelity` (PR open, pending verify + merge): the measured fidelity gate `tools/fidelity-diff.py` (ΔE2000 / SSIM / glyph against the Stage-5 source capture) replaces the §7a perceptual verdict and CLOSES Stage B on merge (MT-1…MT-5 all in); RESIDENT.md gets its first v4 section. On `main` the repo is otherwise clean — the v3 root docs are removed and `v4-roadmap.md` is the single roadmap at root. Plugin still `0.3.0` (bump is Phase 4.3). The change set, targets, and research constraints are locked above; nothing downstream needs re-deriving. The next move is to verify + merge B-2b, then pick and run the next stage (A or C).
 
 ## Decisions made
 
@@ -211,13 +211,13 @@ Phase 3 is in progress. Stage B-1 is MERGED to `main` (`ade191c`): the provenanc
 
 ## Open questions and blockers
 
-- B-1 (PR #31) is merged and B-2a (MT-1) is shipped on `v4/stage-b2a-reconciliation` (PR open). After B-2a merges, the next stage is a free choice between A (two-surface) and B-2b (MT-2 measurement). Carlos picks.
+- B-1 + B-2a are merged; B-2b (MT-2) is shipped on `v4/stage-b2b-fidelity` (PR open) and CLOSES Stage B on merge (MT-1…MT-5 all in). After B-2b merges, the next stage is a free choice between A (two-surface) and C (schemes-are-tokens, now unblocked by B). Carlos picks.
 - RESOLVED (was: PR #31 branched from `v4/roadmap`): PR #31 was decontaminated to code-only and squash-merged (`ade191c`); `v4-roadmap.md` landed separately on `main` root with cleanup complete at `b3ed6c7`. B-2a's PR is branched cleanly from `origin/main` (`b3ed6c7`), so this does not recur.
 - The ratification-gated mechanisms (RV-1, RV-4, SH-2, SH-3) need Carlos's sign-off when their stages reach n.1.
 
 ## Next actions
 
-1. Verify + ratify-merge B-2a (MT-1 reconciliation, PR on `v4/stage-b2a-reconciliation`). Then pick the next stage — A (two-surface) or B-2b (MT-2 measurement). Both are dependency-free roots; B-2b finishes the builder keystone and unblocks C, A unblocks D. Carlos's call.
+1. Verify + ratify-merge B-2b (MT-2 measured fidelity, PR on `v4/stage-b2b-fidelity`) — this CLOSES Stage B (MT-1…MT-5 all in). Then pick the next stage — A (two-surface) or C (schemes-are-tokens, unblocked now that B is closed). A unblocks D; C completes the token engine. Carlos's call.
 2. Run that stage's inner cycle: n.1 Chat design + decisions (re-pin targets against current `main` by section/rule name) → n.2 one self-contained hand-off → n.3 Code executes and reports → n.4 Chat verifies via Composio, then the merge is ratified.
 3. Keep the exploit-repo adversarial review per gate stage; prove each new gate fails on a seeded violation and passes clean before merge.
 
@@ -230,6 +230,8 @@ Phase 3 is in progress. Stage B-1 is MERGED to `main` (`ade191c`): the provenanc
 - 2026-06-23 — Roadmap consolidated from scratch into this file (`v4-roadmap.md`, the operating document going forward, at `main` root); stage order restored to the dependency graph; RESIDENT-touch rule revised to per-relevant-stage plus a 4.1 reconciliation.
 - 2026-06-23 — Repo untangled and B-1 LANDED. Cleanup executed: `v4-roadmap.md` committed to `main` root, the three v3 root docs removed, PR #19 closed, branches `v4/roadmap` / `v3/audit` / `claude/v3-plan` deleted. PR #31 decontaminated to 28 code files, Chat re-verified the diff via Composio, then squash-merged → `main` `ade191c`; its branch auto-deleted. Repo state: only `main`, no open PRs, the gate + helper + specs live.
 - 2026-06-23 — B-1 code Chat-verified by running the gate on both fixtures (clean exit 0 / seeded exit 1, all rules firing; RESIDENT untouched; no brand leak). Branch/PR topology verified via Composio: the roadmap doc had diverged across `v4/roadmap` (6 commits, no PR) and PR #31 (carries it among 29 files). Cleanup planned: decontaminate PR #31 to code-only, land `v4-roadmap.md` on `main`, remove the v3 root docs, delete stale branches, close PR #19.
+- 2026-06-23 — Stage B-2a (MT-1) shipped + MERGED (PR #32 → `d0d2480`): `audit-lint.mjs` gained rule R6 (R6a projection drift · R6b mark single-source via the new `canon/mark.svg` · R6c asset-ref resolution); `satellites/projections.md` gained machine-readable `consumes`/`source` columns. Exploit-repo review (5 independent reviewers) found + fixed 6 false-fail classes (quoted CSS values, `;`-inside-value, self-closing vs explicit-empty svg, `id` on a non-svg, a decorative `Mark` outside the kit, an encoded data-URI fragment); two became permanent clean-fixture regression guards. §7a/§3a/§2 + R0–R5 byte-untouched.
+- 2026-06-24 — Stage B-2b (MT-2) shipped (PR on `v4/stage-b2b-fidelity`, base `main@d0d2480`) → **CLOSES Stage B** (MT-1…MT-5 all in). New build-time `tools/fidelity-diff.py` replaces the §7a perceptual verdict with a MEASURED ΔE2000 + SSIM/pixelmatch + fontTools-glyph diff against the Stage-5 source capture (ORB+RANSAC co-registration), writing `audit/fidelity/<id>/scores.json` (re-auditable without cv2). Validated on synthetic fixtures: within / within-shift / core-colour → pass; out → exit 1; out+declared-GAP + non-visual carrier → pass; mid@default fail vs mid@loose pass (a looser tier raises the bound, never waives the metric); import-guard → exit 3 with a `pip install` message; the non-visual path runs dep-free. Exploit-repo adversarial review (5 reviewers) FOUND + FIXED several false-fail classes — a degenerate/garbage co-registration warp applied blindly (flat swatch, 2% scale, authored-foil), `mismatch_fraction` tripping on edge-localized JPEG/skew, SSIM degeneracy on flat carriers, and a glyph crash on a no-Unicode-cmap font; fixes: registration now KEEPS-THE-BEST alignment by ΔE (never worse than no-warp) + sanity-bounds, mismatch counts only grossly-wrong pixels (ΔE>10), a flat-image SSIM guard, structure bounds kept looser than the strict ΔE primary, and the cmap guard. Re-verified 22/22 (incl. RGBA/grayscale/mismatched-dims/1×1/missing→exit2/SVG→exit2). §3a/§5a + the Gate-summary R0–R6 clause + `audit-lint.mjs` byte-untouched; reproduction-router §7a cross-refs intact. RESIDENT.md gains its first v4 section (Stage-B builder-validation architecture). Heresto/golden-set NOT backfilled (deferred to 4.1). Pending: Chat-verify + ratified merge.
 
 ## Resume
 
