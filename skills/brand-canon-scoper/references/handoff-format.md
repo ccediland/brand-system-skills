@@ -4,6 +4,8 @@ The scoper's only output is ONE self-contained, machine-readable block. The pers
 the target repo per the manifest, then pastes this block into Claude Code (in or next to the target repo) to
 invoke `brand-canon-builder`.
 
+This block is the output of **gate 7b** — produced ONLY after the Final Brand Brief (gate 7a) has the owner's BLOCKING approval; nothing compiles before that sign-off.
+
 This is a contract, not prose. LLMs do not reliably infer intent from prose, diagrams, or a Figma file —
 the builder needs an explicit, deterministic, auditable block: declared constraints, named responsibilities
 per canon layer, generative rules as the bridge from intent to appearance, fidelity/provenance flags so the
