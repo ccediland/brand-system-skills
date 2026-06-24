@@ -106,6 +106,14 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   EXECUTABLE posture→GAP-severity gate (a `posture` block in `canon.json` + Severity-column parsing in
   `audit-lint`) is DEFERRED to Phase-5 with the live red-team RUN;** EH-3 ships as prose, so `audit-lint` stays
   R0–R8.
+- **Structural hygiene (Stage G — SH-1/SH-2/SH-3).** SH-1: the scoper interview bank + detection batteries
+  live in `references/` (keeps `SKILL.md` < 500). SH-2: a **live-but-raster CONSUMER surface** (image feed /
+  gallery — reachable by `url:` but not computed-style-readable) declares `ingest:ocr-visual`; the CONSUMERS
+  `ingest:` is the **same open class** as the ASSETS track (not css-only), and the builder routes by the
+  declared `ingest:` — kept in lockstep across `handoff-format.md` (schema), `builder/SKILL.md` (routing) and
+  `asset-acquisition.md` (the ingest-token map). SH-3: the scoper does **not** trigger for brand-voice-only
+  guideline generation (discriminator = whole-task-vs-part-of-canon, never brand age) — and never suppresses
+  full-canon scoping that includes voice.
 - **Mirror web-stack-skills' marketplace conventions** so the two interoperate (same manifest/skill layout).
 
 ## Provenance / build memory
