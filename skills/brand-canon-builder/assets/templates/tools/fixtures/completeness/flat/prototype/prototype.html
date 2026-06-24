@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-<!-- CLEAN fixture prototype. Mark geometry is inlined VERBATIM from canon/mark.svg (R6b byte-equal).
-     Self-contained: no external @import / url() / href / src (R6c clean). -->
+<!-- FLAT fixture (D-2b battery): a single-scheme brand — canon.json declares NO named schemes. R8 must NOT
+     require a schemes surface (schemes not present). Present canon sections: color (tokens) + mark
+     (canon/mark.svg). Mark geometry is byte-equal to canon/mark.svg (R6b). -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Demo Brand — prototype</title>
+<title>Flat Brand — prototype</title>
 <style>
   :root { --color-brand: oklch(0.62 0.13 255); --color-brand-fg: oklch(0.99 0 0); }
   .mark svg { height: 2.25rem; width: auto; }
 </style>
 </head>
 <body>
-  <div class="mark" data-canon-section="mark" aria-label="Demo Brand logo">
+  <div class="mark" data-canon-section="mark" aria-label="Flat Brand logo">
     <svg id="brand-mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
       <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>
       <circle cx="16" cy="16" r="7" fill="var(--color-brand-fg)"/>
     </svg>
   </div>
-  <!-- R8 (D-2b): present canon sections (color tokens · canon.json schemes · canon/mark.svg) each get a
-       data-canon-section surface. essence/type are NOT present in this minimal fixture, so no surface needed. -->
   <section data-canon-section="color"><h2>Color</h2><div style="background:var(--color-brand);height:2rem"></div></section>
   <section data-canon-section="type"><h2>Type</h2><p>Display / Body — the type pairing.</p></section>
-  <section data-canon-section="schemes"><h2>Color schemes</h2><p>day · night · print</p></section>
 </body>
 </html>

@@ -12,11 +12,14 @@
 </style>
 </head>
 <body>
-  <div class="mark" aria-label="Seeded Brand logo">
+  <div class="mark" data-canon-section="mark" aria-label="Seeded Brand logo">
     <svg id="brand-mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
       <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>
       <circle cx="16" cy="16" r="9" fill="var(--color-brand-fg)"/>
     </svg>
   </div>
+  <!-- SEEDED R8 violation: color tokens + schemes are present in canon, but only mark + schemes get a
+       data-canon-section surface here — the PRESENT "color" section has no surface and no open GAP → R8 FAIL. -->
+  <section data-canon-section="schemes"><h2>Color schemes</h2><p>day · night</p></section>
 </body>
 </html>

@@ -1,0 +1,7 @@
+<!-- CLEAN fixture mark — the single renderable source (R6b). REGRESSION GUARD: authored with
+     EXPLICIT empty elements (<rect></rect>) while prototype + kit inline the SELF-CLOSING form
+     (<rect/>); R6b's normalization must treat the two serializations as byte-equal. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-hidden="true">
+  <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"></rect>
+  <circle cx="16" cy="16" r="7" fill="var(--color-brand-fg)"></circle>
+</svg>
