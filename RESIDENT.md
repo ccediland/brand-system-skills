@@ -219,7 +219,7 @@ instance-specific as settled.** v3 is the fix; it extends the v2 skills, it does
   horizon). Both audit reports are closed baselines. Only the Phase-5 validation run remains (2nd
   differently-shaped brand · live red-team · visual-diff audit · release). Plan in `v3-execution-plan.md`.
 
-## v4 — builder validation architecture + token engine (Stages B–C)
+## v4 — builder validation architecture + token engine + review surface (Stages B–D)
 v4 turns the builder's prose discipline into **executable gates that exit non-zero on violation**. Stage B is
 the builder-keystone: the emitted client repo is **self-validating** (regression-ready) and **machine-true**, not
 prose-true. Two gates, two ecosystems, one persisted-evidence model. (Operating plan: `v4-roadmap.md`.)
@@ -280,6 +280,29 @@ prose-true. Two gates, two ecosystems, one persisted-evidence model. (Operating 
   PRIMITIVES › Pattern a **decorative contrast band**: a brand-fixed opacity/contrast band is the PRIMARY rule,
   escalating to **WCAG 3:1 (SC 1.4.11)** when the device carries meaning/state; APCA Lc 15 is an internal
   reference only; **WCAG 2.x AA is the legal bar (no APCA substitution)**. Spec-level — no executable gate.
+
+**Stage D — the human-legible complete review surface (CLOSED).** v4's third axis: the canon becomes legible
+to a non-design owner without oral transfer, and the prototype becomes the complete deliverable.
+- **The client-surface flow (scoper, RV-1/RV-2).** The three client-facing instruments are ONE instrument
+  advancing through three checkpoints, not three parallel docs: gate 3.5 Discovery & Intake (CONFIRM/ASK/REQUEST,
+  emission default) → gate 6 review (Found/Missing/To-confirm) → gate 7a Final Brand Brief (the BLOCKING client
+  approval) → gate 7b machine handoff (emitted only after 7a sign-off). Same register/lineage; CONFIRM→Found ·
+  ASK→To-confirm · REQUEST→Missing at successive maturity (v1→v2→vFinal).
+- **Pipeline discipline (RV-3/RV-4).** Every gate emits a named/dated/versioned DELIVERABLE + a `stage N of 9`
+  marker (3.5/6/7a are the same client instrument at v1→v2→vFinal). Gate 5 is unconditional/BLOCKING — a stated
+  sole-decider does not waive the external-review framing — and `consultation-surface: always-required` is a
+  permanent dimension (never resolves to not-used).
+- **The prototype = complete interactive brandbook (builder, RV-5).** Stage 8 no longer emits a 5-zone UI demo:
+  the prototype is the full brandbook — manifest sections (lexicon, Misuse, schemes, THINK-rule surface, plus
+  hero/cards/type/color) DERIVED from the canon's present sections (anti-determinism: a not-used section is
+  omitted or GAP, never invented), a "Decisions for you" ratification panel (client-language-first; the human
+  sign-off ratifies, never auto-stamped), and a design bar (hero focal anchor, responsive `@media` breakpoint,
+  colour-as-system). Single self-contained offline `.html`; the Stage-11 deny-lint (TS-2) already covers the
+  enlarged brandbook.
+- **R8 — prototype completeness (audit-lint §5a).** Every PRESENT canon section → a `data-canon-section`
+  brandbook surface OR an open `GAP-NNN`. Shaped like R4/R7; anti-determinist (reads present sections by machine
+  signal, never a fixed checklist — flat/monogram/sonic/non-visual pass clean). Gate-summary is now R0–R8.
+- PRs: D-1a #41 · D-1b #42 · D-2a #44 · D-2b #45.
 
 > Deferred to Phase 4.1 (not backfilled here): the Heresto golden-set + the second validation brand, and the
 > v3-audit-closure reconciliation. The v2/v3 sections above remain the record for those.
