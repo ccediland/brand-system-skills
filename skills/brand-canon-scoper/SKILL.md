@@ -163,6 +163,20 @@ A second dimension is PERMANENT and not brand-enumerated: **consultation-surface
 every other dimension it never resolves to `filled` / `not-used` / `tagged-gap`; it is fixed always-required,
 because gate 5 (the consultation / external-review framing) runs for every brand, even a stated sole-decider (RV-4).
 
+Named regulatory instruments — elicited-or-GAP (EH-2). When the brand has regulatory exposure (surfaced at
+§4a and carried in the handoff POSTURE `regulatory:` field), any NAMED legal/regulatory instrument that binds
+the brand's claims — a statute, standard, code, or naming authority — is ELICITED from the owner or their
+material (`source: owner-stated`, cited to the owner utterance or a manifest item), or carried as an explicit
+`tagged-gap` for the builder. Like all posture data its `confidence` stays `hypothesis` until the gate-6
+promote — `owner-stated` is the SOURCE axis, not a ratification. The scoper NEVER asserts a specific regulation
+from the model's own memory: there is no "you're subject to `<regulation>`" guessed from the brand's category
+— an unsupplied instrument is a gap to confirm, never a scoper-recalled name, and a name tagged `owner-stated`
+with no cited owner source IS a memory-assertion defect. So the `regulatory:` carrier is `owner-stated`-or-GAP,
+never memory-asserted; it is the input EH-3 (the builder's posture→severity gate, a forward seam) will read,
+which is why a memory-guessed name must never reach it. Brand-agnostic: a brand with no regulatory exposure
+declares `regulatory: none` (a `not-used` owner declaration) and passes clean — exposure is never assumed, and
+absence is never forced into a GAP.
+
 ### 3. Asset-inventory request — BLOCKING (gate 3)
 A blocking precondition — its absence in v1 was the single largest cause of the hollow build. Issue an
 explicit, itemized request against what the canon needs, assuming nothing about what the brand has or
@@ -243,6 +257,18 @@ Carry, don't just elicit. The Aaker-5 personality scores, the differential-scale
 resonance answer are not only elicited here — they are written into the handoff's WHY block (Personality /
 Differential scales / Resonance) so the builder and keystone consume them. An unanswered one is a gap, never a
 scoper guess.
+
+Elicited-or-GAP (EH-1). Personality, differential scales, resonance, and any owner-meaning field — a field
+whose value lives only in a person's intent (what the brand MEANS, chooses, or refuses: the intended meaning
+of a color/typeface/mark, the anti-promise, value trade-offs), as opposed to a value observable in or
+measurable from material — resolves to exactly one of three honest states: ELICITED from the owner
+(`source: owner-stated`, carried at its earned `confidence`), an owner-declared `none` (the brand has none — a
+clean not-used, never invented), or an explicit GAP. It is NEVER scoper-derived. `confidence: hypothesis` is
+not a license to carry a scoper-supplied value: a field with no owner source behind it is a GAP regardless of
+confidence, and a value reaches `owner-confirmed` only by explicit owner ratification. This is the *The
+provenance spine* hard rule applied at this gate (do not restate the ladder — it governs); a score, a scale
+placement, or an intended meaning the scoper supplies on the owner's behalf is a defect, not a finding. The EH
+self-check (below, pre-compile) verifies it.
 
 ### 4a. Posture detection (detect, don't hardcode)
 **Posture detection — detect, don't hardcode.** A question battery (in `references/detection-batteries.md`) detects the brand's posture as a capability class; record `profile` + params into the handoff POSTURE block, incl. `visibility:<low|moderate|high>` and `audiences:<ordered>`. Posture is owner-stated (source) / `hypothesis` (confidence) until the gate-6 promote — never stamped mid-interview.
@@ -340,6 +366,26 @@ client instrument (Found / Missing / To-confirm), and the gate-7a Final Brand Br
 docs — they are ONE instrument maturing through the flow: same register, same language, same lineage. The
 taxonomy maps across maturities: CONFIRM → Found, ASK → To-confirm, REQUEST → Missing. Gate 7a is this very
 review resolved to full ratification.
+
+### EH self-check — BLOCKING
+The pre-compile status gate: gate 7a does not open until this passes. Run a second BLOCKING self-check over the
+recorded intake — the epistemic-honesty companion to the §6 Client-surface self-check (which guards client
+vocabulary; this one guards status integrity). It tests the FORM of each datum's provenance on the spine's own
+axes (`source` / `confidence` / GAP), never any brand's content. Verify:
+- **(a) Owner-meaning fields** — any field whose value lives only in a person's intent (what the brand means,
+  chooses, or refuses: personality, differential scales, resonance, the intended meaning of a
+  color/typeface/mark, the anti-promise, value trade-offs), not a value observable in material. Each resolves
+  to exactly one of: `source: owner-stated` backed by a real owner utterance, an owner-declared `none`
+  (not-used), or an explicit GAP. None is scoper-derived; `confidence: hypothesis` is not a license — a field
+  carrying a value with no owner source behind it is a defect even at hypothesis, and nothing sits above
+  hypothesis without explicit owner ratification.
+- **(b) Regulatory instruments.** Every named legal/regulatory instrument is `source: owner-stated` cited to
+  the owner or a manifest item — never memory-asserted; a name tagged `owner-stated` with no cited source is a
+  defect. The POSTURE `regulatory:` field carries no model-recalled regulation name.
+Any violation is a BLOCKING defect: re-status the datum to a GAP (or, for a field the owner closed, an
+owner-declared `none`) or elicit it before compiling. Brand-agnostic by construction — a brand with no
+regulatory exposure (`regulatory: none`) and any owner-declared `none` field both pass clean; absence is never
+forced into a GAP.
 
 ### 7a. Final Brand Brief — BLOCKING (gate 7a)
 The close of the single client-surface flow: the §6 review carried to ratified-complete, in client language
