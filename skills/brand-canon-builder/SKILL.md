@@ -125,9 +125,11 @@ brief — parse every block and act on it (do not re-derive what it already carr
   confidence and is never promoted to a brand line without `owner-confirmed`. **per-mark GEOMETRY**
   (clear-space / min-size digital / min-size physical / construction-ref) → Stage 6 reads these owner-provided
   values instead of re-hunting from a PDF. **per-font `license:`** (a declared SPDX/license id, `owner-supplied`,
-  or `unlicensed→GAP`) → Stage 4 reads the actual license and applies its own self-hostable policy (OFL/Apache/
-  Ubuntu/… self-host; an `unlicensed→GAP` or non-self-hostable commercial face is a MUST-HAVE fidelity GAP,
-  never a silent fallback).
+  or `unlicensed→GAP`) → Stage 4 reads the actual license and applies its redistribution policy (OFL/Apache/
+  Ubuntu/… self-host; a non-redistributable face ships a declared fallback + license note in bundled files
+  ONLY — the local render keeps the real face; a face whose FILE is unobtainable is a MUST-HAVE fidelity GAP,
+  never a silent fallback). License is a dependency + confirmation request, never a capability gate
+  (`references/font-acquisition.md` § License posture).
 - **`HOW (grammar)` + `generative-rule seeds (if/then)`** → seed `G-*`/`ALGO-*` with stable IDs.
   `CORE-ASSET FIDELITY CONTRACT` → drives the fidelity gate (Stage 10). `GAPS (client-language)` →
   the builder owns formalization into `GAP-NNN` (two-ledger, Stage 9). `OPTIONAL` (incl. `Claude Design
@@ -200,10 +202,13 @@ into `CHECKSUMS.txt`. (Full method: `references/asset-acquisition.md` § Archive
 Read `references/font-acquisition.md`. **Read each face's handoff `license:` field first** (a declared
 SPDX/license id, `owner-supplied`, or `unlicensed→GAP`, from WHAT per-font, parsed at Stage 0) — it is the
 owner's declared license state, not something to re-derive. Then acquire the brand's actual typefaces by whatever path the source
-offers (embedded-PDF / `@font-face` from a live site / repo files / acquire open via Fontsource). Licensing
-is hard-gated: self-host only OFL/Apache/Ubuntu or owner-supplied faces (ship the license; rename on a
-Reserved Font Name when subsetting); an `unlicensed→GAP` or otherwise unlicensed commercial face is a
-MUST-HAVE fidelity GAP, never a silent fallback (deny-by-default). (Full method: `references/font-acquisition.md`.)
+offers (embedded-PDF / `@font-face` from a live site / repo files / acquire open via Fontsource). License =
+dependency + confirmation request, NEVER a capability gate: the private build/render/fidelity evidence use the
+brand's REAL face whenever the file exists (license unconfirmed → a visible license-confirmation GAP, work
+continues); only REDISTRIBUTION is hard-gated — self-host/bundle only OFL/Apache/Ubuntu or owner-supplied
+faces (ship the license; rename on a Reserved Font Name when subsetting); a non-redistributable face ships a
+declared fallback + license note in bundled files only; a face whose FILE is unobtainable is a MUST-HAVE
+fidelity GAP, never a silent fallback. (Full method + posture: `references/font-acquisition.md`.)
 
 ### Stage 5 — Applied-design harvest
 Harvest the lived design language from the live consumers the scoper pointed at (the *Applied-design harvest*
