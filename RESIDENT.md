@@ -3,11 +3,12 @@ name: brand-system-skills-resident
 description: "Living resident doc for brand-system-skills — a Claude Code plugin marketplace whose skills
   build a generic, brand-agnostic, output-agnostic brand canon (four layers + DTCG/OKLCH token spine) for
   any brand. Use when any session touches this repo, its skills, the canon template, the token interchange
-  contract, or its relationship to web-stack-skills. Canonical at the source; any mirror is read-only."
-last_updated: 2026-06-24
+  contract, its relationship to web-stack-skills, or the v4→v5/v6 build cycle (recap + gate-level log live here).
+  Canonical at the source; any mirror is read-only."
+last_updated: 2026-07-04
 applies_to: Repo ccediland/brand-system-skills — the brand-canon builder/scoper skills + canon template
 canonical: github
-domains: [brand-system, tooling]
+domains: [brand-system, tooling, ciclo-v5]
 ---
 
 # brand-system-skills — RESIDENT
@@ -26,8 +27,24 @@ domains: [brand-system, tooling]
   into an engine that analyzes existing published brand work across mediums → extracts the real assets →
   produces a real prototype + a Design-syncable component library by default.** The canon is the skeleton,
   never the deliverable. See `## v2`.
-- **v3 (skills built; validation next):** a fresh adversarial stress test (a third, independently-authored brand) exposed failure classes v2's gates miss — all reducing to lost epistemic status. v3's **rectoral constraint is anti-determinism**; its **north star** is a single attachable file an AI can *think / speak / design as* the brand; its **spine** is provenance on every datum. **Phases 1–4 shipped to `main`** (handoff contract · scoper v3 · builder v3 — capture/spine, reproduction+tokens, keystone+fidelity-gate); the transversal-audit (#19) and a fresh full system audit (#25), remediated across fix-passes #20–#29, leave the **entire audit ledger CLOSED — zero BLOCKER/MAJOR/MINOR/NIT** except the deliberate F55 (bold-density deviation) + the OI-J horizon; only the Phase-5 validation run remains. See `## v3` (the v3 plan/research docs were removed in the v4 consolidation; record in closed-PR history).
-- **v4 (SHIPPED — plugin `0.4.0`):** v4 turned the prose discipline into **executable gates** across both skills — all 7 stages (A–G) closed, all 23 mechanisms shipped to `main` (only R9, the executable posture→GAP-severity gate, deferred to Phase-5). The builder emits a self-validating client repo (`audit-lint` R0–R8 + measured fidelity + scheme materializer + client deny-lint); the scoper runs one client-surface flow plus epistemic-honesty + process-discipline self-checks. **Shipped `0.4.0` to the marketplace (Phase 4.1–4.3); RESIDENT is now the single durable doc — the v4 roadmap is retired, its operating record in git history.** Phase-5 (golden-set v4 verdict-capture first) is the horizon — see `## Roadmap`. See `## v4`.
+- **v3 (shipped):** un stress adversarial (3ª marca independiente) expuso clases de falla que los gates v2 no ven — todas reducen a pérdida de estatus epistémico. v3 = **anti-determinismo rectoral** + north star **"a brand an AI can BE"** (keystone attachable think/speak/design-as) + **provenance en cada dato**. Phases 1–4 a `main`; los dos audits (#19 transversal, #25 system) remediados a **ledger CERRADO** across #20–#29 (deliberados: F55 bold-density · F31 motion-line · horizonte OI-J). Ver `## v3`.
+- **v4 (SHIPPED — plugin `0.4.0`):** la disciplina de prosa vuelta **gates ejecutables** en ambos skills — 7 stages A–G cerrados, 23 mecanismos a `main` (solo R9 diferido): el builder emite un repo cliente auto-validante (`audit-lint` R0–R8 + fidelity MEDIDA + scheme materializer + client deny-lint); el scoper corre un flujo cliente único + self-checks EH/proceso. RESIDENT = único doc durable; el roadmap v4 retirado a git history. Ver `## v4`.
+- **CICLO VIGENTE (2026-07-04) — v4 TESTEADA → v5/v6:** la validación que v4 llamaba "Phase 5" corrió — más grande — como **stress-test BLIND e2e de 5 marcas reales**. Veredicto: la tesis machine-true quedó a la mitad (~50% del gate suite era prosa auto-atestada; el aparato de provenance certifica la transcripción del builder, no la captura — C-X6; fidelity se fingió o esquivó donde aplicaba — X2). Disposición: `essential-brand` = golden set LOCAL; Onyx/Cuenca/Klim/Radiotopia = failure gallery local. Planeación CERRADA: análisis congelado + PLAN-V5 (aprobado) + PLAN-V6 (preliminar) en la raíz de este repo. Ver `## Ciclo vigente`.
+
+## Cómo retomar (toda sesión del ciclo)
+
+Leer EN ORDEN: este `RESIDENT.md` → `CLAUDE.md` → `brand-system-skills-v5-analysis_2026-07-04.md` (el "análisis") → el PLAN de la versión en curso (`PLAN-V5.md` / `PLAN-V6.md`). Con eso la sesión queda up-to-date: contexto, avance, decisiones, lo que falta. Mantenimiento de este doc: Code lo actualiza al cierre de cada GATE/ETAPA del ciclo (recap + log + decisiones) — JAMÁS por sesión; el detalle por sesión vive en el Session log del plan. `CLAUDE.md` carga lo puntual de arquitectura/código/gotchas y lo mantiene Code cuando haga falta.
+
+## Ciclo vigente — v4 testeada → v5/v6 (recap; el detalle SIEMPRE se resuelve por ID en los docs de raíz)
+
+- **Qué pasó:** v0.4.0 @ `65932bb` sometida a stress-test blind e2e de 5 marcas de clases distintas (visual · regulated · phantom · flat/foundry · sonic), cada una con self-analysis + harness. Los hallazgos, con ID estable, viven en el análisis (§1–§11 problemas · §12 wins W-1…W-14 · §13 rectores NS-A…NS-H · §14 directrices N1–N11+T1–T3 · §15 research con fuentes · §16 arquitectura de los dos workflows: creación de plan vs ejecución — chat home base, Code brazo, retornos destilados).
+- **PLAN-V5.md (canónico, aprobado):** E0 congelar gallery → E1 verdad-máquina (contrato único E1-02: enum 5 rungs + fixtures sintéticos de handoff; gates ejecutables o demovidos; NS-B custodia; fidelity obligatoria con rama sin-fuente; NS-C) → E2 superficies (manifest, vocabulario sancionado, asset-index N5, R8 invertido, keystone visual N4 + regla imagery N7, N2, self-audit N1) → E3 scoper (máquina de estados 4-estados con frame generado, proxy/multi-decider, N11, curator-wall ESCRITO, POSTURE derivado) → E4 cierre + stress-tests por mecanismo. Wins-regression W-1…W-14 en cada gate. ≈30–35 sesiones.
+- **PLAN-V6.md (PRELIMINAR, gated a F0 post stress-test v5):** F0 re-verificación + veredicto hop web-stack → F1 migración `.tokens.json` + hop → F2 CREATE completado + T2 EXTEND/RECOMMEND → F3 F4-emitter (kit capability) → F4 mirror Drive (GitHub Action + sha256) → F5 cierre. Fuera con condición escrita: resolver Module · OI-J.
+- **Decisiones de ciclo (2026-07-04):** todo LOCAL — cero push de repos de marca; handoffs originales del test no existen y NO se reconstruyen (fixtures sintéticos v5); los 5 blind-test reports = archivo forense FUERA del workflow; los 3 docs del ciclo a la raíz de main; pin `65932bb` = baseline sobre la superficie de CÓDIGO (commits doc-only no lo invalidan).
+
+### Log del ciclo (por gate/etapa — lo mantiene Code)
+
+- 2026-07-04 — PLANEACIÓN CERRADA: análisis consolidado y CONGELADO; research §15 completo; rondas de análisis pre-plan v5 y v6 ejecutadas en Code; PLAN-V5 aprobado (v2 + 4 enmiendas de la ronda v6) y PLAN-V6 preliminar. Etapa vigente: PLAN-V5 E0 — pendiente: subida de los docs del ciclo a main (branch→PR→OK) + E0-01.
 
 ## Architecture & why
 - **Four-question canon.** Every design truth answers *where-start / why / what / how*; each owned by one
@@ -72,6 +89,7 @@ domains: [brand-system, tooling]
 - `skills/brand-canon-scoper/` — `SKILL.md` + `references/` (`handoff-format.md`, `elicitation-bank.md`,
   `detection-batteries.md`, `process-discipline.md`).
 - `README.md` (human front door) · `RESIDENT.md` (this doc — the single durable record) · `CLAUDE.md` (agent ops + guardrails).
+- **Docs del ciclo v5/v6 (raíz, desde 2026-07-04):** `brand-system-skills-v5-analysis_2026-07-04.md` (análisis del stress-test v4, CONGELADO — requisitos/evidencia por ID) · `PLAN-V5.md` (plan de ejecución canónico v5) · `PLAN-V6.md` (preliminar, gated a F0).
 - `dev/` — build provenance (work-log + v2 specs + `v2-backlog.md`, F-001…F-026); **gitignored, local-only, not shipped**.
 - The v3 root docs (`v3-execution-plan.md`, `v3-research-foundation.md`, `v3-system-audit—2026-06-23.md`) were
   removed in the v4 consolidation, and the v4 roadmap (`v4-roadmap.md`) was retired at the v4 ship; their
@@ -82,6 +100,7 @@ domains: [brand-system, tooling]
 - **web-stack-skills** = downstream consumer. Its `astro-css-tokens` skill ingests the DTCG `tokens/` spine
   (3-file, OKLCH-string `$value`, plain-string values, `{tier.cat.name}` aliases, namespace-aligned category
   names). Validate "does a canon project cleanly into web-stack-skills?" whenever the token contract changes.
+  **⚠️ FLAGGED 2026-07-04 (ronda pre-plan v6, verified):** esta descripción está STALE o el hop lleva roto desde C-1 — el spine emite `$value` estructurado, no OKLCH-string; web-stack-skills no está clonado local y el veredicto quedó pendiente en PLAN-V6 F0-02. No citar este contrato como vigente hasta ese veredicto.
 - **Claude Design** = consumer via `/design-sync`, which needs a COMPILED COMPONENT LIBRARY (dist/Storybook/
   package), not a canon. v2 makes that library a default build output (see `## v2`).
 - Both are PROJECTIONS of a brand canon; the canon never names a stack (escape valve = adapters in the
@@ -134,6 +153,11 @@ domains: [brand-system, tooling]
 | **v3 scoper client instrument instantiated + medium-agnostic intake (F10/F38)** — §6 ships a worked EXAMPLE of the external client instrument (jargon-free Mexican Spanish for a non-design owner, design terms glossed inline by example, a generic placeholder brand, one Found/Missing/To-confirm line) — the tone-fidelity-critical surface is no longer specified-but-uninstantiated; and the §3 asset-intake fidelity rubric is generalized to a capability class (a non-visual PRIMARY carrier — sonic / motion / verbal — gets its own build-grade/reference/missing rating elicited at intake), mirroring the #26 primary-identity-carrier model so the scoper ELICITS what the handoff/gate/keystone already carry | the client-facing surface most dependent on owner-language tone had no exemplar, and the intake rubric was visual-only while the system claims medium-agnosticism | 2026-06-23 |
 | **v3 client-drift + repo hygiene (system-audit M2/M3/M4)** — (M2, rector) the real n=1 brand name is removed from `.gitignore` and the brand-scrub pattern generalized (`**/brandbook*.pdf` · `**/*-brandbook*.pdf` · `**/reference-*.pdf`) so a 0-brand-name grep over the WHOLE tracked tree is EMPTY — a standing pre-commit gate; (M3) the client RESIDENT template's gaps table carries the mandated 7th `Provenance` origin-tag column (`handoff-deliberate\|handoff-defect\|builder\|skill-scope`) so every scaffolded repo can hold a gap's origin; (M4) `conventions.md` is single-sourced to the kit (the drifted adapter-dir duplicate deleted, the §Shape pointer fixed) and the mandatory keystone (+ prototype + library) is surfaced in every deliverable map that omitted it (the inherited client README's Deliverables block, the builder SKILL "What it produces", and the tool README builder row) | a real brand name in a brand-agnostic repo (rector violation), a client ledger structurally unable to hold the gap-origin tag, a dead drifted conventions copy, and an inherited front door that omitted the north-star deliverable | 2026-06-23 |
 | **v3 audit ledger CLOSED (#29) — last leak + tail** — F45: the §7b regulated trigger's SKILL summary drops the closed `health/finance/legal` enum for the OPEN class ("`regulatory:` non-empty OR a detected high-stakes domain") — the last determinism leak gone. F30: the kit shape is now a CARRIED datum — handoff `existing-component-stack:<storybook+playwright\|other\|none>` read at Stage 8 — discharging the lone "single sufficient interface" counterexample. F32: the radius namespace is unified by a GENERAL spine rule (a single-value category projects a bare `--<prefix>` singleton, a multi-value one `--<prefix>-<name>`) so the kit's `--radius` is conformant with no churn. Plus the MINOR/NIT tail (F33/F35/F46/F48/F39/F40/F41 + CREATE-treatment + coverage rows + projections enum + barrel regex). | both audit reports must read as closed baselines; the rector's last hardcoded floor had to go; a carried shape-fact closes the single-sufficient-interface gap | 2026-06-23 |
+| **Ciclo v5/v6:** v4 testeada con stress blind de 5 marcas; v5 repara lo PROBADO, v6 construye lo NO-testeado; cada versión cierra con stress-test propio | atribución limpia sobre el pin `65932bb` (superficie de código); el criterio de reparto vive en análisis §16e | 2026-07-04 |
+| Docs del ciclo (análisis + PLAN-V5 + PLAN-V6) en la RAÍZ de `main`; subida vía branch `claude/<nombre>` → PR → OK del operador | una sola fuente navegable con el repo; E-O1 intacto (cero push sin OK) | 2026-07-04 |
+| Repos de marca del test: LOCALES por siempre, cero push; golden set = `essential-brand` local; handoffs originales NO se reconstruyen — fixtures sintéticos en formato v5 (PLAN-V5 E1-02) | fixtures del eval, no entregables públicos; los chats fuente del handoff ya no existen | 2026-07-04 |
+| RESIDENT se actualiza por GATE/ETAPA del ciclo, jamás por sesión; recap del ciclo aquí, detalle en los planes | log por sesión = ruido; anti-drift: un dato, un doc | 2026-07-04 |
+| Resolver Module NO se adopta (condición de reapertura escrita en PLAN-V6); OI-J = horizonte post-v6 gated en demanda real | un mecanismo probado (scheme-derive+R7) no se reemplaza sin falla ni consumidor que lo exija | 2026-07-04 |
 
 ## Open Items
 | ID | Item | Severity | Status |
@@ -141,12 +165,12 @@ domains: [brand-system, tooling]
 | OI-A | No downstream consumer yet ingests motion/depth tokens (web-stack `astro-css-tokens` reads neither). A future bridge skill could. | NICE | OPEN |
 | OI-B | web-stack-skills cites no `G-*`/`ALGO-*` rule IDs today; enforceable canon downstream would need rule-ID citations there or carried as token metadata. | NICE | OPEN |
 | OI-D | Literal Stage 2 (read-only) / Stage 6 (fill) §3 re-split deferred; the folded Stage 2 carries read+fill today. Revisit only if the PR-B1 spine is reopened. | NICE | OPEN |
-| OI-E | Keystone `.md` RAG trip-point (size at which a Claude Project stops keeping it resident and chunks it) is unpublished by Anthropic → keystone size budget needs empirical calibration. The v3 skills treat it as a parameter; the measured figure is a Phase-5 validation task (resolves the keystone-files↔RESIDENT phase drift in favor of Phase 5). | MAJOR | OPEN (Phase 5) |
-| OI-F | Second v3 validation brand not chosen — must be differently-shaped (no brandbook, light-only palette, incomplete material) to test generality. | MAJOR | OPEN (Phase 5) |
+| OI-E | Keystone `.md` RAG trip-point → RESUELTO como parámetro (2026-07-04, análisis §15 R-08): sigue sin número oficial (cualitativo "approaches the context window limit", 10x); envelope comunitario ~13 archivos/2% (un reporte). Presupuesto NS-G fijado: SET de pocos archivos, ≪ context window, attachment-tolerant — se aplica en PLAN-V5 E2-05/06 con regla de frescura. | MAJOR | RESUELTO-parametrizado (2026-07-04) |
+| OI-F | Second validation brand → SUPERSEDED (2026-07-04): la validación corrió como stress-test blind e2e de 5 marcas de formas distintas — más que el segundo brand previsto. | MAJOR | SUPERSEDED (stress-test v4) |
 | OI-G | Graceful-degradation path for the scoper's living-questions doc when the chat env lacks a connector/filesystem. | NICE | RESOLVED (#13 scoper v3 — Stage 6: commit-where-possible, else a downloadable artifact) |
-| OI-H | Resolver-based theming for OKLCH scheme derivation rides on the v2 SD-v5 / DTCG-2025.10 pin (issue #1590) → may need a custom-transformer/Terrazzo fallback. | NICE | OPEN |
-| OI-J | **Non-visual-primary build-grade reproduction** (sonic / motion) is a tracked HORIZON, explicitly NOT a blocker: the reasoning layers are already medium-agnostic and a non-visual primary carrier resolves to a declared fidelity-blocking GAP today (honest scoping, #26). Producing build-grade output for a motion signature (timing/easing + frame-diff) or a sonic mark is a NEW capability MILESTONE, post-Phase-5. | NICE | OPEN (horizon, post-Phase-5) |
-| OI-I | v3 transversal-audit + system-audit remediation — **FULLY REMEDIATED (#29).** Both `v3-audit—2026-06-22.md` (#19, 4 BLOCKER · 22 MAJOR · 24 MINOR · 6 NIT) and `v3-system-audit—2026-06-23.md` (#25) are closed across PRs #20–#29: every BLOCKER, MAJOR, MINOR and NIT cleared (handoff seam #20 · install integrity #21 · provenance/keystone #23 · public surface + F16 #24 · medium scoping + keystone orphan #26 · client-drift + hygiene #27 · scoper instrument + intake #28 · ledger close + F45/F32/F30 + tail #29). The coverage-gap pass (research-foundation, satellites, client-doc templates) was folded into #27/#29 and is clean. The ONLY un-closed items are deliberate: **F55** (bold-density — a documented practitioner deviation, see *Documented deviations* below) · **F31** (the handoff `motion:` line is kept as a single prose token for the not-used default; a motion-token downstream consumer is the OI-A bridge horizon) · **OI-J** (sonic/motion build-grade reproduction — a post-Phase-5 horizon). Both reports were removed in the v4 consolidation (the #25 root doc deleted; the #19 `v3/audit` branch deleted); their record now lives in the closed-PR history (#19–#29) — both remain CLOSED baselines, not open work. | — | RESOLVED (#29) |
+| OI-H | Resolver-based theming → CERRADO por decisión (2026-07-04): resolver NO se adopta (scheme-derive+R7 probado; P-J-01); la migración de formato `.tokens.json` es PLAN-V6 F1; condición de reapertura escrita en PLAN-V6. Paisaje: DTCG 2025.10 estable + SD v5 liberado (análisis §15 R-09). | NICE | CERRADO por decisión (2026-07-04) |
+| OI-J | **Non-visual-primary build-grade reproduction** (sonic / motion) is a tracked HORIZON, explicitly NOT a blocker: the reasoning layers are already medium-agnostic and a non-visual primary carrier resolves to a declared fidelity-blocking GAP today (honest scoping, #26). Producing build-grade output for a motion signature (timing/easing + frame-diff) or a sonic mark is a NEW capability MILESTONE, post-Phase-5. | NICE | OPEN (horizonte post-v6 — decisión 2026-07-04, gated en demanda real de marca no-visual-primaria) |
+| OI-I | v3 audits (#19: 4 BLOCKER · 22 MAJOR · 24 MINOR · 6 NIT; #25 system) — **FULLY REMEDIATED (#29)** across PRs #20–#29 (detalle por PR en `## Change log`). Únicos no-cerrados, deliberados: **F55** (bold-density, ver *Documented deviations*) · **F31** (`motion:` prose token; consumidor = horizonte OI-A) · **OI-J**. Reports removidos en la consolidación v4; registro en closed-PR history — baselines CERRADOS, no trabajo abierto. | — | RESOLVED (#29) |
 
 (OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
 
@@ -156,37 +180,33 @@ rule-anchors in long procedural docs); kept intentionally. *F31 (motion line):* 
 as a single prose token for the common not-used default; richer motion carriage rides the OI-A motion-token
 bridge horizon.
 
-## Roadmap — post-v3 horizons
+## Roadmap — horizontes (reconciliado 2026-07-04 contra el ciclo v5/v6)
 
-Durable direction — NOT the v3 audit ledger (closed) and NOT Phase-5 design (next, in chat). Everything here is gated behind the same door: a real build validated end-to-end in someone OTHER than the maintainer's hands. The dominant risk is roadmap accumulation that never meets a real user; items are ordered to attack that first. Per item: **name** — what · Horizon · Urgency · Gate.
+El principio original se sostiene: todo gated detrás de validación real; el riesgo dominante sigue siendo acumulación de roadmap sin usuario real. Cada item conserva su registro y declara su HOME actual — nada se borró en silencio.
 
-### Confidence & evidence (turns "demo" into "product")
-- **Golden-set regression harness** — Freeze 2-3 Phase-5-validated brands as fixtures; every future change measures output drift against them. Today each PR is adversarially verified ONCE, with no signal that a later PR silently broke an earlier fix — the safety net that makes the system evolvable. THE FIRST post-Phase-5 item; every new skill risks silent regression without it. · Horizon: short · Urgency: high · Gate: Phase 5 (the fixtures ARE the validated brands).
-- **Keystone falsifiability + RAG calibration** — Test whether an AI that IS the keystone produces measurably different output than one without it; without that test the north-star is faith. Includes the lite-vs-full sizing question. · Horizon: medium · Urgency: medium · Gate: Phase 5 + golden-set.
-- **Failure gallery** — Document the FAILURES (which brand broke what, which GAP stayed unfilled), not only success showcases — failure honesty persuades more and is rector-consistent. · Horizon: short · Urgency: medium · Gate: Phase 5.
-- **Real anonymized examples (canon + keystone + emitted library) ×2-3** — Tangible proof of output quality neither audit nor validation gives alone (senior-dev request). · Horizon: short · Urgency: medium · Gate: Phase 5.
+### Absorbidos por el ciclo (viven en los planes; aquí solo el pointer)
+- **Golden-set regression harness** → EJECUTADO distinto a lo previsto: el golden set es `essential-brand` (LOCAL, validado por el stress-test v4); fixtures + replay = gates de PLAN-V5 (E0-01, E1, E2). El pin Heresto v3-era queda como registro íntegro (ver nota en `## v4`).
+- **Failure gallery** → EXISTE (Onyx · Cuenca · Klim · Radiotopia, local); se congela en PLAN-V5 E0-01.
+- **Keystone falsifiability + RAG calibration** → probe R-06 integrado al stress-test v5 (PLAN-V5 E4-02) + presupuesto NS-G parametrizado (análisis §15 R-08 / OI-E).
+- **Promote prose invariants to mechanical checks** → ES el rector NS-A y la etapa E1 completa de PLAN-V5 (EB-3: cada gate ejecutable o demovido explícito).
+- **Self-audit as invokable skill** → directriz N1; PLAN-V5 E2-08 (harness-backed, hogar `audit/self/`).
+- **Handoff contract as formal versioned interface** → PLAN-V5 E1-02 (contrato único v5: enum + persistencia + carriers + rutas). Sigue siendo el gate técnico para skill #3+.
+- **Real anonymized examples** → el golden set + la gallery son la evidencia; publicarlos = decisión de operador fuera de ciclo (hoy: cero push).
 
-### Reduce dependence on disciplined prompting (the structural debt the seniors flagged)
-- **Promote prose invariants to mechanical checks** — The whole audit pattern was "a written rule no check enforces." Every BLOCKING rule that relies on the agent reading well is a candidate for a real script (the `package-validate.mjs` model); the enumerable ones, never the judgment ones. · Horizon: medium · Urgency: high · Gate: golden-set (so a mechanized check is itself regression-tested).
-- **Self-audit as an invokable skill** — The 6-dimension system audit just run by hand becomes an on-demand skill, so the skillset audits itself instead of via ad-hoc orchestration. · Horizon: medium · Urgency: medium · Gate: handoff-as-formal-interface.
+### Siguen siendo horizonte
+- **Modern source extraction (Figma Variables, Tokens Studio clean export, structured sites)** — el cuello de fidelity es el INPUT; mejor input = menos GAPs = más build-grade. La palanca de mayor ROI. · Horizon: medium · Urgency: high · Gate: cierre de v5 (el stress-test v5 valida la hipótesis GAP-origen).
+- **Skill B — canon evolution / change management** — mutación gobernada de un canon vivo: token patch → primitive change → full rebrand, cada nivel con blast-radius + ratificación propia; el extremo rebrand REUSA el builder en diff-mode preservando historia + decision-provenance (what/why/who/when). La estratégica: un canon que no evoluciona es snapshot, no fuente de verdad. · Horizon: medium · Urgency: high · Gate: v5 shipped + contrato E1-02 estable.
+- **Skill A — genesis (near-nothing → pipeline-ready)** — convierte "nombre + colores + ideas abstractas" en un WHY ratificable que entra al CREATE existente. HARD RECTOR GUARD intacto: A facilita CONVERGENCIA a un WHY ratificado por el dueño, JAMÁS genera verdad de marca — toda opción es hypothesis que el dueño confirma/rechaza; si fuera slop-generator ("10 esencias para tu panadería") envenenaría el value-prop completo. · Horizon: medium-long · Urgency: medium · Gate: Skill B primero. **Ordering B before A** — B recurre mucho más (toda marca cambia); greenfield puro casi no aparece en el ICP.
+- **Non-visual build-grade (OI-J)** — decisión 2026-07-04: post-v6, gated en demanda real de una marca no-visual-primaria. Cross-ref, no duplicado.
 
-### Fidelity frontier (where the system is weaker than it admits)
-- **Modern source extraction (Figma Variables, Tokens Studio clean export, structured sites)** — The fidelity bottleneck is the INPUT, not the pipeline: harvesting scattered/PDF material is where most GAPs are born. Better input = fewer GAPs = more build-grade — the highest-ROI fidelity lever (senior-dev item, raised in priority). · Horizon: medium · Urgency: high · Gate: Phase 5 (validate the GAP-origin hypothesis on the divergent brand first).
-- **Non-visual reproduction build-grade** — Already tracked as OI-J; cross-referenced here, not duplicated. · Horizon: long · Urgency: low · Gate: a real non-visual-primary brand demand.
+### Standing guards (sin cambio)
+- **Rector non-negotiable:** toda feature futura que exija relajar "never invent brand truth" o "provenance on everything" se DECLINA por default — un roadmap erosiona su core más rápido vía "just this once".
+- **Every new skill inherits the full rector:** anti-determinismo / never-invent / provenance sin excepción, o el core disciplinado que distingue el producto se diluye.
 
-### New skills (the plugin grows past scoper + builder)
-- **Skill B — canon evolution / change management** — Governed mutation of a living canon: a spectrum from a token patch (recompile spine + dependents) → a primitive change (re-derive grammar) → a full rebrand (re-ratify WHY, full cascade), each level with its own blast-radius + ratification requirement. The rebrand end REUSES the builder in diff-mode (existing canon + a changed WHY, preserving history + decision-provenance: what/why/who/when), not a new engine. The strategic one — a canon that can't evolve is a snapshot, not a source of truth. · Horizon: medium · Urgency: high (highest of the new skills) · Gate: v3 shipped (done) + handoff-as-formal-interface.
-- **Skill A — genesis (near-nothing → pipeline-ready)** — Front-end converting "a name + colors + abstract ideas" into a ratifiable WHY that enters the existing builder CREATE mode (the consumer exists; A makes CREATE usable from almost-zero, not a new engine). HARD RECTOR GUARD: A facilitates CONVERGENCE to an owner-ratified WHY, it NEVER GENERATES brand truth — every option is a hypothesis the owner confirms/rejects; nothing enters as truth without ratification + provenance. If it became a slop-generator ("10 essences for your bakery") it would poison the whole value-prop. Lower priority than B: for the existing-business ICP (brand FRAGMENTS), pure-greenfield is an edge case ANALYZE / the divergent path already covers. · Horizon: medium-long · Urgency: medium · Gate: v3 shipped + handoff-as-formal-interface + Skill B (B governs every canon A creates).
-- **Ordering: B before A.** Intuitive order is A→B (A feeds the funnel), but B recurs far more — every brand changes over time; pure greenfield rarely appears.
-
-### Shared enabler & standing guards
-- **Handoff contract as a formal, versioned interface** — The structural enabler under every new skill: a stable formal interface makes genesis, scoper, and change-management modular producers/consumers around ONE contract — additive, not pivots. The technical GATE for skill #3+. · Horizon: medium · Urgency: high · Gate: none (do this before adding skill #3).
-- **Rector non-negotiable in the roadmap (STANDING GUARD).** Any future feature that would require relaxing "never invent brand truth" or "provenance on everything" is DECLINED BY DEFAULT, not accommodated — a roadmap erodes its core fastest through "just this once" features. · Standing.
-- **Every new skill inherits the full rector (STANDING GUARD).** As the plugin grows to 4+ skills, each carries anti-determinism / never-invent-brand-truth / provenance-on-everything with no exception, or the disciplined core that distinguishes the product dilutes. · Standing.
-
-### Out of scope for this roadmap (the anti-roadmap — recorded explicitly)
-- **Figma bidirectional plugin · Tokens Studio bridge · agent-based drift detection · 3D/spatial · motion systems · sub-brand inheritance** — Good vision, but ANOTHER product; do not pursue until Skill B exists AND ≥1 real client maintains a living canon. A false trail if touched earlier. · Horizon: long · Urgency: low · Gate: Skill B + a real client maintaining a living canon.
-- **"Brand OS / hosted / enterprise platform" angle** — A BUSINESS decision (Argos strategy, its own locked stack + ICP), NOT a repo objective; recorded here only to mark the boundary, deliberately NOT a repo roadmap item.
+### Anti-roadmap (registro explícito; refuerzos del ciclo)
+- Figma bidireccional · Tokens Studio bridge · agent-based drift detection · 3D/spatial · motion systems · sub-brand inheritance — gate igual: Skill B + ≥1 cliente real manteniendo un canon vivo. Falsa pista si se toca antes.
+- Resolver Module: NO adoptado (2026-07-04; condición de reapertura escrita en PLAN-V6).
+- "Brand OS / hosted / enterprise platform" = decisión de NEGOCIO (Argos, su propio stack + ICP locked), NO objetivo del repo — la frontera queda marcada aquí a propósito.
 
 ## v2 — lineage (historical)
 The first real brownfield pilot proved v1 shipped a **hollow skeleton** (rule-compliant but asset-less, called
@@ -226,7 +246,7 @@ client-drift + hygiene (#27), scoper instrument + intake (#28) — and the ledge
 F32/F30/F33/F35/F46/F48 tail + coverage-gap). **The entire audit ledger is CLOSED: zero BLOCKER/MAJOR/MINOR/NIT**,
 except the deliberate F55 (bold-density deviation) + OI-J (sonic/motion build-grade horizon). Both reports are
 closed baselines; only the Phase-5 validation run remains (2nd differently-shaped brand · live red-team ·
-visual-diff audit · release).
+visual-diff audit · release). **Nota 2026-07-04:** esa validación Phase-5 CORRIÓ — como el stress-test blind e2e de 5 marcas del ciclo v4→v5 (ver `## Ciclo vigente`); OI-F superseded, golden set re-fijado en Essential.
 
 ## v4 — builder validation architecture + token engine + review surface (Stages A–G)
 v4 turns the builder's prose discipline into **executable gates that exit non-zero on violation**. Stage B is
@@ -352,7 +372,7 @@ resolution. *Builder engine:* refusing an invalid vector master; naming an absen
 demoting a commercial font to a flagged match; flooring every builder-introduced atom at `hypothesis`;
 declining to fabricate a bespoke mark; earning multi-source `corroborated` honestly; OKLCH exact with full
 alias closure; declaring FLAT with reason; deferring the live red-team behind a committed contract. The
-instinct — commit evidence, tag confidence, never invent — is the architecture worth keeping.
+instinct — commit evidence, tag confidence, never invent — is the architecture worth keeping. **2026-07-04:** este instinto quedó CODIFICADO como la wins-regression W-1…W-14 del ciclo (análisis §12) — corre en cada gate de PLAN-V5/V6.
 
 **Research-pinned constraints (tooling/spec pins, as of 2026-06; numeric thresholds live in the Stage-C +
 fidelity bullets above — structured-OKLCH `$value`, the decorative-contrast band, ΔE2000 ≤ 2.0 / SSIM).** *DTCG:*
@@ -362,7 +382,7 @@ does not yet consume `.resolver.json` (issue #1590) → per-scheme materializati
 (Dispersa) or a small preprocessor. *Fidelity tooling* is Python (OpenCV / scikit-image / fontTools) on
 ORB+RANSAC co-registered same-DPI 8-bit images (MT-2). *Source recovery:* Wayback CDX + the `id_` raw-capture
 modifier, occupant disambiguation, a SHA-256 manifest with per-token `sourceRef` (MT-3). *Two-surface lint:* a
-rehype/parse5 AST deny-list over text + comment nodes, in `client-clean` (TS-2).
+rehype/parse5 AST deny-list over text + comment nodes, in `client-clean` (TS-2). **Nota 2026-07-04:** el paisaje se movió — DTCG 2025.10 ESTABLE + SD v5 liberado (análisis §15 R-09); estos pins describen lo SHIPPED en v4 y siguen siendo la verdad del código; la migración de formato es PLAN-V6 F1 (resolver NO adoptado).
 
 > Golden-set: **`ccediland/heresto-brand` (external repo) is the canonical golden-set regression fixture.**
 > **Pinned (Phase 4.2):** `ccediland/heresto-brand` @ `78f1cd9` (build-branch HEAD, immutable SHA — `main` @
@@ -377,6 +397,9 @@ rehype/parse5 AST deny-list over text + comment nodes, in `client-clean` (TS-2).
 > to Phase-5: the live red-team RUN, the executable R9, and a second differently-shaped validation brand (OI-F).
 > **Privacy:** heresto-brand is private; this record pins commit/repo + check structure only — never Heresto's
 > brand values.
+> **Supersedido como golden set (2026-07-04):** el ciclo v5 fija `essential-brand` (LOCAL, validado por el
+> stress-test v4) como EL golden set de regresión (PLAN-V5 E0/E1/E2). Este pin Heresto queda como registro
+> v3-era ÍNTEGRO — repo privado, sin rebuild v4; retomarlo es decisión fuera de ciclo.
 
 **PRs (Stages A–G + Finalize).** A: TS-1 #37 · TS-2 #38. B: MT-3/4/5 #31 · MT-1 #32 · MT-2 #33. C: C-1 #34 ·
 C-2 #35 · C-3 #36. D: RV-1/2 #41 · RV-3/4 #42 · RV-5 #44 · R8 #45. E: EH-1/2 #47 · EH-3 #48. F: TA-1…4 #52.
@@ -419,8 +442,13 @@ G: SH-1 #40 · SH-2/3 #50. Finalize: 4.1 #55 · 4.2 #56 · 4.3 ship #57.
   free-root stage (A) and split into B-1/B-2 without plan authority. Abandoned: follow the document's dependency
   order; among free roots the choice is the owner's, not a unilateral Chat decision (the split shipped fine, but
   the governance lesson stands).
+- Tried (v4, revelado por el stress-test): contar gates de prosa auto-atestada como verificación (universality /
+  output-agnostic / keystone-content / battery). Abandoned: ~50% del gate suite era prosa y fidelity se fingió o
+  esquivó donde aplicaba (X2/EB-3). Do not retry — un gate es EJECUTABLE o se demociona explícito (rector NS-A;
+  PLAN-V5 E1-03).
 
 ## Change log
+- 2026-07-04 — **Ciclo v4→v5: stress-test + planeación cerrada; RESIDENT al modelo de ciclo.** v0.4.0 @ `65932bb` sometida a stress-test blind e2e de 5 marcas (la validación Phase-5, ejecutada más grande): disposición Essential = golden set local, resto = failure gallery local. En la raíz del repo: análisis maestro CONGELADO (`brand-system-skills-v5-analysis_2026-07-04.md`) + PLAN-V5 (aprobado, E0–E4) + PLAN-V6 (preliminar, F0–F5); rondas de análisis pre-plan v5/v6 corridas en Code. Este RESIDENT: secciones nuevas (`## Cómo retomar` · `## Ciclo vigente` con recap + log por gate), Roadmap reconciliado (absorbidos-por-el-ciclo mapeados a su home, horizontes intactos), OI-E/OI-F/OI-H/OI-J re-baselineados, flag del hop web-stack (stale-o-roto, veredicto en F0-02), golden set re-fijado (Essential; pin Heresto conservado como registro), decisiones de ciclo añadidas. Historia v2/v3/v4 INTACTA.
 - 2026-06-24 — **v4 shipped — plugin 0.3.0→0.4.0** (23 mechanisms / 7 stages A–G; executable gates audit-lint R0–R8 + measured fidelity + scheme materializer + client deny-lint; scoper client-flow + EH/process self-checks). Mechanism-complete + unit-validated; end-to-end golden-set v4 verdict-capture deferred to Phase-5 (R9 + live red-team RUN + 2nd validation brand).
 - 2026-06-23 — **Post-v3 roadmap captured (#30, doc-only).** Added `## Roadmap — post-v3 horizons` (durable direction, separate from the closed ledger/OI-I): confidence & evidence (golden-set harness first), reduce-prompt-dependence (mechanize prose invariants), fidelity frontier (modern source extraction), two new skills (B canon-evolution before A genesis), the handoff-as-formal-interface enabler, the rector standing guards, and an explicit anti-roadmap. No skill/template/pipeline touched.
 - 2026-06-23 — **Audit ledger CLOSED (#29).** Cleared the LAST determinism leak (F45 — regulated trigger open-classed, no more `health/finance/legal` floor) + the full MINOR/NIT tail: F30 (`existing-component-stack:` carrier → kit shape carried) · F32 (radius singleton spine rule) · F33 (Stage-2/6 chatter) · F35 (pinned codes framed illustrative, conceptual invariant hoisted) · F46 (named zero-tolerance, auditable) · F48 (sublabel unified) · F39 (font-provenance content-audit check) · F40 (SVG-clip sanity check) · F41 (traced-vs-synth limit noted) · CREATE-mode treatment classification · coverage rows 3-5 count/form-neutral · projections open enum · barrel regex robust. Coverage-gap pass: research-foundation (structured-color skim discharged by the frozen status-marker — no body edit; the F34 feTurbulence caveat mirrored at L59), data-map/projections, client-doc templates — clean. OI-I re-baselined to CLOSED; the #19 report lives on the open `v3/audit` branch (not main root), the #25 report at main root — both closed baselines. **Repo: zero BLOCKER/MAJOR/MINOR/NIT** except F55 (deliberate bold-density deviation) + OI-J (sonic/motion horizon). Only the Phase-5 validation run remains.
@@ -443,4 +471,4 @@ G: SH-1 #40 · SH-2/3 #50. Finalize: 4.1 #55 · 4.2 #56 · 4.3 ship #57.
 
 ## Conventions of this doc
 Timeless content undated; Open Items + change log are dated/volatile. Nothing external should cite the
-volatile state as permanent.
+volatile state as permanent. Actualización: por GATE/ETAPA del ciclo (Code) — recap + log del ciclo + decisiones; jamás por sesión (el detalle de sesión vive en el Session log del plan vigente). Ediciones fuera de gate = grado corrección, con entrada de change log.
