@@ -45,6 +45,7 @@ Leer EN ORDEN: este `RESIDENT.md` → `CLAUDE.md` → `brand-system-skills-v5-an
 ### Log del ciclo (por gate/etapa — lo mantiene Code)
 
 - 2026-07-04 — PLANEACIÓN CERRADA: análisis consolidado y CONGELADO; research §15 completo; rondas de análisis pre-plan v5 y v6 ejecutadas en Code; PLAN-V5 aprobado (v2 + 4 enmiendas de la ronda v6) y PLAN-V6 preliminar. Etapa vigente: PLAN-V5 E0 — pendiente: subida de los docs del ciclo a main (branch→PR→OK) + E0-01.
+- 2026-07-05 — **E0 CERRADO.** Subida de los docs del ciclo a raíz de main completada @ `6850056` (PLAN-V5 + PLAN-V6 + análisis). A0: reglas del workflow de ejecución del operador asentadas en PLAN-V5 §Reglas de operación + frontmatter des-staleado. E0-01: failure gallery CONGELADA — commit LOCAL de todo lo untracked en los 5 repos de prueba (gate `git status` limpio 5/5): onyx-brand-canon `025cc64` (7 files — BUILD-SELF-ANALYSIS + DESIGN-SYNC-SKILL-REPORT + claude-design-upload/, los extras F4) · cuenca-brand `f709915` (1) · klim-brand `994cd3a` (1) · radiotopia-brand `3153b43` (1) · essential-brand ya limpio y trackeado @ `ae2d7ee` (nada que congelar). Todo local-only (E-O1). Etapa vigente → E1.
 
 ## Architecture & why
 - **Four-question canon.** Every design truth answers *where-start / why / what / how*; each owned by one

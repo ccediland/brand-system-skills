@@ -4,8 +4,8 @@ description: Plan de ejecución vivo para construir brand-system-skills v5 desde
 last_updated: 2026-07-04
 applies_to: ccediland/brand-system-skills — baseline v0.4.0 @ 65932bb → target v0.5.0
 status: "v2 aprobado — EN EJECUCIÓN (docs del ciclo en raíz de main @ 6850056)"
-etapa_vigente: E0
-next_action: "E0-01"
+etapa_vigente: E1
+next_action: "E1-01 (en curso) · E1-02 espera prompt propio del chat"
 ---
 
 # PLAN v5 — brand-system-skills
@@ -47,7 +47,7 @@ next_action: "E0-01"
 
 | Item | Contenido → entregable · gate | Padres | Esf. | Estado |
 |---|---|---|---|---|
-| E0-01 | Congelar failure gallery: commit LOCAL de todo lo untracked (BUILD-SELF-ANALYSIS ×4 + extras de Onyx) en los repos de prueba · gate: `git status` limpio en los 5 | R-B-4, HARNESS-LESSON | S | pendiente |
+| E0-01 | Congelar failure gallery: commit LOCAL de todo lo untracked (BUILD-SELF-ANALYSIS ×4 + extras de Onyx) en los repos de prueba · gate: `git status` limpio en los 5 | R-B-4, HARNESS-LESSON | S | done |
 
 Regla E0-02 (no es sesión): el re-read del contrato `/design-sync` vigente se ejecuta JUSTO antes del primer item de kit (E1-09) — regla de frescura, residual R-07.
 
@@ -170,6 +170,7 @@ E0 ≈ 1 sesión · E1 ≈ 10–12 · E2 ≈ 8–9 · E3 ≈ 7 · E4 ≈ 4–6 �
 - 2026-07-04 — v1 drafteado por Claude directo del retorno de la ronda pre-plan, sin trabajarlo con el operador: DESCARTADO como borrador (violación del workflow §16 — la creación del plan es chat, operador + Claude).
 - 2026-07-04 — v2 trabajado en chat etapa por etapa y aprobado E0–E4. Decisiones del operador asentadas: todo local (cero push de repos de marca); handoffs originales no existen y NO se reconstruyen — fixtures sintéticos v5 en E1-02 y gate E2 sobre los canons de la gallery; reports v4 fuera del plan; hogares ratificados (sources/handoff, audit/self/, asset-index nuevo); huérfanos asignados. Riesgos de la ronda integrados: regla de contrato único (E1-02), CONTRA-2/P7 cierran en E2, N5 antes de N8, NS-H adelantada a E1-01, regla de fixtures por item, E3-05 después de E2-05. Pendiente: revisión final del operador → subida de análisis + plan a raíz de main (un PR) → E0-01.
 - 2026-07-04 — A0: reglas del workflow de ejecución asentadas por instrucción del operador, 2026-07-04. Además: frontmatter corregido (estaba stale — la subida de los docs del ciclo a raíz de main ya ocurrió @ 6850056; status → EN EJECUCIÓN, next_action → E0-01).
+- 2026-07-05 — **E0 cerrado.** E0-01 done: gallery congelada con commits locales (onyx `025cc64` 7 files · cuenca `f709915` · klim `994cd3a` · radiotopia `3153b43` · essential ya limpio @ `ae2d7ee`); gate `git status` limpio 5/5; cero push (E-O1). Descubrimiento: los docs del ciclo en main (@ 6850056) difieren de las copias locales pre-subida (quedaron respaldadas en stash del repo del skill); main es canónico. RESIDENT actualizado (log del ciclo). Etapa vigente → E1; arranca E1-01 en `claude/v5-e1`.
 - 2026-07-04 — Enmiendas post ronda pre-plan v6 (4 flags de la superficie no-leída, OK del operador): E1-04 path sin-fuente para CREATE (fidelity jamás false-bloquea, W-1) · E1-02 carga la representación proposed-en-cuarentena en el contrato (evita segundo bump en v6/T2) · E3-01 codifica el curator-wall como regla escrita (hoy 0 menciones en el repo) · E1-08 declara el deferral de .tokens.json (mata CONTRA-9 candidata). Limitations actualizado con las decisiones v6: resolver NO, OI-J post-v6, F4 = kit capability, mirror = GitHub Action. PLAN v6 preliminar tallándose en chat (F0–F4 + cierre).
 
 ## Limitations
