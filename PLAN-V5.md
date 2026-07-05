@@ -3,9 +3,9 @@ name: plan-v5
 description: Plan de ejecución vivo para construir brand-system-skills v5 desde la baseline v0.4.0 @ 65932bb. Se lee al abrir toda sesión de trabajo v5, se reescribe al cierre de cada sesión, carga Session log propio. Deriva de brand-system-skills-v5-analysis_2026-07-04.md (análisis y resultados del stress-test v4) y lo referencia por ID — jamás re-narra. Use al ejecutar cualquier item v5, al decidir secuencia, o al cerrar una etapa.
 last_updated: 2026-07-04
 applies_to: ccediland/brand-system-skills — baseline v0.4.0 @ 65932bb → target v0.5.0
-status: v2 — trabajado en chat (operador + Claude), etapas E0–E4 talladas y aprobadas; pendiente revisión final del operador y subida a raíz de main
-etapa_vigente: E0
-next_action: revisión final del operador → subir análisis + este plan a raíz de main (un PR, branch→PR→OK) → E0-01
+status: "v2 aprobado — EN EJECUCIÓN (docs del ciclo en raíz de main @ 6850056)"
+etapa_vigente: E1
+next_action: "E1-01 (en curso) · E1-02 espera prompt propio del chat"
 ---
 
 # PLAN v5 — brand-system-skills
@@ -23,6 +23,15 @@ next_action: revisión final del operador → subir análisis + este plan a raí
 - Wins-regression: la tabla W-# corre en el gate de CADA etapa.
 - Pin y branches: `65932bb` = baseline sobre la superficie de código. Código se toca solo dentro de su etapa, en branch `claude/v5-e<N>`; PR + OK del operador al cierre de cada etapa (E-O1).
 
+### Reglas del workflow de ejecución (operador, 2026-07-04)
+- Momentum sobre ceremonia: contexto y compute son la prioridad #1. El chat home base minimiza paradas — decide y avanza, aprovecha cada turn; cambiar de sesión de chat pierde momentum y contexto valioso y se MINIMIZA.
+- Decisiones: las toma el CHAT y las informa con prefijo "DECIDIDO:"; el silencio del operador = ratificación. Solo se detiene si es ESTRICTAMENTE necesario: push (E-O1), gasto real, acción irreversible fuera del plan, o acción física que solo el operador puede ejecutar.
+- Análisis a demanda: en CUALQUIER momento el chat puede dedicar un turn a solicitar a Code un análisis/diagnóstico — esté o no en el plan — si mejora el trabajo o el entendimiento de lo que se modifica (extiende análisis §16c).
+- Cero manual: el operador jamás edita/crea archivos o repos a mano ni se le pide hacerlo. Toda edición/creación = Code; el chat usa Composio solo para operaciones MUY ligeras (lecturas puntuales, verificaciones) — nunca ediciones ni archivos extensos. Ante la duda, diferir a Code.
+- Code = UNA sesión por versión, Fable 5 activo. Cada prompt del chat a Code declara el effort: análisis/diagnóstico = high · items L, diseño de mecanismos (E1-02, E3-01), debugging duro = ultracode · items S/M mecánicos = medium–high.
+- Contexto de Code vía /compact: el operador monitorea el contexto de la sesión; cuando lo indique, el chat emite el bloque "/compact <instrucciones>" — qué RETENER (etapa/item vigente y estados, decisiones, gotchas, contratos/paths/líneas clave, next steps) y qué DESCARTAR (outputs verbatim ya asentados, exploraciones muertas, diffs committeados). Los tokens de Code NO son restricción.
+- Los retornos de Code al chat siguen destilados (economía de contexto, análisis §16). RESIDENT por gate/etapa; el plan se reescribe al cierre de cada bloque de trabajo.
+
 ## Decisiones del operador (tomadas 2026-07-04)
 
 - TODO LOCAL: cero push de repos de marca. El golden set (essential-brand) y la failure gallery son fixtures LOCALES; publicarlos no es relevante para v5.
@@ -38,7 +47,7 @@ next_action: revisión final del operador → subir análisis + este plan a raí
 
 | Item | Contenido → entregable · gate | Padres | Esf. | Estado |
 |---|---|---|---|---|
-| E0-01 | Congelar failure gallery: commit LOCAL de todo lo untracked (BUILD-SELF-ANALYSIS ×4 + extras de Onyx) en los repos de prueba · gate: `git status` limpio en los 5 | R-B-4, HARNESS-LESSON | S | pendiente |
+| E0-01 | Congelar failure gallery: commit LOCAL de todo lo untracked (BUILD-SELF-ANALYSIS ×4 + extras de Onyx) en los repos de prueba · gate: `git status` limpio en los 5 | R-B-4, HARNESS-LESSON | S | done |
 
 Regla E0-02 (no es sesión): el re-read del contrato `/design-sync` vigente se ejecuta JUSTO antes del primer item de kit (E1-09) — regla de frescura, residual R-07.
 
@@ -160,6 +169,8 @@ E0 ≈ 1 sesión · E1 ≈ 10–12 · E2 ≈ 8–9 · E3 ≈ 7 · E4 ≈ 4–6 �
 
 - 2026-07-04 — v1 drafteado por Claude directo del retorno de la ronda pre-plan, sin trabajarlo con el operador: DESCARTADO como borrador (violación del workflow §16 — la creación del plan es chat, operador + Claude).
 - 2026-07-04 — v2 trabajado en chat etapa por etapa y aprobado E0–E4. Decisiones del operador asentadas: todo local (cero push de repos de marca); handoffs originales no existen y NO se reconstruyen — fixtures sintéticos v5 en E1-02 y gate E2 sobre los canons de la gallery; reports v4 fuera del plan; hogares ratificados (sources/handoff, audit/self/, asset-index nuevo); huérfanos asignados. Riesgos de la ronda integrados: regla de contrato único (E1-02), CONTRA-2/P7 cierran en E2, N5 antes de N8, NS-H adelantada a E1-01, regla de fixtures por item, E3-05 después de E2-05. Pendiente: revisión final del operador → subida de análisis + plan a raíz de main (un PR) → E0-01.
+- 2026-07-04 — A0: reglas del workflow de ejecución asentadas por instrucción del operador, 2026-07-04. Además: frontmatter corregido (estaba stale — la subida de los docs del ciclo a raíz de main ya ocurrió @ 6850056; status → EN EJECUCIÓN, next_action → E0-01).
+- 2026-07-05 — **E0 cerrado.** E0-01 done: gallery congelada con commits locales (onyx `025cc64` 7 files · cuenca `f709915` · klim `994cd3a` · radiotopia `3153b43` · essential ya limpio @ `ae2d7ee`); gate `git status` limpio 5/5; cero push (E-O1). Descubrimiento: los docs del ciclo en main (@ 6850056) difieren de las copias locales pre-subida (quedaron respaldadas en stash del repo del skill); main es canónico. RESIDENT actualizado (log del ciclo). Etapa vigente → E1; arranca E1-01 en `claude/v5-e1`.
 - 2026-07-04 — Enmiendas post ronda pre-plan v6 (4 flags de la superficie no-leída, OK del operador): E1-04 path sin-fuente para CREATE (fidelity jamás false-bloquea, W-1) · E1-02 carga la representación proposed-en-cuarentena en el contrato (evita segundo bump en v6/T2) · E3-01 codifica el curator-wall como regla escrita (hoy 0 menciones en el repo) · E1-08 declara el deferral de .tokens.json (mata CONTRA-9 candidata). Limitations actualizado con las decisiones v6: resolver NO, OI-J post-v6, F4 = kit capability, mirror = GitHub Action. PLAN v6 preliminar tallándose en chat (F0–F4 + cierre).
 
 ## Limitations
