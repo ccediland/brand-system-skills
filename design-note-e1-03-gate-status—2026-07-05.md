@@ -27,8 +27,9 @@ Estatus de primera clase por gate:
   propio tool) o precondición ausente declarada (p.ej. npm no disponible). **NOT-RUN en gate BLOCKING ⇒ el
   veredicto global NO puede ser DONE** — es estado declarable (v0/DEMO shippea con el board visible), jamás
   un pass silencioso ni un hard-block deshonesto (X4).
-- `AGENT-GATE(<evidencia>)` — gate demovido explícito: el board registra la CLASE + la ruta de la evidencia
-  committeada que la disciplina exige; evidencia ausente donde el gate la exige = FAIL (modelo §7a/§7b).
+- Filas con Class `agent-gate` — gate demovido explícito: el board registra la CLASE en su columna y el
+  estatus PASS/FAIL sale de la evidencia committeada que la disciplina exige (form-checked, jamás contenido);
+  evidencia ausente = FAIL (modelo §7a/§7b). (Ajuste post-verify: no es un estatus separado, es Class+estatus.)
 - `N/A(<razón declarada>)` — el gate no aplica a esta forma de marca (anti-determinismo: flat/sonic pasan
   limpio, nunca false-fail).
 
@@ -44,7 +45,7 @@ green" de la clase X4 muere: la única fuente del claim es el board.
 | client-deny-lint | lint (BLOCKING) · **scope INTERINO etiquetado** | corre sobre el scope interino declarado (prototype/ + README.md emitido); deps ausentes → NOT-RUN con `npm install…` (CB3); el manifest real de superficies llega con el rediseño del deny (E2) y el board etiqueta el scope como interim |
 | kit `package-validate.mjs` | lint (BLOCKING si kit presente) | `npm run validate` en design-sync-kit/; sin npm/deps → NOT-RUN; kit ausente (opt-out) → N/A |
 | §7a fidelity evidencia | measured (BLOCKING) — presencia machine-checked | escanea `audit/fidelity/*/scores.json`: cada uno debe cargar verdict; dir ausente → N/A(no reproduced treatments) — la OBLIGATORIEDAD sobre el set non-waivable es E1-04, aquí solo presencia+forma |
-| §7b keystone estructural | lint (BLOCKING) — mechanizado AQUÍ | keystone.md existe · 6 secciones `## ` · GUARDRAIL en el tail (posición > 60% del doc) · battery + expected-refusal contract presentes y no-vacíos en `audit/redteam/` |
+| §7b keystone estructural | lint (BLOCKING) — mechanizado AQUÍ | keystone.md existe · 6 secciones `## ` (fences enmascarados) · GUARDRAIL en el tail (predicado index-based: una de las últimas dos secciones) · battery + expected-refusal contract presentes y no-vacíos en `audit/redteam/` |
 | §7b keystone FORM-OF-RULE | lint (BLOCKING) — mechanizado AQUÍ (forma, jamás contenido) | THINK/DESIGN: ≥1 línea con forma condicional (`when…then/choose/prefer/use`) O una línea GAP visible · SPEAK: ≥1 par `on-brand:`+`off-brand:` O línea GAP — value-blind, medium-agnostic |
 | §7b battery run vivo | agent-gate (Phase-5-deferred) | board: `NOT-RUN(live run Phase-5-deferred)` SIEMPRE honesto; si existe `audit/redteam/*/results.md` lo registra |
 | §1 CORE-ASSET contract walk | agent-gate (BLOCKING) | evidencia exigida: la caminata committeada (ver §3) — ausente = FAIL |
@@ -81,8 +82,9 @@ re-auditable walk" — el mismo movimiento que v3 Theme-4 hizo con §7a/§7b.
   en tail, 1 regla when-then, 1 par on/off) + `audit/redteam/battery.md` + `expected-refusal-contract.md` +
   `audit/agent-gates.md` (secciones llenas mínimas) → run-gates da INCOMPLETE (deny corre; kit validate
   NOT-RUN sin npm — aceptable) o ALL-GREEN según entorno; el fixture asserta: CERO FAIL.
-- `fixtures/gates/board-violations/` NUEVO: keystone sin sección GUARDRAIL en tail + battery vacía +
-  agent-gates.md ausente → run-gates BLOCKED con esas 3 filas FAIL.
+- `fixtures/gates/board-violations/` NUEVO: keystone con guardrail enterrado + adjetivos puros + battery
+  vacía + agent-gates.md ausente + un `audit/fidelity/<t>/scores.json` con `pass:false` → run-gates BLOCKED
+  (las semillas se abanican en 8 filas FAIL: estructural, form, §7a y los 5 agent-gates).
 - Caso CB3 (clon fresco): self-test documentado que copia deny-lint a `$TMPDIR/<fresh>/tools/` SIN
   node_modules y corre el runner → la fila deny = NOT-RUN(deps) y el veredicto INCOMPLETE — reproducible,
   sin duplicar tools committeados.
@@ -109,3 +111,18 @@ re-auditable walk" — el mismo movimiento que v3 Theme-4 hizo con §7a/§7b.
   etiquetado) · NO toca el vocabulario sancionado (E2-02).
 - El contrato E1-02 queda intacto (el runner CONSUME el vocabulario; cero cambios a handoff-format).
 - El análisis sigue CONGELADO.
+
+## 8. Ronda de verify adversarial (pre-commit — 3 atacantes + juez; FAIL inicial → 17 fixes aplicados)
+
+Bloqueantes confirmados y corregidos: §7a ignoraba el campo máquina `pass` (un scores.json
+outside-tolerance rendía ALL-GREEN — ahora `pass !== true` = FAIL; el escape `--gap` pass:true se respeta a
+propósito, su cierre es del item de fidelity) · timeout de un gate colgado caía a NOT-RUN (ahora FAIL) ·
+el deny interino no recursaba subdirectorios de prototype/ (ahora walk recursivo) · GAPLINE case-insensitive
+aceptaba prosa ("a gap pending funding") como marcador (ahora forma tracked case-sensitive) · Stage 12 no
+cargaba el board en el PR (ahora sí). Menores: fences enmascarados en el conteo de secciones (false-FAIL
+real reproducido) · sibling tool ausente = FAIL (tampering) · detail de FAIL prefiere la línea ❌ ·
+dist/ hueco (sin index.es.js) = FAIL · vocabulario de estatus unificado (agent-gate es Class, no estatus) ·
+named-tolerance no-blocking · umbral 40-chars documentado como floor de forma · nota §7b en keystone-emit ·
+VRT Storybook fuera del encadenado del board · enumeración de tools/* de Stage 1 completada. Límite
+declarado (dueño backlog E2+): anti-tamper integral del validator del árbol cliente (hash-pin del kit).
+Gates finales: clean exit 2 (cero FAIL) · board-violations exit 1 (8 FAIL) · regresión completa en verde.

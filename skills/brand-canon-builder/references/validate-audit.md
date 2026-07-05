@@ -1,15 +1,24 @@
 # VALIDATE / AUDIT + fidelity gate (Stage 10)
 
-Read when running Stage 10, the build's BLOCKING final quality stage. v1 ended at "canon built" and
+Read when running Stage 10, the build's BLOCKING final quality stage.
+
+**Every gate below carries its enforcement class** (the handoff contract's vocabulary): `lint` /
+`measured` = machine, real exit codes; **`agent-gate` = explicitly demoted to agent discipline — honest
+first-class status, NOT machine enforcement** — and every demoted agent-gate leaves its walk COMMITTED to
+`audit/agent-gates.md` (one file, one section per gate; absence = FAIL). The whole suite is run by
+**`node tools/run-gates.mjs`** (§8), which writes the machine-generated status board
+(`audit/gates/report.md`) — the ONLY legitimate source of an "all gates green" claim. A gate that cannot run
+records **NOT-RUN(reason)** on the board — first-class, never a silent pass, never substituted by a manual
+approximation narrated as "clean". v1 ended at "canon built" and
 rewarded rule-compliance over fidelity — it passed an asset-less skeleton. v2 judges the build on fidelity
 (is the real mark / fonts / imagery present and on-brand?), consuming the scoper's `CORE-ASSET FIDELITY
 CONTRACT`. The law: canon = skeleton; the real prototype + `/design-sync`-ready kit = deliverable — rule
 compliance of an asset-less skeleton is not done.
 
-## 1. The fidelity gate — consume the CORE-ASSET FIDELITY CONTRACT
+## 1. The fidelity gate — consume the CORE-ASSET FIDELITY CONTRACT (agent-gate · BLOCKING · walk committed to `audit/agent-gates.md` § Core-asset contract walk)
 
 Stage 0 already parsed the handoff's `CORE-ASSET FIDELITY CONTRACT`: the per-brand core slots, each
-marked present-build-grade vs GAP (low-fi / missing). At Stage 10, walk it:
+marked present-build-grade vs GAP (low-fi / missing). At Stage 10, walk it — and COMMIT the walk:
 
 - **A core slot that is missing or low-fidelity is fidelity-blocking → the build FAILS.** Not "pass with
   gaps." Reaching "done" without the core assets is the bug, not the gap-logging.
@@ -43,9 +52,10 @@ Fidelity tolerance is layered by what the element is — independent of the mech
   false zero-tolerance fail.
 - **Baselines** are per-component-variant and per-brand (the clone-per-brand model: each brand carries
   its own baselines, never shared across brands).
-- **Named tolerance (auditable).** The zero-tolerance assignment — which elements §2 holds at zero tolerance
+- **Named tolerance (auditable — agent-gate, walk committed to `audit/agent-gates.md` § Named tolerance).**
+  The zero-tolerance assignment — which elements §2 holds at zero tolerance
   for THIS brand (the resolved primary-identity carrier + the named primary color tokens + any NON-WAIVABLE
-  graphic-code) — is NAMED in the committed Stage-10 audit artifact (alongside the §7a/§7b evidence), so the
+  graphic-code) — is NAMED in that committed evidence file (alongside the §7a/§7b evidence), so the
   tolerance tiering is auditable, not silently re-decided each run.
 
 ## 3. The mechanism is shape-dependent (the reconciliation)
@@ -107,7 +117,7 @@ Playwright — which adds a pixel-match VRT oracle on top of 3a:
 Storybook-shape is the exception, not the default; never introduce a Storybook+Playwright dependency just to
 get the oracle.
 
-## 4. Content audit
+## 4. Content audit (agent-gate · BLOCKING · walk committed to `audit/agent-gates.md` § Content audit)
 
 A rule-by-rule audit of all written and visual content — authored AND generated — against:
 
@@ -125,10 +135,14 @@ ratified WHY is never silently kept.
 
 ## 5. Retained existing checks (keep as-is — do-not-regress)
 
-- **Output-agnostic grep** — no layer/file/section named for an output.
-- **DTCG validity** — the token files parse and the alias graph resolves (every `{…}` points to a real leaf).
-- **Universality stress test** — three arbitrary artifacts the canon names nowhere (span media); each must
-  resolve through the derivation method without being enumerated. (`gap-protocol.md`.)
+- **Output-agnostic** (agent-gate · walk committed to `audit/agent-gates.md` § Output-agnostic) — no
+  layer/file/section named for an output. The grep is an AID, never the gate — a ~10-term regex sold as a
+  gate is the self-attestation class this suite killed; the judgment pass + its committed record is the gate.
+- **DTCG validity** (lint — already machine: `audit-lint` parses every token file and resolves the alias
+  graph in R4/R6a; no separate check to run or narrate).
+- **Universality stress test** (agent-gate · judgment by design, never mechanized · walk committed to
+  `audit/agent-gates.md` § Universality) — three arbitrary artifacts the canon names nowhere (span media);
+  each must resolve through the derivation method without being enumerated. (`gap-protocol.md`.)
 
 ## 5a. Provenance, completeness, reconciliation & scheme lint — the executable gate (MT-1/3/4/5 + SC-1, BLOCKING)
 
@@ -259,11 +273,17 @@ later without re-running cv2. This is the reproduction half of the fidelity gate
 
 The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Stage 10 gates it.
 
-- **Existence + STRUCTURAL well-formedness (BLOCKING, all postures).** The keystone is present and carries all
-  six sections; the GUARDRAIL layer (§5) sits in the high-recall tail (not buried mid-document); the file is
-  within the conservative size budget or has applied the degradation path (§6 REFERENCE split out). Absent or
+- **Existence + STRUCTURAL well-formedness (lint · BLOCKING, all postures — machine-checked by
+  `run-gates.mjs`).** The keystone is present and carries all
+  six sections; the GUARDRAIL layer (§5) sits in the high-recall tail (not buried mid-document — machine test:
+  one of the last two sections); the battery + expected-refusal contract are committed non-empty; the file is
+  within the conservative size budget or has applied the degradation path (§6 REFERENCE split out — the size
+  budget stays a declared parameter, agent-checked until calibrated). Absent or
   structurally malformed → the build FAILS.
-- **CONTENT / operability well-formedness (BLOCKING, all postures).** Structure alone passes a
+- **CONTENT / operability well-formedness (lint · BLOCKING, all postures — the FORM detection is
+  machine-checked by `run-gates.mjs`: a when-X-then-Z-shaped line or a visible GAP line in THINK/DESIGN, an
+  on-brand/off-brand pair or a visible GAP line in SPEAK — value-blind; the finer operability judgment stays
+  agent discipline on top of the machine floor).** Structure alone passes a
   structurally-perfect-but-operationally-hollow keystone — adjectives dressed as rules. This check audits that
   the core sections carry OPERABLE rules, mirroring `keystone-emit.md` §4:
   - **THINK (§2)** contains **≥1 when-X-then-Z decision rule** (a conditional trade-off rule), not bare
@@ -334,13 +354,41 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
     ONLY to the live run; the §7a fidelity artifact and the §7b battery's existence are gated NOW and their
     absence FAILS the build regardless of the deferred run.
 
+## 8. The runner & the status board — `tools/run-gates.mjs` (how "done" is claimed)
+
+Run, from the emitted-repo root:
+
+```
+node tools/run-gates.mjs        # exit 0 ALL-GREEN · exit 2 INCOMPLETE · exit 1 BLOCKED
+```
+
+It runs every executable gate above as a child process (real exit codes — audit-lint, the deny over its
+DECLARED interim scope of `prototype/**/*.html` + `README.md` pending the client-surface manifest, the kit's
+offline `package-validate` when `dist/` exists), machine-checks the committed evidence (§7a `scores.json`
+verdicts · §7b keystone structure + form + battery · `audit/agent-gates.md` sections for every demoted
+gate), and writes **`audit/gates/report.md`** — the status board. Per-gate statuses are first-class:
+`PASS / FAIL` (real exits) · `NOT-RUN(reason)` (deps missing → the tool's own exit-3 install instruction is
+recorded; `[NO_DIST]` kit; the Phase-deferred live red-team run) · `N/A(declared)`
+(shape-dependent gates on a flat/sonic/monogram-only brand — never a false fail); rows whose Class is
+`agent-gate` PASS/FAIL by their committed evidence (form-checked — non-empty sections; content is never
+judged; the FORM floor of the keystone check is likewise shape-only, with the finer operability judgment as
+agent discipline on top). Verdicts: **ALL-GREEN**
+(done-able) · **INCOMPLETE** (zero FAIL, ≥1 blocking NOT-RUN — a declarable, honest state: a v0/DEMO ships
+WITH the board visible; it is never "done" and never a silent pass) · **BLOCKED**. A manual substitute
+narrated as "clean" (a grep standing in for a gate that could not run) is the exact defect NOT-RUN exists to
+kill — the board line IS the deliverable's status.
+
 ## Gate summary
 
-The build is done only when: every core asset is present + build-grade (§1); `[FONT_MISSING]` is
-resolved for core faces; the hollow-render gate is clean and `package-validate.mjs` exits 0 — the kit's
+The build is done only when **`node tools/run-gates.mjs` verdicts ALL-GREEN (§8)** — the machine-generated
+board, never a narrated summary, is the claim — which requires: every core asset present + build-grade with
+the §1 walk COMMITTED to `audit/agent-gates.md`; `[FONT_MISSING]`
+resolved for core faces; the hollow-render gate clean and `package-validate.mjs` exit 0 — the kit's
 offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip
-has run (package-shape) — or the pixel-match VRT passes the layered thresholds (Storybook-shape); the content audit has no open
-rule/voice violations; the three retained checks pass; **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-1/3/4/5 + SC-1
+has run (package-shape); the content audit walked +
+committed with no open
+rule/voice violations; (Storybook-shape only: the pixel-match VRT against the layered thresholds passes —
+a Stage-9 check outside the board, per §3b;) the retained checks walked + committed (agent-gates) or machine-attributed (DTCG); **`node tools/audit-lint.mjs` exits 0 (§5a — the MT-1/3/4/5 + SC-1
 provenance, completeness, reconciliation & scheme gate: R0–R8 — every named scheme a complete materialized set or a deferred+GAP, and every present canon section a brandbook surface or an open GAP), with `CHECKSUMS.txt` hashing every file under
 `sources/**` so the R3 source-of-record check is meaningful, and no R6 drift — every `derived` projection
 reconciles with the spine, the protected mark is single-sourced from `canon/mark.svg`, and every asset ref
@@ -355,5 +403,7 @@ COMMITTED to `audit/redteam/` (empty/un-run battery = well-formedness FAIL); and
 keystone carries human red-team sign-off (§7b)**; and the evidence + open ratification GAPs are assembled into
 the PR for human sign-off. **Phase-5 dependency (explicit):** the LIVE red-team RUN (instantiate-and-attack) is
 Phase-5-deferred and does NOT happen here; what is gated NOW is the §7a artifact + the §7b committed battery +
-the §7b content check — their absence fails the build regardless of the deferred live run. Anything core unmet →
-the build fails; non-core gaps log and the repo stays valid.
+the §7b content check — their absence fails the build regardless of the deferred live run; the board records
+the live run as NOT-RUN honestly. Anything core unmet →
+the build fails (BLOCKED); a gate that could not run leaves the build INCOMPLETE — declarable, visible on the
+board, never narrated away; non-core gaps log and the repo stays valid.

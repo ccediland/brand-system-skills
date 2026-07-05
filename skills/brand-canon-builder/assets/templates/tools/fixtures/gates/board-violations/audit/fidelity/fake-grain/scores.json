@@ -1,0 +1,8 @@
+{
+  "treatment": "fake-grain",
+  "deltaE2000": 6.99,
+  "ssim": 0.61,
+  "thresholds": { "deltaE2000": 2.0, "ssim": 0.9 },
+  "verdict": "outside-tolerance",
+  "pass": false
+}

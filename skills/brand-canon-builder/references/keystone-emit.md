@@ -111,7 +111,10 @@ front-matter records which section goes where (the deployment map).
 5. Keep it within the conservative size budget; if over, apply the degradation path before emitting.
 
 Mandatory output: Stage 10 FAILS the build if the keystone is absent or malformed (a missing section, the
-guardrail buried mid-document, or over-budget without the degradation applied). See `validate-audit.md` §7b.
+guardrail buried mid-document, or over-budget without the degradation applied). The structural and
+FORM-OF-RULE checks are MACHINE-run (`tools/run-gates.mjs`: six sections, guardrail in the tail, committed
+battery, a conditional-rule/pair shape or a visible GAP marker per core section — value-blind); the finer
+operability judgment stays agent discipline on top of that floor. See `validate-audit.md` §7b/§8.
 
 ## Boundaries
 

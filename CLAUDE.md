@@ -28,6 +28,18 @@
 
 ## Tooling — emitted gates (run from the EMITTED client repo root)
 The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
+- **`node tools/run-gates.mjs`** — the Stage-10 **suite runner & status board**: runs every executable gate
+  (real exit codes), verifies the committed evidence of every demoted agent-gate (`audit/agent-gates.md`),
+  machine-checks keystone structure/form + the committed red-team battery, and writes `audit/gates/report.md`
+  — the only legitimate "gates green" claim. Statuses: PASS/FAIL · **NOT-RUN(reason)** (first-class: deps
+  missing records the tool's own exit-3 install line — never substituted by a manual "clean") ·
+  N/A(declared); rows with Class `agent-gate` PASS/FAIL by committed evidence. Exit 0 ALL-GREEN ·
+  2 INCOMPLETE (honest v0/DEMO state) · 1 BLOCKED.
+  Self-test from THIS repo: `node …/tools/run-gates.mjs …/tools/fixtures/clean` (exit 2 — INCOMPLETE, zero
+  FAIL: the un-built kit records NOT-RUN `[NO_DIST]`) and `…/fixtures/gates/board-violations` (exit 1 —
+  keystone structural+form FAIL + agent-gates FAIL + §7a pass:false FAIL). Fresh-clone acceptance: copy
+  `run-gates.mjs` + `audit-lint.mjs` + `client-deny-lint.mjs` to a
+  deps-less dir and re-run — the deny row records NOT-RUN(deps) with the npm install line, never "clean".
 - **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance, completeness & reconciliation gate**
   (MT-1/3/4/5 + SC-1 + RV-5; rules R0–R8). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
   `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`, and (for R6) `satellites/projections.md`,

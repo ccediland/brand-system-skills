@@ -166,8 +166,9 @@ equivalent fields before proceeding.)
 ### Stage 1 — Scaffold (always first)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
 root (`README.md`, `CLAUDE.md`, `RESIDENT.md`), `tokens/*` into `tokens/`, and `tools/*` into `tools/`
-(`audit-lint.mjs` — the Stage-10 provenance/completeness gate; `source-recover.py` — MT-3 archived-source
-recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
+(`run-gates.mjs` — the Stage-10 suite runner + status board; `audit-lint.mjs` — the provenance/completeness
+gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
+archived-source recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
 a seeded-violation sample), not client material. Create `assets/` (source
 binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the
 `assets/`+`sources/` material convention. This creates the valid, empty-but-structured baseplate before any content. Fill the obvious
@@ -339,7 +340,15 @@ skeleton. Eight parts:
   Storybook + Playwright) adds a pixel-match VRT oracle (Chromatic default; Percy / BackstopJS alternatives).
 - **Content audit** — rule-by-rule audit of all written + visual content (authored AND generated) against the
   `G-*`/`ALGO-*` GRAMMAR rules and ESSENCE/voice (anti-promise, lexicon, don'ts).
-- **Provenance & completeness lint (executable, BLOCKING)** — run `node tools/audit-lint.mjs` from the emitted
+- **THE SUITE RUNNER (executable, BLOCKING)** — run `node tools/run-gates.mjs` from the emitted repo root:
+  it runs every executable gate (real exit codes), verifies the committed evidence of every DEMOTED
+  agent-gate (`audit/agent-gates.md` — §1 contract walk, §2 named tolerance, §4 content audit,
+  output-agnostic, universality), machine-checks the keystone structure + form and the committed battery, and
+  writes the status board `audit/gates/report.md` — the ONLY legitimate "gates green" claim. Statuses are
+  first-class: PASS/FAIL (real exits) · NOT-RUN(reason) (deps → the tool's exit-3 install line; never
+  substituted by a manual "clean") · N/A(declared). Verdict ALL-GREEN required for "done"; INCOMPLETE is the
+  honest, declarable v0/DEMO state. (`validate-audit.md` §8.)
+- **Provenance & completeness lint (executable, BLOCKING; run by the runner)** — `node tools/audit-lint.mjs` from the emitted
   repo root: exit 0 required (MT-3/4/5, R0–R5 — every value token carries valid-enum provenance;
   corroborated⇒≥2 distinct non-relay sources (R1 counts, it does not hash-check); inferred/matched/proposed
   capped at hypothesis; computed-css
@@ -390,7 +399,8 @@ This stage scrubs only the client repo it produces; this builder repo's own docs
 
 ### Stage 12 — Commit + PR
 Update `RESIDENT.md` (decisions, Open Items, change log) and commit on a `claude/<name>` branch; open a PR
-carrying the audit + samples + open ratification GAPs for the owners unless told otherwise.
+carrying the audit — including `audit/gates/report.md`, the machine-generated gate board, the only
+legitimate gates-green claim — + samples + open ratification GAPs for the owners unless told otherwise.
 
 ## Principle to keep in mind
 The repo is the source; consumers re-project from it and never override it. kit = constant, canon =
