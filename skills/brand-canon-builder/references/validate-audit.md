@@ -67,8 +67,11 @@ evidenced. Do not mandate Storybook by default.
 
 Fidelity evidence is the convergence of four sources — all already produced by Stages 8–9:
 
-1. **Render real samples** — the deterministic HTML prototype (`assets/templates/prototype/`) is the
-   evidence. Its **surface-set derives from the brand's primary medium**: a visual-primary brand confirms the
+1. **Render real samples — and the evidence renders the CANON.** The deterministic HTML prototype
+   (`assets/templates/prototype/`) is the
+   evidence, and every evidence render/screenshot derives its values FROM THE TOKEN SPINE — a hand-tuned
+   palette in an evidence artifact is fabrication (the evidence must show what the canon produces, not what
+   a tweak made presentable); §4 audits for it. Its **surface-set derives from the brand's primary medium**: a visual-primary brand confirms the
    real carrier, fonts, and imagery on the visual surfaces (hero / card / control set / type spread / color
    blocks). The current build is **visual-build-grade**: where the brand's primary medium is non-visual (sonic
    / motion), the prototype renders a visual *context* fallback and **declares the primary-medium sample a
@@ -129,6 +132,9 @@ A rule-by-rule audit of all written and visual content — authored AND generate
   never a raw `extract-vector` / `pdffonts`-table read promoted to canon. An outlined-font or agency-embedded
   layout-font regression (the studio's font reported in place of the brand's) surfaces here as a finding,
   mirroring the stated-spec-read rule.
+- **evidence-renders-the-canon** — every evidence screenshot/render in the audit trail derives from the
+  token spine (compare rendered values against the tokens); an evidence artifact styled by a hand-tuned
+  palette that diverges from the canon is a FINDING (fabricated evidence), never presentable polish.
 
 Findings are fixed (regenerate / re-author) or logged as `GAP-NNN`; a content piece that contradicts the
 ratified WHY is never silently kept.
@@ -229,7 +235,21 @@ stage only references the human-gate principle and assembles the evidence.)
 
 Two v3 gates layered on top of §1–6.
 
-### 7a. Reproduction measured-diff (treatments) — ties `reproduction-router.md`
+### 7a. Reproduction measured-diff (treatments + the MANDATORY non-waivable set) — ties `reproduction-router.md`
+
+**The non-waivable set is MEASURED, mandatorily.** The §2 zero-tolerance set — the resolved
+primary-identity carrier(s) + any NON-WAIVABLE graphic-code, as the persisted handoff's `NON-WAIVABLE` line
+declares them — does not merely *may* be diffed: each carrier MUST have a committed `audit/fidelity/<slot>/`
+measurement (pixel/ΔE — never a string-match, never a hand-written verdict), or its honest declared state:
+a non-visual carrier records its declared fidelity-blocking GAP (`--medium non-visual`); in **`MODE: CREATE`
+no Stage-5 capture exists — the AUTHORED master is the source-of-record the diff runs against**, and a
+not-yet-run measurement is NOT-RUN on the board (the mandatory gate never false-blocks CREATE). The gate
+runner (§8) parses the persisted handoff and enforces this: a non-waivable with no evidence in ANALYZE
+FAILS; **a non-waivable outside tolerance never rides the GAP escape** (bring it within tolerance or degrade
+the method honestly). `scores.json`'s `pass` field records the MEASUREMENT alone — outside-tolerance with a
+declared GAP stays `pass: false` + `gap: GAP-NNN` (a tracked outcome for non-core treatments; exit 0 so the
+pipeline continues) — and the runner RECOMPUTES the verdict from the recorded numbers, so a hand-written
+`"pass": true` over failing metrics is caught, never trusted.
 
 Every brand TREATMENT the build reproduced (classified at Stage 5, reproduced at Stage 8 via
 `reproduction-router.md`) is validated by a **MEASURED diff against the source artifact** (MT-2):

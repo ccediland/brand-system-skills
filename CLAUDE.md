@@ -73,10 +73,15 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   **measured reproduction-fidelity gate** (the §7a verdict; build-time, not a runtime/client dep). Co-registers
   the reproduction onto the **Stage-5 source capture** (ORB+RANSAC) and computes **ΔE2000** + **SSIM/pixelmatch**
   (+ **fontTools** glyph metrics for type). Verdict vs the §2 tiers (ΔE2000 ≤ 2.0 default, ≤ 1.0 core colour;
-  loosening RAISES the bound, never waives it) → `within-tolerance` (exit 0) / `outside-tolerance` (exit 1; with
-  `--gap` a declared tracked GAP passes) / non-visual carrier `--medium non-visual` → declared GAP (exit 0).
+  loosening RAISES the bound, never waives it) → `within-tolerance` (exit 0) / `outside-tolerance` (exit 1;
+  with `--gap` exit 0 as a TRACKED outcome — the record never flips to a pass) / non-visual carrier
+  `--medium non-visual` → declared GAP (exit 0, `measured:false`).
   Writes **`audit/fidelity/<treatment-id>/scores.json`** (numeric scores + thresholds + verdict — re-auditable
-  WITHOUT cv2) + a `diff.png` heatmap. It measures against the SOURCE capture — **not a pixel-VRT** (§3a). Deps
+  WITHOUT cv2; `pass` records the MEASUREMENT alone — `--gap` keeps exit 0 for pipeline continuation but the
+  record stays `pass:false` + `gap:GAP-NNN`, and the runner recomputes the verdict from the numbers, so a
+  hand-written pass is caught) + a `diff.png` heatmap. The NON-WAIVABLE set is measured mandatorily (runner
+  parses the persisted handoff; CREATE mode diffs against the AUTHORED master or records NOT-RUN — never a
+  false block). It measures against the SOURCE capture — **not a pixel-VRT** (§3a). Deps
   (numpy, opencv-python-headless, scikit-image, pillow; fontTools for `--font`) are **import-guarded**: missing →
   a clear `pip install …` + exit 3, never a stack trace; the non-visual path needs none of them. Self-test
   fixtures + generator: `tools/fixtures/fidelity/` (`gen.py` → source/within/within_shift/mid/out `.png`).
@@ -84,7 +89,10 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   build-time, zero-dep Node, **NOT Style Dictionary**). Reads `canon/canon.json › schemes` + `tokens/base.json`
   + `tokens/semantic.json` (role→anchor); for each NON-deferred scheme derives the semantic colour roles in
   OKLCH by `{mode, dominant}` (light=identity · dark=invert-L on neutrals + lift non-dominant chromatic ·
-  contrast=push neutrals to the L extreme; C/H preserved, hex via in-process OKLCH→sRGB) and writes
+  contrast=push neutrals to the L extreme; C/H preserved, hex via in-process OKLCH→sRGB; **post-derive
+  legibility guard**: a derived text/fg role keeps ≥0.30 L-separation from the scheme's nearest bg/surface
+  role — a collapsed pair is pushed apart, logged, still hypothesis+GAP; fixture:
+  `tools/fixtures/scheme-derive/near-black/`) and writes
   `tokens/schemes/<id>.json` — every token a structured-OKLCH object tagged **`$extensions.brand.scheme:"<id>"`**,
   entering at `confidence:"hypothesis"` + the scheme's tracking GAP. A `status:"deferred"` scheme emits no set
   (carries a GAP). **audit-lint R7** (loaded from `tokens/schemes/*.json` too) fails any named scheme without a

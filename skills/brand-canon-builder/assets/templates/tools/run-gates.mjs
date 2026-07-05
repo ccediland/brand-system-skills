@@ -118,28 +118,74 @@ const failLine = (s) => {
   }
 }
 
-// ---------- 4. §7a fidelity evidence presence (measured, BLOCKING) ----------
+// ---------- 4. §7a fidelity evidence — recomputed verdicts + the MANDATORY non-waivable set ----------
+// `pass` is never trusted on its own: the runner RECOMPUTES the measurement from the recorded numeric
+// metrics vs thresholds (a hand-written verdict — recorded pass disagreeing with its own numbers, or a
+// verdict with no numbers — is a FAIL). A visual outside-tolerance with a declared GAP is a TRACKED
+// outcome (evidence honest), but a NON-WAIVABLE slot never rides the GAP escape: the mandatory set is
+// parsed from the persisted handoff (its NON-WAIVABLE line + MODE) — mark/palette-class slots are
+// MEASURED, never string-matched, never hand-verdicted. In MODE: CREATE (no Stage-5 capture exists) the
+// missing measurement is NOT-RUN (diff against the AUTHORED master as source-of-record, or declare the
+// medium N/A) — the mandatory gate never false-blocks CREATE.
 {
+  const norm = (s) => String(s ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  const scans = []; // { t, rec, state: 'pass'|'declared-gap'|'tracked-gap'|'fail' }
   const fdir = join(ROOT, 'audit', 'fidelity');
-  if (!isDir(fdir)) {
-    add('§7a fidelity evidence', 'measured', true, 'N/A', 'no audit/fidelity/ — no reproduced treatments (a brand that reproduced none commits none)');
-  } else {
-    const bad = [];
-    let n = 0;
+  const bad = [];
+  if (isDir(fdir)) {
     for (const t of listDir(fdir)) {
       const dir = join(fdir, t);
       if (!isDir(dir)) continue;
-      n++;
       let rec = null;
       try { rec = JSON.parse(readFileSync(join(dir, 'scores.json'), 'utf8')); } catch { /* missing/malformed */ }
-      if (!rec || rec.verdict == null) bad.push(`${t}: scores.json missing or carries no verdict`);
-      // the machine pass field is the gate, never the verdict string alone (a declared-GAP pass:true
-      // still passes here — the mandatory-set / --gap-escape tightening is gated separately)
-      else if (rec.pass !== true) bad.push(`${t}: verdict "${rec.verdict}" is not a pass (pass: ${JSON.stringify(rec.pass ?? null)})`);
+      if (!rec || rec.verdict == null) { bad.push(`${t}: scores.json missing or carries no verdict`); scans.push({ t, rec, state: 'fail' }); continue; }
+      if (rec.measured === false) { scans.push({ t, rec, state: 'declared-gap' }); continue; } // non-visual declared GAP — nothing to measure
+      const m = rec.metrics, th = rec.thresholds;
+      const computable = m && th && typeof m.deltaE2000_mean === 'number' && typeof th.deltaE2000_max === 'number';
+      if (!computable) { bad.push(`${t}: no numeric metrics/thresholds in scores.json — a verdict without numbers is a hand-written verdict`); scans.push({ t, rec, state: 'fail' }); continue; }
+      const computed = m.deltaE2000_mean <= th.deltaE2000_max
+        && (!m.ssim_gated || (typeof m.ssim === 'number' && m.ssim >= (th.ssim_min ?? 0)))
+        && ((m.mismatch_fraction ?? 0) <= (th.mismatch_max ?? 1))
+        && (rec.glyph ? rec.glyph.pass !== false : true);
+      if (computed !== (rec.pass === true)) { bad.push(`${t}: recorded pass ${JSON.stringify(rec.pass ?? null)} disagrees with the recomputed measurement (${computed ? 'within' : 'outside'} tolerance) — a hand-written verdict`); scans.push({ t, rec, state: 'fail' }); continue; }
+      if (rec.pass === true) scans.push({ t, rec, state: 'pass' });
+      else if (rec.gap) scans.push({ t, rec, state: 'tracked-gap' });
+      else { bad.push(`${t}: verdict "${rec.verdict}" outside tolerance and UNTRACKED (no gap) — degrade or log a GAP`); scans.push({ t, rec, state: 'fail' }); }
     }
-    if (n === 0) add('§7a fidelity evidence', 'measured', true, 'N/A', 'audit/fidelity/ exists but holds no treatment dirs');
-    else add('§7a fidelity evidence', 'measured', true, bad.length ? 'FAIL' : 'PASS',
-      bad.length ? bad.join(' · ') : `${n} treatment dir(s), each with a recorded PASSING verdict (mandatory-set coverage is gated separately)`);
+  }
+  if (!isDir(fdir)) add('§7a fidelity evidence', 'measured', true, 'N/A', 'no audit/fidelity/ — no reproduced treatments (mandatory-set coverage judged below)');
+  else if (!scans.length) add('§7a fidelity evidence', 'measured', true, 'N/A', 'audit/fidelity/ exists but holds no treatment dirs');
+  else add('§7a fidelity evidence', 'measured', true, bad.length ? 'FAIL' : 'PASS',
+    bad.length ? bad.join(' · ') : `${scans.length} treatment record(s): verdicts recomputed from their own numbers (${scans.filter((s) => s.state === 'tracked-gap').length} tracked-GAP, ${scans.filter((s) => s.state === 'declared-gap').length} declared non-visual)`);
+
+  // the mandatory set — parsed from the persisted handoff
+  const srcDir = join(ROOT, 'sources');
+  const handoffs = listDir(srcDir).filter((f) => /^handoff—.+\.md$/.test(f)).sort();
+  const hoText = handoffs.length ? (readText(join(srcDir, handoffs[handoffs.length - 1])) ?? '') : '';
+  const mode = (hoText.match(/^MODE:\s*(ANALYZE|CREATE)\b/m) ?? [])[1] ?? null;
+  const nwLine = hoText.split('\n').find((l) => /NON-WAIVABLE/.test(l)) ?? '';
+  const nwTail = nwLine.split('—').slice(1).join('—');
+  const carriers = nwTail.split('·').map((s) => s.trim()).filter((s) => s && !/not-used/i.test(s))
+    .map((s) => ({ raw: s.replace(/\(.*?\)/g, '').trim(), paren: (s.match(/\(([^)]+)\)/) ?? [])[1] ?? null }))
+    .filter((c) => c.raw); // graphic-code is a real slot like any other; not-used items were dropped above
+  if (!hoText || !nwLine || !carriers.length) {
+    add('§7a mandatory set', 'measured', true, 'N/A', !hoText ? 'no persisted handoff (sources/handoff—*.md) — the §1 walk owns the mandatory set' : 'no NON-WAIVABLE carriers declared — the §1 walk owns the set');
+  } else {
+    const probs = []; const notRun = [];
+    for (const c of carriers) {
+      const keys = [norm(c.raw), c.paren ? norm(c.paren) : null].filter(Boolean);
+      const hit = scans.find((s) => keys.some((k) => norm(s.t).includes(k) || k.includes(norm(s.t)) || (s.rec && s.rec.carrier && (norm(s.rec.carrier).includes(k) || k.includes(norm(s.rec.carrier))))));
+      const label = c.paren ? `${c.raw} (${c.paren})` : c.raw;
+      if (!hit) {
+        if (mode === 'CREATE') notRun.push(`${label}: mandatory measurement not yet run — CREATE mode: diff against the AUTHORED master (the source-of-record where no Stage-5 capture exists) or declare the medium N/A`);
+        else probs.push(`${label}: mandatory fidelity NEVER RAN — the non-waivable set (mark, palette-class slots) is measured (ΔE/SSIM), never string-matched, never hand-verdicted`);
+      } else if (hit.state === 'tracked-gap') probs.push(`${label}: outside tolerance riding the GAP escape — a NON-WAIVABLE slot never rides it (bring within tolerance or degrade the method honestly)`);
+      else if (hit.state === 'fail') probs.push(`${label}: its evidence record failed above`);
+      // 'pass' and 'declared-gap' (non-visual, no build-grade producer — a declared fidelity-blocking GAP per its role) are honest states
+    }
+    if (probs.length) add('§7a mandatory set', 'measured', true, 'FAIL', probs.join(' · '));
+    else if (notRun.length) add('§7a mandatory set', 'measured', true, 'NOT-RUN', notRun.join(' · '));
+    else add('§7a mandatory set', 'measured', true, 'PASS', `${carriers.length} non-waivable carrier(s) covered: measured within tolerance or declared per medium`);
   }
 }
 

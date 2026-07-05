@@ -15,6 +15,10 @@
 //       lift non-dominant chromatic roles +0.08 for legibility (dominant keeps its L); contrast =
 //       push neutral roles to the L extreme. C and H are preserved (gamut-clamped at hex).
 //     dominant names the lead ink role (kept at source L in dark mode). Enforces G-SCHEME-01/02, G-COLOR-01.
+//     POST-DERIVE LEGIBILITY GUARD (derived modes): every text/fg role keeps ≥0.30 L-separation from the
+//       scheme's nearest bg/surface role — the naive per-role invert preserves each L but can collapse the
+//       PAIR on near-black/near-white palettes (invisible derived text). A too-close fg is pushed away
+//       (clamped; C/H kept), logged, and stays hypothesis + the scheme's GAP — never silently emitted.
 //
 //   ZERO-DEP Node — NOT Style Dictionary, NOT Dispersa. Structured colour is written DIRECTLY
 //   (raw SD trips the object -value/-unit split bug). OKLCH→sRGB hex is computed in-process.
@@ -112,6 +116,40 @@ function main() {
         $description: `${id} scheme · ${role} (derived from the base palette by ALGO-SCHEME-DERIVE; ${mode} mode)`,
         $extensions: { brand },
       };
+    }
+    // POST-DERIVE LEGIBILITY GUARD (derived modes only). The naive per-role transform can collapse a
+    // text/fg role onto a bg/surface role on near-black / near-white palettes (invert-L preserves the
+    // per-role L but not the PAIRWISE separation). Every derived text/fg role must keep ≥ MIN_DL of L
+    // against the scheme's nearest bg/surface role; a closer pair gets its fg L pushed away (clamped,
+    // C/H preserved). The adjusted value stays a hypothesis carrying the scheme's GAP — the owner
+    // ratifies; the guard only refuses to EMIT an invisible derived pairing. Role recognition is by
+    // semantic ROLE NAME class (fg/text vs bg/surface), never by brand content.
+    if (mode !== 'light') {
+      const MIN_DL = 0.30;
+      const FG = /text|fg|foreground|ink|on[-_]/i;
+      const BG = /bg|background|surface|paper|ground|canvas/i;
+      const entries = Object.entries(color).filter(([k]) => !k.startsWith('$'));
+      const bgs = entries.filter(([k]) => BG.test(k) && !FG.test(k));
+      if (bgs.length) {
+        for (const [role, tok] of entries) {
+          if (!FG.test(role) || BG.test(role)) continue;
+          const L = tok.$value.components[0];
+          let nearest = null;
+          for (const [bgRole, bgTok] of bgs) {
+            const d = Math.abs(L - bgTok.$value.components[0]);
+            if (!nearest || d < nearest.d) nearest = { bgRole, bl: bgTok.$value.components[0], d };
+          }
+          if (nearest && nearest.d < MIN_DL) {
+            const nl = round4(Math.min(1, Math.max(0, nearest.bl >= 0.5 ? nearest.bl - 0.45 : nearest.bl + 0.45)));
+            const [, C2, H2] = tok.$value.components.length === 3 ? tok.$value.components : [0, 0, 0];
+            tok.$value.components = [nl, C2, H2];
+            tok.$value.hex = oklchToHex(nl, C2, H2);
+            tok.$extensions.brand.spaces.hex.value = tok.$value.hex;
+            tok.$description += ` · legibility-guard: L ${L} → ${nl} (was ${round4(nearest.d)} ΔL from ${nearest.bgRole}; floor ${MIN_DL})`;
+            console.log(`scheme-derive: ${id}.${role} legibility-guard — L ${L} → ${nl} (ΔL vs ${nearest.bgRole} was ${round4(nearest.d)} < ${MIN_DL})`);
+          }
+        }
+      }
     }
     const out = { scheme: { [id]: { color } } };
     const dir = join(ROOT, 'tokens', 'schemes');

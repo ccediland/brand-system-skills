@@ -1,0 +1,12 @@
+{
+  "tool": "fidelity-diff.py",
+  "treatment": "hand-verdict",
+  "medium": "visual",
+  "measured": true,
+  "metrics": { "deltaE2000_mean": 5.2, "deltaE2000_p95": 7.7, "ssim": 0.7, "ssim_gated": true, "mismatch_fraction": 0.2 },
+  "thresholds": { "deltaE2000_max": 2.0, "ssim_min": 0.9, "mismatch_max": 0.05 },
+  "verdict": "within-tolerance",
+  "resolution": "within-tolerance",
+  "pass": true,
+  "gap": null
+}

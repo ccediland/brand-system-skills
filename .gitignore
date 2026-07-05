@@ -22,3 +22,6 @@ __pycache__/
 # Fixture audit INPUTS (redteam battery, agent-gates evidence) ARE committed — only run outputs are ignored.
 skills/brand-canon-builder/assets/templates/tools/fixtures/**/audit/lint/
 skills/brand-canon-builder/assets/templates/tools/fixtures/**/audit/gates/
+
+# scheme-derive fixture run artifacts
+skills/brand-canon-builder/assets/templates/tools/fixtures/scheme-derive/**/tokens/schemes/
