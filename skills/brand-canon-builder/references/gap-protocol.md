@@ -16,7 +16,8 @@ colors. Each datum carries four fields:
   flag, which marks *owner*-declared truth — the opposite trust level).
 - **confidence** — a six-value ladder in three tiers (byte-identical at every hop; no extra value/synonym):
   - **tier 0 — unconfirmed:** `hypothesis` (observed / derived / proposed, unconfirmed).
-  - **tier 1 — evidence-earned:** `corroborated` (the value appears in ≥2 independent non-relay sources) ·
+  - **tier 1 — evidence-earned:** `corroborated` (the VALUE — not just the citation — appears in ≥2
+    independent non-relay sources; the lint searches the hashed files themselves) ·
     `verified-primary` (read EXACTLY from the slot's official primary master — the top truth of brand
     archaeology when no living owner can ratify; its sourceRef is the hashed primary master).
   - **tier 2 — ratified (who/how the ratification happened):** `proxy-relayed` (a proxy confirmed on the
@@ -29,7 +30,9 @@ colors. Each datum carries four fields:
     `proxy-relayed`.
 
   **The ladder is a GATE, not a gloss (MT-4, enforced by `tools/audit-lint.mjs` R1/R2/R3):**
-  `corroborated` requires **≥2 _distinct_ non-relay source artifacts that agree** — two references to the
+  `corroborated` requires **≥2 _distinct_ non-relay source artifacts that agree — and "agree" is checked
+  against the file CONTENT (the value must be found in each text source; normalized hex/oklch), never a
+  file count** — two references to the
   *same* file is one source, a builder transcription (`origin: relay`, below) is custody but never an
   independent source; a value whose `source` is `inferred`, `matched` or `proposed` is **capped at
   `hypothesis`** — it may never rise on inference or self-authorship alone (a `source: inferred` +

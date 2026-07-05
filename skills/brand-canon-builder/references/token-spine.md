@@ -123,8 +123,10 @@ So EVERY emitted token carries the full provenance spine (`gap-protocol.md` § T
 
 ### Confidence↔source is a GATE, not advice (MT-4 — `tools/audit-lint.mjs` R1/R2)
 
-The ladder is checkable, mirroring `gap-protocol.md`: `confidence: corroborated` requires **≥2 _distinct_
-non-relay source artifacts** (R1 — two refs to the same file is one source, and a ref marked
+The ladder is checkable, mirroring `gap-protocol.md`: `confidence: corroborated` requires **the VALUE found
+in ≥2 _distinct_
+non-relay source artifacts** (R1 — value agreement checked against the hashed files' content, normalized
+hex/oklch; two refs to the same file is one source, and a ref marked
 `origin: "relay"` is a builder transcription that never counts), and a `source` of
 `inferred`/`matched`/`proposed` is **capped at `hypothesis`** (R2 — `proposed` is the quarantine channel).
 A `semantic`-tier token stamped `source: inferred` + `confidence: corroborated` is the canonical

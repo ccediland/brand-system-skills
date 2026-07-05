@@ -166,8 +166,11 @@ node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
   closed source enum and `confidence` ∈ `{hypothesis, corroborated, verified-primary, proxy-relayed,
   handoff-confirmed, owner-confirmed}`. (Closes the "omit or
   typo the provenance block and evade every conditional rule below" bypass; aliases inherit and are exempt.)
-- **R1 (MT-4)** — `confidence: corroborated` ⇒ ≥2 `sourceRef` entries with DISTINCT `file`, excluding refs
-  marked `origin: "relay"` (a builder transcription is hashable custody, never an independent source).
+- **R1 (MT-4)** — `confidence: corroborated` ⇒ the token's VALUE is FOUND in ≥2 distinct non-relay sources
+  (hex case-insensitive / an `oklch()` whose numbers match / the string value or its first quoted family) —
+  counting files was never corroboration: a plausible fabrication citing two real files fails here. Refs
+  marked `origin: "relay"` never count (a builder transcription is hashable custody, never an independent
+  source); a binary/unreadable source counts declaratively by file (documented limit — no text to search).
 - **R2 (MT-4)** — `source ∈ {inferred, matched, proposed}` ⇒ `confidence` is `hypothesis` (`proposed` = the
   quarantine channel: pipeline-authored, operative, never canon without ratification).
 - **R3 (MT-3)** — `source: computed-css` OR any `confidence` above `hypothesis` ⇒ a `sourceRef`

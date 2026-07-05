@@ -1,1 +1,1 @@
-Demo Brand — brandbook (fixture source of record). swatch:ink near-black · swatch:primary blue · swatch:tint blue-tint · swatch:paper off-white · swatch:field teal.
+Demo Brand — brandbook (fixture source of record). swatch:ink near-black · swatch:primary blue #5a7fb0 · swatch:tint blue-tint · swatch:paper off-white · swatch:field teal #3e7d8f.

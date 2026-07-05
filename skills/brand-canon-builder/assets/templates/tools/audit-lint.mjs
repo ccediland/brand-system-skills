@@ -204,19 +204,50 @@ const add = (id, title, violations, note) => results.push({ id, title, status: v
   add('R0', 'MT-3/4 · every value token carries provenance on the closed source/confidence enums', v);
 }
 
-// R1 (MT-4): corroborated ⇒ ≥2 sourceRef with distinct `file` — a sourceRef marked `origin: "relay"`
-// (a transcription authored by the builder, e.g. of the handoff/a dictation) is hashable custody but
-// NEVER an independent source: relay refs are excluded from the distinct-file count.
+// R1 (MT-4): corroborated ⇒ the VALUE appears in ≥2 distinct non-relay sources — counting files was
+// never corroboration (a plausible fabrication with two refs to existing files passed): each counted
+// TEXT source must actually CONTAIN the token's value (hex case-insensitive, or an oklch() whose numbers
+// match the components, or the string value / its first quoted family). A binary/unreadable source stays
+// declarative (counts by file — a documented limit); a relay ref never counts at all.
+const OKLCH_RE = /oklch\(\s*([\d.]+)%?\s+([\d.]+)\s+([\d.]+)/gi;
+function valueInText(txt, value) {
+  if (value == null) return true; // nothing derivable — declarative
+  if (typeof value === 'object' && Array.isArray(value.components)) {
+    const hex6 = typeof value.hex === 'string' ? value.hex.slice(0, 7).toLowerCase() : null;
+    if (hex6 && txt.toLowerCase().includes(hex6)) return true;
+    const [L, C, H] = value.components;
+    for (const m of txt.matchAll(OKLCH_RE)) {
+      let l = parseFloat(m[1]); if (m[0].includes('%')) l /= 100;
+      if (Math.abs(l - L) <= 0.005 && Math.abs(parseFloat(m[2]) - C) <= 0.005 && Math.abs(parseFloat(m[3]) - H) <= 0.5) return true;
+    }
+    return false;
+  }
+  if (typeof value === 'string') {
+    if (txt.includes(value)) return true;
+    const fam = value.match(/^"([^"]+)"/); // a font stack corroborates on its first quoted family
+    return fam ? txt.includes(fam[1]) : false;
+  }
+  return true; // other shapes (composite strings already covered above) — declarative
+}
 {
   const v = [];
   for (const t of tokens) {
     if (t.confidence !== 'corroborated') continue;
     const counted = t.sourceRefs.filter((r) => r && refOrigin(r) !== 'relay');
-    const files = new Set(counted.map((r) => r.file).filter(Boolean));
     const relayN = t.sourceRefs.length - counted.length;
-    if (files.size < 2) v.push(`${t.path} (${t.file}) — confidence "corroborated" but ${files.size} distinct non-relay sourceRef file(s)${relayN ? ` (${relayN} relay ref(s) excluded)` : ''} [${[...files].join(', ') || 'none'}]; needs ≥2`);
+    const bearing = new Set(); const lacking = [];
+    for (const r of counted) {
+      if (!r.file) continue;
+      const fileRel = String(r.file).replace(/^\.\//, '');
+      const p = join(ROOT, fileRel);
+      const txt = existsSync(p) && !/\.pdf$/i.test(fileRel) ? readText(p) : null;
+      if (txt == null || txt.includes('\u0000')) { bearing.add(fileRel); continue; } // binary/unreadable: declarative
+      if (valueInText(txt, t.value)) bearing.add(fileRel);
+      else lacking.push(fileRel);
+    }
+    if (bearing.size < 2) v.push(`${t.path} (${t.file}) — confidence "corroborated" but the value is found in only ${bearing.size} distinct non-relay source(s)${relayN ? ` (${relayN} relay ref(s) excluded)` : ''}${lacking.length ? ` — cited file(s) that do NOT contain the value: [${lacking.join(', ')}]` : ''}; corroboration is VALUE agreement across ≥2 independent sources, never a file count`);
   }
-  add('R1', 'MT-4 · corroborated ⇒ ≥2 distinct non-relay source artifacts', v);
+  add('R1', 'MT-4 · corroborated ⇒ the value appears in ≥2 distinct non-relay sources', v);
 }
 
 // R2 (MT-4): source ∈ {inferred, matched, proposed} ⇒ confidence == hypothesis.

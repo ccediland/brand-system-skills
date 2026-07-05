@@ -16,8 +16,8 @@
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "sourceRef": [
-            { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "1bad473eac2839c46b9dbadfeb1b578cf16b85b4a5bdc342f0436ae35ea1815b", "captureTs": "20230124000000", "selfPublished": "2023-01" },
-            { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "b8b203057eb25768a3a75a46e874a2933f8697d7d78230c1894574d5d71c2dad" }
+            { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "ae9dfd72102c69dd6dc09f5a0b74a2eed71fa9c2a2bacccf5bf22e0b081083ae", "captureTs": "20230124000000", "selfPublished": "2023-01" },
+            { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "6e6690c7886f0eb3f4519fdf8a4f26c100c8a851f0bb8ae349d4f9e0ebaca203" }
           ]
         } }
       },
@@ -26,7 +26,7 @@
         "$description": "verified-primary — read EXACT from the slot's hashed primary master (R3: hashed, path-bound sourceRef).",
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "verified-primary", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:paper", "line": 1, "sha256": "b8b203057eb25768a3a75a46e874a2933f8697d7d78230c1894574d5d71c2dad" }
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:paper", "line": 1, "sha256": "6e6690c7886f0eb3f4519fdf8a4f26c100c8a851f0bb8ae349d4f9e0ebaca203" }
         } }
       },
       "night-ink": {
@@ -59,8 +59,8 @@
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "sourceRef": [
-            { "file": "sources/site.css", "selector": ".field", "line": 1, "sha256": "1bad473eac2839c46b9dbadfeb1b578cf16b85b4a5bdc342f0436ae35ea1815b" },
-            { "file": "sources/brandbook.txt", "selector": "swatch:field", "line": 1, "sha256": "b8b203057eb25768a3a75a46e874a2933f8697d7d78230c1894574d5d71c2dad" },
+            { "file": "sources/site.css", "selector": ".field", "line": 1, "sha256": "ae9dfd72102c69dd6dc09f5a0b74a2eed71fa9c2a2bacccf5bf22e0b081083ae" },
+            { "file": "sources/brandbook.txt", "selector": "swatch:field", "line": 1, "sha256": "6e6690c7886f0eb3f4519fdf8a4f26c100c8a851f0bb8ae349d4f9e0ebaca203" },
             { "file": "sources/palette-notes.md", "selector": "field", "line": 4, "sha256": "16d87637c6f962ff39804e80964663e5086a2b1458e1a171479db37691ad3b41", "origin": "relay" }
           ]
         } }
@@ -70,7 +70,7 @@
         "$description": "C-1 structured-OKLCH regression guard with ALPHA ≠ 1 — the R6a serializer must emit the `oklch(L C H / a)` form; a projection pins this byte-for-byte.",
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:tint", "line": 1, "sha256": "b8b203057eb25768a3a75a46e874a2933f8697d7d78230c1894574d5d71c2dad" }
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:tint", "line": 1, "sha256": "6e6690c7886f0eb3f4519fdf8a4f26c100c8a851f0bb8ae349d4f9e0ebaca203" }
         } }
       }
     },
@@ -82,7 +82,7 @@
         "$extensions": { "brand": {
           "provenance": { "source": "matched", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "stated-old" },
           "gap": "GAP-002",
-          "sourceRef": { "file": "sources/site.css", "selector": "@font-face", "line": 1, "sha256": "1bad473eac2839c46b9dbadfeb1b578cf16b85b4a5bdc342f0436ae35ea1815b" }
+          "sourceRef": { "file": "sources/site.css", "selector": "@font-face", "line": 1, "sha256": "ae9dfd72102c69dd6dc09f5a0b74a2eed71fa9c2a2bacccf5bf22e0b081083ae" }
         } }
       }
     }

@@ -47,8 +47,9 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
   (exit 0) and `…/fixtures/seeded-violation` (exit 1).
   - **R0–R5 (MT-3/4/5)** — provenance & completeness (each value token's provenance block on closed enums;
-    corroborated ⇒ ≥2 distinct non-relay sources (`origin:"relay"` refs = custody, never counted — R1 counts,
-    it does not hash-check); inferred/matched/proposed ⇒ hypothesis; any confidence above hypothesis ⇒ ≥1
+    corroborated ⇒ the VALUE found in ≥2 distinct non-relay sources (R1 searches the hashed files —
+    normalized hex/oklch/string; `origin:"relay"` refs = custody, never counted; binary sources count
+    declaratively); inferred/matched/proposed ⇒ hypothesis; any confidence above hypothesis ⇒ ≥1
     path-bound sha256 sourceRef (R3 — for handoff-confirmed/proxy-relayed it must be the persisted handoff;
     R3 also checks CITATION integrity: a cited selector exists in the hashed file or is "none", a line never
     points past EOF, a PDF cites page never line);
