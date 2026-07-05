@@ -112,7 +112,8 @@ never a silent fallback).
    to catch a hollow lib / `[FONT_MISSING]` / `[NO_DIST]` before any `/design-sync` upload.
 3. Author `previews/<Name>.tsx` for the scoped components; floor card the rest.
 4. Wire `conventions.md` via `readmeHeader`; ensure `styles.css` `@import`s `_ds_bundle.css` + closure.
-5. Register Claude Design as a consumer in `projections.md` (default ON — `claude-design-adapter.md`).
+5. Register Claude Design as a consumer in `projections.md` (only when the handoff slot says YES — an
+   opt-out emits no consumer row; `claude-design-adapter.md`).
 
 The fidelity gate (Stage 10, `validate-audit.md`) and client-clean scrub (Stage 11, `client-clean.md`)
 consume this kit's gates.

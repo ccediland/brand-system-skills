@@ -21,7 +21,7 @@
 - **brand-canon-builder** — scaffold the canon → fill what the brand's material/brief supports → log the
   rest as tracked `GAP-NNN` → emit the DTCG/OKLCH token spine → render the Stage-8 prototype as the **complete
   interactive brandbook** (manifest sections + "Decisions for you" panel, RV-5) → attach the Claude Design
-  adapter (default ON) → validate.
+  adapter (per the handoff's explicit kit slot — NO emits nothing, machine-reconciled) → validate.
 - **brand-canon-scoper** — in chat (no filesystem), interview + emit the **client-surface flow** (one
   instrument, three checkpoints: gate 3.5 intake → gate 6 review → gate 7a Final Brand Brief, the BLOCKING
   client approval) → compile one ready-to-paste 7b handoff block for the builder, only after sign-off.

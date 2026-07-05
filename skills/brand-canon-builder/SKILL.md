@@ -62,7 +62,7 @@ them all at once.
 - `references/font-acquisition.md` — load when acquiring fonts under the license boundary (Stage 4).
 - `references/reproduction-router.md` — load when a brand carries a visual/textural treatment to reproduce (Stages 5 & 8).
 - `references/design-sync-kit.md` — load when emitting the prototype + `/design-sync`-ready kit (Stage 8).
-- `references/claude-design-adapter.md` — load when wiring the Claude Design adapter (default ON; Stage 8).
+- `references/claude-design-adapter.md` — load when wiring the Claude Design adapter (per the handoff's explicit kit slot; Stage 8).
 - `references/keystone-emit.md` — load when emitting the mandatory keystone `.md` (Stage 8.5).
 - `references/validate-audit.md` — load when running the VALIDATE/AUDIT stage + fidelity gate (Stage 10).
 - `references/client-clean.md` — load when scrubbing the client repo before handoff (Stage 11).
@@ -98,7 +98,9 @@ never a paste that dies in chat. Then parse every block and act on it (do not re
 carries):
 
 - **`MODE`** → ANALYZE | CREATE (drives Stage 2). `BUILD-MODE` → `FULL` = the normal build; `v0/DEMO` =
-  apply the OPTIONAL block's degradation (OPTIONAL defaults YES, scope-expanding dims default NO) and thread
+  obey the OPTIONAL block's EXPLICIT resolutions (the scoper writes `demo-default-yes` /
+  `scope-expanding(demo-default-no)` — the builder never fills a slot with a skill default; an unfilled
+  directive slot is a handoff defect: stop and report) and thread
   that mode into Stage 8 (prototype/kit) and Stage 9 (gaps); the resolved primary-identity carrier(s) (from the
   DIMENSION MAP — visual mark | sonic-mark | motion-signature | other lead atom) + graphic-code stay non-waivable
   regardless (a declared fidelity-blocking GAP where the carrier's medium has no build-grade producer, never a false-fail on a visual mark).
@@ -141,8 +143,10 @@ carries):
   (`references/font-acquisition.md` § License posture).
 - **`HOW (grammar)` + `generative-rule seeds (if/then)`** → seed `G-*`/`ALGO-*` with stable IDs.
   `CORE-ASSET FIDELITY CONTRACT` → drives the fidelity gate (Stage 10). `GAPS (client-language)` →
-  the builder owns formalization into `GAP-NNN` (two-ledger, Stage 9). `OPTIONAL` (incl. `Claude Design
-  library: default YES` and `existing-component-stack:` → the Stage-8 kit shape) → Stage 8.
+  the builder owns formalization into `GAP-NNN` (two-ledger, Stage 9). `OPTIONAL` (incl. the explicit
+  `Claude Design component library: <YES|NO>` directive — NO means ZERO Claude Design artifacts, reconciled
+  by the gate runner against the persisted handoff — and `existing-component-stack:` → the Stage-8 kit
+  shape) → Stage 8.
 - **`DIMENSION MAP`** → resolve each dimension to `filled` / `not-used(owner-declared)` / `tagged-gap`,
   including the explicit `applied-expression/social` dimension. A dimension **present but unresolved** is a
   PARSE-OR-STOP gate: HALT the build and report it — this is the live anti-determinism mechanism, not a
@@ -289,8 +293,9 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
   Read `references/design-sync-kit.md` for the converter contract: package-shape default; one-command build (`esbuild` + `ts-morph` + `@types/react`)
   → `dist/index.es.js` + `.d.ts`; `.design-sync/config.json` with only live-valid keys (unknown keys fail
   the run); the `@dsCard` first-line marker on every emitted card; the `readmeHeader` conventions header;
-  `styles.css` that `@import`s `_ds_bundle.css` and carries the token + `@font-face` closure. Claude Design
-  default YES (`references/claude-design-adapter.md`; opt-out only on explicit owner request). The `dist/`
+  `styles.css` that `@import`s `_ds_bundle.css` and carries the token + `@font-face` closure. The kit is
+  emitted per the handoff's explicit `Claude Design component library:` directive — YES emits, NO emits
+  NOTHING (the runner reconciles; `references/claude-design-adapter.md`). The `dist/`
   build is best-effort, never a hard-fail — `[NO_DIST]` is recoverable by running the build, and (a) is
   the deterministic fidelity artifact regardless.
 

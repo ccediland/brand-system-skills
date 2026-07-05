@@ -113,9 +113,9 @@ TARGET REPO: <real path | "create repo <name>">
 — GAPS (client-language; builder formalizes to GAP-NNN) —
   <what's missing> — why:<…> · severity:<MUST/SHOULD/NICE> · provenance:<handoff-deliberate|handoff-defect|builder|skill-scope> · proposed:<…>
 
-— OPTIONAL (v0/DEMO: OPTIONAL defaults YES; carve-out = scope-expanding dims default NO) —
+— OPTIONAL (every dimension resolves EXPLICITLY — no skill default ever fills a slot; in v0/DEMO the scoper resolves momentum dims to demo-default-yes and scope-expanding dims to demo-default-no, as WRITTEN values) —
   <dimension>: not used | demo-default-yes | scope-expanding(demo-default-no)
-  Claude Design component library: <YES | NO>   (an EXPLICIT slot the scoper fills — a directive, not advice; unfilled defaults YES until explicitly opted out; NO means ZERO Claude Design artifacts in the emitted repo — see § Directives)
+  Claude Design component library: <YES | NO>   (an EXPLICIT slot the scoper fills — a directive, not advice; UNFILLED = a handoff defect the reconciliation gate fails, never a silent default; NO means ZERO Claude Design artifacts in the emitted repo — machine-checked, see § Directives)
   existing-component-stack: <storybook+playwright | other | none>   (default none → builder emits package-shape; storybook+playwright → builder may emit Storybook-shape — Stage 8 reads this, never re-hunts it)
 
 NOTES: <…>
@@ -163,8 +163,10 @@ hardens an older one, the newer wins.
   confidence — inside the RATIFIED WHY or a slot the wire stamps `owner-confirmed`; carriage at
   `hypothesis`/`corroborated` confers nothing — `proxy-relayed` ratifies factual slots only). This is the
   root-cause fix (lost epistemic status).
-- **`BUILD-MODE: v0/DEMO`** turns OPTIONAL to default-YES with a carve-out: genuinely scope-expanding
-  dimensions default NO. The brand's primary-identity carrier (resolved from the DIMENSION MAP, not assumed a
+- **`BUILD-MODE: v0/DEMO` changes what the scoper WRITES, never what the builder assumes:** momentum
+  dimensions resolve to the written value `demo-default-yes`, genuinely scope-expanding ones to
+  `demo-default-no` — every OPTIONAL slot arrives explicit; the builder obeys filled slots and STOPS on an
+  unfilled directive (no skill default fills it). The brand's primary-identity carrier (resolved from the DIMENSION MAP, not assumed a
   visual mark) and graphic-code stay fidelity-blocking even in demo (the NON-WAIVABLE line of the fidelity
   contract). FULL is the normal mode.
 - **The DIMENSION MAP is exhaustive and the scoper owns its completeness.** Every dimension resolves to
@@ -211,7 +213,7 @@ candidate for mechanization; the registry never claims a gate that does not exis
 | `ingest:` per item | the declared method routes acquisition — never re-derived | agent-gate (Stage 3) |
 | `acquire:` + `fallback:` per ASSET | a failed route degrades to the declared fallback or an open GAP, never silence | agent-gate (Stage 3) |
 | CORE-ASSET FIDELITY CONTRACT | missing core asset FAILS the build per its role | measured (fidelity gate) + agent-gate (Stage 10 walks the contract) |
-| `Claude Design component library: NO` | ZERO Claude Design artifacts in the emitted repo | agent-gate (Stage 8) |
+| `Claude Design component library: <YES\|NO>` | NO ⇒ ZERO Claude Design artifacts in the emitted repo; unfilled = handoff defect | lint (the runner's opt-out reconciliation over the persisted handoff) |
 | `existing-component-stack:` | kit shape read, never re-hunted | agent-gate (Stage 8) |
 | POSTURE `regulatory:` | seeds the keystone guardrail + the regulated red-team gate | agent-gate (Stage 8.5 + Stage 10 — §7b evidence committed) |
 | `consultation-surface: always-required` | the external-review gate never resolves away | agent-gate (scoper gate 5, unconditional) |

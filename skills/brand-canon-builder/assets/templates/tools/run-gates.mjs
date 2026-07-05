@@ -118,6 +118,30 @@ const failLine = (s) => {
   }
 }
 
+// ---------- 3b. kit opt-out reconciliation (lint, BLOCKING) — handoff DIRECTIVES beat defaults ----------
+// The handoff's `Claude Design component library: <YES|NO>` slot is a DIRECTIVE, not advice: NO means
+// ZERO Claude Design artifacts in the emitted repo (no kit dir, no adapter config, no consumer row).
+// A skill default never overrides a carried opt-out — this row is the executable form of that precedence,
+// read from the persisted handoff. An unfilled slot is a handoff DEFECT (the contract slot is explicit;
+// no default fills it silently).
+{
+  const srcDir = join(ROOT, 'sources');
+  const handoffs = listDir(srcDir).filter((f) => /^handoff—.+\.md$/.test(f)).sort();
+  const hoText = handoffs.length ? (readText(join(srcDir, handoffs[handoffs.length - 1])) ?? '') : '';
+  const slot = (hoText.match(/^\s*Claude Design component library:\s*(YES|NO)\b/mi) ?? [])[1] ?? null;
+  if (!hoText) add('kit opt-out reconciliation', 'lint', true, 'N/A', 'no persisted handoff (sources/handoff—*.md) — no directive to reconcile');
+  else if (!slot) add('kit opt-out reconciliation', 'lint', true, 'FAIL', 'the `Claude Design component library: <YES|NO>` slot is unfilled/absent in the persisted handoff — the directive slot is explicit; a skill default never fills it silently');
+  else if (slot.toUpperCase() === 'NO') {
+    const probs = [];
+    if (isDir(join(ROOT, 'design-sync-kit'))) probs.push('design-sync-kit/ exists');
+    if (isDir(join(ROOT, '.design-sync'))) probs.push('.design-sync/ adapter config exists');
+    const proj = readText(join(ROOT, 'satellites', 'projections.md'));
+    if (proj && /claude[\s-]?design/i.test(proj)) probs.push('satellites/projections.md registers Claude Design as a consumer');
+    add('kit opt-out reconciliation', 'lint', true, probs.length ? 'FAIL' : 'PASS',
+      probs.length ? `handoff says NO but the repo carries Claude Design artifacts: ${probs.join(' · ')} — an opt-out the build ignored` : 'handoff opt-out honored: zero Claude Design artifacts');
+  } else add('kit opt-out reconciliation', 'lint', true, 'PASS', 'kit opted IN by the handoff — presence/health governed by the kit rows');
+}
+
 // ---------- 4. §7a fidelity evidence — recomputed verdicts + the MANDATORY non-waivable set ----------
 // `pass` is never trusted on its own: the runner RECOMPUTES the measurement from the recorded numeric
 // metrics vs thresholds (a hand-written verdict — recorded pass disagreeing with its own numbers, or a
