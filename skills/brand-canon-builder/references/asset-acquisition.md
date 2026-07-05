@@ -94,6 +94,11 @@ sampling a screenshot). Run `tools/source-recover.py <url> [--from --to]`:
    (`<title>`, `og:site_name`, copyright owner) and its self-reported "Last Published"/updated date.
 4. **Hash + manifest** — SHA-256 each fetched file; write `sources/MANIFEST.json`
    `{file, url, captureTs, digest, sha256, selfPublished?, identitySignals[]}`.
+   **MANIFEST is GENERAL custody, not wayback-only:** every DERIVED capture — a wayback recovery, a
+   cut/excerpt from a parent medium (an audio sting cut from an episode), a transformed export — writes an
+   entry carrying its PARENT's `url` + `sha256` (`{file, parent:{url, sha256}, method?, locator?}`), so the
+   source of the derivation survives feed rotation. The gate runner shape-checks the manifest and binds
+   every handoff-declared `acquire: cut | recover-wayback` route to its entry.
 
 **Identity verification is an AGENT step, not the script's (the core of MT-3).** The script surfaces signals +
 dates; the builder (this stage) must (a) CONFIRM the capture is the intended brand from the identitySignals

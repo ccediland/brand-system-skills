@@ -49,7 +49,9 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   - **R0–R5 (MT-3/4/5)** — provenance & completeness (each value token's provenance block on closed enums;
     corroborated ⇒ ≥2 distinct non-relay sources (`origin:"relay"` refs = custody, never counted — R1 counts,
     it does not hash-check); inferred/matched/proposed ⇒ hypothesis; any confidence above hypothesis ⇒ ≥1
-    path-bound sha256 sourceRef (R3 — for handoff-confirmed/proxy-relayed it must be the persisted handoff);
+    path-bound sha256 sourceRef (R3 — for handoff-confirmed/proxy-relayed it must be the persisted handoff;
+    R3 also checks CITATION integrity: a cited selector exists in the hashed file or is "none", a line never
+    points past EOF, a PDF cites page never line);
     value→token/GAP; one GAP back-ref). See `references/validate-audit.md` §5a.
   - **R6 (MT-1) — cross-artifact reconciliation / drift.** **R6a** every `derived` projection in
     `satellites/projections.md` consumes only aliases that resolve in the spine, and any pinned value byte-equals

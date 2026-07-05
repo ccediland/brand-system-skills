@@ -240,7 +240,9 @@ keystone.md:30/44 · elicitation-bank:49 — rename de carrier en todos; mecáni
 10. **verified-primary exige sourceRef hasheado al master primario del slot**; el binding fino de
     "primario-ness" llega con la custodia E1-05 — hoy lo sostiene R3-hash + la declaración del CORE-ASSET
     FIDELITY CONTRACT. Asignador típico: el builder (el scoper no samplea); el wire lo admite por
-    byte-identical-en-todo-hop.
+    byte-identical-en-todo-hop. **ENMIENDA (cierre E1-05, 2026-07-05): re-DIFERIDO con dueño E2-03** — el
+    linkage slot→primary-master necesita un registro que el schema actual no carga; su hogar natural es el
+    asset-index/mapa de chain-of-custody (E2-03 agrega sobre los records de custodia sin re-homing).
 11. **Marcas sintéticas de fixtures = "Fixture Alpha/Beta/Gamma"** — inequívocamente genéricas,
     scrub-proof (cero colisión con marcas reales).
 

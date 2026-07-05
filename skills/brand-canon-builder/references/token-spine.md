@@ -138,8 +138,9 @@ WHERE-FROM: the exact, hashed source-of-record the value was read from.
 ```
 "$extensions": { "brand": { "sourceRef": {
   "file": "<path under sources/**, hashed in CHECKSUMS.txt>",
-  "selector": "<CSS selector / swatch label / page region the value was read at>",
-  "line": <line number in that source file>,
+  "selector": "<CSS selector / swatch label / page region the value was read at — MUST exist verbatim in the hashed file, or be omitted / \"none\" (the lint checks citation integrity: a selector nothing verifies is decorative)>",
+  "line": <line number in that source file — never past EOF; on a PDF cite "page", NEVER "line">,
+  "page": <page number, for PDF sources>,
   "sha256": "<sha256 of the source file — MUST appear in CHECKSUMS.txt>",
   "origin": "<capture | relay — absent means capture; relay = a builder-authored transcription (hashable custody, never an independent source; excluded from the R1 count)>",
   "captureTs": "<Wayback capture timestamp, when recovered from an archive>",

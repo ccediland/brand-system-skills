@@ -189,6 +189,57 @@ const failLine = (s) => {
   }
 }
 
+// ---------- 4b. custody manifest — every DERIVED capture carries its parent's hash+URL ----------
+// A derived artifact (a wayback recovery, a cut/excerpt from a parent medium) whose parent's hash+URL
+// live nowhere in the repo dies with the feed: the chain of custody must survive rotation. The persisted
+// handoff DECLARES which acquisitions are derived (`acquire: cut …` / `recover-wayback …`); each such
+// asset requires an entry in sources/MANIFEST.json carrying the PARENT's url (+ sha256 where the parent
+// was fetched whole). Shape-checked here; the entry's truthfulness is the acquisition stage's discipline.
+{
+  const srcDir = join(ROOT, 'sources');
+  const handoffs = listDir(srcDir).filter((f) => /^handoff—.+\.md$/.test(f)).sort();
+  const hoText = handoffs.length ? (readText(join(srcDir, handoffs[handoffs.length - 1])) ?? '') : '';
+  // anchored to the contract's frozen field syntax (colon-tight `acquire:cut`, `·`-separated fields) so
+  // narrative prose mentioning the words never false-fires
+  const derived = hoText.split('\n')
+    .filter((l) => /acquire:(cut|recover-wayback)\b/.test(l) && l.includes('·'))
+    .map((l) => ({ line: l.trim().slice(0, 80), path: (l.match(/path:\s*(\S+)/) ?? [])[1] ?? null }));
+  const mfPath = join(srcDir, 'MANIFEST.json');
+  let entries = null, badShape = null;
+  if (existsSync(mfPath)) {
+    try {
+      const j = JSON.parse(readFileSync(mfPath, 'utf8'));
+      // accepted shapes: a bare array · {entries:[...]} · source-recover.py's {recovered:[...]} wrapper.
+      // NO Object.values fallback — mangling an unknown wrapper into fake entries hides the real problem.
+      entries = Array.isArray(j) ? j : Array.isArray(j.entries) ? j.entries : Array.isArray(j.recovered) ? j.recovered : null;
+      if (!entries) badShape = 'unrecognized MANIFEST shape — expected an array, {entries:[...]}, or {recovered:[...]}';
+    } catch { badShape = 'sources/MANIFEST.json is unparseable'; }
+  }
+  const normPath = (p) => String(p ?? '').replace(/^\.\//, '');
+  const baseName = (p) => normPath(p).split('/').pop();
+  if (badShape) add('custody manifest', 'lint', true, 'FAIL', badShape);
+  else if (!derived.length && !entries) add('custody manifest', 'lint', true, 'N/A', 'no derived acquisitions declared (cut / recover-wayback) and no MANIFEST — nothing to bind');
+  else {
+    const probs = [];
+    if (entries) for (const e of entries) {
+      if (!e || typeof e !== 'object') { probs.push('malformed MANIFEST entry (not an object)'); continue; }
+      const url = e.url ?? (e.parent && e.parent.url);
+      const hash = e.sha256 ?? (e.parent && e.parent.sha256);
+      if (!e.file) probs.push('MANIFEST entry with no file');
+      else if (!url) probs.push(`MANIFEST entry ${e.file}: no parent url — custody dies with the feed`);
+      else if (!hash) probs.push(`MANIFEST entry ${e.file}: no parent hash (sha256) — custody dies with the feed`);
+    }
+    for (const d of derived) {
+      if (!d.path) { probs.push(`derived acquire with no path: "${d.line}"`); continue; }
+      // exact path or basename equality (normalized) — a substring bind is gameable to a no-op
+      const hit = (entries ?? []).some((e) => e && e.file && (normPath(e.file) === normPath(d.path) || baseName(e.file) === baseName(d.path)));
+      if (!hit) probs.push(`derived acquisition ${d.path} has NO custody entry in sources/MANIFEST.json (parent url + hash)`);
+    }
+    add('custody manifest', 'lint', true, probs.length ? 'FAIL' : 'PASS',
+      probs.length ? probs.join(' · ') : `${derived.length} derived route(s) bound to custody entries; MANIFEST shape valid`);
+  }
+}
+
 // ---------- 5. §7b keystone structural + FORM-OF-RULE (lint, BLOCKING) ----------
 {
   const candidates = listDir(ROOT).filter((f) => /(^|-)keystone\.md$/.test(f));

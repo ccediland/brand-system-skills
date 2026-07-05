@@ -17,8 +17,8 @@
           "provenance": { "source": "proposed", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "gap": "GAP-012",
           "sourceRef": [
-            { "file": "sources/a.css", "selector": ".p", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
-            { "file": "sources/b.txt", "selector": "p2", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c" }
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c" }
           ]
         } }
       },
@@ -28,8 +28,8 @@
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "sourceRef": [
-            { "file": "sources/a.css", "selector": ".rc", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
-            { "file": "sources/b.txt", "selector": "relay-note-2", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c", "origin": "Relay" }
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c", "origin": "Relay" }
           ]
         } }
       },
@@ -38,7 +38,7 @@
         "$description": "R3 VIOLATION (v5) — confidence handoff-confirmed citing a hashed file that is NOT the persisted handoff (sources/handoff—<date>.md): inherited ratification must bind to the handoff itself",
         "$extensions": { "brand": {
           "provenance": { "source": "owner-stated", "confidence": "handoff-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": [ { "file": "sources/a.css", "selector": ".hc", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
         } }
       },
       "relaybad": {
@@ -47,8 +47,38 @@
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "sourceRef": [
-            { "file": "sources/a.css", "selector": ".r", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
-            { "file": "sources/b.txt", "selector": "relay-note", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c", "origin": "relay" }
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c", "origin": "relay" }
+          ]
+        } }
+      },
+      "selghost": {
+        "$value": { "colorSpace": "oklch", "components": [0.60, 0.05, 180], "alpha": 1, "hex": "#5a8a86" },
+        "$description": "R3 CITATION VIOLATION (v5) — cited selector does not exist in the hashed file (the decorative-selector class: hash certifies the file, this check certifies the citation)",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-013",
+          "sourceRef": [ { "file": "sources/a.css", "selector": "--ghost-property", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
+        } }
+      },
+      "lineeof": {
+        "$value": { "colorSpace": "oklch", "components": [0.35, 0.02, 260], "alpha": 1, "hex": "#3a4150" },
+        "$description": "R3 CITATION VIOLATION (v5) — cited line is beyond the hashed file's EOF (a line number nothing verifies is decorative custody)",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-014",
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".brand", "line": 99, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
+        } }
+      },
+      "pdfline": {
+        "$value": { "colorSpace": "oklch", "components": [0.88, 0.04, 95], "alpha": 1, "hex": "#e6ddc0" },
+        "$description": "R3 CITATION VIOLATION (v5) — a PDF sourceRef cites line: N (meaningless in a PDF; cite page:); the hashed a.css ref keeps R3-hash quiet so the pdf-line check fires in isolation",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-015",
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/spec.pdf", "selector": "none", "line": 2, "sha256": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef" }
           ]
         } }
       },
@@ -57,7 +87,7 @@
         "$description": "R1 VIOLATION — confidence corroborated but only ONE distinct sourceRef file (structured $value; R1 reads sourceRef, not $value)",
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": [ { "file": "sources/a.css", "selector": ".x", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
         } }
       },
       "r2bad": {
@@ -67,8 +97,8 @@
           "provenance": { "source": "inferred", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "gap": "GAP-010",
           "sourceRef": [
-            { "file": "sources/a.css", "selector": ".x", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
-            { "file": "sources/b.txt", "selector": "p1", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c" }
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c" }
           ]
         } }
       },

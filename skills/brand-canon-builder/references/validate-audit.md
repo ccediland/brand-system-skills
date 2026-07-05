@@ -173,6 +173,9 @@ node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
 - **R3 (MT-3)** — `source: computed-css` OR any `confidence` above `hypothesis` ⇒ a `sourceRef`
   whose `sha256` is in `CHECKSUMS.txt` **bound to that exact `file` path** (a borrowed/ghost-file hash fails);
   `handoff-confirmed`/`proxy-relayed` bind naturally to the persisted handoff (`sources/handoff—<date>.md`).
+  **Citation integrity (every sourceRef):** a cited `selector` exists verbatim in the hashed file or is
+  omitted / `"none"`; a `line` never points past EOF; a PDF cites `page`, never `line` (binary files keep
+  their citations declarative — no text to check).
 - **R4 (MT-5)** — every value/scheme named in a canon layer or ALGO maps to a token artifact OR an open `GAP-NNN`.
 - **R5 (MT-5)** — every `hypothesis`/`inferred`/`matched`/`traced`/`proposed` token carries EXACTLY ONE open
   `GAP-NNN` in its own `$extensions.brand.gap` back-reference.
@@ -385,7 +388,10 @@ node tools/run-gates.mjs        # exit 0 ALL-GREEN · exit 2 INCOMPLETE · exit 
 It runs every executable gate above as a child process (real exit codes — audit-lint, the deny over its
 DECLARED interim scope of `prototype/**/*.html` + `README.md` pending the client-surface manifest, the kit's
 offline `package-validate` when `dist/` exists), machine-checks the committed evidence (§7a `scores.json`
-verdicts · §7b keystone structure + form + battery · `audit/agent-gates.md` sections for every demoted
+verdicts recomputed from their own numbers + the mandatory non-waivable set parsed from the persisted
+handoff · the custody manifest — every declared `cut`/`recover-wayback` route bound to a
+`sources/MANIFEST.json` entry with the parent's url+hash · §7b keystone structure + form + battery ·
+`audit/agent-gates.md` sections for every demoted
 gate), and writes **`audit/gates/report.md`** — the status board. Per-gate statuses are first-class:
 `PASS / FAIL` (real exits) · `NOT-RUN(reason)` (deps missing → the tool's own exit-3 install instruction is
 recorded; `[NO_DIST]` kit; the Phase-deferred live red-team run) · `N/A(declared)`

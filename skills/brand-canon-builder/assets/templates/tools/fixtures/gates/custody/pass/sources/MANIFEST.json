@@ -1,0 +1,19 @@
+{
+  "$note": "source-recover.py wrapper shape + a general derived-capture entry",
+  "query": "https://example.invalid",
+  "capturesFound": 2,
+  "recovered": [
+    {
+      "file": "sources/example.invalid—2019.html",
+      "url": "https://example.invalid",
+      "captureTs": "20190601000000",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "file": "assets/sting.mp3",
+      "parent": { "url": "https://example.invalid/ep.mp3", "sha256": "2222222222222222222222222222222222222222222222222222222222222222" },
+      "method": "cut",
+      "locator": "00:19:26.9-00:19:34.0"
+    }
+  ]
+}

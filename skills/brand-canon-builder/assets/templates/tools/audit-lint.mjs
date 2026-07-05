@@ -253,6 +253,35 @@ const add = (id, title, violations, note) => results.push({ id, title, status: v
       v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file${mustBeHandoff ? ' AND that file must be the persisted handoff (sources/handoff—<date>.md)' : ''} [${refs || 'no sourceRef'}]`);
     }
   }
+  // R3 CITATION-INTEGRITY sub-check (every sourceRef, every token): a cited selector must EXIST in the
+  // hashed file or be omitted / "none" (a selector layer that nothing verifies is decorative — the hash
+  // chain would certify the emitter's say-so); a cited line must not point past EOF; a PDF cites `page`,
+  // never `line`. Binary/unreadable files keep their citations declarative (no text to check).
+  for (const t of tokens) {
+    for (const r of t.sourceRefs) {
+      if (!r || !r.file) continue;
+      const fileRel = String(r.file).replace(/^\.\//, '');
+      const isPdf = /\.pdf$/i.test(fileRel);
+      if (isPdf && r.line != null) { v.push(`${t.path} (${t.file}) — sourceRef ${fileRel} cites "line": ${r.line} on a PDF — cite "page", never "line" (line numbers are meaningless in a PDF)`); }
+      const p = join(ROOT, fileRel);
+      if (!existsSync(p)) continue; // a missing file is the hash check's finding, not a citation finding
+      if (isPdf) continue;
+      const txt = readText(p);
+      if (txt == null || txt.includes('\u0000')) continue; // binary: citation stays declarative
+      if (r.selector != null && String(r.selector).trim() === '') {
+        v.push(`${t.path} (${t.file}) — sourceRef ${fileRel} cites an EMPTY selector — omit it or cite "none"`);
+      } else if (r.selector != null && String(r.selector) !== 'none' && !txt.includes(String(r.selector))) {
+        v.push(`${t.path} (${t.file}) — sourceRef selector "${r.selector}" does not exist in the hashed file ${fileRel} (cite a selector the file actually contains, or "none")`);
+      }
+      if (r.line != null) {
+        const nLines = txt.split('\n').length - (txt.endsWith('\n') ? 1 : 0);
+        const ln = Number(r.line);
+        if (!Number.isInteger(ln) || ln < 1 || ln > nLines) {
+          v.push(`${t.path} (${t.file}) — sourceRef ${fileRel} cites line ${r.line} outside the file (${nLines} line(s))`);
+        }
+      }
+    }
+  }
   add('R3', 'MT-3 · computed-css / any confidence above hypothesis ⇒ hashed source-of-record (path-bound)', v);
 }
 

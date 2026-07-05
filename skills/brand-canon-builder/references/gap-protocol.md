@@ -70,6 +70,13 @@ Hard rules:
   against the page's self-reported "Last Published" — `tools/source-recover.py` surfaces those signals, the
   Stage-3 agent adjudicates them. An unhashed or unverified source keeps the value at `hypothesis` or makes it
   a GAP; it is never silently promoted.
+- **Citations are real, or omitted.** A sourceRef's `selector` exists VERBATIM in the hashed file or is
+  omitted / `"none"`; a `line` never points past EOF; a PDF cites `page`, never `line`. The lint checks it
+  (a citation layer nothing verifies certifies the emitter's say-so — the hash chain becomes circular).
+- **Every DERIVED capture records its parent's hash+URL in `sources/MANIFEST.json`** (a cut/excerpt, a
+  wayback recovery, a transformed export): the chain of custody must survive feed rotation — a derived
+  file whose parent lives only in a narration dies with the feed. The gate runner binds the handoff's
+  declared `acquire: cut | recover-wayback` routes to their custody entries.
 - **A sourceRef is a capture or a relay — declared.** Each sourceRef entry may carry `origin: <capture |
   relay>` (absent = `capture`). `relay` marks an artifact the builder itself transcribed (a dictation, a
   re-typed palette): hashable custody, NEVER an independent source — R1 excludes relay refs from the

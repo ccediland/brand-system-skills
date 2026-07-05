@@ -7,7 +7,7 @@
         "$description": "owner-confirmed declared truth — carries its hashed source-of-record (R3). Structured-OKLCH $value (C-1).",
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:ink", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9", "captureTs": "20230124000000", "selfPublished": "2023-01" }
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:ink", "line": 1, "sha256": "0935ff0d4c2ee392bd997673df20b7a6954207829996ea4f6b9d9d80b58fccc5", "captureTs": "20230124000000", "selfPublished": "2023-01" }
         } }
       },
       "brand": {
@@ -17,7 +17,7 @@
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "sourceRef": [
             { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc", "captureTs": "20230124000000", "selfPublished": "2023-01" },
-            { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+            { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "0935ff0d4c2ee392bd997673df20b7a6954207829996ea4f6b9d9d80b58fccc5" }
           ]
         } }
       },
@@ -26,7 +26,7 @@
         "$description": "C-1 structured-OKLCH regression guard with ALPHA ≠ 1 — the R6a serializer must emit the `oklch(L C H / a)` form; a projection pins this byte-for-byte.",
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:tint", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:tint", "line": 1, "sha256": "0935ff0d4c2ee392bd997673df20b7a6954207829996ea4f6b9d9d80b58fccc5" }
         } }
       }
     },
