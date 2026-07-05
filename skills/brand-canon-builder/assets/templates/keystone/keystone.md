@@ -13,8 +13,9 @@ deployment_map:
 <!-- Emitted by Stage 8.5 (keystone-emit.md). Sections are ordered for long-context recall: reference/data at
      the head + knowledge surface; the load-bearing GUARDRAIL layer in the high-recall tail. Keep the whole
      file within the resident context budget; if over, split §6 out to Project knowledge (degradation path).
-     Every datum carries the provenance spine (gap-protocol.md): source; confidence on the FULL ladder
-     hypothesis | corroborated | owner-confirmed (byte-identical to every upstream hop — token spine, canon,
+     Every datum carries the provenance spine (gap-protocol.md): source; confidence on the FULL six-value
+     ladder hypothesis | corroborated | verified-primary | proxy-relayed | handoff-confirmed | owner-confirmed
+     (byte-identical to every upstream hop — token spine, canon,
      handoff); owner; freshness (shipped | stated-old). Replace every {{...}} and delete these guidance
      comments before shipping. -->
 
@@ -27,11 +28,11 @@ deployment_map:
 <!-- Essence, positioning, values as DECISION RULES (when-X-then-Z form), not adjectives. Form below. Derive
      from ESSENCE / Brand Key essence + discriminator and from the handoff WHY's VALUE TRADE-OFFS carrier. At
      least one when-X-then-Z trade-off rule is REQUIRED here (validate-audit.md §7b content check).
-     The WHY Personality (Aaker-5 scored) + Differential scales carriers are INPUTS here: render them AS the
+     The WHY Personality (scored) + Differential scales carriers are INPUTS here: render them AS the
      reasoning behind the rules (e.g. high competence + a formal↔casual position toward formal → "when X,
      choose the precise option"), NEVER as a bare adjective/score list. -->
-- When trading off {{X}} against {{Y}}, the brand chooses {{Z}} — {{reason}}.  <!-- confidence: {{hypothesis | corroborated | owner-confirmed}} -->
-- Positioning (from Differential scales): on {{scale}} the brand sits {{position}}, so when {{situation}} it {{decision}}.  <!-- confidence: {{hypothesis | corroborated | owner-confirmed}}; delete ONLY where Differential is not-used(owner-declared); where scales were scoped but can't render as a rule, emit a tagged GAP instead of a silent delete -->
+- When trading off {{X}} against {{Y}}, the brand chooses {{Z}} — {{reason}}.  <!-- confidence: {{value on the six-value ladder}} -->
+- Positioning (from Differential scales): on {{scale}} the brand sits {{position}}, so when {{situation}} it {{decision}}.  <!-- confidence: {{value on the six-value ladder}}; delete ONLY where Differential is not-used(owner-declared); where scales were scoped but can't render as a rule, emit a tagged GAP instead of a silent delete -->
 - {{additional decision rule}}
 <!-- GAP SLOT (emit when the VALUE TRADE-OFFS carrier is `none`): keep this visible line so the section is
      never a bare adjective list. NEVER fabricate a rule. -->
@@ -41,8 +42,8 @@ deployment_map:
 ## 3. SPEAK as the brand — voice
 <!-- 3–5 voice attributes with BEHAVIORAL definitions; persona; audience registers; banned vocabulary + hard
      "never"; on/off-brand comparison pairs (few-shot); reusable prompt library.
-     The 3–5 attributes are seeded from the WHY Personality (Aaker-5 scored) + Resonance carriers: each Aaker
-     dimension the brand scores high on becomes one behavioral attribute, and Resonance sets the emotional
+     The 3–5 attributes are seeded from the WHY Personality (scored) + Resonance carriers: each personality
+     attribute the brand scores high on becomes one behavioral attribute, and Resonance sets the emotional
      register. Render behaviorally (what the brand DOES when writing), never as the bare score/adjective. -->
 ### Voice attributes
 - {{ATTRIBUTE}} — {{behavioral definition: what the brand does / does not do when writing}}.

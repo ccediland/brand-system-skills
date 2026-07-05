@@ -18,16 +18,22 @@
 // Rules (each is a real check; a rule that FAILs is listed with the offending token/value):
 //   R0 (MT-3/4) every VALUE token (non-alias) carries $extensions.brand.provenance with
 //               source ∈ the closed source enum and confidence ∈ {hypothesis,corroborated,
-//               owner-confirmed} — closes the "omit/typo the provenance and evade every rule" hole.
-//   R1 (MT-4)  confidence == "corroborated"  ⇒  ≥2 sourceRef entries with DISTINCT `file`.
-//   R2 (MT-4)  source ∈ {inferred, matched}  ⇒  confidence MUST be "hypothesis".
-//   R3 (MT-3)  source == "computed-css" OR confidence ∈ {corroborated, owner-confirmed}
+//               verified-primary,proxy-relayed,handoff-confirmed,owner-confirmed}; a present
+//               sourceRef.origin must be on {capture|relay} (normalized) — closes the
+//               "omit/typo the provenance and evade every rule" hole, origin included.
+//   R1 (MT-4)  confidence == "corroborated"  ⇒  ≥2 sourceRef entries with DISTINCT `file`,
+//              excluding refs marked `origin:"relay"` (a builder transcription is custody, never
+//              an independent source — no corroboration padding with self-written files).
+//   R2 (MT-4)  source ∈ {inferred, matched, proposed}  ⇒  confidence MUST be "hypothesis"
+//              (`proposed` = the quarantine channel: pipeline-authored, operative, never canon).
+//   R3 (MT-3)  source == "computed-css" OR confidence above "hypothesis"
 //              ⇒  a sourceRef whose `sha256` is listed in CHECKSUMS.txt FOR THAT EXACT `file`
 //              (hash bound to the claimed path — a borrowed/ghost-file hash does not satisfy it).
+//              handoff-confirmed/proxy-relayed bind to the persisted handoff under sources/.
 //   R4 (MT-5)  every value/scheme NAMED in a canon layer or an ALGO maps to EITHER a
 //              token artifact OR an open GAP-NNN in RESIDENT.md.
-//   R5 (MT-5)  every token at confidence "hypothesis" OR source ∈ {inferred, matched, traced}
-//              carries EXACTLY ONE open GAP-NNN in its own $extensions.brand.gap back-reference.
+//   R5 (MT-5)  every token at confidence "hypothesis" OR source ∈ {inferred, matched, traced,
+//              proposed} carries EXACTLY ONE open GAP-NNN in its own $extensions.brand.gap back-reference.
 //
 // ANTI-DETERMINISM RECTOR (load-bearing): every rule is GENERAL. The linter never asserts
 // that a specific value/ink/scheme exists. A monogram-only / single-ink / sonic-primary brand
@@ -40,9 +46,22 @@ import { join, resolve, relative } from 'node:path';
 
 const ROOT = resolve(process.argv[2] || process.cwd());
 
-// closed enums (mirror gap-protocol.md § The provenance spine — "no fourth value/synonym")
-const SOURCE_ENUM = new Set(['declared-spec', 'owner-stated', 'extracted-vector', 'computed-css', 'design-file', 'matched', 'traced', 'inferred']);
-const CONFIDENCE_ENUM = new Set(['hypothesis', 'corroborated', 'owner-confirmed']);
+// closed enums (mirror gap-protocol.md § The provenance spine — "no extra value/synonym")
+// source: `proposed` = pipeline-authored proposal in quarantine (capped at hypothesis + open GAP).
+// confidence tiers: 0 unconfirmed = hypothesis · 1 evidence-earned = corroborated, verified-primary ·
+//   2 ratified = proxy-relayed, handoff-confirmed, owner-confirmed (who/how the ratification happened).
+const SOURCE_ENUM = new Set(['declared-spec', 'owner-stated', 'extracted-vector', 'computed-css', 'design-file', 'matched', 'traced', 'inferred', 'proposed']);
+const CONFIDENCE_ENUM = new Set(['hypothesis', 'corroborated', 'verified-primary', 'proxy-relayed', 'handoff-confirmed', 'owner-confirmed']);
+// every confidence above hypothesis requires a hashed, path-bound source-of-record (R3)
+const HASH_GATED_CONFIDENCE = new Set(['corroborated', 'verified-primary', 'proxy-relayed', 'handoff-confirmed', 'owner-confirmed']);
+// handoff-inherited rungs must bind to the persisted handoff itself (R3)
+const HANDOFF_BOUND_CONFIDENCE = new Set(['handoff-confirmed', 'proxy-relayed']);
+// sources that may never rise above hypothesis on their own (R2)
+const HYPOTHESIS_CAPPED_SOURCES = new Set(['inferred', 'matched', 'proposed']);
+// sourceRef origin axis (normalized; absent = capture). A typo'd origin must not silently count as capture.
+const ORIGIN_ENUM = new Set(['capture', 'relay']);
+const refOrigin = (r) => String((r && r.origin) ?? 'capture').trim().toLowerCase();
+const isHandoffFile = (f) => /^sources\/handoff—/.test(String(f ?? '').replace(/^\.\//, ''));
 
 // ---------- tiny fs/json helpers (no deps) ----------
 const parseErrors = [];
@@ -177,49 +196,64 @@ const add = (id, title, violations, note) => results.push({ id, title, status: v
     if (t.isAlias) continue; // pure aliases inherit provenance from the base leaf they point at
     if (!t.provenancePresent) { v.push(`${t.path} (${t.file}) — no $extensions.brand.provenance block (every value token must carry one)`); continue; }
     if (!SOURCE_ENUM.has(t.source)) v.push(`${t.path} (${t.file}) — provenance.source "${t.source ?? 'missing'}" is not on the closed source enum`);
-    if (!CONFIDENCE_ENUM.has(t.confidence)) v.push(`${t.path} (${t.file}) — provenance.confidence "${t.confidence ?? 'missing'}" is not on the ladder {hypothesis|corroborated|owner-confirmed}`);
+    if (!CONFIDENCE_ENUM.has(t.confidence)) v.push(`${t.path} (${t.file}) — provenance.confidence "${t.confidence ?? 'missing'}" is not on the ladder {hypothesis|corroborated|verified-primary|proxy-relayed|handoff-confirmed|owner-confirmed}`);
+    for (const r of t.sourceRefs) {
+      if (r && r.origin != null && !ORIGIN_ENUM.has(refOrigin(r))) v.push(`${t.path} (${t.file}) — sourceRef.origin "${r.origin}" is not on the origin axis {capture|relay} (a typo'd origin must not silently count as an independent capture)`);
+    }
   }
   add('R0', 'MT-3/4 · every value token carries provenance on the closed source/confidence enums', v);
 }
 
-// R1 (MT-4): corroborated ⇒ ≥2 sourceRef with distinct `file`.
+// R1 (MT-4): corroborated ⇒ ≥2 sourceRef with distinct `file` — a sourceRef marked `origin: "relay"`
+// (a transcription authored by the builder, e.g. of the handoff/a dictation) is hashable custody but
+// NEVER an independent source: relay refs are excluded from the distinct-file count.
 {
   const v = [];
   for (const t of tokens) {
     if (t.confidence !== 'corroborated') continue;
-    const files = new Set(t.sourceRefs.map((r) => r && r.file).filter(Boolean));
-    if (files.size < 2) v.push(`${t.path} (${t.file}) — confidence "corroborated" but ${files.size} distinct sourceRef file(s) [${[...files].join(', ') || 'none'}]; needs ≥2`);
+    const counted = t.sourceRefs.filter((r) => r && refOrigin(r) !== 'relay');
+    const files = new Set(counted.map((r) => r.file).filter(Boolean));
+    const relayN = t.sourceRefs.length - counted.length;
+    if (files.size < 2) v.push(`${t.path} (${t.file}) — confidence "corroborated" but ${files.size} distinct non-relay sourceRef file(s)${relayN ? ` (${relayN} relay ref(s) excluded)` : ''} [${[...files].join(', ') || 'none'}]; needs ≥2`);
   }
-  add('R1', 'MT-4 · corroborated ⇒ ≥2 distinct source artifacts', v);
+  add('R1', 'MT-4 · corroborated ⇒ ≥2 distinct non-relay source artifacts', v);
 }
 
-// R2 (MT-4): source ∈ {inferred, matched} ⇒ confidence == hypothesis.
+// R2 (MT-4): source ∈ {inferred, matched, proposed} ⇒ confidence == hypothesis.
+// (`proposed` is the quarantine channel: a pipeline-authored proposal operates today but may never be
+// canonized without ratification — the cap plus its open GAP (R5) IS the quarantine.)
 {
   const v = [];
   for (const t of tokens) {
-    if (!['inferred', 'matched'].includes(t.source)) continue;
+    if (!HYPOTHESIS_CAPPED_SOURCES.has(t.source)) continue;
     if (t.confidence !== 'hypothesis') v.push(`${t.path} (${t.file}) — source "${t.source}" capped at "hypothesis" but confidence is "${t.confidence ?? 'none'}"`);
   }
-  add('R2', 'MT-4 · inferred/matched capped at hypothesis', v);
+  add('R2', 'MT-4 · inferred/matched/proposed capped at hypothesis', v);
 }
 
-// R3 (MT-3): computed-css OR confidence ∈ {corroborated, owner-confirmed} ⇒ hashed source-of-record (hash bound to its own file path).
+// R3 (MT-3): computed-css OR any confidence above hypothesis ⇒ hashed source-of-record (hash bound to
+// its own file path). handoff-confirmed/proxy-relayed MUST bind to the persisted handoff
+// (sources/handoff—<date>.md, hashed in CHECKSUMS.txt — enforced here); verified-primary's DECLARED
+// binding target is the slot's primary master (primary-ness itself is not machine-checked by this rule).
 {
   const v = [];
   for (const t of tokens) {
-    const gated = t.source === 'computed-css' || ['corroborated', 'owner-confirmed'].includes(t.confidence);
+    const gated = t.source === 'computed-css' || HASH_GATED_CONFIDENCE.has(t.confidence);
     if (!gated) continue;
+    // handoff-inherited rungs must bind to the persisted handoff itself, not just any hashed file
+    const mustBeHandoff = HANDOFF_BOUND_CONFIDENCE.has(t.confidence);
     const hashed = t.sourceRefs.some((r) => {
       if (!r || !r.file || !r.sha256) return false;
+      if (mustBeHandoff && !isHandoffFile(r.file)) return false;
       const have = checksumByPath.get(String(r.file).replace(/^\.\//, ''));
       return !!have && have === String(r.sha256).toLowerCase();
     });
     if (!hashed) {
       const refs = t.sourceRefs.map((r) => (r && r.file ? `${r.file}#${r.sha256 ? String(r.sha256).slice(0, 12) : 'no-sha'}` : 'malformed')).join(', ');
-      v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file [${refs || 'no sourceRef'}]`);
+      v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file${mustBeHandoff ? ' AND that file must be the persisted handoff (sources/handoff—<date>.md)' : ''} [${refs || 'no sourceRef'}]`);
     }
   }
-  add('R3', 'MT-3 · computed-css/corroborated/owner-confirmed ⇒ hashed source-of-record (path-bound)', v);
+  add('R3', 'MT-3 · computed-css / any confidence above hypothesis ⇒ hashed source-of-record (path-bound)', v);
 }
 
 // R4 (MT-5): every named value/scheme maps to a token artifact OR an open GAP.
@@ -242,12 +276,12 @@ const add = (id, title, violations, note) => results.push({ id, title, status: v
 {
   const v = [];
   for (const t of tokens) {
-    const uncertain = t.confidence === 'hypothesis' || ['inferred', 'matched', 'traced'].includes(t.source);
+    const uncertain = t.confidence === 'hypothesis' || ['inferred', 'matched', 'traced', 'proposed'].includes(t.source);
     if (!uncertain) continue;
     const mapped = new Set(t.gaps.filter((g) => openGaps.has(g)));
     if (mapped.size !== 1) v.push(`${t.path} (${t.file}) — uncertain (confidence "${t.confidence ?? '–'}", source "${t.source ?? '–'}") carries ${mapped.size} open GAP-NNN back-reference [${[...mapped].join(', ') || 'none'}]; must be exactly 1 (set $extensions.brand.gap)`);
   }
-  add('R5', 'MT-5 · every hypothesis/inferred/matched/traced token → exactly one open GAP', v);
+  add('R5', 'MT-5 · every hypothesis/inferred/matched/traced/proposed token → exactly one open GAP', v);
 }
 
 // ---------- R6 (MT-1): cross-artifact reconciliation & drift ----------

@@ -14,7 +14,7 @@ method.
 Anti-determinism: this is a router over a general taxonomy, not a per-brand recipe. A specific brand's
 texture is only an instance the router classifies; never hardcode one brand's filter values as the method.
 Every treatment the builder reproduces carries the provenance spine (`gap-protocol.md`): it was observed
-(`confidence: hypothesis`) until the owner confirms it is a brand line.
+(`confidence: hypothesis`) until tier-2 ratification confirms it is a brand line.
 
 ## Treatment taxonomy (what to classify)
 

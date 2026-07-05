@@ -22,12 +22,13 @@
 //         literal "Stage-N"). Matched anywhere.
 //       • AMBIGUOUS — words that are operator-vocab only in an operator CONTEXT, and are
 //         otherwise ordinary English. These are bound so ordinary copy does NOT false-fail:
-//           - confidence-grade (hypothesis|corroborated|owner-confirmed) and provenance-verb
-//             (matched|inferred|traced) fire only as a provenance ANNOTATION — a provenance
+//           - confidence-grade (hypothesis|corroborated|verified-primary|proxy-relayed|
+//             handoff-confirmed|owner-confirmed) and provenance-verb (matched|inferred|traced|
+//             proposed) fire only as a provenance ANNOTATION — a provenance
 //             key (confidence|source|provenance|…) within KEY_WINDOW chars BEFORE the value.
 //             "confidence: owner-confirmed" fires; "our founding hypothesis", "matched to its
-//             provenance documentation", "owner-confirmed listings" pass.
-//           - asset-origin (harvested|redrawn) fires only in the "origin: …" annotation form
+//             provenance documentation", "owner-confirmed listings", "our proposed timeline" pass.
+//           - asset-origin (harvested|redrawn|relay) fires only in the "origin: …" annotation form
 //             OR within ASSET_WINDOW chars of a BUILD-CONTEXT token (raster|snapshot|Wayback|
 //             CDX|capture|source CSS|eyedrop|build-grade|low-fi|Stage-N). An asset noun
 //             (logo/mark/wordmark) is NOT a signal — heritage copy where the owner narrates
@@ -89,11 +90,11 @@ const RATIF_CTX =
 
 // asset-origin: see the MATCHING MODEL note. Fires via the "origin: …" annotation OR a BUILD-CONTEXT token —
 // NEVER via an asset noun (logo/mark/wordmark), which false-fails heritage copy.
-const ASSET_VERB = /\b(?:harvested|redrawn)\b/gi;
+const ASSET_VERB = /\b(?:harvested|redrawn|relay)\b/gi;
 const ASSET_BUILD_CTX =
 	"(?:raster|snapshot|wayback|\\bCDX\\b|captured?|source[-\\s]?css|eyedrop|build-grade|low-fi|Stage[-\\s]?(?:\\d+|N))";
 const ORIGIN_KEY =
-	/(?:origin|sourcing|provenance|source|fidelity|acquisition)\s*[:=]\s*$/i;
+	/(?:origin|sourcing|provenance|source|fidelity|acquisition)["']?\s*[:=]\s*["']?$/i;
 
 // DISTINCTIVE: matched anywhere — these never appear in legitimate brand copy.
 const DISTINCTIVE = [
@@ -111,12 +112,13 @@ const DISTINCTIVE = [
 const KEYED = [
 	{
 		cls: "confidence-grade",
-		value: /\b(?:hypothesis|corroborated|owner-confirmed)\b/gi,
+		value:
+			/\b(?:hypothesis|corroborated|verified-primary|proxy-relayed|handoff-confirmed|owner-confirmed)\b/gi,
 		key: PROV_KEY,
 	},
 	{
 		cls: "provenance-verb",
-		value: /\b(?:matched|inferred|traced)\b/gi,
+		value: /\b(?:matched|inferred|traced|proposed)\b/gi,
 		key: PROV_KEY,
 	},
 ];

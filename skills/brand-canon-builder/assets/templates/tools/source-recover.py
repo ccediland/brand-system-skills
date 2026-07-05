@@ -24,7 +24,7 @@ WHAT THIS DOES *NOT* DO (read this — it is the whole point of MT-3)
     - reconcile `captureTs` against the page's self-reported `selfPublished` ("Last
       Published") date BEFORE any value harvested from this source is trusted.
   Only after that human/agent identity+date pass may a token derived here be recorded at
-  `source: computed-css` (and never above `hypothesis` without owner ratification). If the
+  `source: computed-css` (and never above `hypothesis` without ratification). If the
   pass fails or is ambiguous, the value is a GAP, not a guess. The hashes this script
   writes are what `audit-lint.mjs` (R3) later checks against `CHECKSUMS.txt`.
 
@@ -58,10 +58,19 @@ WB = "https://web.archive.org/web/{ts}id_/{url}"
 # Registrar-parking / suspended-domain markers — a capture matching these is very likely a
 # DIFFERENT occupant of the domain, not the brand. Surfaced, not auto-trusted.
 PARKING_MARKERS = [
-    "suspendedpage.cgi", "domain is parked", "this domain is for sale",
-    "this domain may be for sale", "buy this domain", "parkingcrew", "sedoparking",
-    "hugedomains", "godaddy.com/domains", "the domain has expired", "parked free",
-    "domainparking", "is parked free, courtesy of",
+    "suspendedpage.cgi",
+    "domain is parked",
+    "this domain is for sale",
+    "this domain may be for sale",
+    "buy this domain",
+    "parkingcrew",
+    "sedoparking",
+    "hugedomains",
+    "godaddy.com/domains",
+    "the domain has expired",
+    "parked free",
+    "domainparking",
+    "is parked free, courtesy of",
 ]
 
 
@@ -97,8 +106,14 @@ def digest_discontinuities(captures):
     prev = None
     for c in captures:
         if prev is not None and c["digest"] != prev["digest"]:
-            out.append({"from": prev["timestamp"], "to": c["timestamp"],
-                        "fromDigest": prev["digest"], "toDigest": c["digest"]})
+            out.append(
+                {
+                    "from": prev["timestamp"],
+                    "to": c["timestamp"],
+                    "fromDigest": prev["digest"],
+                    "toDigest": c["digest"],
+                }
+            )
         prev = c
     return out
 
@@ -118,15 +133,23 @@ def extract_signals(body):
         return None
 
     grab(r"<title[^>]*>(.*?)</title>", "title")
-    grab(r'<meta[^>]+property=["\']og:site_name["\'][^>]+content=["\'](.*?)["\']', "og:site_name")
-    grab(r'<meta[^>]+name=["\']application-name["\'][^>]+content=["\'](.*?)["\']', "application-name")
+    grab(
+        r'<meta[^>]+property=["\']og:site_name["\'][^>]+content=["\'](.*?)["\']',
+        "og:site_name",
+    )
+    grab(
+        r'<meta[^>]+name=["\']application-name["\'][^>]+content=["\'](.*?)["\']',
+        "application-name",
+    )
     grab(r'<meta[^>]+name=["\']generator["\'][^>]+content=["\'](.*?)["\']', "generator")
     grab(r"(?:©|&copy;|copyright)\s*([0-9]{4}[^<\n,.]{0,60})", "copyright")
 
     # self-reported publish/update date (Webflow writes "Last Published:" into the HTML head)
-    self_pub = (grab(r"Last Published:\s*([^<\n]+)", "last-published")
-                or grab(r"Last\s+Modified:\s*([^<\n]+)", "last-modified")
-                or grab(r"Last\s+Updated:\s*([^<\n]+)", "last-updated"))
+    self_pub = (
+        grab(r"Last Published:\s*([^<\n]+)", "last-published")
+        or grab(r"Last\s+Modified:\s*([^<\n]+)", "last-modified")
+        or grab(r"Last\s+Updated:\s*([^<\n]+)", "last-updated")
+    )
 
     parked = [m for m in PARKING_MARKERS if m in text.lower()]
     if parked:
@@ -175,30 +198,42 @@ def recover(capture, out_dir, timeout):
         "sha256": sha256,
         "status": status,
         "mimetype": capture.get("mimetype"),
-        "selfPublished": self_pub,            # the page's OWN claim — reconcile vs captureTs (agent step)
-        "identitySignals": signals,           # surfaced, NOT adjudicated
-        "occupantFlags": skip,                # non-empty ⇒ likely wrong occupant; agent must disambiguate
-        "trusted": False,                     # ALWAYS false here — trust is conferred by the Stage-3 agent pass
+        "selfPublished": self_pub,  # the page's OWN claim — reconcile vs captureTs (agent step)
+        "identitySignals": signals,  # surfaced, NOT adjudicated
+        "occupantFlags": skip,  # non-empty ⇒ likely wrong occupant; agent must disambiguate
+        "trusted": False,  # ALWAYS false here — trust is conferred by the Stage-3 agent pass
     }
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Wayback archived-source recovery (MT-3 mechanics).")
+    ap = argparse.ArgumentParser(
+        description="Wayback archived-source recovery (MT-3 mechanics)."
+    )
     ap.add_argument("url")
     ap.add_argument("--from", dest="dt_from", default=None, help="YYYYMMDD lower bound")
     ap.add_argument("--to", dest="dt_to", default=None, help="YYYYMMDD upper bound")
     ap.add_argument("--out", default="sources", help="output dir (default: sources)")
-    ap.add_argument("--max", type=int, default=1, help="max captures to recover (default 1)")
-    ap.add_argument("--all", action="store_true", help="recover every digest-distinct capture")
+    ap.add_argument(
+        "--max", type=int, default=1, help="max captures to recover (default 1)"
+    )
+    ap.add_argument(
+        "--all", action="store_true", help="recover every digest-distinct capture"
+    )
     ap.add_argument("--timeout", type=int, default=30)
-    ap.add_argument("--cdx-limit", type=int, default=-50,
-                    help="bound CDX rows (negative = last N captures; default -50). 0 = unbounded")
+    ap.add_argument(
+        "--cdx-limit",
+        type=int,
+        default=-50,
+        help="bound CDX rows (negative = last N captures; default -50). 0 = unbounded",
+    )
     args = ap.parse_args()
 
     os.makedirs(args.out, exist_ok=True)
 
     try:
-        captures = cdx_query(args.url, args.dt_from, args.dt_to, args.timeout, args.cdx_limit)
+        captures = cdx_query(
+            args.url, args.dt_from, args.dt_to, args.timeout, args.cdx_limit
+        )
     except Exception as e:
         sys.stderr.write(f"source-recover: CDX query failed: {e}\n")
         sys.exit(2)
@@ -209,34 +244,44 @@ def main():
 
     discontinuities = digest_discontinuities(captures)
     captures.sort(key=lambda c: c["timestamp"])  # chronological
-    selected = captures if args.all else captures[-args.max:]  # most-recent N
+    selected = captures if args.all else captures[-args.max :]  # most-recent N
 
     entries = []
     for c in selected:
         try:
             entries.append(recover(c, args.out, args.timeout))
         except Exception as e:
-            sys.stderr.write(f"source-recover: fetch failed for {c['timestamp']}: {e}\n")
+            sys.stderr.write(
+                f"source-recover: fetch failed for {c['timestamp']}: {e}\n"
+            )
 
     manifest = {
-        "$note": ("IDENTITY VERIFICATION IS AN AGENT STEP. These entries are surfaced signals + "
-                  "hashes; the builder (Stage 3) confirms brand identity and reconciles captureTs "
-                  "vs selfPublished BEFORE any value is trusted. No entry is 'trusted' here."),
+        "$note": (
+            "IDENTITY VERIFICATION IS AN AGENT STEP. These entries are surfaced signals + "
+            "hashes; the builder (Stage 3) confirms brand identity and reconciles captureTs "
+            "vs selfPublished BEFORE any value is trusted. No entry is 'trusted' here."
+        ),
         "query": {"url": args.url, "from": args.dt_from, "to": args.dt_to},
         "capturesFound": len(captures),
-        "digestDiscontinuities": discontinuities,   # occupant-change candidates — agent disambiguates
+        "digestDiscontinuities": discontinuities,  # occupant-change candidates — agent disambiguates
         "recovered": entries,
     }
     manifest_path = os.path.join(args.out, "MANIFEST.json")
     with open(manifest_path, "w") as fh:
         json.dump(manifest, fh, indent=2, ensure_ascii=False)
 
-    print(f"source-recover: {len(captures)} capture(s) found, {len(entries)} recovered → {manifest_path}")
+    print(
+        f"source-recover: {len(captures)} capture(s) found, {len(entries)} recovered → {manifest_path}"
+    )
     for e in entries:
-        flags = (" [" + ", ".join(e["occupantFlags"]) + "]") if e["occupantFlags"] else ""
+        flags = (
+            (" [" + ", ".join(e["occupantFlags"]) + "]") if e["occupantFlags"] else ""
+        )
         print(f"  {e['captureTs']}  {e['sha256'][:16]}…  {e['file']}{flags}")
     if discontinuities:
-        print(f"  ⚠ {len(discontinuities)} digest discontinuity(ies) — verify occupant identity across the timeline")
+        print(
+            f"  ⚠ {len(discontinuities)} digest discontinuity(ies) — verify occupant identity across the timeline"
+        )
     sys.exit(0 if entries else 2)
 
 

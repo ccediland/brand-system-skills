@@ -33,18 +33,18 @@ front-matter records which section goes where (the deployment map).
    and the deployment map (which sections paste into Project Instructions vs Project Knowledge).
 2. **THINK AS THE BRAND (operative reasoning).** Essence, positioning, and values rendered as DECISION RULES
    ("when trading off X against Y, the brand chooses Z because…"), derived from the canon ESSENCE layer (Brand
-   Key essence + discriminator; Aaker/Keller) and from the handoff WHY's `VALUE TRADE-OFFS` carrier (each
-   owner-confirmed "when trading X vs Y the brand chooses Z" becomes one trade-off rule here). The WHY
-   `Personality (Aaker-5 scored)` and `Differential scales` carriers are **named inputs here** — render them AS
-   the reasoning behind the rules (a high Aaker score / a differential position shapes the when-X-then-Z
-   choice), never as a bare adjective or score list. Where the `VALUE TRADE-OFFS` carrier is `none`, emit a
+   Key essence + discriminator) and from the handoff WHY's `VALUE TRADE-OFFS` carrier (each
+   ratified "when trading X vs Y the brand chooses Z" becomes one trade-off rule here). The WHY
+   `Personality (scored)` and `Differential scales` carriers are **named inputs here** — render them AS
+   the reasoning behind the rules (a high-scored personality attribute / a differential position shapes the
+   when-X-then-Z choice), never as a bare adjective or score list. Where the `VALUE TRADE-OFFS` carrier is `none`, emit a
    tagged GAP ("trade-off rule pending owner ratification") — NEVER a fabricated rule. Never adjectives.
 3. **SPEAK AS THE BRAND (voice).** 3–5 voice attributes with behavioral definitions; a persona; audience-scoped
    registers; a banned-vocabulary + hard-"never" list; on-brand vs off-brand comparison pairs (few-shot); and a
    reusable prompt library. Derived from the canon voice / ESSENCE and from the handoff WHY's `VOICE-EXEMPLARS`
    carrier (each per-audience `on-brand:` / `off-brand:` exemplar becomes one few-shot pair). The WHY
-   `Personality (Aaker-5 scored)` and `Resonance` carriers **seed the voice attributes** — each high-scored
-   Aaker dimension becomes one behavioral attribute and `Resonance` sets the emotional register, rendered
+   `Personality (scored)` and `Resonance` carriers **seed the voice attributes** — each high-scored
+   personality attribute becomes one behavioral attribute and `Resonance` sets the emotional register, rendered
    behaviorally (never the bare score). Where the `VOICE-EXEMPLARS` carrier is `none`, emit a tagged GAP
    ("voice few-shot pair pending owner ratification") — NEVER a fabricated pair.
 4. **DESIGN AS THE BRAND (design reasoning).** How the brand DECIDES color/type/spacing/asset/treatment — AND
@@ -75,8 +75,8 @@ front-matter records which section goes where (the deployment map).
    its `existing-material` flag). This is the knowledge surface — the section that splits out first if the
    file exceeds the resident budget. **DA1 (TS-2): the deployed asset inventory carries NO
    provenance/confidence/fidelity columns** — `client-deny-lint` rejects those on the client keystone. The
-   per-asset provenance/fidelity record (source · confidence on the ladder `hypothesis | corroborated |
-   owner-confirmed` · owner · freshness — READ from the token's `$extensions.brand.provenance`
+   per-asset provenance/fidelity record (source · confidence on the six-value ladder
+   (`gap-protocol.md` § The provenance spine) · owner · freshness — READ from the token's `$extensions.brand.provenance`
    (`token-spine.md` § The provenance block) / `canon.json` / the `RESIDENT.md` GAP ledger, never recalled
    from emitter memory) lives in the build worksheet in `RESIDENT.md` ONLY (the operator surface); it never
    deploys onto the client keystone.

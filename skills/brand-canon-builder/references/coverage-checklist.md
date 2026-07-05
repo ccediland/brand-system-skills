@@ -58,7 +58,7 @@ A brand that does not use one writes "not used" in the slot — the slot stays, 
   not account for, and tracks every uncertain value. (a) **R4** — every value or scheme NAMED in a canon layer
   (`canon/*.md`) or an ALGO (`canon.json` algorithms/ruleIndex) maps to EITHER a token artifact OR an open
   `GAP-NNN`; a named value with neither is a completeness hole (a dangling reference), not a complete canon.
-  (b) **R5** — every token at `confidence: hypothesis` or `source ∈ {inferred, matched, traced}` maps to
+  (b) **R5** — every token at `confidence: hypothesis` or `source ∈ {inferred, matched, traced, proposed}` maps to
   EXACTLY ONE open `GAP-NNN`; an uncertain value tracked by zero gaps is an unlogged hole, and one tracked by
   several is an ambiguous ledger. This is the universality stress test's machine-checkable companion — it does
   not assert any specific value exists (a `not-used(owner-declared)` dimension names nothing and resolves

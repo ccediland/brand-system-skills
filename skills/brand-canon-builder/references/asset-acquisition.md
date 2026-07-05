@@ -67,6 +67,17 @@ instead of re-deriving routing from a detected source-type. Each of the five tok
 selecting the row itself. A declared token always wins over re-derivation; if the declared token and the
 detected source-type disagree, follow the token and flag the conflict (the contract is the brief).
 
+## acquire-route — execute the contract's declared `acquire:` per ASSET
+
+Where `ingest:` says HOW to READ a material, the manifest's `acquire:` says HOW it GETS INTO the repo —
+an OPEN capability class (`pre-placed | fetch <url> | recover-wayback <url + era-pin> | cut <media-url @
+locator> | owner-delivery | <other declared route>`) plus a declared `fallback:`. The builder executes the
+declared route at Stage 3 (fetch → hash under `sources/**`; wayback → the recovery gate below; cut → locate
++ excerpt + hash both the cut AND its parent's hash+URL). Two hard rules: **a failed route degrades to its
+declared fallback or an open GAP — never silence** (log the failure + the fallback taken); and **a declared
+route that was never executed is itself a GAP**, never an unremarked skip. A Drive URL is not assumed
+gdown-resolvable — verify, else fall back to `owner-delivery`.
+
 ## Archived-source recovery + identity/date gate (live site dead/blocked) — MT-3
 
 When a brand's live site is dead, parked, or bot-walled, recover the source-of-record from the Internet
@@ -102,8 +113,10 @@ properties + utility classes of ANY structured site; never hardcode the Finsweet
 ## CHECKSUMS — hash every source-of-record (closes the un-hashed-source miss)
 
 The build SHA-256-hashes **every file under `sources/**`** into `CHECKSUMS.txt` at the emitted-repo root
-(`<sha256>  <path>`, the `sha256sum` format) — including recovered `sources/wayback/**`. This is what makes a
-`corroborated`/`computed-css` token's `sourceRef.sha256` checkable (MT-3/R3): a value claiming a
+(`<sha256>  <path>`, the `sha256sum` format) — including recovered `sources/wayback/**` and the **persisted
+handoff** (`sources/handoff—<date>.md`, written at Stage 0: the top of the chain of custody and the natural
+`sourceRef` of `handoff-confirmed`/`proxy-relayed` data). This is what makes an above-`hypothesis` /
+`computed-css` token's `sourceRef.sha256` checkable (MT-3/R3): a value claiming a
 source-of-record not hashed in `CHECKSUMS.txt` fails `audit-lint.mjs`. Closes the v3 miss where `CHECKSUMS.txt`
 omitted `sources/wayback/` and the source-of-record went un-hashed.
 

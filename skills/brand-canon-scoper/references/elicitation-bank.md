@@ -45,8 +45,9 @@ Voice (register / lexicon / do's-and-don'ts) — subset of ESSENCE:
   condescending." *(tone guardrails — SECONDARY)*
 - Brand lexicon: words/terms the brand always uses, and the banned-words list. *(brand lexicon — SECONDARY)*
 - **Five personality dimensions as a checklist: Sincerity, Excitement, Competence, Sophistication,
-  Ruggedness.** *(Jennifer L. Aaker, "Dimensions of Brand Personality," JMR 34(3), 1997 — PRIMARY)* Score each
-  and carry the scores into WHY (Personality, Aaker-5 scored).
+  Ruggedness.** *(Jennifer L. Aaker, "Dimensions of Brand Personality," JMR 34(3), 1997 — PRIMARY; one
+  ILLUSTRATIVE scale from the quarry, never a required input — any scale the owner ratifies carries.)* Score
+  each and carry the scores into WHY (Personality, scored on the owner-ratified scale).
 - **Voice-exemplars (per audience, owner-confirmed):** for each priority audience, ask the owner for one
   *on-brand* utterance and one *off-brand* utterance the brand might say. These become the keystone's SPEAK
   few-shot pairs. Carry them into WHY VOICE-EXEMPLARS with provenance; where the owner gives none, the carrier

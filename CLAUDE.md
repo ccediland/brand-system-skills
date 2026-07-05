@@ -35,8 +35,10 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
   (exit 0) and `…/fixtures/seeded-violation` (exit 1).
   - **R0–R5 (MT-3/4/5)** — provenance & completeness (each value token's provenance block on closed enums;
-    corroborated ⇒ ≥2 distinct hashed sources; inferred/matched ⇒ hypothesis; path-bound sha256; value→token/GAP;
-    one GAP back-ref). See `references/validate-audit.md` §5a.
+    corroborated ⇒ ≥2 distinct non-relay sources (`origin:"relay"` refs = custody, never counted — R1 counts,
+    it does not hash-check); inferred/matched/proposed ⇒ hypothesis; any confidence above hypothesis ⇒ ≥1
+    path-bound sha256 sourceRef (R3 — for handoff-confirmed/proxy-relayed it must be the persisted handoff);
+    value→token/GAP; one GAP back-ref). See `references/validate-audit.md` §5a.
   - **R6 (MT-1) — cross-artifact reconciliation / drift.** **R6a** every `derived` projection in
     `satellites/projections.md` consumes only aliases that resolve in the spine, and any pinned value byte-equals
     the spine-resolved value — **both sides routed through one canonical serializer (`serializeValue`, C-1) so a
@@ -144,10 +146,16 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   nothing.
 - **Provenance spine (4 fields per datum).** Every datum + every emitted token carries
   `$extensions.brand.provenance` {source, confidence, owner, freshness}. `authored|derived` is the SOURCE axis
-  ONLY, ORTHOGONAL to the confidence ladder `hypothesis | corroborated | owner-confirmed` (an `authored` value
-  can still be `hypothesis`); no fourth value/synonym at any hop. Observed expression enters as `hypothesis`; a
-  one-off → brand line needs `owner-confirmed`; a datum is never used above the status it earned; the keystone
-  READS its confidence FROM the token, never recalls it.
+  ONLY, ORTHOGONAL to the confidence ladder — six values in three tiers, byte-identical at every hop, no extra
+  value/synonym: `hypothesis` → `corroborated` · `verified-primary` (evidence-earned) → `proxy-relayed` ·
+  `handoff-confirmed` · `owner-confirmed` (ratified; who/how). An `authored` value can still be `hypothesis`.
+  `source: proposed` = the quarantine channel (pipeline-authored proposal: capped at `hypothesis` + open GAP,
+  never canonized without ratification). Observed expression enters as `hypothesis`; a one-off → brand line
+  needs tier-2 ratification; ratification carried by the handoff lands as `handoff-confirmed`/`proxy-relayed` —
+  the builder never stamps `owner-confirmed` on handoff text alone (the handoff itself is persisted to
+  `sources/handoff—<date>.md` + hashed, the top of the chain of custody); a datum is never used above the
+  status it earned; the keystone READS its confidence FROM the token, never recalls it. Full definition:
+  `builder/references/gap-protocol.md` § The provenance spine.
 - **Adaptive dimension map.** Every brand dimension resolves explicitly to `filled` / `not-used(owner-declared)`
   / `tagged-gap` — none skipped silently; an unresolved dimension STOPS the builder. The dimension catalogue is
   an illustrative instance of the mechanism, never a closed universe (anti-determinism).

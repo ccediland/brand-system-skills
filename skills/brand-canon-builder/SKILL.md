@@ -88,9 +88,14 @@ complete. The full pipeline (Stages 0–12) is implemented — mode + handoff sp
 applied-design, prototype + kit, token spine, gaps, validate/audit + fidelity gate, client-clean / scrub,
 commit + PR. Every stage is specified here; nothing is deferred elsewhere.
 
-### Stage 0 — Ingest the handoff contract & locate the target
+### Stage 0 — Persist + ingest the handoff contract & locate the target
 The scoper's machine-readable handoff (`brand-canon-scoper/references/handoff-format.md`) is the canonical
-brief — parse every block and act on it (do not re-derive what it already carries):
+brief. **FIRST, before parsing: persist the received block VERBATIM to `sources/handoff—<date>.md`** (ISO
+date of receipt; a successive handoff is a NEW file — custody history) so it is hashed into `CHECKSUMS.txt`
+with everything under `sources/**`. The persisted handoff is the TOP of the chain of custody: the hashed
+source-of-record that `handoff-confirmed`/`proxy-relayed` data cites, and the artifact the gates read —
+never a paste that dies in chat. Then parse every block and act on it (do not re-derive what it already
+carries):
 
 - **`MODE`** → ANALYZE | CREATE (drives Stage 2). `BUILD-MODE` → `FULL` = the normal build; `v0/DEMO` =
   apply the OPTIONAL block's degradation (OPTIONAL defaults YES, scope-expanding dims default NO) and thread
@@ -112,9 +117,12 @@ brief — parse every block and act on it (do not re-derive what it already carr
   as the authoritative HOW-to-read and route to the matching acquisition technique (Stage 3,
   `references/asset-acquisition.md` § ingest-token map) — do not re-derive routing from a detected source-type
   when the contract already declares it.
-- **`WHY (essence) — RATIFIED`** → fills ESSENCE directly in Stage 2. The builder never re-elicits or
-  re-infers the WHY; a GAP in the handoff stays a GAP. The voice/value carriers feed Stage 8.5: `Personality
-  (Aaker-5)` / `Differential scales` / `Resonance` seed the keystone's THINK/SPEAK; `VALUE TRADE-OFFS` →
+- **`WHY (essence) — RATIFIED{by · how · date}`** → fills ESSENCE directly in Stage 2. The RATIFIED header is
+  a RECORD: what the builder inherits from the signed block enters the build as `handoff-confirmed` (or
+  `proxy-relayed` where a proxy answered), never `owner-confirmed` on handoff text alone. The builder never
+  re-elicits or re-infers the WHY; a GAP in the handoff stays a GAP; a `PROPOSED` line lands in quarantine
+  (`source: proposed` + `hypothesis` + its GAP). The voice/value carriers feed Stage 8.5: `Personality
+  (scored)` / `Differential scales` / `Resonance` seed the keystone's THINK/SPEAK; `VALUE TRADE-OFFS` →
   keystone §2 trade-off rules; `VOICE-EXEMPLARS` → keystone §3 few-shot pairs. Where a carrier is `none`, the
   keystone emits a tagged GAP — never a fabricated pair/rule (`references/keystone-emit.md`).
 - **`WHAT (primitives) — POINTERS + OWNER-PROVIDED ONLY`** → pointers the builder will extract measured
@@ -122,7 +130,8 @@ brief — parse every block and act on it (do not re-derive what it already carr
   truth, written `source:"authored"` (never re-derived); `intent` seeds per-atom meaning. Carry each
   primitive's `PROVENANCE{source/confidence/owner/freshness}` from the handoff into the build and propagate
   it through extraction (`references/gap-protocol.md` § The provenance spine): a value enters at its handoff
-  confidence and is never promoted to a brand line without `owner-confirmed`. **per-mark GEOMETRY**
+  confidence (ratification carried by the handoff lands as `handoff-confirmed`/`proxy-relayed`) and is never
+  promoted to a brand line without tier-2 ratification. **per-mark GEOMETRY**
   (clear-space / min-size digital / min-size physical / construction-ref) → Stage 6 reads these owner-provided
   values instead of re-hunting from a PDF. **per-font `license:`** (a declared SPDX/license id, `owner-supplied`,
   or `unlicensed→GAP`) → Stage 4 reads the actual license and applies its redistribution policy (OFL/Apache/
@@ -145,7 +154,7 @@ brief — parse every block and act on it (do not re-derive what it already carr
   `refusal-style`); feed the keystone §5 guardrail tier (Stage 8.5) and the Stage 10 §7b regulated gate.
 - **`TREATMENTS`** → parsed here (`observed-on` / `route-hint` / PROVENANCE), then routed to the reproduction
   router at Stage 5 (classify) and Stage 8 (reproduce); each treatment stays `confidence: hypothesis` until
-  owner-confirmed.
+  tier-2 ratification.
 - **`NOTES`** → human-readable context for the build PR only; the builder never treats it as a source of brand
   truth and it never silently overrides a parsed block.
 
@@ -217,7 +226,7 @@ declared, the lived aesthetic — abstracted to universal (stripped of stack/med
 and ESSENCE (meaning), measurable atoms into tokens. Where lived expression diverges from the ratified WHY,
 log the divergence; never silently overwrite. Classify any visual/textural treatment you observe
 (texture, finish, effect) against `references/reproduction-router.md` and record it with the handoff's
-TREATMENTS provenance (`confidence: hypothesis` until owner-confirmed); the reproduction itself happens in
+TREATMENTS provenance (`confidence: hypothesis` until tier-2 ratification); the reproduction itself happens in
 Stage 8. In CREATE mode (or wherever a TREATMENT is handoff-carried with no live consumer to harvest from),
 classify the handoff TREATMENTS block directly against `references/reproduction-router.md` regardless of
 whether a live-consumer harvest ran — Stage 0 routes TREATMENTS here either way. (Full method: `references/analyze.md` § Applied-design harvest + `references/reproduction-router.md`.)
@@ -228,10 +237,12 @@ from the placed material; Stages 3–5 acquire the real assets, fonts and applie
 extracts the measured primitive values those sources yield and lands them in the canon: meaning to the
 prose layers, values to the token spine, mirrored to `canon/canon.json`. Each landed value carries its
 provenance spine (`references/gap-protocol.md` § The provenance spine): extracted/sampled/matched values
-enter at `confidence: hypothesis` and stay flagged for owner confirmation; only `declared-spec`/`owner-stated`
+enter at `confidence: hypothesis` and stay flagged for ratification; a value read EXACT from the slot's
+hashed primary master earns `verified-primary`; only `declared-spec`/`owner-stated`
 data is canonical truth. For per-mark geometry (clear-space / min-size digital / min-size physical /
-construction-ref), read the owner-provided values the handoff's WHAT GEOMETRY block carries
-(`owner-confirmed` where the owner gave them) instead of re-hunting them from a PDF; only where a geometry
+construction-ref), read the owner-provided values the handoff's WHAT GEOMETRY block carries (inherited as
+`handoff-confirmed`, or `proxy-relayed` where a proxy answered) instead of re-hunting them from a PDF; only
+where a geometry
 value is `none` does the builder derive it (at `hypothesis`) or log a GAP. The frontier holds throughout —
 the builder extracts/derives values, never re-elicits the ratified WHY, and never promotes a `hypothesis`
 observation to a brand line. (Provenance spine: `references/gap-protocol.md`.)
@@ -330,10 +341,13 @@ skeleton. Eight parts:
   `G-*`/`ALGO-*` GRAMMAR rules and ESSENCE/voice (anti-promise, lexicon, don'ts).
 - **Provenance & completeness lint (executable, BLOCKING)** — run `node tools/audit-lint.mjs` from the emitted
   repo root: exit 0 required (MT-3/4/5, R0–R5 — every value token carries valid-enum provenance;
-  corroborated⇒≥2 distinct hashed sources; inferred/matched capped at hypothesis; computed-css/corroborated/
-  owner-confirmed⇒a `sourceRef.sha256` in `CHECKSUMS.txt` bound to that file; every named value/scheme→token or
+  corroborated⇒≥2 distinct non-relay sources (R1 counts, it does not hash-check); inferred/matched/proposed
+  capped at hypothesis; computed-css
+  or any confidence above hypothesis⇒a `sourceRef.sha256` in `CHECKSUMS.txt` bound to that file (for
+  handoff-confirmed/proxy-relayed, bound to the persisted handoff); every named
+  value/scheme→token or
   open GAP; every uncertain token→exactly one open GAP via its `$extensions.brand.gap`). Requires `CHECKSUMS.txt`
-  to hash every file under `sources/**`. (`validate-audit.md` §5a.)
+  to hash every file under `sources/**` — the persisted handoff included. (`validate-audit.md` §5a.)
 - **Render real samples** — the Stage-8 HTML prototype is the evidence.
 - **Reproduction visual-diff (treatments)** — every reproduced treatment (Stage 5 → Stage 8 via
   `reproduction-router.md`) passes a perceptual visual-diff against the Stage-5 source (no pixel-VRT, no

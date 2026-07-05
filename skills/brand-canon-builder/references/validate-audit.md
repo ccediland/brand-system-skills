@@ -143,15 +143,19 @@ node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
 `RESIDENT.md` (the Open Items/Gaps table) and `CHECKSUMS.txt`, writes `audit/lint/report.md`, and enforces:
 
 - **R0 (MT-3/4)** — every VALUE token (non-alias) carries `$extensions.brand.provenance` with `source` on the
-  closed source enum and `confidence` ∈ `{hypothesis, corroborated, owner-confirmed}`. (Closes the "omit or
+  closed source enum and `confidence` ∈ `{hypothesis, corroborated, verified-primary, proxy-relayed,
+  handoff-confirmed, owner-confirmed}`. (Closes the "omit or
   typo the provenance block and evade every conditional rule below" bypass; aliases inherit and are exempt.)
-- **R1 (MT-4)** — `confidence: corroborated` ⇒ ≥2 `sourceRef` entries with DISTINCT `file`.
-- **R2 (MT-4)** — `source ∈ {inferred, matched}` ⇒ `confidence` is `hypothesis`.
-- **R3 (MT-3)** — `source: computed-css` OR `confidence ∈ {corroborated, owner-confirmed}` ⇒ a `sourceRef`
-  whose `sha256` is in `CHECKSUMS.txt` **bound to that exact `file` path** (a borrowed/ghost-file hash fails).
+- **R1 (MT-4)** — `confidence: corroborated` ⇒ ≥2 `sourceRef` entries with DISTINCT `file`, excluding refs
+  marked `origin: "relay"` (a builder transcription is hashable custody, never an independent source).
+- **R2 (MT-4)** — `source ∈ {inferred, matched, proposed}` ⇒ `confidence` is `hypothesis` (`proposed` = the
+  quarantine channel: pipeline-authored, operative, never canon without ratification).
+- **R3 (MT-3)** — `source: computed-css` OR any `confidence` above `hypothesis` ⇒ a `sourceRef`
+  whose `sha256` is in `CHECKSUMS.txt` **bound to that exact `file` path** (a borrowed/ghost-file hash fails);
+  `handoff-confirmed`/`proxy-relayed` bind naturally to the persisted handoff (`sources/handoff—<date>.md`).
 - **R4 (MT-5)** — every value/scheme named in a canon layer or ALGO maps to a token artifact OR an open `GAP-NNN`.
-- **R5 (MT-5)** — every `hypothesis`/`inferred`/`matched`/`traced` token carries EXACTLY ONE open `GAP-NNN` in
-  its own `$extensions.brand.gap` back-reference.
+- **R5 (MT-5)** — every `hypothesis`/`inferred`/`matched`/`traced`/`proposed` token carries EXACTLY ONE open
+  `GAP-NNN` in its own `$extensions.brand.gap` back-reference.
 - **R6 (MT-1)** — cross-artifact RECONCILIATION (the drift gate; additionally reads `satellites/projections.md`,
   `canon/mark.svg`, and the generated `.html`/`.css` artifacts): **R6a** every `derived` projection's consumed
   `{tier.category.name}` alias resolves in the spine, and any pinned value byte-equals the spine-resolved value

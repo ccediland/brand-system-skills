@@ -2,6 +2,56 @@
   "base": {
     "color": {
       "$type": "color",
+      "vpbad": {
+        "$value": { "colorSpace": "oklch", "components": [0.95, 0.01, 90], "alpha": 1, "hex": "#f2efe2" },
+        "$description": "R3 VIOLATION (v5) — confidence verified-primary claims an exact primary-master read but its sourceRef sha256 is NOT in CHECKSUMS.txt",
+        "$extensions": { "brand": {
+          "provenance": { "source": "declared-spec", "confidence": "verified-primary", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [ { "file": "sources/c.css", "selector": ".paper", "line": 1, "sha256": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef" } ]
+        } }
+      },
+      "proposedbad": {
+        "$value": { "colorSpace": "oklch", "components": [0.72, 0.08, 300], "alpha": 1, "hex": "#a99ac2" },
+        "$description": "R2 VIOLATION (v5) — source proposed (quarantine channel) must be capped at hypothesis, here it claims corroborated; refs are hashed + gapped so R1/R3/R5 stay quiet and R2 fires in isolation",
+        "$extensions": { "brand": {
+          "provenance": { "source": "proposed", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-012",
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".p", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/b.txt", "selector": "p2", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c" }
+          ]
+        } }
+      },
+      "relaycasebad": {
+        "$value": { "colorSpace": "oklch", "components": [0.45, 0.11, 40], "alpha": 1, "hex": "#96522f" },
+        "$description": "R1 VIOLATION (v5) — origin:\"Relay\" (typo'd case) must NOT evade the relay exclusion: R1 normalizes origin (trim+lowercase) and still discounts it, leaving 1 non-relay source (a genuinely off-axis origin like \"transcript\" fails R0 instead)",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".rc", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/b.txt", "selector": "relay-note-2", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c", "origin": "Relay" }
+          ]
+        } }
+      },
+      "hcbad": {
+        "$value": { "colorSpace": "oklch", "components": [0.80, 0.03, 250], "alpha": 1, "hex": "#b9c2cf" },
+        "$description": "R3 VIOLATION (v5) — confidence handoff-confirmed citing a hashed file that is NOT the persisted handoff (sources/handoff—<date>.md): inherited ratification must bind to the handoff itself",
+        "$extensions": { "brand": {
+          "provenance": { "source": "owner-stated", "confidence": "handoff-confirmed", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".hc", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
+        } }
+      },
+      "relaybad": {
+        "$value": { "colorSpace": "oklch", "components": [0.45, 0.11, 20], "alpha": 1, "hex": "#96424a" },
+        "$description": "R1 VIOLATION (v5) — corroborated with 2 distinct files but one is origin:relay (a builder transcription): only 1 non-relay source remains — corroboration padding with self-written files does not count",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".r", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
+            { "file": "sources/b.txt", "selector": "relay-note", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c", "origin": "relay" }
+          ]
+        } }
+      },
       "r1bad": {
         "$value": { "colorSpace": "oklch", "components": [0.62, 0.13, 255], "alpha": 1, "hex": "#5a7fb0" },
         "$description": "R1 VIOLATION — confidence corroborated but only ONE distinct sourceRef file (structured $value; R1 reads sourceRef, not $value)",

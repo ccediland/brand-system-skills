@@ -48,9 +48,11 @@ surfaces §1's grep does not reach today. (Builder chatter in CSS `/* */` or JS 
 by the §3 HTML-comment strip, so such comments must themselves carry no deny vocab.) It is brand-agnostic
 (vocabulary classes, never brand content) and composes with §1's grep; the ambiguous classes are
 context-bound so ordinary brand copy does not false-fail — provenance grades/verbs (hypothesis / corroborated
-/ owner-confirmed, matched / inferred / traced) fire only in the `key: value` annotation form, numeric stage
-labels only beside a build-context word, harvested / redrawn only beside an asset noun (a "founding
-hypothesis", a "Stage 7 venue", "beans harvested at dawn" all pass).
+/ verified-primary / proxy-relayed / handoff-confirmed / owner-confirmed, matched / inferred / traced /
+proposed) fire only in the `key: value` annotation form, numeric stage labels only beside a build-context
+word, and asset-origin verbs (harvested / redrawn / relay) only in the `origin: …` annotation form or beside
+a build-context token — NEVER via an asset noun, so heritage copy passes (a "founding hypothesis", a "Stage 7
+venue", "beans harvested at dawn", "our logo was redrawn by hand" all pass).
 
 ## 3. {{PLACEHOLDER}} leftovers + scaffolding chatter
 

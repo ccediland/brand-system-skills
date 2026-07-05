@@ -19,7 +19,7 @@ if you're already in Claude Code with a filesystem, you can skip the scoper and 
 
 ## Reference materials — load when relevant
 This SKILL.md is the workflow + gates. Load the reference only when its stage is reached:
-- `references/handoff-format.md` — the v3 handoff contract: the single self-contained fenced block this skill compiles at Stage 7 (two-track manifest · 4-field provenance spine · WHY/WHAT/HOW/DIMENSION-MAP/POSTURE/HORIZONS carriers). Load when compiling or validating the handoff.
+- `references/handoff-format.md` — the handoff contract: the single self-contained fenced block this skill compiles at Stage 7 (two-track manifest with acquire routes · six-value provenance spine · directives registry · WHY/WHAT/HOW/DIMENSION-MAP/POSTURE/HORIZONS carriers). Load when compiling or validating the handoff.
 - `references/process-discipline.md` — the TEMPO doctrine (TA-1) + the verify-the-exact-claim rationale (TA-4); load at the gated pipeline's proceed-points.
 
 ## What it does NOT do
@@ -43,16 +43,16 @@ into the method.
 
 ## The provenance spine (every datum carries it)
 Generalizes v2's `authored|derived` flag. Every datum the scoper records carries four fields:
-- **source** — where it came from (declared-spec / owner-stated / computed-css / …).
-- **confidence** — `hypothesis` (observed, unconfirmed) → `corroborated` (multiple sources agree) →
-  `owner-confirmed` (the owner ratified it).
+- **source** — where it came from (declared-spec / owner-stated / computed-css / … / `proposed` = the quarantine channel: scoper-drafted at the owner's request — labeled, never canon).
+- **confidence** — the six-value ladder (wire form + tiers in `references/handoff-format.md`): `hypothesis` →
+  `corroborated` · `verified-primary` → ratified: `proxy-relayed` (factual only) · `handoff-confirmed` (builder-side label, never scoper-stamped) · `owner-confirmed` (witnessed).
 - **owner** — who ratifies it (the Accountable for that slot).
 - **freshness** — the pinned value enum `shipped | stated-old` (`shipped` = fresh/live; `stated-old` =
   declared but not the current shipped reality). The same two literals are used at every hop downstream.
 
-Hard rule: **observed expression enters as `hypothesis`, never as a finding.** Promoting an observed
-one-off to a brand *line* (a rule) requires `owner-confirmed`. A datum is never passed across the handoff
-at a status it has not earned.
+Hard rule: **observed expression enters as `hypothesis`, never as a finding.** Promoting a one-off to a
+brand *line* requires tier-2 ratification (`proxy-relayed` for factual slots only). A datum never crosses the
+handoff above its earned status — a scoper-authored value travels as `proposed`+`hypothesis`+gap, never unlabeled.
 
 ## Doctrine — analyze published work as the default
 
@@ -267,10 +267,10 @@ stage; both are capability-class methods, not brand-specific checklists.
 
 The full layer-mapped interview bank lives in `references/elicitation-bank.md`; load it when running this gate. The posture + horizon batteries live in `references/detection-batteries.md`.
 
-Carry, don't just elicit. The Aaker-5 personality scores, the differential-scale placements, and the
-resonance answer are not only elicited here — they are written into the handoff's WHY block (Personality /
-Differential scales / Resonance) so the builder and keystone consume them. An unanswered one is a gap, never a
-scoper guess.
+Carry, don't just elicit. The scored personality attributes (any scale the owner ratifies — a named framework
+is an illustration, never a required input), the differential-scale placements, and the resonance answer are
+written into the handoff's WHY block (Personality / Differential scales / Resonance) so the builder and
+keystone consume them. An unanswered one is a gap, never a scoper guess.
 
 Elicited-or-GAP (EH-1). Personality, differential scales, resonance, and any owner-meaning field — a field
 whose value lives only in a person's intent (what the brand MEANS, chooses, or refuses: the intended meaning
@@ -417,16 +417,16 @@ Missing / To-confirm line is settled: each gap accepted or owned with a resoluti
 confirmed, the WHY ratified. The owner signs off on this human-readable brief, not on the machine block.
 
 ### 7b. Handoff compile (gate 7b)
-Produced ONLY after the 7a sign-off. Produce ONE machine-readable, fenced block following `references/handoff-format.md` (the v3 contract:
-two-track manifest — checksummed ASSETS + reachability-verified CONSUMERS · `ingest:` method per item · the
-four-field PROVENANCE spine on every primitive · WHY carrying Personality (Aaker-5 scored) / Differential
-scales / Resonance / VALUE TRADE-OFFS / VOICE-EXEMPLARS · WHAT carrying per-mark GEOMETRY + per-font
-`license:` · TREATMENTS / DIMENSION MAP (incl. applied-expression/social) / HORIZONS / POSTURE (incl.
-visibility + audiences) blocks · per-gap provenance tag · `BUILD-MODE` with the v0/DEMO carve-out · the
-primary-identity carrier + graphic-code non-waivable). Then tell the person exactly what to do with it:
-open Claude Code in (or create) the target repo, place the material per the manifest **with checksums**,
-and paste the block — it invokes `brand-canon-builder`. The block is self-contained: everything the
-builder needs to start, nothing it should discover for itself.
+Produced ONLY after the 7a sign-off. Produce ONE machine-readable, fenced block following
+`references/handoff-format.md` — load that reference and compile EVERY block and carrier it defines (it is
+the single contract; this skill never re-enumerates it): the two-track manifest with `acquire:` routes +
+declared fallbacks · the six-value provenance spine with `proposed`-quarantine · the `RATIFIED{by · how ·
+date}` record · WHY/WHAT/HOW carriers · TREATMENTS / DIMENSION MAP / HORIZONS / POSTURE · per-gap provenance
+tags · `BUILD-MODE` · the explicit `Claude Design component library: <YES|NO>` slot · the non-waivables.
+Then tell the person: open Claude Code in (or create) the target repo, place the material per the manifest
+**with checksums** (or leave placement to the builder where an item declares an executable `acquire:` route),
+and paste the block — it invokes `brand-canon-builder`, which persists it under `sources/` before parsing.
+Self-contained: everything the builder needs, nothing it should discover for itself.
 
 ## Laws
 
@@ -440,7 +440,7 @@ horizons, and points at sources. The builder extracts values and builds.
 | Record values the owner volunteers as truth (e.g. declared Pantone) + the `owner-stated` source | Sample/measure any primitive value (eyedropper a color, read geometry off a PDF/site) |
 | Inventory which assets/forms exist and at what fidelity | Extract embedded vectors/images from sources (that is the builder's job) |
 | **Observe** applied design language and point at it (checklist below) as `hypothesis` | Harvest/transcribe the applied design into the canon (builder) |
-| Tag a one-off observation with `confidence: hypothesis` | Promote an observed one-off to a brand *line* without `owner-confirmed` |
+| Tag a one-off observation with `confidence: hypothesis` | Promote an observed one-off to a brand *line* without tier-2 ratification |
 | Detect posture + horizons via the elicitation batteries | Hardcode posture/horizons from category assumption |
 | Point each source into the repo with role/freshness/provenance tags | Reconcile conflicts or invert source-of-truth precedence (builder) |
 | List gaps in plain client language with a provenance tag | Assign `GAP-NNN` IDs (builder formalizes) |

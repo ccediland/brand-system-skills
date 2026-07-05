@@ -17,3 +17,6 @@ dev/
 # Python bytecode
 __pycache__/
 *.pyc
+
+# fixture self-test run artifacts (machine-specific: reports embed the absolute linted-root path)
+skills/brand-canon-builder/assets/templates/tools/fixtures/**/audit/

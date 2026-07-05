@@ -130,10 +130,12 @@ Enforcement. Vocabulario de enforcement (nuevo, primera clase — alimenta E1-03
 Honestidad temporal: cada fila declara el enforcement QUE EXISTE HOY. El opt-out del kit hoy =
 `agent-gate (Stage 8)`; cuando el lint de opt-outs exista (E1-07 lo mecaniza leyendo el handoff persistido
 + estos fixtures), la fila flipa a `lint` — cero prosa-adelante-del-código, cero forward-pointers en prosa
-shipped. El slot OPTIONAL se vuelve EXPLÍCITO en el template: toda dimensión OPTIONAL resuelve
-`yes | no | not-used` (misma disciplina 3-estados del DIMENSION MAP); `Claude Design component library:
-<YES|NO>` es slot llenado por el scoper, no regla de default en el contrato. (El default conductual del
-skill lo mata E1-07 — fuera "OPTIONAL defaults YES"; el contrato v5 ya no lo declara.)
+shipped. El slot del kit se vuelve EXPLÍCITO y parseable: `Claude Design component library: <YES|NO>` con
+semántica normativa declarada (NO ⇒ cero artefactos Claude Design). Lo que este item NO toca (DECIDIDO 6):
+el template CONSERVA los literales OPTIONAL viejos (`not used | demo-default-yes |
+scope-expanding(demo-default-no)`) y las 3 declaraciones del default OPTIONAL-YES (header del bloque, la
+cola "unfilled defaults YES" del slot, la regla BUILD-MODE v0/DEMO) — retirarlas es entregable EXPLÍCITO de
+E1-07, no de este contrato.
 
 ## 7. Ratificación registrada (X3/R-13, lado contrato)
 
@@ -241,6 +243,53 @@ keystone.md:30/44 · elicitation-bank:49 — rename de carrier en todos; mecáni
     byte-identical-en-todo-hop.
 11. **Marcas sintéticas de fixtures = "Fixture Alpha/Beta/Gamma"** — inequívocamente genéricas,
     scrub-proof (cero colisión con marcas reales).
+
+## 10ter. Desviaciones de implementación (asentadas en el mismo bloque de commits — cero drift)
+
+- **CONTRA-8 (client-clean.md:50-53) se corrigió AQUÍ, no en E1-08:** la propagación del enum tocaba
+  exactamente esas líneas; dejar la descripción del binding invertida mientras se editaba la misma oración
+  habría propagado alrededor de un bug conocido. E1-08 pierde ese sub-entregable (logueado).
+- **La sección `acquire-route` de asset-acquisition.md carga las reglas normativas "ruta fallida → fallback
+  o GAP, jamás silencio" y "ruta declarada no ejecutada = GAP" (R-B-8/EV-2):** el campo sin su semántica de
+  falla era contrato incompleto. E1-12 conserva la mecanización (MT-3-SKIP como gate de agente + verificación).
+- **El 7b del scoper SKILL se convirtió en POINTER al contrato** (ya no re-enumera cada carrier) — aplicación
+  directa del §1 de esta nota; además el SKILL rozaba el tope SH-1 (quedó 499/500).
+- **Los reports de fixtures (`audit/lint/report.md` ×4) se regeneraron por re-run del lint** — el critic del
+  inventario los marcó como superficie de regen obligatoria; verificado: seeded lista las 3 violaciones
+  nuevas (relaybad→R1 · proposedbad→R2 · vpbad→R3) + las 5 viejas; clean/flat/sonic exit 0.
+- **client-deny fixtures:** seeds nuevos disparan en las 3 clases (confidence-grade ×3 rungs nuevos ·
+  provenance-verb `proposed` · asset-origin `relay` vía origin-key) y los near-misses de copy legítimo
+  ("our proposed timeline", "relay race") pasan — clean exit 0 / seeded exit 1, corrida real.
+
+## 10quater. Ronda de verify adversarial (pre-commit — 5 atacantes + juez; veredicto inicial FAIL → fixes aplicados)
+
+Defectos CONFIRMADOS del cambio, todos corregidos en el mismo bloque de commits:
+1. TREATMENTS del template wire conservaba el enum pre-v5 (miss de propagación en el archivo DUEÑO) → enum
+   completo; espejos "hypothesis until owner-confirmed" alineados (builder SKILL ×2, reproduction-router).
+2. Exclusión R1 de relay evadible por case/whitespace (`origin:"Relay"` contaba como capture) → normalización
+   (`refOrigin`) + R0 valida `origin` contra `{capture|relay}` + seeded `relaycasebad`.
+3. R3 no ataba handoff-confirmed/proxy-relayed al handoff persistido (cualquier archivo hasheado pasaba;
+   3 prosas lo prometían) → `HANDOFF_BOUND_CONFIDENCE` en R3 (el ref que satisface debe ser
+   `sources/handoff—*`) + seeded `hcbad`.
+4. Prosa nueva "≥2 distinct non-relay hashed sources" mezclaba R1 (cuenta) con R3 (hash) → separadas en
+   CLAUDE.md + builder SKILL.
+5. Registro de directivas: 3 celdas over-claim (`sha256 → lint` · `CORE-ASSET + lint` · `regulatory measured`)
+   → re-atribuidas a agent-gate/lint-token honestos.
+6. El fixture clean modelaba la traducción X3 PROHIBIDA (ink owner-confirmed heredado del handoff) → ink =
+   handoff-confirmed atado al handoff persistido; `tint` queda como ejemplar owner-confirmed.
+7. "carries verbatim" calificado en gap-protocol + handoff-format: solo carriage A CONFIANZA RATIFICADA
+   confiere tier-2 (hypothesis/corroborated en el wire no confieren nada).
+8. `owner-confirmed` sin artefacto de registro definido → definición nombra `sources/ratification—<date>.md`
+   hasheado como sourceRef natural del rung (binding máquina fino queda con la custodia E1-05).
+9-16. Menores: anotación "never scoper-stamped" en el enum wire · ORIGIN_KEY del deny acepta la forma
+   JSON-quoted (+seed) · README de fixtures corregido (5 rungs scoper-stampable) + treatment real en
+   full-kit + placeholders `<dimension>` nombrados · line-refs del clean corregidos (14/16/18) ·
+   token-spine "enters at earned confidence" · §6 de esta nota reescrito (arriba).
+
+Adjudicados FUERA de scope (dueño): comparación de valores R1 → E1-06 · selector/line + primario-ness →
+E1-05 · retiro del default OPTIONAL-YES + mecanización del opt-out → E1-07 · mecanización acquire/fallback →
+E1-12 · modelado proxy/multi-decider → E3-02 · run vivo §7b → Phase-5. Falso positivo descartado: "archaeology
+sin tier-2 alcanzable" es el estado epistémico honesto por diseño, no defecto.
 
 ## 11. Qué NO hace este item (fronteras)
 

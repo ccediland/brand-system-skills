@@ -4,10 +4,10 @@
       "$type": "color",
       "ink": {
         "$value": { "colorSpace": "oklch", "components": [0.30, 0, 0], "alpha": 1, "hex": "#3a3a3a" },
-        "$description": "owner-confirmed declared truth — carries its hashed source-of-record (R3). Structured-OKLCH $value (C-1).",
+        "$description": "handoff-confirmed — the handoff carries ink at ratified confidence; the builder INHERITS (never re-stamps owner-confirmed on handoff authority alone) and binds to the persisted handoff (R3).",
         "$extensions": { "brand": {
-          "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:ink", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9", "captureTs": "20230124000000", "selfPublished": "2023-01" }
+          "provenance": { "source": "declared-spec", "confidence": "handoff-confirmed", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "ink", "line": 14, "sha256": "7c1fa553bc654701e314bd31152e3535178a90c43655fb85fd11885bee1f11e1" }
         } }
       },
       "brand": {
@@ -18,6 +18,50 @@
           "sourceRef": [
             { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc", "captureTs": "20230124000000", "selfPublished": "2023-01" },
             { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+          ]
+        } }
+      },
+      "paper": {
+        "$value": { "colorSpace": "oklch", "components": [0.97, 0, 0], "alpha": 1, "hex": "#f5f5f5" },
+        "$description": "verified-primary — read EXACT from the slot's hashed primary master (R3: hashed, path-bound sourceRef).",
+        "$extensions": { "brand": {
+          "provenance": { "source": "declared-spec", "confidence": "verified-primary", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:paper", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+        } }
+      },
+      "night-ink": {
+        "$value": { "colorSpace": "oklch", "components": [0.86, 0, 0], "alpha": 1, "hex": "#d4d4d4" },
+        "$description": "handoff-confirmed — ratification inherited from the signed handoff; binds to the persisted handoff (sources/handoff—<date>.md) via R3.",
+        "$extensions": { "brand": {
+          "provenance": { "source": "owner-stated", "confidence": "handoff-confirmed", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "night-ink", "line": 16, "sha256": "7c1fa553bc654701e314bd31152e3535178a90c43655fb85fd11885bee1f11e1" }
+        } }
+      },
+      "signal": {
+        "$value": { "colorSpace": "oklch", "components": [0.70, 0.12, 145], "alpha": 1, "hex": "#4faa72" },
+        "$description": "proxy-relayed — a proxy confirmed a FACTUAL slot on the owner's behalf; the record is the persisted handoff (R3).",
+        "$extensions": { "brand": {
+          "provenance": { "source": "owner-stated", "confidence": "proxy-relayed", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "signal", "line": 18, "sha256": "7c1fa553bc654701e314bd31152e3535178a90c43655fb85fd11885bee1f11e1" }
+        } }
+      },
+      "seasonal": {
+        "$value": { "colorSpace": "oklch", "components": [0.75, 0.06, 60], "alpha": 1, "hex": "#cbaf94" },
+        "$description": "proposed — the quarantine channel: pipeline-authored proposal, R2-capped at hypothesis, tracked by exactly one open GAP (R5). Ratification pending IS the open gap.",
+        "$extensions": { "brand": {
+          "provenance": { "source": "proposed", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-003"
+        } }
+      },
+      "field": {
+        "$value": { "colorSpace": "oklch", "components": [0.58, 0.09, 200], "alpha": 1, "hex": "#3e7d8f" },
+        "$description": "corroborated with a RELAY ref present — R1 counts only the 2 non-relay files; the origin:relay transcription is custody, never an independent source.",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [
+            { "file": "sources/site.css", "selector": ".field", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc" },
+            { "file": "sources/brandbook.txt", "selector": "swatch:field", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" },
+            { "file": "sources/palette-notes.md", "selector": "field", "line": 4, "sha256": "16d87637c6f962ff39804e80964663e5086a2b1458e1a171479db37691ad3b41", "origin": "relay" }
           ]
         } }
       },
