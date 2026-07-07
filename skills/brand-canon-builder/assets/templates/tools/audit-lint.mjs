@@ -141,9 +141,11 @@ for (const line of checksumText.split('\n')) {
 const residentText = readText(join(ROOT, 'RESIDENT.md')) || '';
 const openGaps = new Set();
 const openGapRows = [];
+const ledgerGaps = new Set(); // every GAP id the ledger knows, ANY status (for dangling-reference checks)
 for (const line of residentText.split('\n')) {
   const ids = [...line.matchAll(/GAP-\d+/gi)].map((m) => m[0].toUpperCase());
   if (!ids.length) continue;
+  for (const id of ids) ledgerGaps.add(id);
   // isolate the Status: the last non-empty pipe cell of a table row, else a `Status:`-anchored token, else the line.
   let statusCell = line;
   if (line.includes('|')) {
@@ -329,7 +331,17 @@ function valueInText(txt, value) {
     const gapHit = openGapRows.some((g) => rowMentions(g.row, s));
     if (!materialized && !gapHit) v.push(`named scheme "${s}" (canon.json › schemes) maps to neither a token set (no token tagged $extensions.brand.scheme:"${s}", not the default backed by color tokens) nor an open GAP-NNN`);
   }
-  add('R4', 'MT-5 · every named value/scheme → token artifact OR open GAP', v, `${namedAliases.length} named value ref(s), ${namedSchemes.length} named scheme(s) checked`);
+  // dangling GAP cross-references: a GAP-NNN cited in prose (canon layers, canon.json, satellites) that
+  // NO ledger row carries (any status) is prose↔ledger drift — a mis-numbered gap reads as tracked while
+  // nothing tracks it.
+  const proseFiles = [...listFiles('canon', '.md'), ...listFiles('canon', '.json'), ...listFiles('satellites', '.md')];
+  for (const f of proseFiles) {
+    const txt = readText(f); if (!txt) continue;
+    for (const id of new Set([...txt.matchAll(/GAP-\d+/gi)].map((x) => x[0].toUpperCase()))) {
+      if (!ledgerGaps.has(id)) v.push(`dangling GAP reference ${id} in ${rel(f)} — no RESIDENT.md ledger row carries it (any status): the prose cites a gap nothing tracks`);
+    }
+  }
+  add('R4', 'MT-5 · every named value/scheme → token artifact OR open GAP; GAP cross-refs resolve to the ledger', v, `${namedAliases.length} named value ref(s), ${namedSchemes.length} named scheme(s) checked`);
 }
 
 // R5 (MT-5): uncertain token ⇒ exactly one open GAP-NNN via its own gap back-reference.
@@ -430,9 +442,19 @@ const normGeom = (inner) => (inner == null ? null : inner
 {
   const v = [];
 
-  // ---- R6a · projection drift ----
+  // ---- R6a · projection drift (NEVER a silent skip: an absent registry is declared N/A; a MISLOCATED
+  // one — projections.md at the repo root instead of satellites/ — is a violation, because it silently
+  // escapes every R6a reconciliation while looking present) ----
   let derivedProjCount = 0;
+  let r6aNote = null;
   const projText = readText(join(ROOT, 'satellites', 'projections.md'));
+  if (!projText) {
+    if (readText(join(ROOT, 'projections.md')) != null) {
+      v.push('[R6a] projections.md found at the REPO ROOT — the registry lives at satellites/projections.md; a mislocated registry silently escapes reconciliation (vacuous pass)');
+    } else {
+      r6aNote = 'R6a: satellites/projections.md ABSENT → N/A (no projection registry to reconcile) — declared, never a silent skip';
+    }
+  }
   if (projText) {
     let inReg = false, header = null;
     for (const line of projText.split('\n')) {
@@ -518,7 +540,7 @@ const normGeom = (inner) => (inner == null ? null : inner
   }
 
   add('R6', 'MT-1 · cross-artifact reconciliation — R6a projection drift · R6b mark single-source · R6c asset refs resolve', v,
-    `${derivedProjCount} derived projection(s), ${instances.length} mark instance(s), canon/mark.svg ${canonical == null ? 'absent (N/A unless a mark is rendered)' : 'present'}`);
+    `${derivedProjCount} derived projection(s), ${instances.length} mark instance(s), canon/mark.svg ${canonical == null ? 'absent (N/A unless a mark is rendered)' : 'present'}${r6aNote ? ' · ' + r6aNote : ''}`);
 }
 
 

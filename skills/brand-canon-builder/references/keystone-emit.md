@@ -66,7 +66,10 @@ front-matter records which section goes where (the deployment map).
    exposure setting driven by the POSTURE `visibility:<low|moderate|high>` field. **This section sits
    in the high-recall tail and doubles as Project instructions.** **EH-3 — bound sourcing:** the
    regulated-claim constraints and the in-character refusal policy are derived from the POSTURE `regulatory:`
-   carrier (owner-stated, cited — the EH-2 contract) OR carried as a GAP — never a model-recalled regulation or
+   carrier (owner-stated, cited — the EH-2 contract) OR carried as a GAP — including the AUTO-RAISED
+   regulated-claims GAP when the build detects a product-class × claim-class match under an owner-declared
+   `none` (the §5 line then holds claims of that class hypothesis-labeled until the instrument is confirmed;
+   detect-and-ask, never a block) — never a model-recalled regulation or
    figure. The template's `{{constraints + who imposes them}}` placeholder is filled from the cited carrier or
    left as an explicit GAP; filling it from memory is the same memory-assertion defect EH-2 forbids, one layer
    down.

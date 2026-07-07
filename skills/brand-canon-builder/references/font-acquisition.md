@@ -71,6 +71,23 @@ Consequences for acquisition:
   Matcherator for clean printed faces; a vision-model read for hand-lettered/custom), recorded at
   `confidence: hypothesis` pending owner confirmation — or a MUST-HAVE fidelity GAP if no match is credible.
 
+## Measured identity, never a name-match (fontTools, zero extra deps)
+
+A matched/acquired face is CONFIRMED by MEASUREMENT, never by its name string or an eyeball:
+
+- **Identity = the OS/2 table + style bits**, read with `fontTools` directly: `usWeightClass` /
+  `usWidthClass` + the `fsSelection` / `head.macStyle` bits are the machine identity of a face; the `name`
+  table is METADATA ONLY (renames, subsets, and foundry re-releases change it freely — a name-match is not
+  an identity).
+- **Metric-compare, normalized by `unitsPerEm`:** ascent / descent / lineGap, x-height and cap-height where
+  the table version carries them, and the advance widths of a probe string (via `hmtx`) — compared between
+  the candidate and the reference face after normalizing both by their own `unitsPerEm`. A face that
+  name-matches but metric-diverges is a DIFFERENT face (record the divergence; the match stays
+  `hypothesis` with the numbers attached, or degrades to a GAP).
+- "Test-fonts ≈ production" is never assumed — the SHIPPED files are what gets measured.
+- The reproduction gate's `--font` path (`tools/fidelity-diff.py`) already computes per-glyph deltas with
+  fontTools; this section is the ACQUISITION-side identity floor that feeds it.
+
 ## Acquisition by path
 
 - **Embedded in a source PDF** → extract via PyMuPDF (`Document.get_page_fonts` + `extract_font(xref)`) to

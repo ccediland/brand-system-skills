@@ -24,8 +24,10 @@ marked present-build-grade vs GAP (low-fi / missing). At Stage 10, walk it — a
   gaps." Reaching "done" without the core assets is the bug, not the gap-logging.
 - **Non-core gaps still log** as `GAP-NNN` and the repo stays valid (the Lego property holds) — only the
   *core* set blocks "done".
-- "build-grade" = vector master + commercial-licensed font files + color profiles (incl. authored spot where
-  declared) + clear-space/min-size + misuse list (per `asset-acquisition.md` / `font-acquisition.md`).
+- "build-grade" = vector master + the brand's REAL font FILES present (license CONFIRMATION may remain an
+  open GAP — license is a dependency + a confirmation request, never a capability gate; only REDISTRIBUTABLE
+  surfaces gate on it, per `font-acquisition.md` § License posture) + color profiles (incl. authored spot
+  where declared) + clear-space/min-size + misuse list (per `asset-acquisition.md` / `font-acquisition.md`).
 
 This closes the loop: the scoper requests the asset inventory in the handoff, and the builder judges it here.
 
@@ -95,9 +97,16 @@ Fidelity evidence is the convergence of four sources — all already produced by
    - the absolute Styled / Complete / Plausible grade per in-scope component.
 
    Plus the kit's **own offline pre-flight gate** — `npm run validate` (`package-validate.mjs`, shipped in
-   `assets/templates/design-sync-kit/`): dist + `.d.ts` present, ≥1 component exported, every referenced
-   font-family has a shipped `@font-face` (a local `[FONT_MISSING]`), and `styles.css` carries a non-hollow
-   token closure → exit 0/1. This one is kit-shipped and runs with no `/design-sync` round-trip, so Stage 10
+   `assets/templates/design-sync-kit/`): dist + `.d.ts` present, ≥1 component exported, every REQUIRED
+   font-family — styles.css references AND the token spine's `fontFamily` leaves (`../tokens/*.json`), so
+   deleting a reference never removes the requirement — has a shipped `@font-face` OR a DECLARED fallback
+   (`--font-fallback-*: "<Real Family>" …` — the honest non-redistributable state: license gates
+   redistribution, never capability, so a declared substitute in bundled files is a VALID exit-0 outcome
+   while the local render keeps the real face), and `styles.css` carries a non-hollow
+   token closure → exit 0/1. **No deadlock:** `[FONT_MISSING]` now means a required family with NEITHER a
+   real `@font-face` NOR a declared fallback — a genuine defect; a fonts-in-GAP brand exits 0 via the
+   declared-fallback channel, so "package-validate exit 0 required for done" and honest font GAPs coexist.
+   This one is kit-shipped and runs with no `/design-sync` round-trip, so Stage 10
    can run it offline before any upload.
 3. **The content audit** (§4).
 4. **The CORE-ASSET FIDELITY CONTRACT pass/fail** (§1).
@@ -183,13 +192,17 @@ node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
 - **R5 (MT-5)** — every `hypothesis`/`inferred`/`matched`/`traced`/`proposed` token carries EXACTLY ONE open
   `GAP-NNN` in its own `$extensions.brand.gap` back-reference.
 - **R6 (MT-1)** — cross-artifact RECONCILIATION (the drift gate; additionally reads `satellites/projections.md`,
-  `canon/mark.svg`, and the generated `.html`/`.css` artifacts): **R6a** every `derived` projection's consumed
+  `canon/mark.svg`, and the generated `.html`/`.css` artifacts — an ABSENT projections registry is a declared
+N/A on the report and a registry MISLOCATED at the repo root is a violation, never a silent skip): **R6a** every `derived` projection's consumed
   `{tier.category.name}` alias resolves in the spine, and any pinned value byte-equals the spine-resolved value
   — a stale pin or a renamed/removed alias is DRIFT (`source: authored` rows are truth and are skipped); **R6b**
   the protected mark geometry is single-sourced — each rendered instance (the prototype's `#brand-mark`, the
   kit's `Mark.tsx`) is byte-equal (whitespace/JSX-normalized) to `canon/mark.svg`, the one renderable source
   (`canon.json`/PRIMITIVES § Mark stay metadata-only); **R6c** every LOCAL `@import`/`url()`/`href`/`src` in a
-  generated artifact resolves to an existing file (no dangling import/asset).
+  generated artifact resolves to an existing file (no dangling import/asset). **Scope note (no
+  contradiction):** R6c legitimizes local refs RESOLVING across generated artifacts generally; the
+  PROTOTYPE's own stricter rule still binds — a single self-contained offline `.html` with data-URI assets —
+  so a local ref in the prototype violates the prototype rule even where R6c would resolve it.
 - **R7 (SC-1)** — every scheme named in `canon.json › schemes` maps to a COMPLETE materialized role-token set
   OR a `status:"deferred"` + exactly one open `GAP-NNN`. A complete set = scheme-tagged tokens (under
   `scheme.<id>.*`, `$extensions.brand.scheme:"<id>"`, materialized by `tools/scheme-derive.mjs` as structured
@@ -351,6 +364,19 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
   discipline: a guardrail that refuses everything is as defective as one that refuses nothing). So the committed
   battery covers persona/jailbreak + injection + visual-guardrail + over-refusal; the live RUN remains
   Phase-5-deferred.
+  - **Auto-raised regulated-claims GAP (detect-and-ask — NEVER a block, never an override).** A brand can be
+    regulated-in-fact while the owner honestly declares `regulatory: none` (they may simply not know). When
+    the build DETECTS a product-class × claim-class match on a regulated pattern — an OPEN, illustrative
+    class set, never a checklist: ingestibles/health-adjacent products × health/nutrition claims ·
+    origin/"made-in"/single-origin claims · certification claims (organic / eco / regulator-approved) ·
+    financial products × outcome claims · child-directed marketing · age-restricted goods · third-party
+    endorsements — it AUTO-RAISES a GAP ("regulated-claims exposure detected: <product-class> ×
+    <claim-class>; owner declared none — confirm the applicable instrument/regulator for the brand's
+    jurisdiction") and derives a keystone §5 guardrail line from that GAP (claims of that class are
+    hypothesis-labeled, never asserted, until the instrument is confirmed). The detection NEVER blocks the
+    build, never flips the posture (the owner's `none` stands as their declaration — the GAP asks, it does
+    not overrule), and never names a regulation from model memory (the instrument itself stays
+    owner-stated-or-GAP).
   - **Regulated trigger — fire on EITHER signal: the handoff POSTURE `profile == regulated` OR a
     non-empty `regulatory:` field** (a brand can be regulated-in-fact without the `regulated` profile label).
     When either trips: **BLOCKING + external human sign-off.** In-context guardrails reduce but do not

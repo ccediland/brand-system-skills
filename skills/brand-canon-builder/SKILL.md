@@ -248,7 +248,9 @@ data is canonical truth. For per-mark geometry (clear-space / min-size digital /
 construction-ref), read the owner-provided values the handoff's WHAT GEOMETRY block carries (inherited as
 `handoff-confirmed`, or `proxy-relayed` where a proxy answered) instead of re-hunting them from a PDF; only
 where a geometry
-value is `none` does the builder derive it (at `hypothesis`) or log a GAP. The frontier holds throughout —
+value is `none` does the builder derive it (at `hypothesis`) or log a GAP — and a derived clear-space is
+MEASURED from the mark's real cap-height/x-height read off the SVG path extents, never an eyeballed
+"≈0.5× bounding box" (`asset-acquisition.md` § Measured derivation floor). The frontier holds throughout —
 the builder extracts/derives values, never re-elicits the ratified WHY, and never promotes a `hypothesis`
 observation to a brand line. (Provenance spine: `references/gap-protocol.md`.)
 
@@ -402,10 +404,14 @@ apparatus:
 
 This stage scrubs only the client repo it produces; this builder repo's own docs keep their attribution.
 
-### Stage 12 — Commit + PR
-Update `RESIDENT.md` (decisions, Open Items, change log) and commit on a `claude/<name>` branch; open a PR
-carrying the audit — including `audit/gates/report.md`, the machine-generated gate board, the only
-legitimate gates-green claim — + samples + open ratification GAPs for the owners unless told otherwise.
+### Stage 12 — Commit (LOCAL by default; push gated on explicit OK)
+Update `RESIDENT.md` (decisions, Open Items, change log) and commit on a `claude/<name>` branch —
+**LOCALLY. The emitted repo holds recovered brand assets and client IP: creating a remote, pushing, or
+opening a PR happens ONLY on an explicit, per-step OK from the operator/owner — never as a default step,
+and a prior OK never carries to the next push.** When that OK arrives, the PR carries the audit — including
+`audit/gates/report.md`, the machine-generated gate board, the only
+legitimate gates-green claim — + samples + open ratification GAPs for the owners. Until then, the review
+surface is the local repo + the board.
 
 ## Principle to keep in mind
 The repo is the source; consumers re-project from it and never override it. kit = constant, canon =

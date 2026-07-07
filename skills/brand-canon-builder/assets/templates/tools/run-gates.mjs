@@ -259,8 +259,17 @@ const failLine = (s) => {
       const hit = (entries ?? []).some((e) => e && e.file && (normPath(e.file) === normPath(d.path) || baseName(e.file) === baseName(d.path)));
       if (!hit) probs.push(`derived acquisition ${d.path} has NO custody entry in sources/MANIFEST.json (parent url + hash)`);
     }
+    // MT-3-class agent step, machine-conditioned: when ARCHIVED recovery was used (wayback routes declared
+    // or captureTs-bearing entries), the identity/date verification is an AGENT step that must leave its
+    // committed walk — an un-walked recovery gate is an assumption, not a verification.
+    const usedArchive = derived.some((d) => /recover-wayback/.test(d.line)) || (entries ?? []).some((e) => e && e.captureTs);
+    if (usedArchive) {
+      const ev = readText(join(ROOT, 'audit', 'agent-gates.md')) ?? '';
+      const m = ev.match(/^##+ .*identity.*date.*$/mi) ?? ev.match(/^##+ .*(source|archive) (identity|verification).*$/mi);
+      if (!m) probs.push('archived-source recovery used, but audit/agent-gates.md carries no "source identity/date verification" section — the recovery identity/date gate is an AGENT step that must leave its committed walk (skipped-on-trust is the defect this closes)');
+    }
     add('custody manifest', 'lint', true, probs.length ? 'FAIL' : 'PASS',
-      probs.length ? probs.join(' · ') : `${derived.length} derived route(s) bound to custody entries; MANIFEST shape valid`);
+      probs.length ? probs.join(' · ') : `${derived.length} derived route(s) bound to custody entries; MANIFEST shape valid${usedArchive ? '; identity/date walk committed' : ''}`);
   }
 }
 

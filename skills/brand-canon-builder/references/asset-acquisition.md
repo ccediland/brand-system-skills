@@ -66,6 +66,21 @@ instead of re-deriving routing from a detected source-type. Each of the five tok
 `n/a` (or an absent token) is the only case where the builder falls back to detecting the source-type and
 selecting the row itself. A declared token always wins over re-derivation; if the declared token and the
 detected source-type disagree, follow the token and flag the conflict (the contract is the brief).
+**A DECLARED `ingest:` that was never EXECUTED degrades to a GAP — never a silent skip:** the agent-gates
+content-audit walk records which declared surfaces were actually read; a manifest item whose declared
+ingestion never ran carries an open GAP naming it (one status code + one grep is not "read").
+
+## Measured derivation floor (no false precision)
+
+A value the builder DERIVES from material carries measurement honesty, not dressed-up guesses:
+
+- **Sampled colors (colorways):** a single-pixel / center-crop mean is NOT a 6-digit hex. Sample a
+  validated multi-pixel region (state the region + method in the sourceRef `selector`), or record FEWER
+  digits / an explicit range — precision the sampling cannot support is fabricated precision.
+- **Derived geometry:** clear-space and size floors derive from the REAL cap-height/x-height measured off
+  the SVG's path extents, never a bounding-box eyeball.
+- **Type identity:** measured via the OS/2 table + normalized metrics (`font-acquisition.md` § Measured
+  identity), never a name-match.
 
 ## acquire-route — execute the contract's declared `acquire:` per ASSET
 

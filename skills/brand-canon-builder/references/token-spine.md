@@ -8,7 +8,11 @@ the machine interchange contract. Build it so it projects into any consumer with
 Target the W3C/DTCG Design Tokens Specification **2025.10** (the first stable version, 28 Oct 2025): JSON
 syntax, `$value`/`$type`/`$description`, atomic + composite types, aliases via `{group.token}`, structured
 color with `colorSpace` (incl. `oklch`), and **resolvers** (sets + modifiers + `resolutionOrder`) as the
-standard theming mechanism. Files use `.tokens.json`; media type `application/design-tokens+json`.
+standard theming mechanism. The SPEC names `.tokens.json` filenames and the
+`application/design-tokens+json` media type; **DEFERRAL (declared): this repo's templates and tools emit and
+read plain `.json` today — the `.tokens.json` rename is a planned migration, deliberately deferred so the
+whole toolchain (templates · lints · downstream consumers) moves in one lockstep change, never piecemeal.**
+The format target is 2025.10 either way.
 
 **Structured-OKLCH `$value` (adopted in Stage C-1).** Colour value-tokens carry the DTCG **structured-OKLCH
 object** `{ "colorSpace": "oklch", "components": [L, C, H], "alpha": 1, "hex": "#rrggbb" }` — OKLCH the canonical

@@ -58,8 +58,12 @@ venue", "beans harvested at dawn", "our logo was redrawn by hand" all pass).
 
 The client deliverable must read as finished:
 
-- **No `{{...}}` placeholders survive.** Grep the client tree for `{{` — every one is either filled from the
-  client's material or converted to an honest GAP; none ship raw.
+- **No `{{...}}` placeholders survive** — with ONE carve-out. Grep the client tree for `{{` — every one is
+  either filled from the client's material or converted to an honest GAP; none ship raw. **Carve-out
+  (converter syntax, NOT brand-fill):** under `design-sync-kit/`, `{{…}}` tokens that belong to the
+  `/design-sync` converter contract (the `@dsCard group="{{Group}}"` marker, JSX `style={{…}}`) are LIVE
+  SYNTAX the converter consumes — the scrub leaves them; only the tokens the kit's own `$comment` marks as
+  BUILDER-replace (e.g. the package name) are fill targets. Scrubbing converter syntax breaks the sync.
 - **Remove GUIDE / instructional comments** — e.g. `<!-- GUIDE: … -->`, `<!-- BUILDER: … -->` and any
   template chatter that addresses the builder rather than the brand owner. They are scaffolding, not content.
 - Remove dead template sections that were never filled and are not tracked as a GAP.
