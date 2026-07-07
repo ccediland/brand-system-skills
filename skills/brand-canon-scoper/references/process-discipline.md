@@ -28,6 +28,7 @@ liveness requires a **successful read of the exact thing claimed**, never an adj
 homepage does not verify a deep page; a cached title does not verify current content).
 
 - **A blocked retrieval leaves the datum at its earned status** — `hypothesis`, or a tracked GAP — never a
-  positive. This introduces NO new status word: it reuses the confidence ladder
-  (`hypothesis | corroborated | owner-confirmed`) and the freshness enum (`shipped | stated-old`). "Could not
+  positive. This introduces NO new status word: it reuses the six-value confidence ladder (wire form in
+  `references/handoff-format.md`; definition in the builder's `gap-protocol.md`) and the freshness enum
+  (`shipped | stated-old`). "Could not
   read it" is `hypothesis` + a confirmation item, or a GAP; it is never `shipped` / `corroborated` on a guess.

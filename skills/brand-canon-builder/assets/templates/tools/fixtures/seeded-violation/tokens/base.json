@@ -2,12 +2,103 @@
   "base": {
     "color": {
       "$type": "color",
+      "vpbad": {
+        "$value": { "colorSpace": "oklch", "components": [0.95, 0.01, 90], "alpha": 1, "hex": "#f2efe2" },
+        "$description": "R3 VIOLATION (v5) — confidence verified-primary claims an exact primary-master read but its sourceRef sha256 is NOT in CHECKSUMS.txt",
+        "$extensions": { "brand": {
+          "provenance": { "source": "declared-spec", "confidence": "verified-primary", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [ { "file": "sources/c.css", "selector": ".paper", "line": 1, "sha256": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef" } ]
+        } }
+      },
+      "proposedbad": {
+        "$value": { "colorSpace": "oklch", "components": [0.72, 0.08, 300], "alpha": 1, "hex": "#a99ac2" },
+        "$description": "R2 VIOLATION (v5) — source proposed (quarantine channel) must be capped at hypothesis, here it claims corroborated; refs are hashed + gapped so R1/R3/R5 stay quiet and R2 fires in isolation",
+        "$extensions": { "brand": {
+          "provenance": { "source": "proposed", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-012",
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "c3e4eb2c9f3de3286df9ec3fe927c2f0edef8089cb7197c707c195058a74822b" }
+          ]
+        } }
+      },
+      "relaycasebad": {
+        "$value": { "colorSpace": "oklch", "components": [0.45, 0.11, 40], "alpha": 1, "hex": "#96522f" },
+        "$description": "R1 VIOLATION (v5) — origin:\"Relay\" (typo'd case) must NOT evade the relay exclusion: R1 normalizes origin (trim+lowercase) and still discounts it, leaving 1 non-relay source (a genuinely off-axis origin like \"transcript\" fails R0 instead)",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "c3e4eb2c9f3de3286df9ec3fe927c2f0edef8089cb7197c707c195058a74822b", "origin": "Relay" }
+          ]
+        } }
+      },
+      "hcbad": {
+        "$value": { "colorSpace": "oklch", "components": [0.80, 0.03, 250], "alpha": 1, "hex": "#b9c2cf" },
+        "$description": "R3 VIOLATION (v5) — confidence handoff-confirmed citing a hashed file that is NOT the persisted handoff (sources/handoff—<date>.md): inherited ratification must bind to the handoff itself",
+        "$extensions": { "brand": {
+          "provenance": { "source": "owner-stated", "confidence": "handoff-confirmed", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" } ]
+        } }
+      },
+      "relaybad": {
+        "$value": { "colorSpace": "oklch", "components": [0.45, 0.11, 20], "alpha": 1, "hex": "#96424a" },
+        "$description": "R1 VIOLATION (v5) — corroborated with 2 distinct files but one is origin:relay (a builder transcription): only 1 non-relay source remains — corroboration padding with self-written files does not count",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "c3e4eb2c9f3de3286df9ec3fe927c2f0edef8089cb7197c707c195058a74822b", "origin": "relay" }
+          ]
+        } }
+      },
+      "selghost": {
+        "$value": { "colorSpace": "oklch", "components": [0.60, 0.05, 180], "alpha": 1, "hex": "#5a8a86" },
+        "$description": "R3 CITATION VIOLATION (v5) — cited selector does not exist in the hashed file (the decorative-selector class: hash certifies the file, this check certifies the citation)",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-013",
+          "sourceRef": [ { "file": "sources/a.css", "selector": "--ghost-property", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" } ]
+        } }
+      },
+      "lineeof": {
+        "$value": { "colorSpace": "oklch", "components": [0.35, 0.02, 260], "alpha": 1, "hex": "#3a4150" },
+        "$description": "R3 CITATION VIOLATION (v5) — cited line is beyond the hashed file's EOF (a line number nothing verifies is decorative custody)",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-014",
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".brand", "line": 99, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" } ]
+        } }
+      },
+      "pdfline": {
+        "$value": { "colorSpace": "oklch", "components": [0.88, 0.04, 95], "alpha": 1, "hex": "#e6ddc0" },
+        "$description": "R3 CITATION VIOLATION (v5) — a PDF sourceRef cites line: N (meaningless in a PDF; cite page:); the hashed a.css ref keeps R3-hash quiet so the pdf-line check fires in isolation",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "shipped" },
+          "gap": "GAP-015",
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" },
+            { "file": "sources/spec.pdf", "selector": "none", "line": 2, "sha256": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef" }
+          ]
+        } }
+      },
+      "r1value": {
+        "$value": { "colorSpace": "oklch", "components": [0.20, 0.01, 250], "alpha": 1, "hex": "#0f0f14" },
+        "$description": "R1 VALUE VIOLATION (v5) — corroborated with 2 distinct EXISTING hashed files, but the VALUE appears in neither: a plausible fabrication with real sourceRefs is exactly what value-agreement kills",
+        "$extensions": { "brand": {
+          "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "c3e4eb2c9f3de3286df9ec3fe927c2f0edef8089cb7197c707c195058a74822b" }
+          ]
+        } }
+      },
       "r1bad": {
         "$value": { "colorSpace": "oklch", "components": [0.62, 0.13, 255], "alpha": 1, "hex": "#5a7fb0" },
         "$description": "R1 VIOLATION — confidence corroborated but only ONE distinct sourceRef file (structured $value; R1 reads sourceRef, not $value)",
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": [ { "file": "sources/a.css", "selector": ".x", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" } ]
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" } ]
         } }
       },
       "r2bad": {
@@ -17,8 +108,8 @@
           "provenance": { "source": "inferred", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "gap": "GAP-010",
           "sourceRef": [
-            { "file": "sources/a.css", "selector": ".x", "line": 1, "sha256": "0a172c1e20bcf2f0856c89874590ff2f45c4dc23638594099ce87cf19fc19f54" },
-            { "file": "sources/b.txt", "selector": "p1", "line": 1, "sha256": "caa635937e5420c94e2f6252255e37ca9b42d534206d8d7f3d77e908806d727c" }
+            { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" },
+            { "file": "sources/b.txt", "selector": "Seeded", "line": 1, "sha256": "c3e4eb2c9f3de3286df9ec3fe927c2f0edef8089cb7197c707c195058a74822b" }
           ]
         } }
       },

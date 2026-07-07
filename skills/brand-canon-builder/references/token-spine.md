@@ -8,7 +8,11 @@ the machine interchange contract. Build it so it projects into any consumer with
 Target the W3C/DTCG Design Tokens Specification **2025.10** (the first stable version, 28 Oct 2025): JSON
 syntax, `$value`/`$type`/`$description`, atomic + composite types, aliases via `{group.token}`, structured
 color with `colorSpace` (incl. `oklch`), and **resolvers** (sets + modifiers + `resolutionOrder`) as the
-standard theming mechanism. Files use `.tokens.json`; media type `application/design-tokens+json`.
+standard theming mechanism. The SPEC names `.tokens.json` filenames and the
+`application/design-tokens+json` media type; **DEFERRAL (declared): this repo's templates and tools emit and
+read plain `.json` today — the `.tokens.json` rename is a planned migration, deliberately deferred so the
+whole toolchain (templates · lints · downstream consumers) moves in one lockstep change, never piecemeal.**
+The format target is 2025.10 either way.
 
 **Structured-OKLCH `$value` (adopted in Stage C-1).** Colour value-tokens carry the DTCG **structured-OKLCH
 object** `{ "colorSpace": "oklch", "components": [L, C, H], "alpha": 1, "hex": "#rrggbb" }` — OKLCH the canonical
@@ -100,8 +104,8 @@ So EVERY emitted token carries the full provenance spine (`gap-protocol.md` § T
 
 ```
 "$extensions": { "brand": { "provenance": {
-  "source": "<declared-spec | owner-stated | extracted-vector | computed-css | design-file | matched | traced | inferred>",
-  "confidence": "<hypothesis | corroborated | owner-confirmed>",
+  "source": "<declared-spec | owner-stated | extracted-vector | computed-css | design-file | matched | traced | inferred | proposed>",
+  "confidence": "<hypothesis | corroborated | verified-primary | proxy-relayed | handoff-confirmed | owner-confirmed>",
   "owner": "<who ratifies this slot, from the handoff OWNERS>",
   "freshness": "<shipped | stated-old>"
 } } }
@@ -115,15 +119,22 @@ So EVERY emitted token carries the full provenance spine (`gap-protocol.md` § T
   `confidence`; a datum is **never used at a status it has not earned** regardless of which space carries it.
 - The template applies the block to its REPRESENTATIVE tokens as the illustrative pattern (not every literal —
   this is a template). **Every emitted token carries it**; the builder fills the block per datum at Stage 7 from
-  the value's handoff/extraction provenance (it enters at `hypothesis`, is promoted only on owner confirmation).
+  the value's handoff/extraction provenance (it enters at the confidence its provenance EARNED —
+  observed/extracted values at `hypothesis`; a brand LINE still needs tier-2 ratification — the six-value
+  ladder and its tiers are defined in `gap-protocol.md` § The provenance spine;
+  handoff-carried ratification enters as `handoff-confirmed`/`proxy-relayed`, never `owner-confirmed`).
 - `freshness` uses the pinned `shipped | stated-old` literal — the same two values at every hop, never a synonym.
 
 ### Confidence↔source is a GATE, not advice (MT-4 — `tools/audit-lint.mjs` R1/R2)
 
-The ladder is checkable, mirroring `gap-protocol.md`: `confidence: corroborated` requires **≥2 _distinct_
-source artifacts** (R1 — two refs to the same file is one source), and a `source` of `inferred`/`matched` is
-**capped at `hypothesis`** (R2). A `semantic`-tier token stamped `source: inferred` + `confidence:
-corroborated` is the canonical contradiction the lint fails the build on.
+The ladder is checkable, mirroring `gap-protocol.md`: `confidence: corroborated` requires **the VALUE found
+in ≥2 _distinct_
+non-relay source artifacts** (R1 — value agreement checked against the hashed files' content, normalized
+hex/oklch; two refs to the same file is one source, and a ref marked
+`origin: "relay"` is a builder transcription that never counts), and a `source` of
+`inferred`/`matched`/`proposed` is **capped at `hypothesis`** (R2 — `proposed` is the quarantine channel).
+A `semantic`-tier token stamped `source: inferred` + `confidence: corroborated` is the canonical
+contradiction the lint fails the build on.
 
 ### Harvest provenance — `$extensions.brand.sourceRef` (MT-3 — `audit-lint.mjs` R3)
 
@@ -133,19 +144,22 @@ WHERE-FROM: the exact, hashed source-of-record the value was read from.
 ```
 "$extensions": { "brand": { "sourceRef": {
   "file": "<path under sources/**, hashed in CHECKSUMS.txt>",
-  "selector": "<CSS selector / swatch label / page region the value was read at>",
-  "line": <line number in that source file>,
+  "selector": "<CSS selector / swatch label / page region the value was read at — MUST exist verbatim in the hashed file, or be omitted / \"none\" (the lint checks citation integrity: a selector nothing verifies is decorative)>",
+  "line": <line number in that source file — never past EOF; on a PDF cite "page", NEVER "line">,
+  "page": <page number, for PDF sources>,
   "sha256": "<sha256 of the source file — MUST appear in CHECKSUMS.txt>",
+  "origin": "<capture | relay — absent means capture; relay = a builder-authored transcription (hashable custody, never an independent source; excluded from the R1 count)>",
   "captureTs": "<Wayback capture timestamp, when recovered from an archive>",
   "selfPublished": "<the page's own 'Last Published' date — reconciled vs captureTs before trusting>"
 } } }
 ```
 
-- `sourceRef` may be a single object OR an **array**; a `corroborated` token carries **≥2 entries with
-  distinct `file` values** — the two independent artifacts MT-4/R1 demands.
-- Any token at `corroborated`/`owner-confirmed`, or with `source: computed-css`, MUST carry a `sourceRef`
+- `sourceRef` may be a single object OR an **array**; a `corroborated` token carries **≥2 non-relay entries
+  with distinct `file` values** — the two independent artifacts MT-4/R1 demands.
+- Any token above `confidence: hypothesis`, or with `source: computed-css`, MUST carry a `sourceRef`
   whose `sha256` is in `CHECKSUMS.txt` (MT-3/R3) — the build SHA-256-hashes every file under `sources/**`
-  (`asset-acquisition.md`). The lint fails the build otherwise.
+  (`asset-acquisition.md`), the persisted handoff (`sources/handoff—<date>.md` — the natural sourceRef of
+  `handoff-confirmed`/`proxy-relayed` data) included. The lint fails the build otherwise.
 - `captureTs`/`selfPublished` carry the archived-source identity+date trail (`source-recover.py`,
   `asset-acquisition.md` § Archived-source recovery): the agent reconciles them before the value is trusted.
 - The template applies `sourceRef` to its REPRESENTATIVE token as the illustrative pattern (the same way the
@@ -154,13 +168,14 @@ WHERE-FROM: the exact, hashed source-of-record the value was read from.
 
 ### Gap back-reference + ladder closure (MT-5/R5 + the gate's R0)
 
-- An **uncertain** token (`confidence: hypothesis`, or `source ∈ {inferred, matched, traced}`) carries
-  `$extensions.brand.gap: "GAP-NNN"` — the back-reference to the ONE open gap that tracks it (MT-5/R5).
+- An **uncertain** token (`confidence: hypothesis`, or `source ∈ {inferred, matched, traced, proposed}`)
+  carries `$extensions.brand.gap: "GAP-NNN"` — the back-reference to the ONE open gap that tracks it (MT-5/R5).
   Resolve to exactly one open gap or the gate fails; a `not-used(owner-declared)` dimension produces no token
   to track and is clean.
 - The gate's **R0** enforces ladder closure: every value (non-alias) token MUST carry a `provenance` block whose
   `source` is on the closed source enum and whose `confidence` is one of `hypothesis | corroborated |
-  owner-confirmed` — no missing block, no fourth value/synonym. (This is the executable form of the "every
+  verified-primary | proxy-relayed | handoff-confirmed | owner-confirmed` — no missing block, no extra
+  value/synonym. (This is the executable form of the "every
   emitted token carries provenance / byte-identical ladder" rule in `gap-protocol.md` + `CLAUDE.md`.)
 
 ## OKLCH scheme-derivation engine (one transformation space)

@@ -1,0 +1,8 @@
+{
+  "semantic": {
+    "color": {
+      "background": { "$value": "{base.color.ground}" },
+      "text-tertiary": { "$value": "{base.color.faint}" }
+    }
+  }
+}

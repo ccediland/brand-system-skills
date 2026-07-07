@@ -48,7 +48,8 @@ output validates itself and stays regression-ready. Each gate exits non-zero on 
 the emitted repo's CI):
 
 - **Provenance, completeness & reconciliation** — `audit-lint` (zero-dep, R0–R8, BLOCKING): every value token
-  carries hashed provenance; a `corroborated` value needs ≥2 distinct cited sources; every named value or scheme
+  carries hashed provenance; a `corroborated` value needs ≥2 distinct independent cited sources (a builder
+  transcription never counts); every named value or scheme
   resolves to a real token or an open `GAP-NNN`; downstream projections may not drift from the token spine; every
   present canon section surfaces in the brandbook or an open gap.
 - **Measured fidelity** — `fidelity-diff.py`: a reproduction is scored against its real source by **ΔE2000 + SSIM

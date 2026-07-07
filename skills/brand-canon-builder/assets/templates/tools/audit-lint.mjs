@@ -18,16 +18,22 @@
 // Rules (each is a real check; a rule that FAILs is listed with the offending token/value):
 //   R0 (MT-3/4) every VALUE token (non-alias) carries $extensions.brand.provenance with
 //               source ∈ the closed source enum and confidence ∈ {hypothesis,corroborated,
-//               owner-confirmed} — closes the "omit/typo the provenance and evade every rule" hole.
-//   R1 (MT-4)  confidence == "corroborated"  ⇒  ≥2 sourceRef entries with DISTINCT `file`.
-//   R2 (MT-4)  source ∈ {inferred, matched}  ⇒  confidence MUST be "hypothesis".
-//   R3 (MT-3)  source == "computed-css" OR confidence ∈ {corroborated, owner-confirmed}
+//               verified-primary,proxy-relayed,handoff-confirmed,owner-confirmed}; a present
+//               sourceRef.origin must be on {capture|relay} (normalized) — closes the
+//               "omit/typo the provenance and evade every rule" hole, origin included.
+//   R1 (MT-4)  confidence == "corroborated"  ⇒  ≥2 sourceRef entries with DISTINCT `file`,
+//              excluding refs marked `origin:"relay"` (a builder transcription is custody, never
+//              an independent source — no corroboration padding with self-written files).
+//   R2 (MT-4)  source ∈ {inferred, matched, proposed}  ⇒  confidence MUST be "hypothesis"
+//              (`proposed` = the quarantine channel: pipeline-authored, operative, never canon).
+//   R3 (MT-3)  source == "computed-css" OR confidence above "hypothesis"
 //              ⇒  a sourceRef whose `sha256` is listed in CHECKSUMS.txt FOR THAT EXACT `file`
 //              (hash bound to the claimed path — a borrowed/ghost-file hash does not satisfy it).
+//              handoff-confirmed/proxy-relayed bind to the persisted handoff under sources/.
 //   R4 (MT-5)  every value/scheme NAMED in a canon layer or an ALGO maps to EITHER a
 //              token artifact OR an open GAP-NNN in RESIDENT.md.
-//   R5 (MT-5)  every token at confidence "hypothesis" OR source ∈ {inferred, matched, traced}
-//              carries EXACTLY ONE open GAP-NNN in its own $extensions.brand.gap back-reference.
+//   R5 (MT-5)  every token at confidence "hypothesis" OR source ∈ {inferred, matched, traced,
+//              proposed} carries EXACTLY ONE open GAP-NNN in its own $extensions.brand.gap back-reference.
 //
 // ANTI-DETERMINISM RECTOR (load-bearing): every rule is GENERAL. The linter never asserts
 // that a specific value/ink/scheme exists. A monogram-only / single-ink / sonic-primary brand
@@ -40,9 +46,22 @@ import { join, resolve, relative } from 'node:path';
 
 const ROOT = resolve(process.argv[2] || process.cwd());
 
-// closed enums (mirror gap-protocol.md § The provenance spine — "no fourth value/synonym")
-const SOURCE_ENUM = new Set(['declared-spec', 'owner-stated', 'extracted-vector', 'computed-css', 'design-file', 'matched', 'traced', 'inferred']);
-const CONFIDENCE_ENUM = new Set(['hypothesis', 'corroborated', 'owner-confirmed']);
+// closed enums (mirror gap-protocol.md § The provenance spine — "no extra value/synonym")
+// source: `proposed` = pipeline-authored proposal in quarantine (capped at hypothesis + open GAP).
+// confidence tiers: 0 unconfirmed = hypothesis · 1 evidence-earned = corroborated, verified-primary ·
+//   2 ratified = proxy-relayed, handoff-confirmed, owner-confirmed (who/how the ratification happened).
+const SOURCE_ENUM = new Set(['declared-spec', 'owner-stated', 'extracted-vector', 'computed-css', 'design-file', 'matched', 'traced', 'inferred', 'proposed']);
+const CONFIDENCE_ENUM = new Set(['hypothesis', 'corroborated', 'verified-primary', 'proxy-relayed', 'handoff-confirmed', 'owner-confirmed']);
+// every confidence above hypothesis requires a hashed, path-bound source-of-record (R3)
+const HASH_GATED_CONFIDENCE = new Set(['corroborated', 'verified-primary', 'proxy-relayed', 'handoff-confirmed', 'owner-confirmed']);
+// handoff-inherited rungs must bind to the persisted handoff itself (R3)
+const HANDOFF_BOUND_CONFIDENCE = new Set(['handoff-confirmed', 'proxy-relayed']);
+// sources that may never rise above hypothesis on their own (R2)
+const HYPOTHESIS_CAPPED_SOURCES = new Set(['inferred', 'matched', 'proposed']);
+// sourceRef origin axis (normalized; absent = capture). A typo'd origin must not silently count as capture.
+const ORIGIN_ENUM = new Set(['capture', 'relay']);
+const refOrigin = (r) => String((r && r.origin) ?? 'capture').trim().toLowerCase();
+const isHandoffFile = (f) => /^sources\/handoff—/.test(String(f ?? '').replace(/^\.\//, ''));
 
 // ---------- tiny fs/json helpers (no deps) ----------
 const parseErrors = [];
@@ -122,9 +141,11 @@ for (const line of checksumText.split('\n')) {
 const residentText = readText(join(ROOT, 'RESIDENT.md')) || '';
 const openGaps = new Set();
 const openGapRows = [];
+const ledgerGaps = new Set(); // every GAP id the ledger knows, ANY status (for dangling-reference checks)
 for (const line of residentText.split('\n')) {
   const ids = [...line.matchAll(/GAP-\d+/gi)].map((m) => m[0].toUpperCase());
   if (!ids.length) continue;
+  for (const id of ids) ledgerGaps.add(id);
   // isolate the Status: the last non-empty pipe cell of a table row, else a `Status:`-anchored token, else the line.
   let statusCell = line;
   if (line.includes('|')) {
@@ -177,49 +198,124 @@ const add = (id, title, violations, note) => results.push({ id, title, status: v
     if (t.isAlias) continue; // pure aliases inherit provenance from the base leaf they point at
     if (!t.provenancePresent) { v.push(`${t.path} (${t.file}) — no $extensions.brand.provenance block (every value token must carry one)`); continue; }
     if (!SOURCE_ENUM.has(t.source)) v.push(`${t.path} (${t.file}) — provenance.source "${t.source ?? 'missing'}" is not on the closed source enum`);
-    if (!CONFIDENCE_ENUM.has(t.confidence)) v.push(`${t.path} (${t.file}) — provenance.confidence "${t.confidence ?? 'missing'}" is not on the ladder {hypothesis|corroborated|owner-confirmed}`);
+    if (!CONFIDENCE_ENUM.has(t.confidence)) v.push(`${t.path} (${t.file}) — provenance.confidence "${t.confidence ?? 'missing'}" is not on the ladder {hypothesis|corroborated|verified-primary|proxy-relayed|handoff-confirmed|owner-confirmed}`);
+    for (const r of t.sourceRefs) {
+      if (r && r.origin != null && !ORIGIN_ENUM.has(refOrigin(r))) v.push(`${t.path} (${t.file}) — sourceRef.origin "${r.origin}" is not on the origin axis {capture|relay} (a typo'd origin must not silently count as an independent capture)`);
+    }
   }
   add('R0', 'MT-3/4 · every value token carries provenance on the closed source/confidence enums', v);
 }
 
-// R1 (MT-4): corroborated ⇒ ≥2 sourceRef with distinct `file`.
+// R1 (MT-4): corroborated ⇒ the VALUE appears in ≥2 distinct non-relay sources — counting files was
+// never corroboration (a plausible fabrication with two refs to existing files passed): each counted
+// TEXT source must actually CONTAIN the token's value (hex case-insensitive, or an oklch() whose numbers
+// match the components, or the string value / its first quoted family). A binary/unreadable source stays
+// declarative (counts by file — a documented limit); a relay ref never counts at all.
+const OKLCH_RE = /oklch\(\s*([\d.]+)%?\s+([\d.]+)\s+([\d.]+)/gi;
+function valueInText(txt, value) {
+  if (value == null) return true; // nothing derivable — declarative
+  if (typeof value === 'object' && Array.isArray(value.components)) {
+    const hex6 = typeof value.hex === 'string' ? value.hex.slice(0, 7).toLowerCase() : null;
+    if (hex6 && txt.toLowerCase().includes(hex6)) return true;
+    const [L, C, H] = value.components;
+    for (const m of txt.matchAll(OKLCH_RE)) {
+      let l = parseFloat(m[1]); if (m[0].includes('%')) l /= 100;
+      if (Math.abs(l - L) <= 0.005 && Math.abs(parseFloat(m[2]) - C) <= 0.005 && Math.abs(parseFloat(m[3]) - H) <= 0.5) return true;
+    }
+    return false;
+  }
+  if (typeof value === 'string') {
+    if (txt.includes(value)) return true;
+    const fam = value.match(/^"([^"]+)"/); // a font stack corroborates on its first quoted family
+    return fam ? txt.includes(fam[1]) : false;
+  }
+  return true; // other shapes (composite strings already covered above) — declarative
+}
 {
   const v = [];
   for (const t of tokens) {
     if (t.confidence !== 'corroborated') continue;
-    const files = new Set(t.sourceRefs.map((r) => r && r.file).filter(Boolean));
-    if (files.size < 2) v.push(`${t.path} (${t.file}) — confidence "corroborated" but ${files.size} distinct sourceRef file(s) [${[...files].join(', ') || 'none'}]; needs ≥2`);
+    const counted = t.sourceRefs.filter((r) => r && refOrigin(r) !== 'relay');
+    const relayN = t.sourceRefs.length - counted.length;
+    const bearing = new Set(); const lacking = [];
+    for (const r of counted) {
+      if (!r.file) continue;
+      const fileRel = String(r.file).replace(/^\.\//, '');
+      const p = join(ROOT, fileRel);
+      const txt = existsSync(p) && !/\.pdf$/i.test(fileRel) ? readText(p) : null;
+      if (txt == null || txt.includes('\u0000')) { bearing.add(fileRel); continue; } // binary/unreadable: declarative
+      if (valueInText(txt, t.value)) bearing.add(fileRel);
+      else lacking.push(fileRel);
+    }
+    if (bearing.size < 2) v.push(`${t.path} (${t.file}) — confidence "corroborated" but the value is found in only ${bearing.size} distinct non-relay source(s)${relayN ? ` (${relayN} relay ref(s) excluded)` : ''}${lacking.length ? ` — cited file(s) that do NOT contain the value: [${lacking.join(', ')}]` : ''}; corroboration is VALUE agreement across ≥2 independent sources, never a file count`);
   }
-  add('R1', 'MT-4 · corroborated ⇒ ≥2 distinct source artifacts', v);
+  add('R1', 'MT-4 · corroborated ⇒ the value appears in ≥2 distinct non-relay sources', v);
 }
 
-// R2 (MT-4): source ∈ {inferred, matched} ⇒ confidence == hypothesis.
+// R2 (MT-4): source ∈ {inferred, matched, proposed} ⇒ confidence == hypothesis.
+// (`proposed` is the quarantine channel: a pipeline-authored proposal operates today but may never be
+// canonized without ratification — the cap plus its open GAP (R5) IS the quarantine.)
 {
   const v = [];
   for (const t of tokens) {
-    if (!['inferred', 'matched'].includes(t.source)) continue;
+    if (!HYPOTHESIS_CAPPED_SOURCES.has(t.source)) continue;
     if (t.confidence !== 'hypothesis') v.push(`${t.path} (${t.file}) — source "${t.source}" capped at "hypothesis" but confidence is "${t.confidence ?? 'none'}"`);
   }
-  add('R2', 'MT-4 · inferred/matched capped at hypothesis', v);
+  add('R2', 'MT-4 · inferred/matched/proposed capped at hypothesis', v);
 }
 
-// R3 (MT-3): computed-css OR confidence ∈ {corroborated, owner-confirmed} ⇒ hashed source-of-record (hash bound to its own file path).
+// R3 (MT-3): computed-css OR any confidence above hypothesis ⇒ hashed source-of-record (hash bound to
+// its own file path). handoff-confirmed/proxy-relayed MUST bind to the persisted handoff
+// (sources/handoff—<date>.md, hashed in CHECKSUMS.txt — enforced here); verified-primary's DECLARED
+// binding target is the slot's primary master (primary-ness itself is not machine-checked by this rule).
 {
   const v = [];
   for (const t of tokens) {
-    const gated = t.source === 'computed-css' || ['corroborated', 'owner-confirmed'].includes(t.confidence);
+    const gated = t.source === 'computed-css' || HASH_GATED_CONFIDENCE.has(t.confidence);
     if (!gated) continue;
+    // handoff-inherited rungs must bind to the persisted handoff itself, not just any hashed file
+    const mustBeHandoff = HANDOFF_BOUND_CONFIDENCE.has(t.confidence);
     const hashed = t.sourceRefs.some((r) => {
       if (!r || !r.file || !r.sha256) return false;
+      if (mustBeHandoff && !isHandoffFile(r.file)) return false;
       const have = checksumByPath.get(String(r.file).replace(/^\.\//, ''));
       return !!have && have === String(r.sha256).toLowerCase();
     });
     if (!hashed) {
       const refs = t.sourceRefs.map((r) => (r && r.file ? `${r.file}#${r.sha256 ? String(r.sha256).slice(0, 12) : 'no-sha'}` : 'malformed')).join(', ');
-      v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file [${refs || 'no sourceRef'}]`);
+      v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file${mustBeHandoff ? ' AND that file must be the persisted handoff (sources/handoff—<date>.md)' : ''} [${refs || 'no sourceRef'}]`);
     }
   }
-  add('R3', 'MT-3 · computed-css/corroborated/owner-confirmed ⇒ hashed source-of-record (path-bound)', v);
+  // R3 CITATION-INTEGRITY sub-check (every sourceRef, every token): a cited selector must EXIST in the
+  // hashed file or be omitted / "none" (a selector layer that nothing verifies is decorative — the hash
+  // chain would certify the emitter's say-so); a cited line must not point past EOF; a PDF cites `page`,
+  // never `line`. Binary/unreadable files keep their citations declarative (no text to check).
+  for (const t of tokens) {
+    for (const r of t.sourceRefs) {
+      if (!r || !r.file) continue;
+      const fileRel = String(r.file).replace(/^\.\//, '');
+      const isPdf = /\.pdf$/i.test(fileRel);
+      if (isPdf && r.line != null) { v.push(`${t.path} (${t.file}) — sourceRef ${fileRel} cites "line": ${r.line} on a PDF — cite "page", never "line" (line numbers are meaningless in a PDF)`); }
+      const p = join(ROOT, fileRel);
+      if (!existsSync(p)) continue; // a missing file is the hash check's finding, not a citation finding
+      if (isPdf) continue;
+      const txt = readText(p);
+      if (txt == null || txt.includes('\u0000')) continue; // binary: citation stays declarative
+      if (r.selector != null && String(r.selector).trim() === '') {
+        v.push(`${t.path} (${t.file}) — sourceRef ${fileRel} cites an EMPTY selector — omit it or cite "none"`);
+      } else if (r.selector != null && String(r.selector) !== 'none' && !txt.includes(String(r.selector))) {
+        v.push(`${t.path} (${t.file}) — sourceRef selector "${r.selector}" does not exist in the hashed file ${fileRel} (cite a selector the file actually contains, or "none")`);
+      }
+      if (r.line != null) {
+        const nLines = txt.split('\n').length - (txt.endsWith('\n') ? 1 : 0);
+        const ln = Number(r.line);
+        if (!Number.isInteger(ln) || ln < 1 || ln > nLines) {
+          v.push(`${t.path} (${t.file}) — sourceRef ${fileRel} cites line ${r.line} outside the file (${nLines} line(s))`);
+        }
+      }
+    }
+  }
+  add('R3', 'MT-3 · computed-css / any confidence above hypothesis ⇒ hashed source-of-record (path-bound)', v);
 }
 
 // R4 (MT-5): every named value/scheme maps to a token artifact OR an open GAP.
@@ -235,19 +331,29 @@ const add = (id, title, violations, note) => results.push({ id, title, status: v
     const gapHit = openGapRows.some((g) => rowMentions(g.row, s));
     if (!materialized && !gapHit) v.push(`named scheme "${s}" (canon.json › schemes) maps to neither a token set (no token tagged $extensions.brand.scheme:"${s}", not the default backed by color tokens) nor an open GAP-NNN`);
   }
-  add('R4', 'MT-5 · every named value/scheme → token artifact OR open GAP', v, `${namedAliases.length} named value ref(s), ${namedSchemes.length} named scheme(s) checked`);
+  // dangling GAP cross-references: a GAP-NNN cited in prose (canon layers, canon.json, satellites) that
+  // NO ledger row carries (any status) is prose↔ledger drift — a mis-numbered gap reads as tracked while
+  // nothing tracks it.
+  const proseFiles = [...listFiles('canon', '.md'), ...listFiles('canon', '.json'), ...listFiles('satellites', '.md')];
+  for (const f of proseFiles) {
+    const txt = readText(f); if (!txt) continue;
+    for (const id of new Set([...txt.matchAll(/GAP-\d+/gi)].map((x) => x[0].toUpperCase()))) {
+      if (!ledgerGaps.has(id)) v.push(`dangling GAP reference ${id} in ${rel(f)} — no RESIDENT.md ledger row carries it (any status): the prose cites a gap nothing tracks`);
+    }
+  }
+  add('R4', 'MT-5 · every named value/scheme → token artifact OR open GAP; GAP cross-refs resolve to the ledger', v, `${namedAliases.length} named value ref(s), ${namedSchemes.length} named scheme(s) checked`);
 }
 
 // R5 (MT-5): uncertain token ⇒ exactly one open GAP-NNN via its own gap back-reference.
 {
   const v = [];
   for (const t of tokens) {
-    const uncertain = t.confidence === 'hypothesis' || ['inferred', 'matched', 'traced'].includes(t.source);
+    const uncertain = t.confidence === 'hypothesis' || ['inferred', 'matched', 'traced', 'proposed'].includes(t.source);
     if (!uncertain) continue;
     const mapped = new Set(t.gaps.filter((g) => openGaps.has(g)));
     if (mapped.size !== 1) v.push(`${t.path} (${t.file}) — uncertain (confidence "${t.confidence ?? '–'}", source "${t.source ?? '–'}") carries ${mapped.size} open GAP-NNN back-reference [${[...mapped].join(', ') || 'none'}]; must be exactly 1 (set $extensions.brand.gap)`);
   }
-  add('R5', 'MT-5 · every hypothesis/inferred/matched/traced token → exactly one open GAP', v);
+  add('R5', 'MT-5 · every hypothesis/inferred/matched/traced/proposed token → exactly one open GAP', v);
 }
 
 // ---------- R6 (MT-1): cross-artifact reconciliation & drift ----------
@@ -336,9 +442,19 @@ const normGeom = (inner) => (inner == null ? null : inner
 {
   const v = [];
 
-  // ---- R6a · projection drift ----
+  // ---- R6a · projection drift (NEVER a silent skip: an absent registry is declared N/A; a MISLOCATED
+  // one — projections.md at the repo root instead of satellites/ — is a violation, because it silently
+  // escapes every R6a reconciliation while looking present) ----
   let derivedProjCount = 0;
+  let r6aNote = null;
   const projText = readText(join(ROOT, 'satellites', 'projections.md'));
+  if (!projText) {
+    if (readText(join(ROOT, 'projections.md')) != null) {
+      v.push('[R6a] projections.md found at the REPO ROOT — the registry lives at satellites/projections.md; a mislocated registry silently escapes reconciliation (vacuous pass)');
+    } else {
+      r6aNote = 'R6a: satellites/projections.md ABSENT → N/A (no projection registry to reconcile) — declared, never a silent skip';
+    }
+  }
   if (projText) {
     let inReg = false, header = null;
     for (const line of projText.split('\n')) {
@@ -424,7 +540,7 @@ const normGeom = (inner) => (inner == null ? null : inner
   }
 
   add('R6', 'MT-1 · cross-artifact reconciliation — R6a projection drift · R6b mark single-source · R6c asset refs resolve', v,
-    `${derivedProjCount} derived projection(s), ${instances.length} mark instance(s), canon/mark.svg ${canonical == null ? 'absent (N/A unless a mark is rendered)' : 'present'}`);
+    `${derivedProjCount} derived projection(s), ${instances.length} mark instance(s), canon/mark.svg ${canonical == null ? 'absent (N/A unless a mark is rendered)' : 'present'}${r6aNote ? ' · ' + r6aNote : ''}`);
 }
 
 

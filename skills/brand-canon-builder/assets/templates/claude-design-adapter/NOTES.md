@@ -1,6 +1,6 @@
 # Claude Design adapter — operational notes & gotchas
 
-<!-- GUIDE: the runbook for the OPTIONAL Claude Design sync. These are abstracted from real /design-sync
+<!-- GUIDE: the runbook for the Claude Design sync (present because this brand opted IN). These are abstracted from real /design-sync
      runs; keep the brand-agnostic ones, add brand-specific discoveries as they happen. -->
 
 ## Mental model

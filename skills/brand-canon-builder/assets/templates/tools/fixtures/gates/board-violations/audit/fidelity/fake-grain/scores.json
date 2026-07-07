@@ -1,0 +1,12 @@
+{
+  "tool": "fidelity-diff.py",
+  "treatment": "fake-grain",
+  "medium": "visual",
+  "measured": true,
+  "metrics": { "deltaE2000_mean": 6.99, "deltaE2000_p95": 9.1, "ssim": 0.61, "ssim_gated": true, "mismatch_fraction": 0.4 },
+  "thresholds": { "deltaE2000_max": 2.0, "ssim_min": 0.9, "mismatch_max": 0.05 },
+  "verdict": "outside-tolerance",
+  "resolution": "outside-tolerance → degrade to a lower method or log a GAP-NNN",
+  "pass": false,
+  "gap": null
+}

@@ -1,16 +1,19 @@
-# Claude Design adapter — the DEFAULT projection (canon → on-brand component library)
+# Claude Design adapter — the standing projection (canon → on-brand component library)
 
 Claude Design (claude.ai/design) is Claude's design tool: a user prompts a design agent and it builds live
 UI from real React. Out of the box it uses generic components. This add-on makes the design agent build with
 the brand's own components, so every design it produces is on-brand and maps 1:1 onto shippable code. It
 is one more consumer of the canon, brand-agnostic except inside the adapter itself.
 
-## Default ON
+## Governed by the handoff's explicit slot — never a skill default
 
-`OPTIONAL.Claude Design = YES` by default — the repo is born `/design-sync`-ready, and the compiled
-component library is a default build output, not a deferrable gap. The old "Claude Design adapter? no"
-default is retired. Emit the kit unless the owner explicitly opts out (e.g. a print-only or
-not-yet-digital brand with no use for a live component library) — record the opt-out in `projections.md`.
+The handoff carries `Claude Design component library: <YES|NO>` as an EXPLICIT directive (the scoper elicits
+it; a print-only / not-yet-digital brand says NO). **YES** → the repo is born `/design-sync`-ready and the
+compiled component library is a build output, not a deferrable gap. **NO** → the build emits ZERO Claude
+Design artifacts (no kit dir, no adapter config, no consumer row) — the gate runner reconciles the emitted
+repo against the persisted handoff and FAILS on any artifact an opt-out should have suppressed. An unfilled
+slot is a handoff defect the builder stops on; a skill default never fills it (a carried directive beats any
+default, in both directions).
 
 The buildable package-shape scaffold is `assets/templates/design-sync-kit/`; the converter contract the
 builder satisfies is `references/design-sync-kit.md`. This adapter is the canon→kit brief (token mapping,
@@ -45,8 +48,8 @@ kit.
 
 ## How to attach (builder steps)
 
-1. Default ON — emit it unless the owner explicitly opted out (then skip and note the opt-out in
-   `projections.md`).
+1. Read the handoff's explicit `Claude Design component library:` slot — YES emits; NO emits NOTHING (zero
+   artifacts, no consumer row — the runner's reconciliation gate enforces it); unfilled = stop and report.
 2. Scaffold the buildable kit from `assets/templates/design-sync-kit/` (component source + one-command
    build + `.design-sync/` control dir, which already carries the single `config.json` and the single
    `conventions.md`). The only adapter-dir template is the `NOTES.md` runbook (the conventions header is the

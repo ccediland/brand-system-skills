@@ -1,0 +1,15 @@
+{
+  "base": {
+    "color": {
+      "$type": "color",
+      "ground": {
+        "$value": { "colorSpace": "oklch", "components": [0.99, 0, 0], "alpha": 1, "hex": "#fcfcfc" },
+        "$extensions": { "brand": { "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" } } }
+      },
+      "faint": {
+        "$value": { "colorSpace": "oklch", "components": [0.94, 0, 0], "alpha": 1, "hex": "#ebebeb" },
+        "$extensions": { "brand": { "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" } } }
+      }
+    }
+  }
+}

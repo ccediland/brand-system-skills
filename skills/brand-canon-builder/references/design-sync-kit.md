@@ -57,7 +57,9 @@ already ships Storybook + Playwright (gains a pixel-match oracle) — otherwise 
 
 `npm run validate` (`package-validate.mjs`) is the kit's OWN offline pre-flight gate, distinct from the live
 converter's server-side validate: it checks dist + `.d.ts` present, ≥1 component exported, every referenced
-font-family has a shipped `@font-face` (local `[FONT_MISSING]`), and `styles.css` carries a non-hollow token
+font-family (styles.css refs + the token spine's `fontFamily` leaves — anti-gaming: deleting a reference
+never removes the spine's requirement) has a shipped `@font-face` or a DECLARED `--font-fallback-*`
+substitute (the honest non-redistributable state), and `styles.css` carries a non-hollow token
 closure → exit 0/1. It needs no `/design-sync` round-trip, so the Stage-10 gate can run it offline before any
 upload (`validate-audit.md` §3a).
 
@@ -98,7 +100,9 @@ canon's GRAMMAR scoped to the kit) wired via the `readmeHeader` key.
 Root-level: `_ds_bundle.js`, `_ds_bundle.css`, `styles.css`, `components/`, `tokens/`, `fonts/`, `README.md`,
 `_ds_sync.json`, `_ds_needs_recompile`, plus `_vendor/`, `_preview/`, `guidelines/`. `styles.css` is the
 import closure every built design receives: it must `@import "./_ds_bundle.css"` (the compiled component
-CSS) and carry the token + `@font-face` closure. Converter gates to design against: `[CSS_BUNDLE_UNREACHABLE]`
+CSS) and carry the token + `@font-face` closure. The kit template SHIPS `_ds_bundle.css` as a documented
+placeholder (the converter replaces it at sync time) so the import closure resolves offline — an honest
+`[NO_DIST]` repo carries no dangling import. Converter gates to design against: `[CSS_BUNDLE_UNREACHABLE]`
 (closure can't reach the component CSS), `[TOKENS_MISSING]` (referenced `var(--token-*)` undefined),
 `[FONT_MISSING]` (a referenced family with no shipped `@font-face` — a core face missing is a fidelity GAP,
 never a silent fallback).
@@ -112,7 +116,8 @@ never a silent fallback).
    to catch a hollow lib / `[FONT_MISSING]` / `[NO_DIST]` before any `/design-sync` upload.
 3. Author `previews/<Name>.tsx` for the scoped components; floor card the rest.
 4. Wire `conventions.md` via `readmeHeader`; ensure `styles.css` `@import`s `_ds_bundle.css` + closure.
-5. Register Claude Design as a consumer in `projections.md` (default ON — `claude-design-adapter.md`).
+5. Register Claude Design as a consumer in `projections.md` (only when the handoff slot says YES — an
+   opt-out emits no consumer row; `claude-design-adapter.md`).
 
 The fidelity gate (Stage 10, `validate-audit.md`) and client-clean scrub (Stage 11, `client-clean.md`)
 consume this kit's gates.

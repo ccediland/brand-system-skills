@@ -66,6 +66,32 @@ instead of re-deriving routing from a detected source-type. Each of the five tok
 `n/a` (or an absent token) is the only case where the builder falls back to detecting the source-type and
 selecting the row itself. A declared token always wins over re-derivation; if the declared token and the
 detected source-type disagree, follow the token and flag the conflict (the contract is the brief).
+**A DECLARED `ingest:` that was never EXECUTED degrades to a GAP — never a silent skip:** the agent-gates
+content-audit walk records which declared surfaces were actually read; a manifest item whose declared
+ingestion never ran carries an open GAP naming it (one status code + one grep is not "read").
+
+## Measured derivation floor (no false precision)
+
+A value the builder DERIVES from material carries measurement honesty, not dressed-up guesses:
+
+- **Sampled colors (colorways):** a single-pixel / center-crop mean is NOT a 6-digit hex. Sample a
+  validated multi-pixel region (state the region + method in the sourceRef `selector`), or record FEWER
+  digits / an explicit range — precision the sampling cannot support is fabricated precision.
+- **Derived geometry:** clear-space and size floors derive from the REAL cap-height/x-height measured off
+  the SVG's path extents, never a bounding-box eyeball.
+- **Type identity:** measured via the OS/2 table + normalized metrics (`font-acquisition.md` § Measured
+  identity), never a name-match.
+
+## acquire-route — execute the contract's declared `acquire:` per ASSET
+
+Where `ingest:` says HOW to READ a material, the manifest's `acquire:` says HOW it GETS INTO the repo —
+an OPEN capability class (`pre-placed | fetch <url> | recover-wayback <url + era-pin> | cut <media-url @
+locator> | owner-delivery | <other declared route>`) plus a declared `fallback:`. The builder executes the
+declared route at Stage 3 (fetch → hash under `sources/**`; wayback → the recovery gate below; cut → locate
++ excerpt + hash both the cut AND its parent's hash+URL). Two hard rules: **a failed route degrades to its
+declared fallback or an open GAP — never silence** (log the failure + the fallback taken); and **a declared
+route that was never executed is itself a GAP**, never an unremarked skip. A Drive URL is not assumed
+gdown-resolvable — verify, else fall back to `owner-delivery`.
 
 ## Archived-source recovery + identity/date gate (live site dead/blocked) — MT-3
 
@@ -83,6 +109,11 @@ sampling a screenshot). Run `tools/source-recover.py <url> [--from --to]`:
    (`<title>`, `og:site_name`, copyright owner) and its self-reported "Last Published"/updated date.
 4. **Hash + manifest** — SHA-256 each fetched file; write `sources/MANIFEST.json`
    `{file, url, captureTs, digest, sha256, selfPublished?, identitySignals[]}`.
+   **MANIFEST is GENERAL custody, not wayback-only:** every DERIVED capture — a wayback recovery, a
+   cut/excerpt from a parent medium (an audio sting cut from an episode), a transformed export — writes an
+   entry carrying its PARENT's `url` + `sha256` (`{file, parent:{url, sha256}, method?, locator?}`), so the
+   source of the derivation survives feed rotation. The gate runner shape-checks the manifest and binds
+   every handoff-declared `acquire: cut | recover-wayback` route to its entry.
 
 **Identity verification is an AGENT step, not the script's (the core of MT-3).** The script surfaces signals +
 dates; the builder (this stage) must (a) CONFIRM the capture is the intended brand from the identitySignals
@@ -102,8 +133,10 @@ properties + utility classes of ANY structured site; never hardcode the Finsweet
 ## CHECKSUMS — hash every source-of-record (closes the un-hashed-source miss)
 
 The build SHA-256-hashes **every file under `sources/**`** into `CHECKSUMS.txt` at the emitted-repo root
-(`<sha256>  <path>`, the `sha256sum` format) — including recovered `sources/wayback/**`. This is what makes a
-`corroborated`/`computed-css` token's `sourceRef.sha256` checkable (MT-3/R3): a value claiming a
+(`<sha256>  <path>`, the `sha256sum` format) — including recovered `sources/wayback/**` and the **persisted
+handoff** (`sources/handoff—<date>.md`, written at Stage 0: the top of the chain of custody and the natural
+`sourceRef` of `handoff-confirmed`/`proxy-relayed` data). This is what makes an above-`hypothesis` /
+`computed-css` token's `sourceRef.sha256` checkable (MT-3/R3): a value claiming a
 source-of-record not hashed in `CHECKSUMS.txt` fails `audit-lint.mjs`. Closes the v3 miss where `CHECKSUMS.txt`
 omitted `sources/wayback/` and the source-of-record went un-hashed.
 

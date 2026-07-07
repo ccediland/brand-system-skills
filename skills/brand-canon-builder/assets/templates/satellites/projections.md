@@ -51,8 +51,9 @@ promoted, it stays as projection rationale, not canon.
 |---|---|---|---|
 | {{...}} | {{off-system / duplicates canon / superseded}} | {{y/n}} | {{phase + human OK}} |
 
-## Optional add-on: Claude Design
+## Add-on: Claude Design (present only when the brand opted IN)
 
-If the brand wants its components available in claude.ai/design as a live, on-brand library, attach the
-Claude Design adapter (see `claude-design-adapter/`). It is one more consumer drinking from this same
-canon — never mandatory, and brand-agnostic except inside the adapter itself.
+When the brand's brief said YES to the component library, the Claude Design adapter is attached (see
+`claude-design-adapter/`) and registered here as a consumer. It is one more consumer drinking from this same
+canon — governed by the brand's explicit choice (a NO leaves no adapter, no kit, and no row here), and
+brand-agnostic except inside the adapter itself.

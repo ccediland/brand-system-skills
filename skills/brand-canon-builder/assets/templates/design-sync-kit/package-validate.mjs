@@ -17,7 +17,8 @@
 //
 // Best-effort by design: run it after `npm run build`. A missing dist is recoverable ([NO_DIST] → run build).
 
-import { readFile, stat } from "node:fs/promises";
+import { readFile, stat, readdir } from "node:fs/promises";
+import path from "node:path";
 
 const fails = [];
 const ok = (msg) => console.log(`  ok   ${msg}`);
@@ -64,17 +65,51 @@ if (css) {
       m[1].trim().toLowerCase()
     )
   );
-  // families referenced by --font-* custom properties
+  // families referenced by --font-* custom properties (--font-fallback-* is the DECLARED-substitute
+  // channel, not a reference — handled below)
   const referenced = new Set();
   for (const m of css.matchAll(/--font[\w-]*:\s*([^;]+);/g)) {
+    if (/^--font-fallback/.test(m[0])) continue;
     for (const fam of m[1].split(",")) {
       const name = fam.trim().replace(/^["']|["']$/g, "");
       if (name && !SYSTEM.has(name.toLowerCase())) referenced.add(name);
     }
   }
-  const missing = [...referenced].filter((f) => !declared.has(f.toLowerCase()));
-  if (missing.length === 0) ok("every referenced font-family has a shipped @font-face (or is a system stack)");
-  else fail("FONT_MISSING", `font-family with no @font-face: ${missing.join(", ")} — a core face missing is a fidelity GAP, never a silent fallback`);
+  // ANTI-GAMING: the requirement ALSO comes from the TOKEN SPINE (../tokens/*.json fontFamily leaves) —
+  // outside this kit. Deleting a styles.css reference never removes the spine's requirement, so
+  // "renaming your way past the gate" (dropping the reference and shipping a silent system fallback)
+  // fails exactly like a missing face.
+  const requiredBySpine = new Set();
+  try {
+    const tokDir = path.join("..", "tokens");
+    for (const f of await readdir(tokDir)) {
+      if (!f.endsWith(".json")) continue;
+      let j; try { j = JSON.parse(await readFile(path.join(tokDir, f), "utf8")); } catch { continue; }
+      (function walk(n, inheritedType) {
+        if (n == null || typeof n !== "object") return;
+        const type = n.$type ?? inheritedType;
+        if (type === "fontFamily" && typeof n.$value === "string" && !/^\{.+\}$/.test(n.$value.trim())) {
+          const first = (n.$value.match(/^"([^"]+)"/) ?? [])[1] ?? n.$value.split(",")[0].trim().replace(/^["']|["']$/g, "");
+          if (first && !SYSTEM.has(first.toLowerCase())) requiredBySpine.add(first);
+        }
+        for (const [k, v] of Object.entries(n)) {
+          if (!k.startsWith("$") && v && typeof v === "object") walk(v, type);
+        }
+      })(j, null);
+    }
+  } catch { /* no ../tokens — a standalone kit validates its own closure only */ }
+  for (const f of requiredBySpine) referenced.add(f);
+  // Declared-substitute channel (license-as-dependency posture): a non-redistributable face ships a DECLARED fallback in the bundled
+  // files — `--font-fallback-<slug>: "<Real Family>" …;` names the real face and what serves it. That is a
+  // VALID, honest exit-0 state (license gates redistribution, never capability); the real face still renders
+  // locally. FONT_MISSING now means: a required family with NEITHER a shipped @font-face NOR a declared
+  // fallback — a real defect, never a by-design deadlock.
+  const fallbackDeclared = new Set(
+    [...css.matchAll(/--font-fallback[\w-]*:\s*["']([^"']+)["']/g)].map((m) => m[1].trim().toLowerCase())
+  );
+  const missing = [...referenced].filter((f) => !declared.has(f.toLowerCase()) && !fallbackDeclared.has(f.toLowerCase()));
+  if (missing.length === 0) ok(`every required font-family (styles.css refs + ${requiredBySpine.size} spine-required) has a shipped @font-face or a declared fallback`);
+  else fail("FONT_MISSING", `font-family with no @font-face and no declared fallback: ${missing.join(", ")}${[...missing].some((f) => requiredBySpine.has(f)) ? " (spine-required — deleting the styles.css reference does not remove the requirement)" : ""} — a core face missing is a fidelity GAP, never a silent fallback`);
 
   // 4) real token closure present (not just the @import line) so designs render non-hollow
   if (/:root\s*\{[^}]*--color-/s.test(css)) ok("styles.css carries a token closure (non-hollow)");

@@ -1,0 +1,6 @@
+{
+  "schemes": {
+    "default": { "mode": "light" },
+    "night": { "mode": "dark", "gap": "GAP-030" }
+  }
+}

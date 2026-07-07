@@ -17,3 +17,11 @@ dev/
 # Python bytecode
 __pycache__/
 *.pyc
+
+# fixture self-test RUN artifacts (machine-specific: reports embed the absolute linted-root path).
+# Fixture audit INPUTS (redteam battery, agent-gates evidence) ARE committed — only run outputs are ignored.
+skills/brand-canon-builder/assets/templates/tools/fixtures/**/audit/lint/
+skills/brand-canon-builder/assets/templates/tools/fixtures/**/audit/gates/
+
+# scheme-derive fixture run artifacts
+skills/brand-canon-builder/assets/templates/tools/fixtures/scheme-derive/**/tokens/schemes/

@@ -21,13 +21,25 @@
 - **brand-canon-builder** — scaffold the canon → fill what the brand's material/brief supports → log the
   rest as tracked `GAP-NNN` → emit the DTCG/OKLCH token spine → render the Stage-8 prototype as the **complete
   interactive brandbook** (manifest sections + "Decisions for you" panel, RV-5) → attach the Claude Design
-  adapter (default ON) → validate.
+  adapter (per the handoff's explicit kit slot — NO emits nothing, machine-reconciled) → validate.
 - **brand-canon-scoper** — in chat (no filesystem), interview + emit the **client-surface flow** (one
   instrument, three checkpoints: gate 3.5 intake → gate 6 review → gate 7a Final Brand Brief, the BLOCKING
   client approval) → compile one ready-to-paste 7b handoff block for the builder, only after sign-off.
 
 ## Tooling — emitted gates (run from the EMITTED client repo root)
 The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
+- **`node tools/run-gates.mjs`** — the Stage-10 **suite runner & status board**: runs every executable gate
+  (real exit codes), verifies the committed evidence of every demoted agent-gate (`audit/agent-gates.md`),
+  machine-checks keystone structure/form + the committed red-team battery, and writes `audit/gates/report.md`
+  — the only legitimate "gates green" claim. Statuses: PASS/FAIL · **NOT-RUN(reason)** (first-class: deps
+  missing records the tool's own exit-3 install line — never substituted by a manual "clean") ·
+  N/A(declared); rows with Class `agent-gate` PASS/FAIL by committed evidence. Exit 0 ALL-GREEN ·
+  2 INCOMPLETE (honest v0/DEMO state) · 1 BLOCKED.
+  Self-test from THIS repo: `node …/tools/run-gates.mjs …/tools/fixtures/clean` (exit 2 — INCOMPLETE, zero
+  FAIL: the un-built kit records NOT-RUN `[NO_DIST]`) and `…/fixtures/gates/board-violations` (exit 1 —
+  keystone structural+form FAIL + agent-gates FAIL + §7a pass:false FAIL). Fresh-clone acceptance: copy
+  `run-gates.mjs` + `audit-lint.mjs` + `client-deny-lint.mjs` to a
+  deps-less dir and re-run — the deny row records NOT-RUN(deps) with the npm install line, never "clean".
 - **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance, completeness & reconciliation gate**
   (MT-1/3/4/5 + SC-1 + RV-5; rules R0–R8). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
   `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`, and (for R6) `satellites/projections.md`,
@@ -35,8 +47,13 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
   (exit 0) and `…/fixtures/seeded-violation` (exit 1).
   - **R0–R5 (MT-3/4/5)** — provenance & completeness (each value token's provenance block on closed enums;
-    corroborated ⇒ ≥2 distinct hashed sources; inferred/matched ⇒ hypothesis; path-bound sha256; value→token/GAP;
-    one GAP back-ref). See `references/validate-audit.md` §5a.
+    corroborated ⇒ the VALUE found in ≥2 distinct non-relay sources (R1 searches the hashed files —
+    normalized hex/oklch/string; `origin:"relay"` refs = custody, never counted; binary sources count
+    declaratively); inferred/matched/proposed ⇒ hypothesis; any confidence above hypothesis ⇒ ≥1
+    path-bound sha256 sourceRef (R3 — for handoff-confirmed/proxy-relayed it must be the persisted handoff;
+    R3 also checks CITATION integrity: a cited selector exists in the hashed file or is "none", a line never
+    points past EOF, a PDF cites page never line);
+    value→token/GAP; one GAP back-ref). See `references/validate-audit.md` §5a.
   - **R6 (MT-1) — cross-artifact reconciliation / drift.** **R6a** every `derived` projection in
     `satellites/projections.md` consumes only aliases that resolve in the spine, and any pinned value byte-equals
     the spine-resolved value — **both sides routed through one canonical serializer (`serializeValue`, C-1) so a
@@ -59,10 +76,15 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   **measured reproduction-fidelity gate** (the §7a verdict; build-time, not a runtime/client dep). Co-registers
   the reproduction onto the **Stage-5 source capture** (ORB+RANSAC) and computes **ΔE2000** + **SSIM/pixelmatch**
   (+ **fontTools** glyph metrics for type). Verdict vs the §2 tiers (ΔE2000 ≤ 2.0 default, ≤ 1.0 core colour;
-  loosening RAISES the bound, never waives it) → `within-tolerance` (exit 0) / `outside-tolerance` (exit 1; with
-  `--gap` a declared tracked GAP passes) / non-visual carrier `--medium non-visual` → declared GAP (exit 0).
+  loosening RAISES the bound, never waives it) → `within-tolerance` (exit 0) / `outside-tolerance` (exit 1;
+  with `--gap` exit 0 as a TRACKED outcome — the record never flips to a pass) / non-visual carrier
+  `--medium non-visual` → declared GAP (exit 0, `measured:false`).
   Writes **`audit/fidelity/<treatment-id>/scores.json`** (numeric scores + thresholds + verdict — re-auditable
-  WITHOUT cv2) + a `diff.png` heatmap. It measures against the SOURCE capture — **not a pixel-VRT** (§3a). Deps
+  WITHOUT cv2; `pass` records the MEASUREMENT alone — `--gap` keeps exit 0 for pipeline continuation but the
+  record stays `pass:false` + `gap:GAP-NNN`, and the runner recomputes the verdict from the numbers, so a
+  hand-written pass is caught) + a `diff.png` heatmap. The NON-WAIVABLE set is measured mandatorily (runner
+  parses the persisted handoff; CREATE mode diffs against the AUTHORED master or records NOT-RUN — never a
+  false block). It measures against the SOURCE capture — **not a pixel-VRT** (§3a). Deps
   (numpy, opencv-python-headless, scikit-image, pillow; fontTools for `--font`) are **import-guarded**: missing →
   a clear `pip install …` + exit 3, never a stack trace; the non-visual path needs none of them. Self-test
   fixtures + generator: `tools/fixtures/fidelity/` (`gen.py` → source/within/within_shift/mid/out `.png`).
@@ -70,7 +92,10 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   build-time, zero-dep Node, **NOT Style Dictionary**). Reads `canon/canon.json › schemes` + `tokens/base.json`
   + `tokens/semantic.json` (role→anchor); for each NON-deferred scheme derives the semantic colour roles in
   OKLCH by `{mode, dominant}` (light=identity · dark=invert-L on neutrals + lift non-dominant chromatic ·
-  contrast=push neutrals to the L extreme; C/H preserved, hex via in-process OKLCH→sRGB) and writes
+  contrast=push neutrals to the L extreme; C/H preserved, hex via in-process OKLCH→sRGB; **post-derive
+  legibility guard**: a derived text/fg role keeps ≥0.30 L-separation from the scheme's nearest bg/surface
+  role — a collapsed pair is pushed apart, logged, still hypothesis+GAP; fixture:
+  `tools/fixtures/scheme-derive/near-black/`) and writes
   `tokens/schemes/<id>.json` — every token a structured-OKLCH object tagged **`$extensions.brand.scheme:"<id>"`**,
   entering at `confidence:"hypothesis"` + the scheme's tracking GAP. A `status:"deferred"` scheme emits no set
   (carries a GAP). **audit-lint R7** (loaded from `tokens/schemes/*.json` too) fails any named scheme without a
@@ -144,10 +169,16 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   nothing.
 - **Provenance spine (4 fields per datum).** Every datum + every emitted token carries
   `$extensions.brand.provenance` {source, confidence, owner, freshness}. `authored|derived` is the SOURCE axis
-  ONLY, ORTHOGONAL to the confidence ladder `hypothesis | corroborated | owner-confirmed` (an `authored` value
-  can still be `hypothesis`); no fourth value/synonym at any hop. Observed expression enters as `hypothesis`; a
-  one-off → brand line needs `owner-confirmed`; a datum is never used above the status it earned; the keystone
-  READS its confidence FROM the token, never recalls it.
+  ONLY, ORTHOGONAL to the confidence ladder — six values in three tiers, byte-identical at every hop, no extra
+  value/synonym: `hypothesis` → `corroborated` · `verified-primary` (evidence-earned) → `proxy-relayed` ·
+  `handoff-confirmed` · `owner-confirmed` (ratified; who/how). An `authored` value can still be `hypothesis`.
+  `source: proposed` = the quarantine channel (pipeline-authored proposal: capped at `hypothesis` + open GAP,
+  never canonized without ratification). Observed expression enters as `hypothesis`; a one-off → brand line
+  needs tier-2 ratification; ratification carried by the handoff lands as `handoff-confirmed`/`proxy-relayed` —
+  the builder never stamps `owner-confirmed` on handoff text alone (the handoff itself is persisted to
+  `sources/handoff—<date>.md` + hashed, the top of the chain of custody); a datum is never used above the
+  status it earned; the keystone READS its confidence FROM the token, never recalls it. Full definition:
+  `builder/references/gap-protocol.md` § The provenance spine.
 - **Adaptive dimension map.** Every brand dimension resolves explicitly to `filled` / `not-used(owner-declared)`
   / `tagged-gap` — none skipped silently; an unresolved dimension STOPS the builder. The dimension catalogue is
   an illustrative instance of the mechanism, never a closed universe (anti-determinism).

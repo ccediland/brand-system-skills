@@ -62,7 +62,7 @@ them all at once.
 - `references/font-acquisition.md` — load when acquiring fonts under the license boundary (Stage 4).
 - `references/reproduction-router.md` — load when a brand carries a visual/textural treatment to reproduce (Stages 5 & 8).
 - `references/design-sync-kit.md` — load when emitting the prototype + `/design-sync`-ready kit (Stage 8).
-- `references/claude-design-adapter.md` — load when wiring the Claude Design adapter (default ON; Stage 8).
+- `references/claude-design-adapter.md` — load when wiring the Claude Design adapter (per the handoff's explicit kit slot; Stage 8).
 - `references/keystone-emit.md` — load when emitting the mandatory keystone `.md` (Stage 8.5).
 - `references/validate-audit.md` — load when running the VALIDATE/AUDIT stage + fidelity gate (Stage 10).
 - `references/client-clean.md` — load when scrubbing the client repo before handoff (Stage 11).
@@ -88,12 +88,19 @@ complete. The full pipeline (Stages 0–12) is implemented — mode + handoff sp
 applied-design, prototype + kit, token spine, gaps, validate/audit + fidelity gate, client-clean / scrub,
 commit + PR. Every stage is specified here; nothing is deferred elsewhere.
 
-### Stage 0 — Ingest the handoff contract & locate the target
+### Stage 0 — Persist + ingest the handoff contract & locate the target
 The scoper's machine-readable handoff (`brand-canon-scoper/references/handoff-format.md`) is the canonical
-brief — parse every block and act on it (do not re-derive what it already carries):
+brief. **FIRST, before parsing: persist the received block VERBATIM to `sources/handoff—<date>.md`** (ISO
+date of receipt; a successive handoff is a NEW file — custody history) so it is hashed into `CHECKSUMS.txt`
+with everything under `sources/**`. The persisted handoff is the TOP of the chain of custody: the hashed
+source-of-record that `handoff-confirmed`/`proxy-relayed` data cites, and the artifact the gates read —
+never a paste that dies in chat. Then parse every block and act on it (do not re-derive what it already
+carries):
 
 - **`MODE`** → ANALYZE | CREATE (drives Stage 2). `BUILD-MODE` → `FULL` = the normal build; `v0/DEMO` =
-  apply the OPTIONAL block's degradation (OPTIONAL defaults YES, scope-expanding dims default NO) and thread
+  obey the OPTIONAL block's EXPLICIT resolutions (the scoper writes `demo-default-yes` /
+  `scope-expanding(demo-default-no)` — the builder never fills a slot with a skill default; an unfilled
+  directive slot is a handoff defect: stop and report) and thread
   that mode into Stage 8 (prototype/kit) and Stage 9 (gaps); the resolved primary-identity carrier(s) (from the
   DIMENSION MAP — visual mark | sonic-mark | motion-signature | other lead atom) + graphic-code stay non-waivable
   regardless (a declared fidelity-blocking GAP where the carrier's medium has no build-grade producer, never a false-fail on a visual mark).
@@ -112,9 +119,12 @@ brief — parse every block and act on it (do not re-derive what it already carr
   as the authoritative HOW-to-read and route to the matching acquisition technique (Stage 3,
   `references/asset-acquisition.md` § ingest-token map) — do not re-derive routing from a detected source-type
   when the contract already declares it.
-- **`WHY (essence) — RATIFIED`** → fills ESSENCE directly in Stage 2. The builder never re-elicits or
-  re-infers the WHY; a GAP in the handoff stays a GAP. The voice/value carriers feed Stage 8.5: `Personality
-  (Aaker-5)` / `Differential scales` / `Resonance` seed the keystone's THINK/SPEAK; `VALUE TRADE-OFFS` →
+- **`WHY (essence) — RATIFIED{by · how · date}`** → fills ESSENCE directly in Stage 2. The RATIFIED header is
+  a RECORD: what the builder inherits from the signed block enters the build as `handoff-confirmed` (or
+  `proxy-relayed` where a proxy answered), never `owner-confirmed` on handoff text alone. The builder never
+  re-elicits or re-infers the WHY; a GAP in the handoff stays a GAP; a `PROPOSED` line lands in quarantine
+  (`source: proposed` + `hypothesis` + its GAP). The voice/value carriers feed Stage 8.5: `Personality
+  (scored)` / `Differential scales` / `Resonance` seed the keystone's THINK/SPEAK; `VALUE TRADE-OFFS` →
   keystone §2 trade-off rules; `VOICE-EXEMPLARS` → keystone §3 few-shot pairs. Where a carrier is `none`, the
   keystone emits a tagged GAP — never a fabricated pair/rule (`references/keystone-emit.md`).
 - **`WHAT (primitives) — POINTERS + OWNER-PROVIDED ONLY`** → pointers the builder will extract measured
@@ -122,16 +132,21 @@ brief — parse every block and act on it (do not re-derive what it already carr
   truth, written `source:"authored"` (never re-derived); `intent` seeds per-atom meaning. Carry each
   primitive's `PROVENANCE{source/confidence/owner/freshness}` from the handoff into the build and propagate
   it through extraction (`references/gap-protocol.md` § The provenance spine): a value enters at its handoff
-  confidence and is never promoted to a brand line without `owner-confirmed`. **per-mark GEOMETRY**
+  confidence (ratification carried by the handoff lands as `handoff-confirmed`/`proxy-relayed`) and is never
+  promoted to a brand line without tier-2 ratification. **per-mark GEOMETRY**
   (clear-space / min-size digital / min-size physical / construction-ref) → Stage 6 reads these owner-provided
   values instead of re-hunting from a PDF. **per-font `license:`** (a declared SPDX/license id, `owner-supplied`,
-  or `unlicensed→GAP`) → Stage 4 reads the actual license and applies its own self-hostable policy (OFL/Apache/
-  Ubuntu/… self-host; an `unlicensed→GAP` or non-self-hostable commercial face is a MUST-HAVE fidelity GAP,
-  never a silent fallback).
+  or `unlicensed→GAP`) → Stage 4 reads the actual license and applies its redistribution policy (OFL/Apache/
+  Ubuntu/… self-host; a non-redistributable face ships a declared fallback + license note in bundled files
+  ONLY — the local render keeps the real face; a face whose FILE is unobtainable is a MUST-HAVE fidelity GAP,
+  never a silent fallback). License is a dependency + confirmation request, never a capability gate
+  (`references/font-acquisition.md` § License posture).
 - **`HOW (grammar)` + `generative-rule seeds (if/then)`** → seed `G-*`/`ALGO-*` with stable IDs.
   `CORE-ASSET FIDELITY CONTRACT` → drives the fidelity gate (Stage 10). `GAPS (client-language)` →
-  the builder owns formalization into `GAP-NNN` (two-ledger, Stage 9). `OPTIONAL` (incl. `Claude Design
-  library: default YES` and `existing-component-stack:` → the Stage-8 kit shape) → Stage 8.
+  the builder owns formalization into `GAP-NNN` (two-ledger, Stage 9). `OPTIONAL` (incl. the explicit
+  `Claude Design component library: <YES|NO>` directive — NO means ZERO Claude Design artifacts, reconciled
+  by the gate runner against the persisted handoff — and `existing-component-stack:` → the Stage-8 kit
+  shape) → Stage 8.
 - **`DIMENSION MAP`** → resolve each dimension to `filled` / `not-used(owner-declared)` / `tagged-gap`,
   including the explicit `applied-expression/social` dimension. A dimension **present but unresolved** is a
   PARSE-OR-STOP gate: HALT the build and report it — this is the live anti-determinism mechanism, not a
@@ -143,7 +158,7 @@ brief — parse every block and act on it (do not re-derive what it already carr
   `refusal-style`); feed the keystone §5 guardrail tier (Stage 8.5) and the Stage 10 §7b regulated gate.
 - **`TREATMENTS`** → parsed here (`observed-on` / `route-hint` / PROVENANCE), then routed to the reproduction
   router at Stage 5 (classify) and Stage 8 (reproduce); each treatment stays `confidence: hypothesis` until
-  owner-confirmed.
+  tier-2 ratification.
 - **`NOTES`** → human-readable context for the build PR only; the builder never treats it as a source of brand
   truth and it never silently overrides a parsed block.
 
@@ -155,8 +170,9 @@ equivalent fields before proceeding.)
 ### Stage 1 — Scaffold (always first)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
 root (`README.md`, `CLAUDE.md`, `RESIDENT.md`), `tokens/*` into `tokens/`, and `tools/*` into `tools/`
-(`audit-lint.mjs` — the Stage-10 provenance/completeness gate; `source-recover.py` — MT-3 archived-source
-recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
+(`run-gates.mjs` — the Stage-10 suite runner + status board; `audit-lint.mjs` — the provenance/completeness
+gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
+archived-source recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
 a seeded-violation sample), not client material. Create `assets/` (source
 binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the
 `assets/`+`sources/` material convention. This creates the valid, empty-but-structured baseplate before any content. Fill the obvious
@@ -200,10 +216,13 @@ into `CHECKSUMS.txt`. (Full method: `references/asset-acquisition.md` § Archive
 Read `references/font-acquisition.md`. **Read each face's handoff `license:` field first** (a declared
 SPDX/license id, `owner-supplied`, or `unlicensed→GAP`, from WHAT per-font, parsed at Stage 0) — it is the
 owner's declared license state, not something to re-derive. Then acquire the brand's actual typefaces by whatever path the source
-offers (embedded-PDF / `@font-face` from a live site / repo files / acquire open via Fontsource). Licensing
-is hard-gated: self-host only OFL/Apache/Ubuntu or owner-supplied faces (ship the license; rename on a
-Reserved Font Name when subsetting); an `unlicensed→GAP` or otherwise unlicensed commercial face is a
-MUST-HAVE fidelity GAP, never a silent fallback (deny-by-default). (Full method: `references/font-acquisition.md`.)
+offers (embedded-PDF / `@font-face` from a live site / repo files / acquire open via Fontsource). License =
+dependency + confirmation request, NEVER a capability gate: the private build/render/fidelity evidence use the
+brand's REAL face whenever the file exists (license unconfirmed → a visible license-confirmation GAP, work
+continues); only REDISTRIBUTION is hard-gated — self-host/bundle only OFL/Apache/Ubuntu or owner-supplied
+faces (ship the license; rename on a Reserved Font Name when subsetting); a non-redistributable face ships a
+declared fallback + license note in bundled files only; a face whose FILE is unobtainable is a MUST-HAVE
+fidelity GAP, never a silent fallback. (Full method + posture: `references/font-acquisition.md`.)
 
 ### Stage 5 — Applied-design harvest
 Harvest the lived design language from the live consumers the scoper pointed at (the *Applied-design harvest*
@@ -212,7 +231,7 @@ declared, the lived aesthetic — abstracted to universal (stripped of stack/med
 and ESSENCE (meaning), measurable atoms into tokens. Where lived expression diverges from the ratified WHY,
 log the divergence; never silently overwrite. Classify any visual/textural treatment you observe
 (texture, finish, effect) against `references/reproduction-router.md` and record it with the handoff's
-TREATMENTS provenance (`confidence: hypothesis` until owner-confirmed); the reproduction itself happens in
+TREATMENTS provenance (`confidence: hypothesis` until tier-2 ratification); the reproduction itself happens in
 Stage 8. In CREATE mode (or wherever a TREATMENT is handoff-carried with no live consumer to harvest from),
 classify the handoff TREATMENTS block directly against `references/reproduction-router.md` regardless of
 whether a live-consumer harvest ran — Stage 0 routes TREATMENTS here either way. (Full method: `references/analyze.md` § Applied-design harvest + `references/reproduction-router.md`.)
@@ -223,11 +242,15 @@ from the placed material; Stages 3–5 acquire the real assets, fonts and applie
 extracts the measured primitive values those sources yield and lands them in the canon: meaning to the
 prose layers, values to the token spine, mirrored to `canon/canon.json`. Each landed value carries its
 provenance spine (`references/gap-protocol.md` § The provenance spine): extracted/sampled/matched values
-enter at `confidence: hypothesis` and stay flagged for owner confirmation; only `declared-spec`/`owner-stated`
+enter at `confidence: hypothesis` and stay flagged for ratification; a value read EXACT from the slot's
+hashed primary master earns `verified-primary`; only `declared-spec`/`owner-stated`
 data is canonical truth. For per-mark geometry (clear-space / min-size digital / min-size physical /
-construction-ref), read the owner-provided values the handoff's WHAT GEOMETRY block carries
-(`owner-confirmed` where the owner gave them) instead of re-hunting them from a PDF; only where a geometry
-value is `none` does the builder derive it (at `hypothesis`) or log a GAP. The frontier holds throughout —
+construction-ref), read the owner-provided values the handoff's WHAT GEOMETRY block carries (inherited as
+`handoff-confirmed`, or `proxy-relayed` where a proxy answered) instead of re-hunting them from a PDF; only
+where a geometry
+value is `none` does the builder derive it (at `hypothesis`) or log a GAP — and a derived clear-space is
+MEASURED from the mark's real cap-height/x-height read off the SVG path extents, never an eyeballed
+"≈0.5× bounding box" (`asset-acquisition.md` § Measured derivation floor). The frontier holds throughout —
 the builder extracts/derives values, never re-elicits the ratified WHY, and never promotes a `hypothesis`
 observation to a brand line. (Provenance spine: `references/gap-protocol.md`.)
 
@@ -272,8 +295,9 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
   Read `references/design-sync-kit.md` for the converter contract: package-shape default; one-command build (`esbuild` + `ts-morph` + `@types/react`)
   → `dist/index.es.js` + `.d.ts`; `.design-sync/config.json` with only live-valid keys (unknown keys fail
   the run); the `@dsCard` first-line marker on every emitted card; the `readmeHeader` conventions header;
-  `styles.css` that `@import`s `_ds_bundle.css` and carries the token + `@font-face` closure. Claude Design
-  default YES (`references/claude-design-adapter.md`; opt-out only on explicit owner request). The `dist/`
+  `styles.css` that `@import`s `_ds_bundle.css` and carries the token + `@font-face` closure. The kit is
+  emitted per the handoff's explicit `Claude Design component library:` directive — YES emits, NO emits
+  NOTHING (the runner reconciles; `references/claude-design-adapter.md`). The `dist/`
   build is best-effort, never a hard-fail — `[NO_DIST]` is recoverable by running the build, and (a) is
   the deterministic fidelity artifact regardless.
 
@@ -323,12 +347,23 @@ skeleton. Eight parts:
   Storybook + Playwright) adds a pixel-match VRT oracle (Chromatic default; Percy / BackstopJS alternatives).
 - **Content audit** — rule-by-rule audit of all written + visual content (authored AND generated) against the
   `G-*`/`ALGO-*` GRAMMAR rules and ESSENCE/voice (anti-promise, lexicon, don'ts).
-- **Provenance & completeness lint (executable, BLOCKING)** — run `node tools/audit-lint.mjs` from the emitted
+- **THE SUITE RUNNER (executable, BLOCKING)** — run `node tools/run-gates.mjs` from the emitted repo root:
+  it runs every executable gate (real exit codes), verifies the committed evidence of every DEMOTED
+  agent-gate (`audit/agent-gates.md` — §1 contract walk, §2 named tolerance, §4 content audit,
+  output-agnostic, universality), machine-checks the keystone structure + form and the committed battery, and
+  writes the status board `audit/gates/report.md` — the ONLY legitimate "gates green" claim. Statuses are
+  first-class: PASS/FAIL (real exits) · NOT-RUN(reason) (deps → the tool's exit-3 install line; never
+  substituted by a manual "clean") · N/A(declared). Verdict ALL-GREEN required for "done"; INCOMPLETE is the
+  honest, declarable v0/DEMO state. (`validate-audit.md` §8.)
+- **Provenance & completeness lint (executable, BLOCKING; run by the runner)** — `node tools/audit-lint.mjs` from the emitted
   repo root: exit 0 required (MT-3/4/5, R0–R5 — every value token carries valid-enum provenance;
-  corroborated⇒≥2 distinct hashed sources; inferred/matched capped at hypothesis; computed-css/corroborated/
-  owner-confirmed⇒a `sourceRef.sha256` in `CHECKSUMS.txt` bound to that file; every named value/scheme→token or
+  corroborated⇒≥2 distinct non-relay sources (R1 counts, it does not hash-check); inferred/matched/proposed
+  capped at hypothesis; computed-css
+  or any confidence above hypothesis⇒a `sourceRef.sha256` in `CHECKSUMS.txt` bound to that file (for
+  handoff-confirmed/proxy-relayed, bound to the persisted handoff); every named
+  value/scheme→token or
   open GAP; every uncertain token→exactly one open GAP via its `$extensions.brand.gap`). Requires `CHECKSUMS.txt`
-  to hash every file under `sources/**`. (`validate-audit.md` §5a.)
+  to hash every file under `sources/**` — the persisted handoff included. (`validate-audit.md` §5a.)
 - **Render real samples** — the Stage-8 HTML prototype is the evidence.
 - **Reproduction visual-diff (treatments)** — every reproduced treatment (Stage 5 → Stage 8 via
   `reproduction-router.md`) passes a perceptual visual-diff against the Stage-5 source (no pixel-VRT, no
@@ -369,9 +404,14 @@ apparatus:
 
 This stage scrubs only the client repo it produces; this builder repo's own docs keep their attribution.
 
-### Stage 12 — Commit + PR
-Update `RESIDENT.md` (decisions, Open Items, change log) and commit on a `claude/<name>` branch; open a PR
-carrying the audit + samples + open ratification GAPs for the owners unless told otherwise.
+### Stage 12 — Commit (LOCAL by default; push gated on explicit OK)
+Update `RESIDENT.md` (decisions, Open Items, change log) and commit on a `claude/<name>` branch —
+**LOCALLY. The emitted repo holds recovered brand assets and client IP: creating a remote, pushing, or
+opening a PR happens ONLY on an explicit, per-step OK from the operator/owner — never as a default step,
+and a prior OK never carries to the next push.** When that OK arrives, the PR carries the audit — including
+`audit/gates/report.md`, the machine-generated gate board, the only
+legitimate gates-green claim — + samples + open ratification GAPs for the owners. Until then, the review
+surface is the local repo + the board.
 
 ## Principle to keep in mind
 The repo is the source; consumers re-project from it and never override it. kit = constant, canon =

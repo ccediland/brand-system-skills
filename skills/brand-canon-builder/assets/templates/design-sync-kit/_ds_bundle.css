@@ -1,0 +1,4 @@
+/* _ds_bundle.css — PLACEHOLDER (shipped so the styles.css import closure resolves offline).
+   The /design-sync converter REPLACES this file with the compiled component CSS at sync time; the kit's
+   own `npm run build` does not produce it. Shipping the placeholder keeps R6c honest offline (no dangling
+   import in a [NO_DIST] repo) without gaming any gate — package-validate still checks the REAL closure. */

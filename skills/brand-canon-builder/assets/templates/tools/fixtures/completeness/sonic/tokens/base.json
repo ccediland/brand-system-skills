@@ -7,7 +7,7 @@
         "$description": "owner-confirmed declared truth — carries its hashed source-of-record (R3). Structured-OKLCH $value (C-1).",
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:ink", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9", "captureTs": "20230124000000", "selfPublished": "2023-01" }
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:ink", "line": 1, "sha256": "973260d4088c0048782ecfe6e8a8287c4761c45473eb9938878a666fdb6cf0f2", "captureTs": "20230124000000", "selfPublished": "2023-01" }
         } }
       },
       "brand": {
@@ -16,8 +16,8 @@
         "$extensions": { "brand": {
           "provenance": { "source": "computed-css", "confidence": "corroborated", "owner": "demo-owner", "freshness": "shipped" },
           "sourceRef": [
-            { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc", "captureTs": "20230124000000", "selfPublished": "2023-01" },
-            { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+            { "file": "sources/site.css", "selector": ".brand", "line": 1, "sha256": "2a89e1ff250a73ad5e795dbee2681ae07daf3a673bab371c5345969163b6e10e", "captureTs": "20230124000000", "selfPublished": "2023-01" },
+            { "file": "sources/brandbook.txt", "selector": "swatch:primary", "line": 1, "sha256": "973260d4088c0048782ecfe6e8a8287c4761c45473eb9938878a666fdb6cf0f2" }
           ]
         } }
       },
@@ -26,7 +26,7 @@
         "$description": "C-1 structured-OKLCH regression guard with ALPHA ≠ 1 — the R6a serializer must emit the `oklch(L C H / a)` form; a projection pins this byte-for-byte.",
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:tint", "line": 1, "sha256": "53a4a22b50142bc3e33cfced76a04ed5f549f13ce9abc11af9061d30d17c64e9" }
+          "sourceRef": { "file": "sources/brandbook.txt", "selector": "swatch:tint", "line": 1, "sha256": "973260d4088c0048782ecfe6e8a8287c4761c45473eb9938878a666fdb6cf0f2" }
         } }
       }
     },
@@ -38,7 +38,7 @@
         "$extensions": { "brand": {
           "provenance": { "source": "matched", "confidence": "hypothesis", "owner": "demo-owner", "freshness": "stated-old" },
           "gap": "GAP-002",
-          "sourceRef": { "file": "sources/site.css", "selector": "@font-face", "line": 1, "sha256": "a63598ad09e097c44ce2263b651e64279c139706c316c990ae45813e8f2373fc" }
+          "sourceRef": { "file": "sources/site.css", "selector": "@font-face", "line": 1, "sha256": "2a89e1ff250a73ad5e795dbee2681ae07daf3a673bab371c5345969163b6e10e" }
         } }
       }
     }
