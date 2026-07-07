@@ -67,6 +67,7 @@ them all at once.
 - `references/claude-design-adapter.md` — load when wiring the Claude Design adapter (per the handoff's explicit kit slot; Stage 8).
 - `references/keystone-emit.md` — load when emitting the mandatory keystone `.md` (Stage 8.5).
 - `references/validate-audit.md` — load when running the VALIDATE/AUDIT stage + fidelity gate (Stage 10).
+- `references/self-audit.md` — load when the operator invokes the on-demand deep self-audit (post-build; harness-backed by law — no claim without a fresh executed check; artifacts to `audit/self/`).
 - `references/client-clean.md` — load when scrubbing the client repo before handoff (Stage 11).
 
 ## Hard standards (non-negotiable — encode these into every canon)
