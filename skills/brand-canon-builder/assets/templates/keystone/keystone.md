@@ -22,6 +22,8 @@ deployment_map:
 ## 1. Metadata & deployment
 <!-- Brand, version, provenance pointer, and the deployment map (which sections paste into Project Instructions
      vs Project Knowledge). Mirror the front-matter above in prose if useful. -->
+Load together with `{{brand}}-visual-keystone.md` (the visual lobe) — BOTH are mandatory context; the asset
+map lives at `satellites/asset-index.md`.
 {{...}}
 
 ## 2. THINK as the brand — operative reasoning

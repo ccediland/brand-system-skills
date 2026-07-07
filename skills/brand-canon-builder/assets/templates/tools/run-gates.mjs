@@ -34,10 +34,9 @@
 // Sibling tools are resolved NEXT TO THIS SCRIPT (tools/), so the runner works from the
 // emitted repo root and in the skill's own fixture self-tests. Zero-dep Node.
 //
-// INTERIM deny scope: the client-surface manifest does not exist yet, so the deny gate
-// runs over the DECLARED interim scope (prototype/**/*.html + the repo README.md) and the
-// board labels it "interim scope". Widening to a real manifest is a later, tracked change —
-// the label keeps the claim honest until then.
+// Deny scope: the target list comes FROM the surface manifest (satellites/surfaces.md `client` rows);
+// a repo without a manifest falls back to the DECLARED interim scope (prototype/**/*.html + README.md),
+// labeled as such on the board — the linter never chooses its own scope silently.
 
 import { readFileSync, readdirSync, existsSync, statSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve, dirname, relative } from 'node:path';
@@ -289,7 +288,7 @@ const failLine = (s) => {
   } else {
     const text = readText(join(ROOT, candidates[0])) ?? '';
     // mask fenced code blocks (offset-preserving) so a ``` fence carrying "## " never miscounts sections
-    const masked = text.replace(/```[\s\S]*?```/g, (m) => m.replace(/[^\n]/g, ' '));
+    const masked = text.replace(/(```|~~~)[\s\S]*?\1/g, (m) => m.replace(/[^\n]/g, ' '));
     const headings = [...masked.matchAll(/^## .+$/gm)].map((m) => ({ h: m[0], i: m.index }));
     const probs = [];
     if (headings.length !== 6) probs.push(`${headings.length} top-level sections (needs the 6-section schema)`);
@@ -341,7 +340,7 @@ const failLine = (s) => {
     add('visual keystone', 'lint', true, 'FAIL', 'no <brand>-visual-keystone.md at the repo root — the design brain is a mandatory member of the resident set (verbal + visual + asset index)');
   } else {
     const text = readText(join(ROOT, vks[0])) ?? '';
-    const masked = text.replace(/```[\s\S]*?```/g, (m) => m.replace(/[^\n]/g, ' '));
+    const masked = text.replace(/(```|~~~)[\s\S]*?\1/g, (m) => m.replace(/[^\n]/g, ' '));
     const headings = [...masked.matchAll(/^## .+$/gm)].map((m) => ({ h: m[0], i: m.index }));
     const probs = [];
     if (headings.length !== 7) probs.push(`${headings.length} top-level sections (needs the 7-section schema)`);
@@ -356,16 +355,29 @@ const failLine = (s) => {
     const GAPLINE = /\bGAP-\d+\b|\bGAP\b[^\n]*\bpending\b/;
     const dd = section(/do\s*\/\s*don/i);
     if (dd == null) probs.push('no DO / DON\'T section');
-    else if (!(/\bDO\b[^\n]*\bDON'?T\b/i.test(dd) || (/\bDO\b/.test(dd) && /\bDON'?T\b/.test(dd))) && !GAPLINE.test(dd)) probs.push('DO/DON\'T carries no pair and no visible GAP marker (a brain without concrete pairs is adjectives)');
+    else {
+      // the section's own heading contains "DO / DON'T" — scan the BODY only, or the check is vacuous
+      const body = dd.slice(dd.indexOf('\n') + 1);
+      if (!(/\bDO\b[^\n]*\bDON'?T\b/i.test(body) || (/\bDO\b/.test(body) && /\bDON'?T\b/.test(body))) && !GAPLINE.test(body)) probs.push('DO/DON\'T carries no pair and no visible GAP marker (a brain without concrete pairs is adjectives)');
+    }
     const im = section(/imagery/i);
     if (im == null) probs.push('no AI-IMAGERY section');
     else if (im.trim().split('\n').length < 2 && !/not-used/i.test(im)) probs.push('AI-IMAGERY section empty with no explicit not-used(owner-declared) line');
-    const masked2 = masked; // pins checked outside fences only (a fenced example is not a live pin)
-    const pin = masked2.match(/#[0-9a-f]{3,8}\b|oklch\s*\(/i);
-    if (pin) probs.push(`pinned value "${pin[0]}" — the visual keystone references the spine BY TOKEN NAME, never by literal (a pin drifts)`);
+    // pins checked outside fences AND outside markdown link targets (an anchor fragment like #e2e-flow is
+    // not a colour). Pin classes: the CSS absolute-colour family + DTCG component serialization + print inks.
+    const masked2 = masked.replace(/\]\([^)\n]*\)/g, (m) => m.replace(/[^\n()\]]/g, ' '));
+    const PIN_RE = /#[0-9a-f]{3,8}\b|\b(?:oklch|oklab|rgba?|hsla?|hwb|lch|lab|cmyk|color-mix)\s*\(|\bcolor\s*\(\s*(?:display-p3|srgb|rec2020|a98-rgb|prophoto-rgb|xyz)|\bcomponents\s*:\s*\[\s*[\d.]|\b(?:PMS|Pantone)\s*\d{2,4}\b/i;
+    const pinM = masked2.match(PIN_RE);
+    if (pinM) probs.push(`pinned value "${pinM[0]}" — the visual keystone references the spine BY TOKEN NAME, never by literal (a pin drifts)`);
     add('visual keystone', 'lint', true, probs.length ? 'FAIL' : 'PASS',
-      probs.length ? probs.join(' · ') : `${vks[0]} — 7 sections, guardrails in tail, DO/DON'T pairs, imagery axis resolved, zero pinned values`);
+      probs.length ? probs.join(' · ') : `${vks[0]} — 7 sections, guardrails in tail, DO/DON'T pairs, imagery axis resolved, no pinned values in lint scope (outside fences/links)`);
   }
+}
+
+// ---------- 5c. asset index — the third member of the resident set (lint, BLOCKING) ----------
+{
+  if (!nonEmpty(join(ROOT, 'satellites', 'asset-index.md'))) add('asset index', 'lint', true, 'FAIL', 'satellites/asset-index.md absent or empty — the mandatory third member of the resident set (verbal + visual keystones + asset index)');
+  else add('asset index', 'lint', true, 'PASS', 'resident-set third member present (row integrity is reconciled by audit-lint R6d/R8)');
 }
 
 // ---------- 6. §7b live red-team run (agent-gate; the live run is deferred) ----------

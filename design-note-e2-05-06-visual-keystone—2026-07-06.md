@@ -75,7 +75,7 @@ visual en dos. Vive como §6 del visual keystone.
 |---|---|
 | Visual keystone ausente | FAIL (mandatorio NS-G) |
 | Valores pinneados (#hex/oklch) | FAIL — R-04: el cerebro REFERENCIA el spine, jamás lo copia |
-| DO/DON'T vacío | FAIL forma (o GAP visible — NS-D) |
+| DO/DON'T vacío | FAIL forma (o GAP visible — NS-D) — verdadera solo post-F1 del verify (§6): el check original evaluaba la sección CON su heading "## 4. DO / DON'T", que satisfacía su propio regex |
 | Marca sin identidad de imagery | §6 = descriptores proposed+GAP (cuarentena) o not-used declarado — jamás false-fail |
 | Pins legales stale | el template ordena re-verificar por build (regla de frescura, fechada) |
 | Deny sobre el keystone | NO ocurre (ai-facing, manifest E2-01) — CONTRA-2 sigue muerto |
@@ -86,3 +86,30 @@ visual en dos. Vive como §6 del visual keystone.
 - keystone-emit §verbal intacto salvo la sección nueva del par/set (E3-05 tocará Aaker-mecánica después).
 - El inventario de aplicación derivado del perfil (N10 pleno) es del scoper (E3-01); aquí solo el MÉTODO
   generativo de decisión (§5).
+
+## 6. §verify — adversarial verify del mecanismo (2026-07-06, convención E1-02 §10quater)
+
+Workflow de 4 agentes (gaming del template · evasiones R-04 · NS-D imagery + leak ai-facing→client ·
+pins fechados + modos de falla del SET) + juez con repros propios. **Veredicto: FAIL — 1 BLOCKER +
+3 MAJOR, todos confirmados con repro ejecutable; corregidos en el acto y re-gateados.**
+
+| # | Sev | Defecto (con repro) | Fix |
+|---|---|---|---|
+| F1 | BLOCKER | El check DO/DON'T evaluaba la sección INCLUYENDO su heading "## 4. DO / DON'T" — el heading satisface el regex del par, así que un §4 vacío pasaba (el check era vacuo). | Scan del BODY only (`run-gates.mjs:359-361`); repro `judge/a-emptydd` ahora FAIL con "carries no pair". |
+| F2 | MAJOR | El tercer miembro del SET residente (asset-index) no tenía fila propia — un repo sin `satellites/asset-index.md` pasaba el board completo. | Bloque 5c nuevo (`run-gates.mjs:377-381`); repro `judge/b-noindex` ahora FAIL. |
+| F3 | MAJOR | PIN_RE solo cazaba `#hex`/`oklch(` — `rgb()`, `hsl()`, DTCG `components:[…]`, PMS/Pantone pasaban limpios (evasión R-04 trivial). | Regex ampliada a la familia CSS absolute-colour + serialización DTCG + tintas print (`run-gates.mjs:369`); repros `judge/c-rgbpin` y `judge/d-components` ahora FAIL. |
+| F4 | MAJOR | Falso-fail: un anchor markdown `[…](…#e2e-flow)` disparaba "pinned value #e2e" — un fragment de URL no es color. | Masking de link targets antes del pin-scan (`run-gates.mjs:368`) + fences `~~~` enmascarados en ambos lóbulos; repro `judge/e-linkurl` ahora PASS. |
+| F5–F10 | menores | README-FIXTURE decía 9 filas seeded (real: 12) · header stale del deny-scope en run-gates · referencia cruzada del par faltante en keystone verbal/README/surfaces · "R-04-class" (ID interno) en prosa shipped del template · pin regulatorio SB 942 stale en el análisis congelado. | Conteo 12 + fila asset-index descrita · header reescrito (el scope viene del manifest) · §1/README/surfaces nombran AMBOS lóbulos + asset map · ID interno removido del template · marca STALE + entrada de log en el análisis (AB 853 → operativa 2026-08-02). |
+
+- **Floor documentado (aceptado, no defecto):** fenced snippets exentos del LINT no de la REGLA; formas
+  disfrazadas de color fuera del scope literal — threat model = drift-por-hábito, no autor adversarial
+  (medias-líneas en `keystone-emit.md` § The VISUAL keystone).
+- **Verificado-NEGATIVO:** leak ai-facing→client no existe (el deny no corre sobre el keystone por
+  manifest, y el manifest de fixtures/clean está sincronizado).
+- **Falsos positivos del verify:** ninguno material (F4 era el único y es defecto real del lint).
+- **Fuera-de-scope con dueño (PLAN-V5, backlog E2+):** decoy multi-archivo `[0]`-only en ambos lóbulos
+  (run-gates toma el primer `*-keystone.md`/`*-visual-keystone.md`; hardening = FAIL con >1 candidato) ·
+  matriz completa de fixtures por clase de violación · checks value-blind extra (cita presente en pares,
+  heading §5) · anti-tamper del validator del árbol cliente.
+- **Re-gate post-fixes:** clean exit 2 / 0 FAIL · board-violations exit 1 / 12 ❌ (las 2 filas nuevas
+  disparando) · audit 0/1/0/0 · deny manifest 0 + legacy 0/1 · r1-font-norm 0.

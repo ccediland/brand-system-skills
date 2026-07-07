@@ -20,8 +20,8 @@ the same sha256). Tokens are consulted at `tokens/` — this file names them, ne
 - {{...}}
 
 ## 3. TOKENS & USAGE — reference, never pin
-<!-- Name the spine's families and the rules of consultation. NO literal values here (R-04-class rule:
-     a value written here is a pin that will drift; the spine is the single root). -->
+<!-- Name the spine's families and the rules of consultation. NO literal values here (a value
+     written here is a pin that will drift; the spine is the single root). -->
 - Color roles: `{semantic.color.*}` — resolve at `tokens/semantic.json`; base truths at `{base.color.*}`.
 - Type: `{base.font-family.*}` + scale `{base.font-size.*}`; spacing `{base.spacing.*}`.
 - Schemes: consult `tokens/schemes/<id>.json` (derived sets carry `hypothesis` + their GAP until ratified).

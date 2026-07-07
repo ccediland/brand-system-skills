@@ -134,8 +134,12 @@ visual output: everything an AI needs to think/decide/DESIGN as the brand.
   opinionated why + when-not is what makes the output opinionated) · §5 the generative decision METHOD
   (derivation + quarantined-proposal fallback + declared white-space — never an application catalog) ·
   §6 the AI-imagery rule (below) · §7 visual guardrails in the high-recall tail.
-- **References the spine BY NAME, never pins a value:** zero `#hex` / `oklch()` literals in the file —
+- **References the spine BY NAME, never pins a value:** zero colour literals in the file (`#hex`, the CSS
+  absolute-colour function family, DTCG component arrays, print inks) —
   a pinned value stops following the spine and drifts; the gate runner FAILS a pinned brain (machine).
+  Fenced snippets are exempt from the LINT, not from the RULE: examples inside fences reference tokens /
+  `var(--…)` / aliases only. Lint scope = literal colour syntax outside fences and link targets; disguised
+  forms sit outside it — the threat model is drift-by-habit, not an adversarial author.
 - **§6 AI-IMAGERY RULE — five axes, filled per brand:** (1) STYLE: the index's reference assets ARE the
   ground truth to match (the reference is the target, never source material to edit); derived descriptors
   labeled; a brand with NO imagery identity quarantines every descriptor (`source: proposed` +

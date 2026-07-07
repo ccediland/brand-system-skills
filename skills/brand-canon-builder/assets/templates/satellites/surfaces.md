@@ -15,7 +15,7 @@
 |---|---|---|
 | prototype/*.html | client | the complete interactive brandbook — THE total client review surface |
 | README.md | client | the repo's human front door |
-| *-keystone.md | ai-facing | the brand's verbal mini-brain — epistemics intact by design |
+| *-keystone.md | ai-facing | BOTH keystone lobes (verbal + visual) — epistemics intact by design |
 | canon/*.md | ai-facing | the four-layer canon |
 | canon/canon.json | ai-facing | machine mirror |
 | tokens/** | ai-facing | the DTCG spine (provenance blocks live here) |
