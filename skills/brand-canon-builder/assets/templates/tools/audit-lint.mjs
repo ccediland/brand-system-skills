@@ -227,7 +227,12 @@ function valueInText(txt, value) {
   if (typeof value === 'string') {
     if (txt.includes(value)) return true;
     const fam = value.match(/^"([^"]+)"/); // a font stack corroborates on its first quoted family
-    return fam ? txt.includes(fam[1]) : false;
+    if (!fam) return false;
+    if (txt.includes(fam[1])) return true;
+    // normalized containment: a source naming per-weight faces ("MaisonNeue-book") genuinely corroborates
+    // the canonized family ("Maison Neue") — compare alphanumeric-lowercase, family contained in source
+    const normFam = fam[1].toLowerCase().replace(/[^a-z0-9]+/g, '');
+    return normFam.length >= 4 && txt.toLowerCase().replace(/[^a-z0-9]+/g, '').includes(normFam);
   }
   return true; // other shapes (composite strings already covered above) — declarative
 }
