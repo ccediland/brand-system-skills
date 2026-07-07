@@ -282,9 +282,9 @@ const failLine = (s) => {
 
 // ---------- 5. §7b keystone structural + FORM-OF-RULE (lint, BLOCKING) ----------
 {
-  const candidates = listDir(ROOT).filter((f) => /(^|-)keystone\.md$/.test(f));
+  const candidates = listDir(ROOT).filter((f) => /(^|-)keystone\.md$/.test(f) && !/visual-keystone\.md$/.test(f));
   if (!candidates.length) {
-    add('keystone structural', 'lint', true, 'FAIL', 'no <brand>-keystone.md at the repo root — the keystone is a mandatory output');
+    add('keystone structural', 'lint', true, 'FAIL', 'no <brand>-keystone.md at the repo root — the (verbal) keystone is a mandatory output');
     add('keystone form-of-rule', 'lint', true, 'FAIL', 'no keystone to check');
   } else {
     const text = readText(join(ROOT, candidates[0])) ?? '';
@@ -327,6 +327,44 @@ const failLine = (s) => {
     else if (!(/on-brand/i.test(sp) && /off-brand/i.test(sp)) && !GAPLINE.test(sp)) formProbs.push('SPEAK: no on-brand/off-brand few-shot pair and no visible GAP line');
     add('keystone form-of-rule', 'lint', true, formProbs.length ? 'FAIL' : 'PASS',
       formProbs.length ? formProbs.join(' · ') : 'THINK/DESIGN carry a conditional-rule shape (or a visible GAP), SPEAK carries a pair (or a visible GAP) — form only, never brand content');
+  }
+}
+
+// ---------- 5b. VISUAL keystone — the design brain (lint, BLOCKING; the second lobe of the set) ----------
+// Mandatory resident-set member: exists · 7 sections (fences masked) · guardrail in the tail · ≥1 DO/DON'T
+// pair or a visible GAP marker · the imagery section present (content or an explicit not-used line) · and
+// ZERO pinned values (#hex / oklch() literals) — the brain REFERENCES the spine by token name; a pinned
+// value stops following the spine (drift by construction). All form checks — brand content is never read.
+{
+  const vks = listDir(ROOT).filter((f) => /visual-keystone\.md$/.test(f));
+  if (!vks.length) {
+    add('visual keystone', 'lint', true, 'FAIL', 'no <brand>-visual-keystone.md at the repo root — the design brain is a mandatory member of the resident set (verbal + visual + asset index)');
+  } else {
+    const text = readText(join(ROOT, vks[0])) ?? '';
+    const masked = text.replace(/```[\s\S]*?```/g, (m) => m.replace(/[^\n]/g, ' '));
+    const headings = [...masked.matchAll(/^## .+$/gm)].map((m) => ({ h: m[0], i: m.index }));
+    const probs = [];
+    if (headings.length !== 7) probs.push(`${headings.length} top-level sections (needs the 7-section schema)`);
+    const guard = headings.findIndex((h) => /guardrail/i.test(h.h));
+    if (guard === -1) probs.push('no VISUAL GUARDRAILS section');
+    else if (guard < headings.length - 2) probs.push('guardrails buried mid-document (must sit in the high-recall tail)');
+    const section = (re) => {
+      const ix = headings.findIndex((h) => re.test(h.h));
+      if (ix === -1) return null;
+      return text.slice(headings[ix].i, ix + 1 < headings.length ? headings[ix + 1].i : text.length);
+    };
+    const GAPLINE = /\bGAP-\d+\b|\bGAP\b[^\n]*\bpending\b/;
+    const dd = section(/do\s*\/\s*don/i);
+    if (dd == null) probs.push('no DO / DON\'T section');
+    else if (!(/\bDO\b[^\n]*\bDON'?T\b/i.test(dd) || (/\bDO\b/.test(dd) && /\bDON'?T\b/.test(dd))) && !GAPLINE.test(dd)) probs.push('DO/DON\'T carries no pair and no visible GAP marker (a brain without concrete pairs is adjectives)');
+    const im = section(/imagery/i);
+    if (im == null) probs.push('no AI-IMAGERY section');
+    else if (im.trim().split('\n').length < 2 && !/not-used/i.test(im)) probs.push('AI-IMAGERY section empty with no explicit not-used(owner-declared) line');
+    const masked2 = masked; // pins checked outside fences only (a fenced example is not a live pin)
+    const pin = masked2.match(/#[0-9a-f]{3,8}\b|oklch\s*\(/i);
+    if (pin) probs.push(`pinned value "${pin[0]}" — the visual keystone references the spine BY TOKEN NAME, never by literal (a pin drifts)`);
+    add('visual keystone', 'lint', true, probs.length ? 'FAIL' : 'PASS',
+      probs.length ? probs.join(' · ') : `${vks[0]} — 7 sections, guardrails in tail, DO/DON'T pairs, imagery axis resolved, zero pinned values`);
   }
 }
 

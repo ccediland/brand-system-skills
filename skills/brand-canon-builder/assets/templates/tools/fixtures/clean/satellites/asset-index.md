@@ -8,3 +8,4 @@
 | palette transcription (relay) | source | sources/palette-notes.md | — | CHECKSUMS.txt (origin: relay — never counted as independent) | — |
 | mark master | asset | canon/mark.svg | — | CHECKSUMS.txt + single-source reconciliation | mark |
 | keystone (verbal brain) | knowledge | demo-keystone.md | — | — | — |
+| keystone (visual brain) | knowledge | demo-visual-keystone.md | — | — | — |

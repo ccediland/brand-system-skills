@@ -120,6 +120,41 @@ FORM-OF-RULE checks are MACHINE-run (`tools/run-gates.mjs`: six sections, guardr
 battery, a conditional-rule/pair shape or a visible GAP marker per core section — value-blind); the finer
 operability judgment stays agent discipline on top of that floor. See `validate-audit.md` §7b/§8.
 
+## The VISUAL keystone — the design brain (the second lobe of the resident set)
+
+The brand-AI ships as a RESIDENT SET of few, consolidated files — the verbal keystone + the VISUAL keystone
++ the asset index — sized to stay resident together (the budget above covers the SET); the client's AI
+loads BOTH keystones as mandatory context and consults the index for every file/asset question. The visual
+keystone (`<brand>-visual-keystone.md`, from `assets/templates/keystone/visual-keystone.md`) REIGNS over
+visual output: everything an AI needs to think/decide/DESIGN as the brand.
+
+- **Emitted FROM the canon, never hand-maintained** (the anti-drift law every consolidated surface obeys):
+  §2 principles from PRIMITIVES per-atom intent + ESSENCE meaning · §3 token families from the spine ·
+  §4 DO/DON'T pairs from GRAMMAR `G-*`/`ALGO-*` + PRIMITIVES Misuse, EVERY pair citing its rule id (the
+  opinionated why + when-not is what makes the output opinionated) · §5 the generative decision METHOD
+  (derivation + quarantined-proposal fallback + declared white-space — never an application catalog) ·
+  §6 the AI-imagery rule (below) · §7 visual guardrails in the high-recall tail.
+- **References the spine BY NAME, never pins a value:** zero `#hex` / `oklch()` literals in the file —
+  a pinned value stops following the spine and drifts; the gate runner FAILS a pinned brain (machine).
+- **§6 AI-IMAGERY RULE — five axes, filled per brand:** (1) STYLE: the index's reference assets ARE the
+  ground truth to match (the reference is the target, never source material to edit); derived descriptors
+  labeled; a brand with NO imagery identity quarantines every descriptor (`source: proposed` +
+  `hypothesis` + GAP) — and `imagery: not-used(owner-declared)` resolves the whole section to that line,
+  never invented. (2) FORBIDDEN subjects/edits (open illustrative classes: no altered real-person
+  appearance; no uncleared portraits/landmarks; no "in the style of <artist>"; marks only from approved
+  index sources; edit↔fabrication boundary + reverse-image checks). (3) PERMITTED space. (4) REVIEW routed
+  by risk (posture-parameterized; real people / regulated / high-stakes ⇒ human sign-off). (5) DISCLOSURE &
+  PROVENANCE: every generated asset gets an asset-index row (`Kind: generated-imagery` — tool, prompt-ref,
+  date, reviewer; custody like any derived capture) + a disclosure posture whose legal pins are
+  VERSION-FLUID — the freshness rule applies: RE-VERIFY at each build and date the pin in the emitted file
+  (as of 2026-07-06: EU AI Act Art. 50 applies 2026-08-02, pre-market systems until 2026-12-02 for
+  machine-readable marking; California SB 942 operative 2026-08-02 via AB 853, hosting duties 2027-01-01;
+  content-credential mechanisms certify the DECLARED history, not truth — the review axis is the backstop).
+- AI-FACING surface (the manifest classes `*-keystone.md` so): epistemics intact, the deny never runs here.
+- Machine floor (`run-gates.mjs`): file exists (mandatory) · 7 sections · guardrail in the tail · ≥1
+  DO/DON'T pair or a visible GAP marker · §6 present (content or explicit not-used line) · zero pinned
+  values. The finer design judgment stays agent discipline.
+
 ## Boundaries
 
 - **Embodiment ≤ residency.** The file maximizes faithful embodiment only while resident; once RAG-chunked,

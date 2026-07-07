@@ -7,6 +7,7 @@ UNTRACKED; hand-verdict: recorded `pass:true` disagrees with its own numbers —
 §7a mandatory set FAIL (the persisted handoff declares NON-WAIVABLE `visual mark (badmark)` + `graphic-code`
 and neither was ever measured — ANALYZE mode) ·
 all five demoted agent-gates FAIL (no audit/agent-gates.md) · audit-lint FAIL (a MISLOCATED projections.md
-at the repo root — the R6a never-silent-skip seed).
+at the repo root — the R6a never-silent-skip seed) · visual keystone FAIL (bad-visual-keystone.md: buried
+guardrails + a pinned `#hex` value + adjective DO/DON'T + empty imagery section).
 Deny is N/A (no interim-scope surfaces). Self-test:
 `node run-gates.mjs fixtures/gates/board-violations` → exit 1.

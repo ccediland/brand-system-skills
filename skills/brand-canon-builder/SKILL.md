@@ -40,7 +40,8 @@ surfaces.md              SURFACES      (satellite) — the surface manifest: cli
 asset-index.md           ASSET INDEX   (satellite) — the ONE consultation map (every asset + detail-doc, repo location mandatory, optional Drive mirror w/ shared sha256, custody pointers, primary-master-for slots); emitted from the canon, in the reconciliation gate's scope
 prototype.html           PROTOTYPE  — a real, presentable render from the canon (Stage 8; opens in any browser)
 design-sync-kit/         LIBRARY    — the compiled, /design-sync-ready component library (Stage 8)
-<brand>-keystone.md      KEYSTONE   — the attachable .md an AI thinks / speaks / designs as the brand (Stage 8.5)
+<brand>-keystone.md      KEYSTONE   — the verbal brain: an AI thinks / speaks as the brand (Stage 8.5)
+<brand>-visual-keystone.md  VISUAL KEYSTONE — the design brain: an AI designs as the brand (Stage 8.5; the resident set = both keystones + the asset index)
 README.md · CLAUDE.md · RESIDENT.md   docs (RESIDENT carries the GAP-NNN Open Items)
 assets/                  source binaries placed in-repo (marks, fonts, imagery) — read by the build
 sources/                 source references placed in-repo (brandbook PDFs, exports) — read by the build
@@ -307,8 +308,10 @@ Emit both real deliverables (canon = skeleton, these = deliverable):
 Re-pin the live `/design-sync` contract before freezing the emitter (`references/design-sync-kit.md` § "Step 0
 — Re-pin the live contract" — the contract is server-side/version-fluid via `get_claude_design_prompt`).
 
-### Stage 8.5 — Emit the keystone `.md` · BLOCKING (north-star)
-Read `references/keystone-emit.md`. Synthesize the single attachable `<brand>-keystone.md` from the filled
+### Stage 8.5 — Emit the RESIDENT SET (verbal keystone + VISUAL keystone) · BLOCKING (north-star)
+Read `references/keystone-emit.md`. The brand-AI ships as a resident SET — the verbal keystone + the
+VISUAL keystone + the asset index — few consolidated files the client's AI loads together (both keystones
+mandatory context). Synthesize the attachable `<brand>-keystone.md` from the filled
 canon (Stages 2/6), the token spine (Stage 7), and the acquired assets (Stages 3/4) — the deliverable that
 makes the brand *operable* by an AI (think / speak / design AS the brand + a guardrail layer). Mandatory build
 output, not opt-in. Copy `assets/templates/keystone/keystone.md` and fill it in the ratified 6-section order
@@ -317,6 +320,14 @@ output, not opt-in. Copy `assets/templates/keystone/keystone.md` and fill it in 
   adjectives; derive DESIGN from the token spine, GUARDRAIL from the handoff POSTURE block.
 - Recall-ordering: the GUARDRAIL layer (§5) sits in the high-recall tail, never buried mid-document; §5 + §4
   double as Project instructions, §6 REFERENCE as Project knowledge (front-matter carries the deployment map).
+- **Emit the VISUAL keystone too** (`<brand>-visual-keystone.md`, from
+  `assets/templates/keystone/visual-keystone.md` — `keystone-emit.md` § The VISUAL keystone): the design
+  brain — principles (per-atom intent+meaning) · token families BY NAME (never a pinned value — the gate
+  fails `#hex`/`oklch()` literals) · DO/DON'T pairs citing `G-*`/`ALGO-*` ids · the generative decision
+  method · the five-axis AI-imagery rule (reference assets = ground truth; no-identity brands quarantine
+  every descriptor; generated assets get asset-index rows; disclosure pins are version-fluid — re-verify
+  per build) · visual guardrails in the tail. Both keystones are EMITTED from the canon, never
+  hand-maintained; both are ai-facing (epistemics intact).
 - Size budget is a parameter (conservative default: stay fully resident in context). If over, apply the
   degradation path (split §6 REFERENCE to retrievable knowledge first). The measured trip-point is delegated to
   Phase-5 calibration.
