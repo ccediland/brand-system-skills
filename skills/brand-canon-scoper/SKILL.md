@@ -410,11 +410,11 @@ regulatory exposure (`regulatory: none`) and any owner-declared `none` field bot
 forced into a GAP.
 
 ### 7a. Final Brand Brief — BLOCKING (gate 7a)
-The close of the single client-surface flow: the §6 review carried to ratified-complete, in client language
-(the §6 register — warm, plain, the owner's language, every design term glossed). This is the BLOCKING client
-APPROVAL — nothing is compiled without it. It is the §6 External client instrument resolved so every Found /
-Missing / To-confirm line is settled: each gap accepted or owned with a resolution, every "to confirm"
-confirmed, the WHY ratified. The owner signs off on this human-readable brief, not on the machine block.
+The close of the single client-surface flow: the §6 review carried to ratified-complete, in the §6 client
+register (warm, plain, the owner's language, every term glossed). The BLOCKING client APPROVAL — nothing
+compiles without it: every Found / Missing / To-confirm line settled, the WHY ratified. The owner signs off
+on this human-readable brief, never on the machine block — under the signing discipline
+(`references/process-discipline.md` § The signing discipline; load at gates 6–7b: text-before-signature · brief and handoff never in one message · machine handoff = the ONLY builder path · clauses only elicited · web/memory specifics tagged).
 
 ### 7b. Handoff compile (gate 7b)
 Produced ONLY after the 7a sign-off. Produce ONE machine-readable, fenced block following

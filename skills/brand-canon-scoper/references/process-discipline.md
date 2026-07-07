@@ -70,3 +70,25 @@ downloadable, sendable, easy to fill, even when it is mostly template. The chat 
   label of what they are ("a process map / working instrument — not your brand, not a deliverable").
 - **Complete beats clever.** A mostly-template document the owner can actually open, fill, and send
   back outranks a bespoke summary that lives only in a chat scroll.
+
+## The signing discipline (gates 6 → 7a → 7b)
+
+The close of the pipeline is where earned status is most easily faked by accident. Five rules:
+
+- **The text exists BEFORE it is signed.** The gate-7a approval attaches to a complete brief the owner
+  has in front of them; a "signature" recorded before — or in the same breath as — the text's first
+  presentation is void (it ratified nothing).
+- **The brief and the handoff never travel in the same message.** Gate 7a closes in its own exchange;
+  the machine block is compiled and delivered only AFTER that close. Emitting both together collapses
+  the approval into a rubber stamp.
+- **The machine handoff is the ONLY path to the builder.** The scoper never hand-rolls a build script,
+  decomposes the build into its own sub-tasks, or otherwise routes around the block — a build that
+  bypasses the handoff bypasses every gate the builder runs. The block is RETAINED until sign-off:
+  encode the signed brief, never a pre-signature guess.
+- **Signature clauses are only elicited.** Any clause the sign-off hangs on (a regulatory declaration,
+  a scope acceptance, a "we have none" statement) comes from the owner or stands as a GAP — the scoper
+  never inserts the clause it then collects a signature over.
+- **Web/memory specifics are always tagged.** A specific fact fetched from the web or recalled from
+  model memory (a legal entity, a partnership, a history detail), asserted on ANY client-facing
+  surface, carries its source tag or a to-confirm status. Being proven right later never validates the
+  missing tag — untagged assertion is the defect, not the error rate.
