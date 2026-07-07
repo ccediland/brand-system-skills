@@ -73,16 +73,17 @@ front-matter records which section goes where (the deployment map).
    figure. The template's `{{constraints + who imposes them}}` placeholder is filled from the cited carrier or
    left as an explicit GAP; filling it from memory is the same memory-assertion defect EH-2 forbids, one layer
    down.
-6. **REFERENCE.** Token-spine pointer; a CLIENT-facing asset inventory (WHAT exists + WHERE it lives — no
-   build columns); horizon map seeded from the handoff `HORIZONS` block (each horizon's one-line direction +
+6. **REFERENCE.** Token-spine pointer; the asset map (WHAT exists + WHERE it lives — pointing at
+   `satellites/asset-index.md` as the full consultation index); horizon map seeded from the handoff
+   `HORIZONS` block (each horizon's one-line direction +
    its `existing-material` flag). This is the knowledge surface — the section that splits out first if the
-   file exceeds the resident budget. **DA1 (TS-2): the deployed asset inventory carries NO
-   provenance/confidence/fidelity columns** — `client-deny-lint` rejects those on the client keystone. The
-   per-asset provenance/fidelity record (source · confidence on the six-value ladder
-   (`gap-protocol.md` § The provenance spine) · owner · freshness — READ from the token's `$extensions.brand.provenance`
+   file exceeds the resident budget. **The keystone is an AI-FACING surface (the surface manifest classes
+   it so): its epistemics stay INTACT** — provenance/confidence markers and GAP slots are what make the
+   brain honest, and the deny-lint does not run here (its targets are the manifest's `client` rows only).
+   The per-asset provenance/fidelity record it cites (source · confidence on the six-value ladder
+   (`gap-protocol.md` § The provenance spine) · owner · freshness) is READ from the token's `$extensions.brand.provenance`
    (`token-spine.md` § The provenance block) / `canon.json` / the `RESIDENT.md` GAP ledger, never recalled
-   from emitter memory) lives in the build worksheet in `RESIDENT.md` ONLY (the operator surface); it never
-   deploys onto the client keystone.
+   from emitter memory; the full build worksheet stays in `RESIDENT.md` (the operator surface).
 
 ## Recall-ordering & size budget
 

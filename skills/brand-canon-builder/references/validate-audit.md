@@ -210,9 +210,13 @@ N/A on the report and a registry MISLOCATED at the repo root is a violation, nev
   FAILS, naming the missing role-keys. The deferred escape is a tracked GAP (R0/R5 still apply to whatever
   tokens exist), never a bypass. A single-scheme (flat) brand materializes its one default set; a repo with no
   `schemes` block is a vacuous PASS. `audit-lint.mjs` also loads the per-scheme `tokens/schemes/*.json` sets.
-- **R8 (RV-5)** — prototype completeness: every canon section that is PRESENT by a brand-content-blind machine
+- **R8 (RV-5)** — brandbook completeness, FAIL BY OMISSION: every canon section that is PRESENT by a
+  brand-content-blind machine
   signal maps to a LIVE `[data-canon-section="<id>"]` surface in a generated `.html` brandbook OR an open
-  `GAP-NNN` deferral (a marker carrying `data-gap="GAP-NNN"`). A marker that lives only inside an HTML comment
+  `GAP-NNN` deferral (a marker carrying `data-gap="GAP-NNN"`) — **AND every `satellites/asset-index.md`
+  entry of Kind `asset` maps to a `[data-asset="<slug>"]` surface or an open-GAP deferral: the required set
+  is ENUMERATED FROM THE INDEX (the client must SEE every asset the map says exists), which stays
+  anti-determinist because the index is derived per-brand from what exists, never a fixed checklist.** A marker that lives only inside an HTML comment
   or an inert `<template>` is stripped before the scan — it is not a rendered surface. The present-set is
   DERIVED, never a fixed brandbook checklist: `essence` (the `canon/01-*` essence layer) · `color` (color
   tokens) · `type` (typography / `font-*` / `line-height` tokens) · `mark` (`canon/mark.svg` present) ·

@@ -36,6 +36,8 @@ canon/canon.json         machine mirror of essence + grammar (dual legibility)
 tokens/base.json | semantic.json | component.json   DTCG token spine (OKLCH; the interchange contract)
 data-map.md              DATA POINTER  (satellite, not canon) — where volatile values live
 projections.md           PROJECTIONS   (satellite, not canon) — consumer registry + interchange contract
+surfaces.md              SURFACES      (satellite) — the surface manifest: client/ai-facing/operator classes; THE deny-lint target list
+asset-index.md           ASSET INDEX   (satellite) — the ONE consultation map (every asset + detail-doc, repo location mandatory, optional Drive mirror w/ shared sha256, custody pointers, primary-master-for slots); emitted from the canon, in the reconciliation gate's scope
 prototype.html           PROTOTYPE  — a real, presentable render from the canon (Stage 8; opens in any browser)
 design-sync-kit/         LIBRARY    — the compiled, /design-sync-ready component library (Stage 8)
 <brand>-keystone.md      KEYSTONE   — the attachable .md an AI thinks / speaks / designs as the brand (Stage 8.5)
@@ -320,11 +322,17 @@ output, not opt-in. Copy `assets/templates/keystone/keystone.md` and fill it in 
 - Provenance: every datum inherits the spine; mark observed-but-unconfirmed as `hypothesis`, never crystallize.
 Stage 10 fails the build if the keystone is absent or malformed (`references/validate-audit.md` §7b).
 
-### Stage 9 — Coverage + gaps
+### Stage 9 — Coverage + gaps + the consultation index
 Read `references/coverage-checklist.md` and `references/gap-protocol.md`. Formalize the handoff's
 client-language gaps into `GAP-NNN` (two-ledger); walk the universal must-haves; for each unmet one, add a
 `GAP-NNN` row to `RESIDENT.md` (severity + proposed resolution). Do not pad the checklist defensively —
-the universality stress test is the real net.
+the universality stress test is the real net. **Emit `satellites/asset-index.md` FROM the canon** (every
+asset + every knowledge doc deeper than the keystone, one row each: repo location MANDATORY, optional Drive
+mirror with the SAME sha256, custody pointer to where the record already lives — sourceRefs / CHECKSUMS /
+MANIFEST, never re-homed — and `primary-master-for` naming each slot's official master, which the lint binds
+`verified-primary` reads to). Keep `satellites/surfaces.md` current: a new surface gets its class row (an
+unlisted client surface silently escapes the deny firewall). Both are emitted artifacts — hand-maintained
+copies are drift by construction; both sit in the reconciliation gate's scope.
 
 ### Stage 10 — VALIDATE / AUDIT + fidelity gate · BLOCKING
 Read `references/validate-audit.md`. Judge the build on fidelity, not rule-compliance of an empty

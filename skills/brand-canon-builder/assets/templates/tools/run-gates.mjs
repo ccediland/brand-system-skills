@@ -85,17 +85,24 @@ const failLine = (s) => {
 
 // ---------- 2. client-deny-lint over the INTERIM scope (lint, BLOCKING) ----------
 {
-  const scope = [];
-  const walkHtml = (dir) => { for (const f of listDir(dir)) { const p = join(dir, f); if (isDir(p)) walkHtml(p); else if (f.endsWith('.html')) scope.push(p); } };
-  const protoDir = join(ROOT, 'prototype');
-  if (isDir(protoDir)) walkHtml(protoDir);
-  const readme = join(ROOT, 'README.md');
-  if (existsSync(readme)) scope.push(readme);
-  if (!scope.length) {
-    add('client-deny-lint', 'lint', true, 'N/A', 'no client surfaces found under the interim scope (prototype/**/*.html, README.md)');
+  // the target list comes FROM the surface manifest (satellites/surfaces.md `client` rows) — the linter
+  // never chooses its own scope. A repo without a manifest falls back to the labeled interim scope.
+  if (existsSync(join(ROOT, 'satellites', 'surfaces.md'))) {
+    const r = runTool('client-deny-lint.mjs', ['--manifest', ROOT]);
+    add('client-deny-lint', 'lint', true, r.status, `MANIFEST scope (satellites/surfaces.md client rows) · ${r.detail}`);
   } else {
-    const r = runTool('client-deny-lint.mjs', scope);
-    add('client-deny-lint', 'lint', true, r.status, `INTERIM scope (${scope.map(rel).join(', ')}) — pending the client-surface manifest · ${r.detail}`);
+    const scope = [];
+    const walkHtml = (dir) => { for (const f of listDir(dir)) { const p = join(dir, f); if (isDir(p)) walkHtml(p); else if (f.endsWith('.html')) scope.push(p); } };
+    const protoDir = join(ROOT, 'prototype');
+    if (isDir(protoDir)) walkHtml(protoDir);
+    const readme = join(ROOT, 'README.md');
+    if (existsSync(readme)) scope.push(readme);
+    if (!scope.length) {
+      add('client-deny-lint', 'lint', true, 'N/A', 'no surface manifest and no interim-scope surfaces (prototype/**/*.html, README.md)');
+    } else {
+      const r = runTool('client-deny-lint.mjs', scope);
+      add('client-deny-lint', 'lint', true, r.status, `INTERIM scope (${scope.map(rel).join(', ')}) — no satellites/surfaces.md manifest in this repo · ${r.detail}`);
+    }
   }
 }
 

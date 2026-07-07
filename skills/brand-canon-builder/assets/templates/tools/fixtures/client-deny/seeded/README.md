@@ -12,6 +12,7 @@ only with their context). Comment- and attribute-node hits live in notes.html.
 - Placeholder Stage-N still here.              (stage-label, distinctive literal N)
 - We rebuild this surface at Stage 5.          (stage-label numeric — fires via build-context "rebuild")
 - confidence: owner-confirmed                  (confidence-grade — fires via the key:value annotation)
+- confidence …70 chars of padding… owner-confirmed   (confidence-grade — the WINDOW-BYPASS class: same-line key binding, padding no longer escapes)
 - confidence: verified-primary                 (confidence-grade, v5 rung — key:value annotation)
 - confidence: handoff-confirmed                (confidence-grade, v5 rung — key:value annotation)
 - confidence: proxy-relayed                    (confidence-grade, v5 rung — key:value annotation)

@@ -82,6 +82,14 @@
           ]
         } }
       },
+      "vpnotprimary": {
+        "$value": { "colorSpace": "oklch", "components": [0.93, 0.02, 60], "alpha": 1, "hex": "#f0e4d2" },
+        "$description": "R3 VIOLATION (v5) — verified-primary citing a HASHED file (sources/a.css) that the asset index does NOT mark primary-master-for: an exact-read claim binds to the slot's OFFICIAL master, never to any hashed file",
+        "$extensions": { "brand": {
+          "provenance": { "source": "declared-spec", "confidence": "verified-primary", "owner": "demo-owner", "freshness": "shipped" },
+          "sourceRef": [ { "file": "sources/a.css", "selector": ".brand", "line": 1, "sha256": "6f3b472903334a433101bf9992e2a0537f7c33992238422a507e295f430c1ac2" } ]
+        } }
+      },
       "r1value": {
         "$value": { "colorSpace": "oklch", "components": [0.20, 0.01, 250], "alpha": 1, "hex": "#0f0f14" },
         "$description": "R1 VALUE VIOLATION (v5) — corroborated with 2 distinct EXISTING hashed files, but the VALUE appears in neither: a plausible fabrication with real sourceRefs is exactly what value-agreement kills",
