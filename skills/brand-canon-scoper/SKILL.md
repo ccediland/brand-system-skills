@@ -291,19 +291,19 @@ self-check (below, pre-compile) verifies it.
 **Horizon detection — adaptive, not a checklist.** The adaptive method (quarry in `references/detection-batteries.md`; horizons are dimensions OF the machine's frame) generates category-relevant candidates, prompts lightly, probes for existing material, and asks the open question; record each as `direction | not-relevant | tagged-gap` + `existing-material:<y/n>` into the handoff HORIZONS block.
 
 ### 5. Multi-decider & unstructured input
-Two generic, blind capabilities. Encode multi-signer sign-off and partner politics as "more than one
+Two generic, blind capabilities — mechanics in `references/multi-decider-proxy.md` (proxy-as-respondent:
+factual → `proxy-relayed`, owner-meaning degrades to hypothesis+to-confirm, post-answer source check;
+separate capture → declared-weight consolidation → surviving conflict ESCALATED; the principal contact
+may scope who gets asked — valid and recorded); load it at this gate and whenever the interlocutor is
+not the owner. Encode multi-signer sign-off and partner politics as "more than one
 person decides," never as a named demographic.
 
-Multi-decider (RACI-shaped). When several people have a say:
-- Capture each voice's input per slot; attribute positions.
-- For each canon slot, identify the single Accountable (the ratifier; the buck stops there) plus
-  Consulted/Informed. More than one Accountable on a slot is a conflict to resolve. The Accountable is the
-  `owner` field of the provenance spine for that slot.
-- **Surface disagreement explicitly** — never paper over it; route each conflict to the living questions doc
-  as "needs one decision."
-- Record who ratifies (→ `OWNERS` in the handoff).
-- Session pattern: involve the decision-makers without making the decision in-session; keep the decider
-  group small and fixed; never introduce new deciders mid-process. *(Wheeler — SECONDARY)*
+Multi-decider (RACI-shaped). When several people have a say: capture each voice separately and attribute
+positions; per canon slot, ONE Accountable (the ratifier — the provenance spine's `owner` field; two
+Accountables on a slot is itself a conflict) plus Consulted/Informed; **surface disagreement explicitly**
+— never paper over it; route each surviving conflict to the living questions doc as "needs one decision";
+record who ratifies (→ `OWNERS`). Session pattern: involve the decision-makers without making the decision
+in-session; keep the decider group small and fixed; never introduce new deciders mid-process. *(Wheeler — SECONDARY)*
 
 Unstructured input. Owners ramble, jump, contradict. You:
 - Capture verbatim, then cluster by canon layer.
