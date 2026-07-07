@@ -4,10 +4,10 @@
 
 A Claude Code plugin that turns any brand into a **canonical, brand-agnostic, output-agnostic source of
 truth** — a four-layer brand canon plus a DTCG/OKLCH token spine — and then builds a **real, presentable
-prototype, a `/design-sync`-ready component library, and a single attachable keystone `.md` an AI can think,
-speak, and design *as* the brand** from it. Any consumer (a website, an app, a slide deck, a print kit, a
-design tool, or an AI assistant) derives any artifact from the same source, with no lossy hop. It analyzes a
-brand's published work by default, or authors from a ratified brief on request.
+prototype, a `/design-sync`-ready component library, and a resident brand-AI set (verbal keystone + visual
+design-brain + asset index) an AI loads to think, speak, and design *as* the brand**. Any consumer (a
+website, an app, a slide deck, a print kit, a design tool, or an AI assistant) derives any artifact from the
+same source, with no lossy hop. It analyzes published work by default, or authors from a ratified brief.
 
 Sibling to [`web-stack-skills`](https://github.com/ccediland/web-stack-skills): the brand canon is the
 upstream source of truth; web-stack-skills is a flagship downstream consumer that turns the canon into web
@@ -18,7 +18,7 @@ output. They share the same DTCG/OKLCH token spine, so a canon projects into web
 | Skill | Where | What it does |
 |---|---|---|
 | **brand-canon-builder** | Claude Code (filesystem + git) | Analyzes existing brand work, extracts the real assets, and builds the canon — four layers + token spine + satellites + docs — then emits a real prototype, a compiled, `/design-sync`-ready component library, and the attachable keystone `.md` an AI thinks / speaks / designs *as* the brand. Fills what the brand's material supports, logs the rest as tracked gaps, and fails the build if a core asset (the mark, the fonts) is missing rather than shipping an empty skeleton. |
-| **brand-canon-scoper** | Claude.ai chat (no filesystem) | Scopes a brand in conversation and compiles one ready-to-paste handoff block that the builder runs in Claude Code. |
+| **brand-canon-scoper** | Claude.ai chat (no filesystem) | Scopes a brand in conversation — a per-dimension elicitation machine (a frame generated from the brand's own profile; every dimension ends in one honest state, and an unasked question ships as a tracked gap, never silence), proxy and multi-decider support, complete downloadable instruments at every step — and compiles one ready-to-paste handoff block that the builder runs in Claude Code, only after the owner signs the brief. |
 
 ## What "canon" means here
 
@@ -34,9 +34,9 @@ Plus a **DTCG / OKLCH token spine** (`tokens/base|semantic|component.json`) as t
 contract — print colors authored, screen colors derived.
 
 **The deliverable is not the skeleton.** The canon is the source skeleton; the deliverables are the real
-prototype, the `/design-sync`-ready library, and the keystone `.md` (an AI that can *be* the brand —
-think/speak/design plus an operational guardrail layer), all projected from it. A rule-compliant canon with
-no real assets is not done.
+prototype, the `/design-sync`-ready library, and the resident brand-AI set (verbal + visual keystones + the
+asset index — an AI that can *be* the brand: think/speak/design plus an operational guardrail layer), all
+projected from it. A rule-compliant canon with no real assets is not done.
 
 **The Lego principle:** the canon is always creatable and valid — even for a brand with nothing. Whatever is
 missing resolves to a goal, a tracked gap, and a skeleton slot, never a blocked empty shell.
@@ -56,8 +56,13 @@ the emitted repo's CI):
   + glyph metrics**, not an eyeball verdict, with the thresholds and result committed as re-auditable evidence.
 - **Materialized colour schemes** — `scheme-derive.mjs`: every named scheme becomes a complete OKLCH-derived
   token set (or a tracked gap) — no scheme ships as prose.
-- **Client-surface firewall** — `client-deny-lint.mjs`: build-grade operator vocabulary can't leak into anything
-  a client reviews.
+- **Client-surface firewall** — `client-deny-lint.mjs`: operator vocabulary can't leak into anything a client
+  reviews; its target list comes FROM a surface manifest (client / AI-facing / operator classes), never from
+  the linter's own guess — so the brand-AI set keeps its epistemic markers intact by design.
+- **Gate suite & status board** — `run-gates.mjs`: every gate runs executable-or-explicitly-demoted with real
+  exit codes (a missing dep is a first-class NOT-RUN, never a hand-waved "clean"); the machine-written board
+  is the only legitimate "gates green" claim; the resident brand-AI set is machine-checked — the visual
+  keystone references tokens BY NAME (zero pinned values) and carries an AI-imagery rule.
 
 Every gate is **brand-agnostic** — it tests the *shape* of a rule, never specific brand content — so a
 monogram-only, single-ink, or sonic-primary brand passes clean.
@@ -84,6 +89,9 @@ chat, ask to scope your brand and `brand-canon-scoper` hands you a block for the
 
 ## Status
 
-**`v0.4.0`** — v4 shipped: the executable gates above (machine-true provenance + measured fidelity + materialized
-schemes + the client-surface firewall) and the two-surface scoper flow. See [`RESIDENT.md`](./RESIDENT.md) for
-architecture, decisions, integrations, and Open Items. MIT licensed.
+**`v0.5.0`** — v5 shipped, hardened by a five-brand blind stress test: a frozen handoff contract with a
+six-value provenance ladder and hashed custody · the executable-or-demoted gate suite with its machine-written
+status board · governed surfaces (the manifest-scoped client firewall) · the resident brand-AI set (verbal +
+visual keystones + asset index, with an AI-imagery rule) · the scoper's elicitation state machine, curator
+wall, and proxy/multi-decider support. See [`RESIDENT.md`](./RESIDENT.md) for architecture, decisions, and
+Open Items. MIT licensed.
