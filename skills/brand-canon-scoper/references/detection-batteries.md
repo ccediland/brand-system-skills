@@ -1,6 +1,6 @@
 # Brand Canon Scoper — Detection batteries (posture + horizons)
 
-The posture and horizon detection methods for the gate-4 sub-instruments (`SKILL.md` §4a / §4b) — load them when running that gate. Both are capability-class methods: detect, never hardcode from category.
+The posture and horizon detection methods for the gate-4 sub-instruments (`SKILL.md` §4a / §4b) — load them when running that gate. Both are capability-class methods: detect, never hardcode from category. Both batteries are QUARRY for the elicitation machine's frame (`references/elicitation-machine.md` § The quarry): the REACHES asked are derived from this brand's profile — no battery item is mandatory, no item order is a script, and an unelicited posture/horizon field is born a gap, never a scoper-coined value.
 
 ## Posture detection (detect, don't hardcode)
 The brand's posture parameterizes the builder's guardrail layer (the keystone's operational tier). Detect

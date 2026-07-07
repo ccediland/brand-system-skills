@@ -1,6 +1,6 @@
 # Brand Canon Scoper — Elicitation bank (gate-4 interview)
 
-The full layer-mapped interview bank for the gate-4 Elicitation instrument (`SKILL.md` §4) — load it when running that gate. Questions are grouped by canon layer; the parenthetical citations (Aaker / Wheeler / Neumeier / Brand Key / Keller) name the method sources.
+The full layer-mapped interview bank for the gate-4 Elicitation instrument (`SKILL.md` §4) — load it when running that gate. Questions are grouped by canon layer; the parenthetical citations (Aaker / Wheeler / Neumeier / Brand Key / Keller) name the method sources. Order note: open with MEANING — administrative/legal identity items never lead the interview (`references/process-discipline.md` § Instrument hygiene, WHY-first).
 
 → INDEX (where-to-start / glossary)
 - Describe the brand to someone who has never seen it, in one sentence. *(Wheeler — "Who are you? Who needs

@@ -97,7 +97,7 @@ is **evidence-of-process** (gated DELIVERABLEs exist), **never wall-clock** (`re
 | 2 | Material protocol | Brandbook-/social-first discovery; inventory each thing by function with epistemic + freshness tags; the dimension map | route depth | dimension map + material inventory · stage 2 of 9 |
 | 3 | Asset-inventory request | Itemized request against what the canon needs, with a fidelity rubric | BLOCKING | itemized asset request · stage 3 of 9 |
 | 3.5 | Discovery & Intake Instrument | fillable doc, every line CONFIRM/ASK/REQUEST, emission default; chat resolves, never replaces | BLOCKING | Discovery & Intake Instrument — client instrument v1 · stage 4 of 9 |
-| 4 | Elicitation instrument | Layer-mapped interview; WHY elicited + ratified never inferred; plus posture detection + horizon detection | BLOCKING | elicited WHY/ESSENCE record · stage 5 of 9 |
+| 4 | Elicitation instrument | Frame-generated interview (runs the elicitation machine); WHY elicited + ratified never inferred; plus posture detection + horizon detection | BLOCKING | elicited WHY/ESSENCE record · stage 5 of 9 |
 | 5 | Multi-decider consolidation | Attribute voices, name the Accountable per slot, cluster rambling input | BLOCKING | consolidated per-slot set + conflicts list (OWNERS) · stage 6 of 9 |
 | 6 | Three-surface review | Internal status + external client instrument + living questions doc; owner reviews | BLOCKING | External client instrument — client instrument v2 · stage 7 of 9 |
 | 7a | Final Brand Brief | the client review resolved to ratified-complete; the BLOCKING client approval | BLOCKING | ratified Final Brand Brief — client instrument vFinal (signed) · stage 8 of 9 |
@@ -125,9 +125,8 @@ highest-authority and the freshest sources surface first, and so staleness is ca
 2. **Shipped/social next** — "Where does the brand live *today* — the live site, the active social feeds,
    the most recent packaging?" Shipped expression is the freshest evidence of practice, but it is
    *observed*, so it enters as `hypothesis` (confidence), not as a finding.
-3. **Stale-vs-fresh reconciliation (tag only).** When a brandbook says one thing and shipped work shows
-   another, you only *tag* the divergence (freshness + a gap flag); the builder reconciles precedence
-   (repo > external reference; shipped > stated for specifics; identity/stated > shipped for meaning).
+3. **Stale-vs-fresh reconciliation (tag only).** When a brandbook and shipped work disagree, you only *tag*
+   the divergence (freshness + a gap flag); the builder reconciles precedence (repo > external reference; shipped > stated for specifics; identity/stated > shipped for meaning).
 4. **Verify-the-exact-claim (TA-4).** A blocked/failed retrieval is NEVER a positive status — verified/liveness needs a successful read of the exact thing claimed, not an adjacent signal;
    it stays `hypothesis` or a GAP, never `shipped`/`corroborated` on a guess (no new status word; `references/process-discipline.md`).
 
@@ -162,10 +161,10 @@ skipped silently.**
 | **tagged-gap** | needed but absent or unconfirmed | a gap with severity + a provenance tag |
 
 The dimensions are not a closed checklist — they are an open space seeded by the canon layers (INDEX /
-ESSENCE / PRIMITIVES / GRAMMAR), the treatments, the horizons, and the posture. A dimension you cannot
-resolve to one of the three states is itself a `tagged-gap`, never an omission. This map — not an
-artifact-type label — drives intake depth, the client review, and the handoff. The all-empty case is the
-CREATE doctrine (explicit instruction only).
+ESSENCE / PRIMITIVES / GRAMMAR), the treatments, the horizons, and the posture, and GENERATED per client by
+the frame step of the elicitation machine (`references/elicitation-machine.md` — load its § The frame here). A dimension you cannot
+resolve to one of the three states is itself a `tagged-gap`, never an omission; an unelicited one is BORN a
+gap. This map drives intake depth, the client review, and the handoff. The all-empty case is the CREATE doctrine (explicit instruction only).
 
 The scoper owns completeness. The builder can only STOP on a dimension that is *present* in the map but
 unresolved; an un-enumerated dimension is the scoper's own defect (it lands as a `handoff-defect` gap), never
@@ -205,9 +204,7 @@ cannot be rebuilt into a master, so it is a *reference*, not build-grade.
 | Wordmark | vector master (AI/SVG/EPS/PDF-vector), clean paths | raster / screenshot | no file |
 | Symbol / icon | vector master | raster | — |
 | Primary lockup | vector master + clear-space + min-size | raster, no rules | — |
-| Secondary / variants | vector master | raster | — |
-| Monogram | vector master | raster | — |
-| Seal / emblem | vector master | raster | — |
+| Secondary / variants · monogram · seal | vector master | raster | — |
 
 **The core-asset set is per-brand — not a fixed visual list.** The table above is the COMMON (visual-primary)
 case. Where a brand's PRIMARY identity carrier is non-visual — e.g. a sonic mark (a sound logo / audio
@@ -221,26 +218,29 @@ builder gate + keystone use — the lead atom is never assumed to be a visual ma
 Other build-grade requirements (request all; "not used" is valid for optional items):
 
 - **Vector formats:** AI (editable master), SVG (web), EPS/PDF (print/vendor).
-- **Typefaces:** the named faces and their font files and proof of commercial-use license, per
-  surface (desktop ≠ web ≠ app ≠ broadcast). Named-only is a fidelity gap (the builder acquires). A typical
-  agency handoff leaves the license with the agency — flag it.
+- **Typefaces:** the named faces and their font files per surface (desktop ≠ web ≠ app ≠ broadcast), plus
+  the license STATE to record (a declared id or a confirmation to follow) — license is a dependency + a
+  confirmation request, never a capability gate (no proof demanded to proceed). Named-only is a fidelity
+  gap (the builder acquires); an agency handoff that kept the license = a visible confirmation gap, never a block.
 - **Color:** RGB (screen) and CMYK (print) values; spot/Pantone declared as authored truth when the
   brand defines it so (`owner-stated`, not re-derived from OKLCH).
 - **Clear-space and minimum-size** per mark slot.
 - **Misuse list:** prohibited treatments (no stretch, no unapproved recolor, no unauthorized
   bold/italic/outline, etc.).
 
-Placement & frontier. Vectors embedded in a source (a PDF, a deck) are pointed to in-repo for the
-builder to extract — never sampled by the scoper. Everything routes into the target repo, never Project
-knowledge. A missing or low-fidelity core asset is fidelity-blocking (MUST-HAVE), surfaced in the
-client review — because the build is judged on a real mark/fonts/imagery.
+Placement, frontier & the route walk. Vectors embedded in a source (a PDF, a deck) are pointed to in-repo
+for the builder to extract — never sampled by the scoper. Everything routes into the target repo, never
+Project knowledge. Acquisition is a FORMAL step: before compile, EVERY inventoried ASSETS item gets its
+`acquire:` route + declared `fallback:` assigned against the final contract (an unnameable route is itself
+a gap; fallbacks logged, never improvised at build time) — the scoper ASSIGNS routes, the builder EXECUTES.
+A missing or low-fidelity core asset is fidelity-blocking (MUST-HAVE), surfaced in the client review — because the build is judged on a real mark/fonts/imagery.
 
 Inventory-request text (translate to the owner's language at runtime):
 
 > "To build the canon we need your visual inventory. For each item, tell us what exists and in what form.
 > (a) Marks: wordmark, symbol, primary lockup, secondary lockups, monogram, seal — we prefer the editable
-> vector master (AI), plus SVG, EPS/PDF and PNG. (b) Typefaces: the font names AND the font files AND proof
-> of commercial-use license for the surfaces you use (web/desktop/app). (c) Color: RGB/CMYK values and, if
+> vector master (AI), plus SVG, EPS/PDF and PNG. (b) Typefaces: the font names AND the font files for the
+> surfaces you use (web/desktop/app), plus whatever license info you have — missing info we note to confirm later; it never stops the work. (c) Color: RGB/CMYK values and, if
 > any, the Pantone/spot colors that are your authored truth. (d) Existing rules: clear-space, minimum size,
 > and a misuse list. (e) If you only have a screenshot or a low-res PNG of something, send it anyway — we'll
 > mark it as a reference, not a build source. Don't send hex values from memory; point us at the source and
@@ -261,11 +261,11 @@ into a throwaway side-doc.
 ### 4. Elicitation instrument — BLOCKING (gate 4)
 The centerpiece. Hard rule: the WHY is elicited, never inferred. If the owner cannot answer, it becomes a
 gap to confirm — never a scoper guess. Depth follows the corollary: deep where the answer lives only in a
-person's head; point, don't elicit values where it lives in material. The instrument is organized by
-canon layer — the layer is the mapping. Two detection sub-instruments (posture, horizons) run inside this
-stage; both are capability-class methods, not brand-specific checklists.
-
-The full layer-mapped interview bank lives in `references/elicitation-bank.md`; load it when running this gate. The posture + horizon batteries live in `references/detection-batteries.md`.
+person's head; point, don't elicit values where it lives in material. The gate RUNS the per-dimension
+elicitation machine (`references/elicitation-machine.md`; load it here): a frame GENERATED from the profile,
+discrepancy-ordered areas, signal-triggered probes, an auditable saturation close — every dimension in the
+frame ends in exactly one honest terminal state, and an unelicited field is BORN a gap.
+The interview bank (`references/elicitation-bank.md`) and the posture + horizon batteries (`references/detection-batteries.md`) are the machine's QUARRY — method-sourced material it improvises from against this brand's profile; illustrative, never a script. Load them with the gate.
 
 Carry, don't just elicit. The scored personality attributes (any scale the owner ratifies — a named framework
 is an illustration, never a required input), the differential-scale placements, and the resonance answer are
@@ -285,30 +285,29 @@ placement, or an intended meaning the scoper supplies on the owner's behalf is a
 self-check (below, pre-compile) verifies it.
 
 ### 4a. Posture detection (detect, don't hardcode)
-**Posture detection — detect, don't hardcode.** A question battery (in `references/detection-batteries.md`) detects the brand's posture as a capability class; record `profile` + params into the handoff POSTURE block, incl. `visibility:<low|moderate|high>` and `audiences:<ordered>`. Posture is owner-stated (source) / `hypothesis` (confidence) until the gate-6 promote — never stamped mid-interview.
+**Posture detection — detect, don't hardcode.** A question battery (quarry in `references/detection-batteries.md`; posture is a dimension OF the machine's frame — unelicited fields are born gaps) detects the brand's posture as a capability class; record `profile` + params into the handoff POSTURE block, incl. `visibility:<low|moderate|high>` and `audiences:<ordered>`. Posture is owner-stated (source) / `hypothesis` (confidence) until the gate-6 promote — never stamped mid-interview.
 
 ### 4b. Horizon detection (adaptive, not a checklist)
-**Horizon detection — adaptive, not a checklist.** The adaptive method (in `references/detection-batteries.md`) generates category-relevant candidates, prompts lightly, probes for existing material, and asks the open question; record each as `direction | not-relevant | tagged-gap` + `existing-material:<y/n>` into the handoff HORIZONS block.
+**Horizon detection — adaptive, not a checklist.** The adaptive method (quarry in `references/detection-batteries.md`; horizons are dimensions OF the machine's frame) generates category-relevant candidates, prompts lightly, probes for existing material, and asks the open question; record each as `direction | not-relevant | tagged-gap` + `existing-material:<y/n>` into the handoff HORIZONS block.
 
 ### 5. Multi-decider & unstructured input
-Two generic, blind capabilities. Encode multi-signer sign-off and partner politics as "more than one
+Two generic, blind capabilities — mechanics in `references/multi-decider-proxy.md` (proxy-as-respondent:
+factual → `proxy-relayed`, owner-meaning degrades to hypothesis+to-confirm, post-answer source check;
+separate capture → declared-weight consolidation → surviving conflict ESCALATED; the principal contact
+may scope who gets asked — valid and recorded); load it at this gate and whenever the interlocutor is
+not the owner. Encode multi-signer sign-off and partner politics as "more than one
 person decides," never as a named demographic.
 
-Multi-decider (RACI-shaped). When several people have a say:
-- Capture each voice's input per slot; attribute positions.
-- For each canon slot, identify the single Accountable (the ratifier; the buck stops there) plus
-  Consulted/Informed. More than one Accountable on a slot is a conflict to resolve. The Accountable is the
-  `owner` field of the provenance spine for that slot.
-- **Surface disagreement explicitly** — never paper over it; route each conflict to the living questions doc
-  as "needs one decision."
-- Record who ratifies (→ `OWNERS` in the handoff).
-- Session pattern: involve the decision-makers without making the decision in-session; keep the decider
-  group small and fixed; never introduce new deciders mid-process. *(Wheeler — SECONDARY)*
+Multi-decider (RACI-shaped). When several people have a say: capture each voice separately and attribute
+positions; per canon slot, ONE Accountable (the ratifier — the provenance spine's `owner` field; two
+Accountables on a slot is itself a conflict) plus Consulted/Informed; **surface disagreement explicitly**
+— never paper over it; route each surviving conflict to the living questions doc as "needs one decision";
+record who ratifies (→ `OWNERS`). Session pattern: involve the decision-makers without making the decision
+in-session; keep the decider group small and fixed; never introduce new deciders mid-process. *(Wheeler — SECONDARY)*
 
-Unstructured input. Owners ramble, jump, contradict. You:
-- Capture verbatim, then cluster by canon layer.
-- Separate stated fact / aspiration / anecdote; mark contradictions as `liminal` to revisit.
-- Reflect back a structured version for confirmation (confirm-back loop).
+Unstructured input. Owners ramble, jump, contradict: capture verbatim, then cluster by canon layer;
+separate stated fact / aspiration / anecdote (contradictions marked `liminal` to revisit); reflect a
+structured version back for confirmation (confirm-back loop).
 
 Output: one consolidated, per-slot confirmed set plus an explicit list of unresolved multi-decider
 conflicts.
@@ -321,9 +320,9 @@ permanent property of the flow, not a step a one-person brand skips.
 
 ### 6. Three-surface review — BLOCKING (gate 6)
 The pre-compile review. No silent handoff. v3 splits the single v2 review doc into three surfaces by
-architecture, because one surface cannot serve both the operator and a non-design SME owner. The scoper is
-Chat-side with no filesystem, so each surface is produced as chat text or a downloadable/presentable
-artifact, never a file-op.
+architecture, because one surface cannot serve both the operator and a non-design SME owner. Each surface
+is a COMPLETE downloadable document (`references/process-discipline.md` § Complete documents — neutral
+register, never the client's brand); the three ship complete or the cut is DECLARED — never a silent subset.
 
 | Surface | Audience | Form | What it carries |
 |---|---|---|---|
@@ -410,11 +409,11 @@ regulatory exposure (`regulatory: none`) and any owner-declared `none` field bot
 forced into a GAP.
 
 ### 7a. Final Brand Brief — BLOCKING (gate 7a)
-The close of the single client-surface flow: the §6 review carried to ratified-complete, in client language
-(the §6 register — warm, plain, the owner's language, every design term glossed). This is the BLOCKING client
-APPROVAL — nothing is compiled without it. It is the §6 External client instrument resolved so every Found /
-Missing / To-confirm line is settled: each gap accepted or owned with a resolution, every "to confirm"
-confirmed, the WHY ratified. The owner signs off on this human-readable brief, not on the machine block.
+The close of the single client-surface flow: the §6 review carried to ratified-complete, in the §6 client
+register (warm, plain, the owner's language, every term glossed). The BLOCKING client APPROVAL — nothing
+compiles without it: every Found / Missing / To-confirm line settled, the WHY ratified. The owner signs off
+on this human-readable brief, never on the machine block — under the signing discipline
+(`references/process-discipline.md` § The signing discipline; load at gates 6–7b: text-before-signature · brief and handoff never in one message · machine handoff = the ONLY builder path · clauses only elicited · web/memory specifics tagged).
 
 ### 7b. Handoff compile (gate 7b)
 Produced ONLY after the 7a sign-off. Produce ONE machine-readable, fenced block following
@@ -431,8 +430,8 @@ Self-contained: everything the builder needs, nothing it should discover for its
 ## Laws
 
 ### The scoper/builder frontier
-The dividing law. The scoper elicits intent, observes applied expression (as hypothesis), detects posture +
-horizons, and points at sources. The builder extracts values and builds.
+The dividing law — plus the curator wall, the WRITTEN no-manufacture rule (`references/process-discipline.md`
+§ The curator wall). The scoper elicits intent, observes applied expression (as hypothesis), detects posture + horizons, and points at sources. The builder extracts values and builds.
 
 | The scoper MAY | The scoper MUST NOT |
 |---|---|
@@ -463,8 +462,8 @@ The boundary: measured/derived values = builder; stated intent + observed pointe
 ### Material placement & target repo
 Both were v1 failures. Honor all three:
 
-- **A real target repo.** The handoff requires a real target repo path (or "create repo X"). Never invent a
-  tree you can't see — you are Chat-side with no filesystem.
+- **A real target repo.** The handoff requires a real target repo path (or "create repo X" — suggest the
+  `<brand>-brand` shape, no redundant `-canon` suffix). Never invent a tree you can't see — you are Chat-side with no filesystem. Hygiene disciplines: `references/process-discipline.md` § Instrument hygiene.
 - **Static source material goes INTO the target repo**, under a conventional location (`assets/` for binaries,
   `sources/` for references), as a build precondition, **with a sha256 checksum per item** (the ASSETS track).
   A **live consumer surface** the brand ships today (its site, app, active feed) is the exception: it is *not*
@@ -483,8 +482,8 @@ For THIS brand, the intake defines which assets/primitives are core/must-have (v
 the build is judged on fidelity (is the real mark/fonts/imagery present and on-brand?), not mere
 rule-compliance.
 
-- **build-grade** = vector master + commercial-licensed font files + color profiles (incl. authored spot
-  where declared) + clear-space/min-size + misuse list.
+- **build-grade** = vector master + the real font files (license recorded: confirmed or a visible
+  confirmation gap — never a capability gate) + color profiles (incl. authored spot where declared) + clear-space/min-size + misuse list.
 - The intake emits a fidelity contract (the handoff's CORE-ASSET FIDELITY CONTRACT block): the per-brand
   core-asset set, each marked present/build-grade vs gap/low-fi. The brand's primary-identity carrier (resolved
   from the DIMENSION MAP, not assumed a visual mark) + graphic-code are non-waivable even under
@@ -493,7 +492,8 @@ rule-compliance.
   does not "pass with gaps." Closes the loop from *request* (asset inventory) to *judge* (fidelity gate).
 
 ## Principle
-Scope, don't build. Interview, request, structure, detect, and point — emit one machine-readable handoff
-plus a client instrument, and let the builder do the rigorous, filesystem-bound work (extract → scaffold →
-fill → tokens → gaps → validate). Never infer the WHY; never sample a primitive; never promote an
-observation to a line without the owner.
+Scope, don't build — the standing default against scope-bleed: never orchestrate the harvest or decompose
+the build into scoper sub-tasks (recovery routes are ASSIGNED, not run — even for a dead brand), never
+sniff the client's stack/CMS (builder territory). Interview, request, structure, detect, and point — emit
+one machine-readable handoff plus a client instrument; the builder does the rigorous filesystem-bound work
+(extract → scaffold → fill → tokens → gaps → validate). Never infer the WHY; never sample a primitive; never promote an observation to a line without the owner.
