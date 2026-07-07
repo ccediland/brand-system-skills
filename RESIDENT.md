@@ -29,6 +29,7 @@ domains: [brand-system, tooling, ciclo-v5]
   never the deliverable. See `## v2`.
 - **v3 (shipped):** un stress adversarial (3ª marca independiente) expuso clases de falla que los gates v2 no ven — todas reducen a pérdida de estatus epistémico. v3 = **anti-determinismo rectoral** + north star **"a brand an AI can BE"** (keystone attachable think/speak/design-as) + **provenance en cada dato**. Phases 1–4 a `main`; los dos audits (#19 transversal, #25 system) remediados a **ledger CERRADO** across #20–#29 (deliberados: F55 bold-density · F31 motion-line · horizonte OI-J). Ver `## v3`.
 - **v4 (SHIPPED — plugin `0.4.0`):** la disciplina de prosa vuelta **gates ejecutables** en ambos skills — 7 stages A–G cerrados, 23 mecanismos a `main` (solo R9 diferido): el builder emite un repo cliente auto-validante (`audit-lint` R0–R8 + fidelity MEDIDA + scheme materializer + client deny-lint); el scoper corre un flujo cliente único + self-checks EH/proceso. RESIDENT = único doc durable; el roadmap v4 retirado a git history. Ver `## v4`.
+- **v5 (SHIPPED — plugin `0.5.0`, 2026-07-07):** la respuesta al stress-test blind — **verdad-máquina completada + superficies gobernadas + scoper vuelto máquina**. Builder: contrato handoff congelado (6 rungs/3 tiers + cuarentena proposed + persistencia hasheada) · gate suite ejecutable-o-demovido con status board machine-generated (`run-gates.mjs` — NOT-RUN de primera clase) · fidelity obligatoria anti-verdict-a-mano · citas verificables + custodia de derivados · manifest de superficies (client/ai-facing/operator; el deny toma su scope DEL manifest) · **SET residente del brand-AI: keystone verbal + keystone VISUAL (7 secciones, cero pins, regla imagery-IA de 5 ejes) + asset-index** · R8 invertido (fail por omisión desde el índice) · self-audit harness-backed. Scoper: **máquina de estados de elicitación** (born-GAP, frame generado del perfil, saturación auditable, ledger en deliverables) · curator wall escrito · proxy/multi-decider (factual→proxy-relayed; consolidación declarada; conflicto escalado) · instrumentos completos descargables · disciplina de firma · license jamás gate · route walk formal. 4 etapas E0–E3 cerradas con verifies adversariales multi-agente (E1-02: 8+8 fixes · E1-03: 17 · E1-05: 7 · E2-05/06: BLOCKER+3 MAJOR+menores · E3-01: 22) y golden set re-baselineado. Ver `## v5`.
 - **CICLO VIGENTE (2026-07-04) — v4 TESTEADA → v5/v6:** la validación que v4 llamaba "Phase 5" corrió — más grande — como **stress-test BLIND e2e de 5 marcas reales**. Veredicto: la tesis machine-true quedó a la mitad (~50% del gate suite era prosa auto-atestada; el aparato de provenance certifica la transcripción del builder, no la captura — C-X6; fidelity se fingió o esquivó donde aplicaba — X2). Disposición: `essential-brand` = golden set LOCAL; Onyx/Cuenca/Klim/Radiotopia = failure gallery local. Planeación CERRADA: análisis congelado + PLAN-V5 (aprobado) + PLAN-V6 (preliminar) en la raíz de este repo. Ver `## Ciclo vigente`.
 
 ## Cómo retomar (toda sesión del ciclo)
@@ -408,6 +409,44 @@ rehype/parse5 AST deny-list over text + comment nodes, in `client-clean` (TS-2).
 **PRs (Stages A–G + Finalize).** A: TS-1 #37 · TS-2 #38. B: MT-3/4/5 #31 · MT-1 #32 · MT-2 #33. C: C-1 #34 ·
 C-2 #35 · C-3 #36. D: RV-1/2 #41 · RV-3/4 #42 · RV-5 #44 · R8 #45. E: EH-1/2 #47 · EH-3 #48. F: TA-1…4 #52.
 G: SH-1 #40 · SH-2/3 #50. Finalize: 4.1 #55 · 4.2 #56 · 4.3 ship #57.
+
+## v5 — machine-truth completed, governed surfaces, the scoper as a machine (E0–E3)
+
+v5 es la respuesta directa al stress-test blind de 5 marcas (2026-07): cada clase de falla observada quedó
+con mecanismo ejecutable o ley escrita. Ejecutado en 4 etapas sobre `PLAN-V5.md` (Session log por item; los
+verifies adversariales multi-agente corrieron pre-merge en los items L). Etapa E4 (stress-test v5) en curso.
+
+- **E1 — verdad-máquina (builder core).** El contrato handoff v5 CONGELADO: enum de confianza 6 valores/3
+  tiers (`hypothesis→corroborated·verified-primary→proxy-relayed·handoff-confirmed·owner-confirmed`),
+  `source: proposed` = canal de cuarentena, `origin: relay` excluido de corroboración, persistencia
+  `sources/handoff—<fecha>.md` hasheada como cima de custodia, rutas `acquire:/fallback:` ejecutables,
+  registro directivas→enforcement (`parse-or-stop·lint·measured·agent-gate`). `tools/run-gates.mjs` = la
+  suite ejecutable-o-demovido: exit codes reales, NOT-RUN de primera clase, evidencia committeada de
+  agent-gates, recompute del veredicto de fidelity (verdict-a-mano cazado), board machine-generated
+  (`audit/gates/report.md`) como único claim legítimo de "gates green". Citas verificables
+  (selector-existe/línea≤EOF/PDF-page) + R1 por comparación de VALORES en fuentes hasheadas. License =
+  dependencia + confirmación, jamás gate de capacidad (único gate real: redistribución). Stage 12
+  local-by-default.
+- **E2 — superficies gobernadas.** `satellites/surfaces.md` (client/ai-facing/operator) — el client-deny-lint
+  toma su target list DEL manifest, jamás elige su scope; binding por línea + vocabulario cliente sancionado.
+  **El brand-AI es un SET residente**: keystone verbal + keystone VISUAL (7 secciones tipo design-brain:
+  principios por átomo, tokens POR NOMBRE — cero pins, un pin driftea —, DO/DON'T citando reglas, método
+  generativo de decisión, regla imagery-IA de 5 ejes con pins regulatorios re-verificados por build,
+  guardrails en cola) + `satellites/asset-index.md` (única mesa de consulta; R8 enumera DESDE el índice —
+  fail por omisión). Mapa de ediciones + self-audit harness-backed en el repo emitido.
+- **E3 — el scoper como máquina.** `references/elicitation-machine.md`: ciclo de vida por dimensión
+  (UNOPENED **born-GAP** → OPEN → DECIDED/NOT-USED/PROPOSED-QUARANTINE/GAP) con guardas; frame GENERADO del
+  perfil (obstacle pattern, meta-cobertura, abierto hasta el compile); orden por discrepancia (bancos =
+  cantera); probing por señales; saturación auditable; ledger snapshoteado en DELIVERABLEs. Leyes de proceso
+  (`references/process-discipline.md`): curator wall (cura, jamás manufactura) · documentos completos
+  descargables en toda etapa (registro neutral) · disciplina de firma (texto-antes-de-firma;
+  brief≠handoff-mensaje; machine handoff único camino; cláusulas elicitadas; specifics tagged) · instrument
+  hygiene. Proxy/multi-decider (`references/multi-decider-proxy.md`): factual→`proxy-relayed`, owner-meaning
+  degrada a to-confirm, captura separada → consolidación declarada → conflicto ESCALADO. Route walk formal:
+  el scoper ASIGNA rutas de adquisición, el builder las EJECUTA.
+- **Golden set re-baselineado** (mutación del sub-check de citas ⇒ regla de fixtures alcanzó al golden):
+  citas verbatim contra archivos hasheados o `selector:none` honesto — 0 hallazgos REALES, no 0-por-supresión.
+- **Todo local (E-O1):** cero push de repos de marca, siempre; la gallery y el golden son fixtures locales.
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it

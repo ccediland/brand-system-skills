@@ -10,8 +10,13 @@
   `assets/templates/` (the canon skeletons + DTCG token spine + satellites + docs + prototype + design-sync
   kit + Claude Design adapter + `tools/` — emitted gates `audit-lint.mjs` · `source-recover.py`, with
   `tools/fixtures/` the gate's own clean + seeded-violation acceptance proof, not emitted to clients).
-- `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` + `references/` (`handoff-format.md`,
-  `elicitation-bank.md`, `detection-batteries.md` — the interview bank + detection batteries externalized at SH-1).
+- `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` (the gated pipeline; hard cap 500 lines —
+  every edit is line-neutral or trades a line, logged) + `references/`: `handoff-format.md` (the FROZEN
+  handoff contract) · `elicitation-machine.md` (the per-dimension state machine: born-GAP, generated frame,
+  auditable saturation, the dimension ledger) · `multi-decider-proxy.md` (proxy-as-respondent + weighted
+  consolidation + escalated conflict) · `process-discipline.md` (the process laws: TEMPO · verify-the-exact-claim
+  · curator wall · complete downloadable documents · the signing discipline · instrument hygiene) ·
+  `elicitation-bank.md` + `detection-batteries.md` (the QUARRY the machine improvises from — never a script).
 - `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items — the single durable record).
 - The v3 root docs (`v3-execution-plan.md`, `v3-research-foundation.md`, `v3-system-audit—2026-06-23.md`) were
   removed in the v4 consolidation, and the v4 roadmap (`v4-roadmap.md`) was retired at the v4 ship; their record
@@ -22,9 +27,12 @@
   rest as tracked `GAP-NNN` → emit the DTCG/OKLCH token spine → render the Stage-8 prototype as the **complete
   interactive brandbook** (manifest sections + "Decisions for you" panel, RV-5) → attach the Claude Design
   adapter (per the handoff's explicit kit slot — NO emits nothing, machine-reconciled) → validate.
-- **brand-canon-scoper** — in chat (no filesystem), interview + emit the **client-surface flow** (one
-  instrument, three checkpoints: gate 3.5 intake → gate 6 review → gate 7a Final Brand Brief, the BLOCKING
-  client approval) → compile one ready-to-paste 7b handoff block for the builder, only after sign-off.
+- **brand-canon-scoper** — in chat (no filesystem), run the per-dimension **elicitation machine** (frame
+  generated from the profile; every dimension ends in one honest terminal state — an unelicited field is
+  BORN a gap) through the **client-surface flow** (one instrument, three checkpoints: gate 3.5 intake →
+  gate 6 review → gate 7a Final Brand Brief, the BLOCKING client approval; every instrument a complete
+  downloadable doc) → compile one ready-to-paste 7b handoff block for the builder, only after sign-off
+  (the signing discipline: text-before-signature; the machine block is the ONLY path to the builder).
 
 ## Tooling — emitted gates (run from the EMITTED client repo root)
 The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
