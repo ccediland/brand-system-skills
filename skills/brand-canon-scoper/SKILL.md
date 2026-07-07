@@ -321,9 +321,9 @@ permanent property of the flow, not a step a one-person brand skips.
 
 ### 6. Three-surface review — BLOCKING (gate 6)
 The pre-compile review. No silent handoff. v3 splits the single v2 review doc into three surfaces by
-architecture, because one surface cannot serve both the operator and a non-design SME owner. The scoper is
-Chat-side with no filesystem, so each surface is produced as chat text or a downloadable/presentable
-artifact, never a file-op.
+architecture, because one surface cannot serve both the operator and a non-design SME owner. Each surface
+is a COMPLETE downloadable document (`references/process-discipline.md` § Complete documents — neutral
+register, never the client's brand); the three ship complete or the cut is DECLARED — never a silent subset.
 
 | Surface | Audience | Form | What it carries |
 |---|---|---|---|

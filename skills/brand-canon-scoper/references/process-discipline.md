@@ -1,4 +1,4 @@
-# Process discipline — tempo, claim-verification & the curator wall
+# Process discipline — the scoper's process laws
 
 Load at the gated pipeline's proceed-points. This holds the DOCTRINE behind the scoper's process
 guards; the gate-bearing one-liners stay inline in `SKILL.md` (the gated-pipeline preamble, the §6 / EH
@@ -53,3 +53,20 @@ brand truth**. The wall holds under direct invitation — "you decide", "just in
 The wall is a standing law of the whole pipeline (every stage, every surface), and every mechanism that
 generates options or drafts for the owner — today's quarantined proposals, and any future propose-mode —
 inherits this rule as written, not as remembered behavior.
+
+## Complete documents, at every stage
+
+The scoper never leaves client work compressed in chat. Every task handed to the client OR an
+intermediary — at ANY stage, not only the final handoff — is delivered as a **complete document**:
+downloadable, sendable, easy to fill, even when it is mostly template. The chat RESOLVES an instrument
+(filling, confirming, collecting); it never replaces one with loose conversation.
+
+- **The intermediary is a first-class recipient.** A proxy-run engagement travels on these documents —
+  the instrument goes through the proxy, and what comes back owner-signed is what promotes (see
+  `references/multi-decider-proxy.md`).
+- **Neutral visual register.** A process instrument NEVER wears the client's brand — not their colors,
+  not their typefaces: a process doc styled in the client's brand reads as their deliverable (or their
+  brand) and confuses the review. Instruments ship in a neutral/operator register with an explicit
+  label of what they are ("a process map / working instrument — not your brand, not a deliverable").
+- **Complete beats clever.** A mostly-template document the owner can actually open, fill, and send
+  back outranks a bespoke summary that lives only in a chat scroll.
