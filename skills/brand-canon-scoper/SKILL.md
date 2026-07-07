@@ -97,7 +97,7 @@ is **evidence-of-process** (gated DELIVERABLEs exist), **never wall-clock** (`re
 | 2 | Material protocol | Brandbook-/social-first discovery; inventory each thing by function with epistemic + freshness tags; the dimension map | route depth | dimension map + material inventory · stage 2 of 9 |
 | 3 | Asset-inventory request | Itemized request against what the canon needs, with a fidelity rubric | BLOCKING | itemized asset request · stage 3 of 9 |
 | 3.5 | Discovery & Intake Instrument | fillable doc, every line CONFIRM/ASK/REQUEST, emission default; chat resolves, never replaces | BLOCKING | Discovery & Intake Instrument — client instrument v1 · stage 4 of 9 |
-| 4 | Elicitation instrument | Layer-mapped interview; WHY elicited + ratified never inferred; plus posture detection + horizon detection | BLOCKING | elicited WHY/ESSENCE record · stage 5 of 9 |
+| 4 | Elicitation instrument | Frame-generated interview (runs the elicitation machine); WHY elicited + ratified never inferred; plus posture detection + horizon detection | BLOCKING | elicited WHY/ESSENCE record · stage 5 of 9 |
 | 5 | Multi-decider consolidation | Attribute voices, name the Accountable per slot, cluster rambling input | BLOCKING | consolidated per-slot set + conflicts list (OWNERS) · stage 6 of 9 |
 | 6 | Three-surface review | Internal status + external client instrument + living questions doc; owner reviews | BLOCKING | External client instrument — client instrument v2 · stage 7 of 9 |
 | 7a | Final Brand Brief | the client review resolved to ratified-complete; the BLOCKING client approval | BLOCKING | ratified Final Brand Brief — client instrument vFinal (signed) · stage 8 of 9 |
@@ -162,10 +162,10 @@ skipped silently.**
 | **tagged-gap** | needed but absent or unconfirmed | a gap with severity + a provenance tag |
 
 The dimensions are not a closed checklist — they are an open space seeded by the canon layers (INDEX /
-ESSENCE / PRIMITIVES / GRAMMAR), the treatments, the horizons, and the posture. A dimension you cannot
-resolve to one of the three states is itself a `tagged-gap`, never an omission. This map — not an
-artifact-type label — drives intake depth, the client review, and the handoff. The all-empty case is the
-CREATE doctrine (explicit instruction only).
+ESSENCE / PRIMITIVES / GRAMMAR), the treatments, the horizons, and the posture, and GENERATED per client by
+the frame step of the elicitation machine (`references/elicitation-machine.md` — load its § The frame here). A dimension you cannot
+resolve to one of the three states is itself a `tagged-gap`, never an omission; an unelicited one is BORN a
+gap. This map drives intake depth, the client review, and the handoff. The all-empty case is the CREATE doctrine (explicit instruction only).
 
 The scoper owns completeness. The builder can only STOP on a dimension that is *present* in the map but
 unresolved; an un-enumerated dimension is the scoper's own defect (it lands as a `handoff-defect` gap), never
@@ -261,11 +261,11 @@ into a throwaway side-doc.
 ### 4. Elicitation instrument — BLOCKING (gate 4)
 The centerpiece. Hard rule: the WHY is elicited, never inferred. If the owner cannot answer, it becomes a
 gap to confirm — never a scoper guess. Depth follows the corollary: deep where the answer lives only in a
-person's head; point, don't elicit values where it lives in material. The instrument is organized by
-canon layer — the layer is the mapping. Two detection sub-instruments (posture, horizons) run inside this
-stage; both are capability-class methods, not brand-specific checklists.
-
-The full layer-mapped interview bank lives in `references/elicitation-bank.md`; load it when running this gate. The posture + horizon batteries live in `references/detection-batteries.md`.
+person's head; point, don't elicit values where it lives in material. The gate RUNS the per-dimension
+elicitation machine (`references/elicitation-machine.md`; load it here): a frame GENERATED from the profile,
+discrepancy-ordered areas, signal-triggered probes, an auditable saturation close — every dimension in the
+frame ends in exactly one honest terminal state, and an unelicited field is BORN a gap.
+The interview bank (`references/elicitation-bank.md`) and the posture + horizon batteries (`references/detection-batteries.md`) are the machine's QUARRY — method-sourced material it improvises from against this brand's profile; illustrative, never a script. Load them with the gate.
 
 Carry, don't just elicit. The scored personality attributes (any scale the owner ratifies — a named framework
 is an illustration, never a required input), the differential-scale placements, and the resonance answer are
@@ -285,10 +285,10 @@ placement, or an intended meaning the scoper supplies on the owner's behalf is a
 self-check (below, pre-compile) verifies it.
 
 ### 4a. Posture detection (detect, don't hardcode)
-**Posture detection — detect, don't hardcode.** A question battery (in `references/detection-batteries.md`) detects the brand's posture as a capability class; record `profile` + params into the handoff POSTURE block, incl. `visibility:<low|moderate|high>` and `audiences:<ordered>`. Posture is owner-stated (source) / `hypothesis` (confidence) until the gate-6 promote — never stamped mid-interview.
+**Posture detection — detect, don't hardcode.** A question battery (quarry in `references/detection-batteries.md`; posture is a dimension OF the machine's frame — unelicited fields are born gaps) detects the brand's posture as a capability class; record `profile` + params into the handoff POSTURE block, incl. `visibility:<low|moderate|high>` and `audiences:<ordered>`. Posture is owner-stated (source) / `hypothesis` (confidence) until the gate-6 promote — never stamped mid-interview.
 
 ### 4b. Horizon detection (adaptive, not a checklist)
-**Horizon detection — adaptive, not a checklist.** The adaptive method (in `references/detection-batteries.md`) generates category-relevant candidates, prompts lightly, probes for existing material, and asks the open question; record each as `direction | not-relevant | tagged-gap` + `existing-material:<y/n>` into the handoff HORIZONS block.
+**Horizon detection — adaptive, not a checklist.** The adaptive method (quarry in `references/detection-batteries.md`; horizons are dimensions OF the machine's frame) generates category-relevant candidates, prompts lightly, probes for existing material, and asks the open question; record each as `direction | not-relevant | tagged-gap` + `existing-material:<y/n>` into the handoff HORIZONS block.
 
 ### 5. Multi-decider & unstructured input
 Two generic, blind capabilities. Encode multi-signer sign-off and partner politics as "more than one
@@ -431,8 +431,8 @@ Self-contained: everything the builder needs, nothing it should discover for its
 ## Laws
 
 ### The scoper/builder frontier
-The dividing law. The scoper elicits intent, observes applied expression (as hypothesis), detects posture +
-horizons, and points at sources. The builder extracts values and builds.
+The dividing law — plus the curator wall, the WRITTEN no-manufacture rule (`references/process-discipline.md`
+§ The curator wall). The scoper elicits intent, observes applied expression (as hypothesis), detects posture + horizons, and points at sources. The builder extracts values and builds.
 
 | The scoper MAY | The scoper MUST NOT |
 |---|---|

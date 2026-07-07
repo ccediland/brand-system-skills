@@ -22,7 +22,7 @@ Estados del ciclo de vida (los 2 primeros son de proceso; los 4 terminales proye
 | OPEN | elicitación en curso (probes emitidos, material llegando, sin saturar) | — (no puede cruzar el seam) |
 | DECIDED | dato con fuente del owner + spine ganado | `filled` |
 | NOT-USED | declaración explícita del owner (jamás inferida de silencio) | `not-used(owner-declared)` |
-| PROPOSED-QUARANTINE | el owner PIDIÓ el draft; valor scoper-autorado etiquetado | línea PROPOSED + fila GAPS que monta + mapa `tagged-gap` (convención fixture Alpha/Beta) |
+| PROPOSED-QUARANTINE | el owner PIDIÓ el draft; valor scoper-autorado etiquetado | línea PROPOSED (o slot WHAT) + el gap de lenguaje cliente que monta — la regla de cuarentena del contrato verbatim; una propuesta jamás resuelve ni re-escribe la fila del mapa de su dimensión [corregido por verify F1 — la versión original agregaba "mapa tagged-gap", elemento que los fixtures Alpha/Beta contradicen] |
 | GAP | necesaria pero ausente/sin confirmar/sin saturar al cierre | `tagged-gap` |
 
 Transiciones con guardas (qué evidencia permite avanzar; qué regresa):
@@ -30,9 +30,12 @@ Transiciones con guardas (qué evidencia permite avanzar; qué regresa):
 - **Frame-gen (Stage 2, patrón KAOS/obstacle):** el análisis del perfil GENERA el frame — para cada
   meta de canon, "¿qué impediría expresarla?" produce las dimensiones/reaches; las dimensiones entran
   UNOPENED. Guarda de meta-cobertura: el frame cubre cada capa del canon + treatments + horizons +
-  posture + las 2 dimensiones permanentes; la pregunta abierta al owner ("¿qué no hemos nombrado?")
-  cierra la generación y su confirmación la ratifica. El frame queda ABIERTO a altas nuevas hasta el
-  gate 6 (una dimensión descubierta a media conversación ENTRA, no se pierde).
+  posture + applied-expression/social + consultation-surface — esta última EXENTA del lifecycle
+  (FIXED `always-required`: jamás UNOPENED/OPEN, jamás probada, proyecta su literal PERMANENT verbatim;
+  born-GAP no le aplica) [corregido por verify SM-01]. La pregunta abierta al owner ("¿qué no hemos
+  nombrado?") cierra la generación y su confirmación la ratifica. El frame queda ABIERTO a altas nuevas
+  hasta el compile 7b (una dimensión descubierta a media conversación — incluso durante la revisión
+  gate-6/7a, mostrada al owner como delta — ENTRA, no se pierde) [corregido por verify SM-06].
 - **UNOPENED → OPEN (selección constrained-CAT):** la siguiente ÁREA = mayor discrepancia contra los
   targets de cobertura (pesan más: slots MUST del fidelity contract, capas de canon con delta
   necesita-vs-sabe más grande); el ÍTEM dentro del área se improvisa desde la cantera (bancos = cantera,
@@ -89,11 +92,14 @@ gates del builder ya vigilan:
 
 ## 6. Fronteras y contrato
 
-- **Contrato handoff INTACTO — verificado contra los fixtures:** los 4 estados terminales proyectan
-  sobre literales EXISTENTES del wire (filled · not-used(owner-declared) · tagged-gap · PROPOSED+gap);
-  la convención cuarentena→(PROPOSED + fila GAPS + tagged-gap) es exactamente la de los fixtures
-  Alpha/Beta. La máquina muta el PROCESO, no la emisión ⇒ los 3 fixtures se regenerarían idénticos —
-  **regla de fixtures NO dispara**.
+- **Contrato handoff INTACTO — verificado contra los fixtures (post-verify):** los estados terminales
+  proyectan sobre literales EXISTENTES del wire — en el DIMENSION MAP: filled ·
+  not-used(owner-declared) · tagged-gap; en su bloque propio cuando la dimensión vive en otro bloque
+  (HORIZONS `direction|not-relevant|tagged-gap` · POSTURE `none`/`→GAP` · `filled(media-attached)`)
+  [corregido por verify WIRE-03]; cuarentena = PROPOSED + gap que monta, SIN elemento de mapa
+  [corregido por verify F1]; el bloque OPTIONAL y los 2 slots directiva quedan FUERA del lifecycle
+  (resuelven por su propia regla del contrato) [corregido por verify WIRE-04]. La máquina muta el
+  PROCESO, no la emisión ⇒ los 3 fixtures se regenerarían idénticos — **regla de fixtures NO dispara**.
 - **Seam E3-02 (proxy/multi-decider) NOMBRADO, no implementado:** la máquina registra fuente/owner por
   probe (el ledger ya carga la columna); la consolidación multi-voz y la degradación
   actitudinal-vía-proxy son Stage 5 / E3-02.
@@ -108,8 +114,9 @@ sección propia que la máquina referencia y el SKILL nombra line-neutral en su 
 normativo: el scoper CURA y estructura lo que el owner y su material aportan; JAMÁS manufactura verdad
 de marca. Bajo invitación directa ("decídelo tú", "invéntalo"), el muro sostiene: draftear SOLO al canal
 de cuarentena etiquetado y SOLO a petición explícita; decidir/decretar/confirmar por el owner, nunca.
-Hechos disconfirmantes se muestran, no se supavizan. Herederos por referencia: el modo propone del
-elicitation-bank y los sucesores que generen opciones.
+Hechos disconfirmantes se muestran, no se supavizan. Herederos por referencia: las propuestas en
+cuarentena de hoy y cualquier futuro modo propone [corregido por verify F4 — el elicitation-bank no
+carga un modo propone hoy].
 
 ## 8. DECIDIDOs
 
@@ -132,3 +139,45 @@ elicitation-bank y los sucesores que generen opciones.
 6. **UNOPENED/OPEN jamás cruzan el seam** — solo estados terminales proyectan; un OPEN al momento de
    compilar es defecto del propio scoper (born-GAP lo resuelve: cierra GAP declarado). Porqué: el wire
    exige resolución total (parse-or-stop); la máquina garantiza que siempre HAY una resolución honesta.
+
+## 9. §verify — adversarial verify de la máquina (2026-07-07, convención E1-02 §10quater)
+
+Workflow de 4 atacantes (gaming de guardas · soundness formal · cumplimiento del contrato congelado ·
+consistencia/presupuesto/honestidad) + juez con repro propio por hallazgo (34 crudos → 22 confirmados,
+4 falsos positivos). **Veredicto inicial: FAIL — 2 BLOCKER + 9 MAJOR + 6 MINOR + 5 NIT; los 22
+corregidos en el acto** (marcas `[corregido por verify …]` inline en esta note donde tocaban al spec).
+
+| # | Sev | Defecto | Fix aplicado |
+|---|---|---|---|
+| F1 | BLOCKER | La proyección de PROPOSED-QUARANTINE inventaba un tercer elemento del wire ("+ tagged-gap en el mapa") que el contrato no define y los fixtures Alpha/Beta CONTRADICEN — la afirmación "los fixtures se regenerarían idénticos" era falsa | Cláusula eliminada; la proyección queda en la regla de cuarentena del contrato verbatim (una propuesta jamás re-escribe la fila del mapa); note §2/§6 reconciliadas |
+| SM-01 | BLOCKER | consultation-surface forzada al lifecycle (UNOPENED→…) sin estado capaz de proyectar su literal PERMANENT `always-required` — una corrida literal la compilaba `tagged-gap`, fila que el contrato PROHÍBE | Exención escrita en § The frame: entra al frame por meta-cobertura pero vive FUERA del lifecycle; proyecta su literal verbatim; born-GAP no le aplica |
+| WIRE-03 | MAJOR | La columna "projects onto" era universal pero solo válida para filas del DIMENSION MAP — horizons (`not-relevant`), posture (`none`/`→GAP`) y media (`filled(media-attached)`) tienen literales propios | Columna scopeada al MAP + regla: dimensión con hogar en otro bloque termina en los literales de SU bloque |
+| WIRE-04 | MAJOR | "EVERY dimension in scope" + born-GAP contradecía el bloque OPTIONAL (demo-defaults son valores ESCRITOS sin fuente owner — inalcanzables vía guarda DECIDED) y el slot Claude Design (UNFILLED = defecto, no gap) | OPTIONAL + 2 slots directiva EXENTOS del lifecycle — resuelven por su propia regla del contrato |
+| SM-03 | MAJOR | Sin transición para material owner-volunteered en dimensión UNOPENED (un "no usamos motion" espontáneo no tenía camino y podía shipear tagged-gap) | Transición nueva UNOPENED→OPEN (material-triggered), fuera del orden por discrepancia |
+| SM-06 | MAJOR | Frame cerraba a altas en gate 6 — una dimensión surgida en la ventana gate-6→7b (donde más emergen) no tenía destino | Frame abierto hasta el compile 7b; solo post-seam es handoff-defect |
+| SM-05 | MAJOR | Reopen sin conciencia de gate: material post-firma-7a divergía el bloque compilado del brief firmado sin re-ratificar | Reopen post-7a re-abre la línea del brief: 7b no compila hasta re-ratificar (o waive → GAP registrado) |
+| GM-03 | MAJOR | "or owner-supplied material" en la guarda DECIDED dejaba que campos owner-meaning decidieran desde prosa de material (contradice EH-1) | Material solo decide slots factual/observable; owner-meaning exige UTTERANCE real — el material SIEMBRA, no decide |
+| GM-01 | MAJOR | Semántica de waive indefinida para los self-checks de integridad — "waives INTO visible gaps" era falso para un check de status waiveado | Waive = solo COBERTURA; los gates de integridad de status (EH, client-surface, gate 5, curator wall) JAMÁS waiveables |
+| GM-05 | MAJOR | El preámbulo permitía literalmente compilar con 7a waiveado — el contrato lo prohíbe y ningún texto resolvía el conflicto | 7a jamás waiveable-INTO-compile: waive de 7a = STOP, no skip |
+| GM-02 | MAJOR | La guarda NOT-USED aceptaba un blanket ("marca el resto not-used") — lavaba born-gaps en filas limpias sin gap ni STOP del builder | Especificidad por dimensión: la declaración es sobre ESA dimensión nombrada al owner; blanket se responde CON el ledger + ruta waive-a-gaps-visibles |
+| GM-04 | MINOR | Ambigüedad ruta-vs-valor: el `proposed:` de GAPS (ruta de resolución) vs el draft de valor del curator wall | Oración en el wall: proposed-resolution nombra RUTA, jamás valor drafteado; el valor solo viaja en PROPOSED etiquetado |
+| GM-07 | MINOR | "gate-6 promote" invocado 2 veces sin definición | Definido en la máquina: el owner confirma el ITEM en To-confirm → `owner-confirmed` citando esa confirmación; sin superficie no hay promote |
+| GM-08 | MINOR | Invitación del modo propone sin autoridad ni alcance (blanket de sesión 1 la satisfacía) | Invitación por SLOT del Accountable; blanket no autoriza más allá de lo nombrado |
+| SM-08 | MINOR | Guard-regression escondida en el bullet de reopen, sin el destino owner-declared `none` que el SKILL permite | Bullet propio terminal→GAP-o-NOT-USED + corrupt→OPEN como transición |
+| F3 | MINOR | Ruteo de carga incoherente (la máquina siembra Stage 2 pero decía cargarse en gate 4; SKILL §2 sin directiva de carga) | "Load it at Stage 2 … through gate 4" + parenthetical line-neutral en SKILL §2 |
+| WIRE-06 | MINOR | "committed evidence"/"ships with its ledger record" over-claimeaban (deliverables chat-side; el wire no carga ledger) | Honesto: evidencia registrada en deliverables que el owner conserva; proyección al wire = MAP + GAPS solamente |
+| GM-10 | NIT | N de saturación sin dueño (N=1 post-hoc formalmente auditable) | N se fija ANTES del primer probe; desviación registrada con razón |
+| SM-10 | NIT | Contador de saturación tras reopen sin especificar | Reopen RESETEA el contador; probes previos quedan como historia |
+| F4 | NIT | La note citaba un "modo propone del elicitation-bank" que no existe (grep 0) | Note corregida: herederos = cuarentena de hoy + cualquier futuro modo propone |
+| WIRE-09 | NIT | Celda del stage-table decía "Layer-mapped interview" (framing retirado) | "Frame-generated interview (runs the elicitation machine)" — line-neutral |
+| F5 | NIT | El compile guard perdió el framing de accountability del DECIDIDO 6 | Parenthetical: OPEN al compilar = defecto de proceso del scoper, registrado en el ledger |
+
+- **Falsos positivos (4):** liveness de OPEN (la progresión de gates + waive son salidas definidas) ·
+  reload de snapshot pegado (propiedad inherente del estado chat-side, declarada honesta) · la mitad
+  DECIDED de GM-02 ("márcalo todo decided" no aporta dato al que la guarda se ancle; valor
+  scoper-supplied ya prohibido) · GM-01 como BLOCKER (degradado: el payload ya lo prohíben EH-1/EH-2/el
+  wall — el waive saltaba la auditoría, no la ley).
+- **Re-pro post-fix:** los 22 verificados EN DISCO por marca textual (24 greps, 24/24 = 1 hit); SKILL
+  499/500; sin duplicados por las ediciones sucesivas (7 headings únicos, 10 transiciones únicas).
+- **Verificado-NEGATIVO:** contrato congelado intacto — ningún fix tocó handoff-format.md ni los 3
+  fixtures; los literales de los fixtures quedan DENTRO del vocabulario de proyección post-fix.

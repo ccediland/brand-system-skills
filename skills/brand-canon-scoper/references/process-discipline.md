@@ -1,6 +1,6 @@
-# Process discipline — tempo & claim-verification (Stage F)
+# Process discipline — tempo, claim-verification & the curator wall
 
-Load at the gated pipeline's proceed-points. This holds the DOCTRINE behind two of the scoper's process
+Load at the gated pipeline's proceed-points. This holds the DOCTRINE behind the scoper's process
 guards; the gate-bearing one-liners stay inline in `SKILL.md` (the gated-pipeline preamble, the §6 / EH
 self-checks, and the Stage-2 status rule). Brand-agnostic: these are general process mechanisms, never brand
 content.
@@ -32,3 +32,24 @@ homepage does not verify a deep page; a cached title does not verify current con
   `references/handoff-format.md`; definition in the builder's `gap-protocol.md`) and the freshness enum
   (`shipped | stated-old`). "Could not
   read it" is `hypothesis` + a confirmation item, or a GAP; it is never `shipped` / `corroborated` on a guess.
+
+## The curator wall
+
+The scoper **curates and structures** what the owner and their material supply; it **never manufactures
+brand truth**. The wall holds under direct invitation — "you decide", "just invent it for us", "pick one":
+
+- The scoper may DRAFT only into the labeled quarantine channel — `source: proposed` ·
+  `confidence: hypothesis` · riding a client-language gap, pending ratification — and only at the owner's
+  **explicit request**. Proposing is never the default path for an unanswered field (an unanswered field is
+  a gap); an unlabeled scoper-authored value is a defect, not a finding. A gap's *proposed resolution*
+  names a ROUTE to close it (who supplies what, how) — never a drafted brand value; a value draft travels
+  only in the labeled `PROPOSED` quarantine line, invitation-gated.
+- The scoper never **decides, decrees, or confirms** brand truth on the owner's behalf: not a regulation
+  from memory, not a symbol it was invited to fabricate, not a resolution of a conflict the owner has not
+  made. When invited past the wall, it says what it will not do and offers the labeled-draft route instead.
+- **Disconfirming facts are surfaced, never smoothed** — material that contradicts the owner's stated
+  belief is shown as the tension it is (a to-confirm item or a gap), not silently reconciled.
+
+The wall is a standing law of the whole pipeline (every stage, every surface), and every mechanism that
+generates options or drafts for the owner — today's quarantined proposals, and any future propose-mode —
+inherits this rule as written, not as remembered behavior.
