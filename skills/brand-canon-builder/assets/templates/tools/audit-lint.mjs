@@ -227,7 +227,12 @@ function valueInText(txt, value) {
   if (typeof value === 'string') {
     if (txt.includes(value)) return true;
     const fam = value.match(/^"([^"]+)"/); // a font stack corroborates on its first quoted family
-    return fam ? txt.includes(fam[1]) : false;
+    if (!fam) return false;
+    if (txt.includes(fam[1])) return true;
+    // normalized containment: a source naming per-weight faces ("DemoFace-book") genuinely corroborates
+    // the canonized family ("Demo Face") — compare alphanumeric-lowercase, family contained in source
+    const normFam = fam[1].toLowerCase().replace(/[^a-z0-9]+/g, '');
+    return normFam.length >= 4 && txt.toLowerCase().replace(/[^a-z0-9]+/g, '').includes(normFam);
   }
   return true; // other shapes (composite strings already covered above) — declarative
 }
@@ -266,24 +271,44 @@ function valueInText(txt, value) {
 
 // R3 (MT-3): computed-css OR any confidence above hypothesis ⇒ hashed source-of-record (hash bound to
 // its own file path). handoff-confirmed/proxy-relayed MUST bind to the persisted handoff
-// (sources/handoff—<date>.md, hashed in CHECKSUMS.txt — enforced here); verified-primary's DECLARED
-// binding target is the slot's primary master (primary-ness itself is not machine-checked by this rule).
+// (sources/handoff—<date>.md, hashed in CHECKSUMS.txt — enforced here); verified-primary MUST bind to a
+// file the asset index marks as a PRIMARY MASTER (satellites/asset-index.md `primary-master-for` column —
+// the slot→master linkage lives there; repos without an index keep the hash-only floor, noted).
+const primaryMasters = new Set();
+let assetIndexPresent = false;
+{
+  const idx = readText(join(ROOT, 'satellites', 'asset-index.md'));
+  if (idx != null) {
+    assetIndexPresent = true;
+    for (const line of idx.split('\n')) {
+      if (!line.trim().startsWith('|')) continue;
+      const cells = line.split('|').slice(1, -1).map((c) => c.trim());
+      if (cells.length < 6 || /^[-:\s]*$/.test(cells[0])) continue;
+      const loc = cells[2].replace(/`/g, '').trim();
+      const pm = cells[5].replace(/`/g, '').trim();
+      if (pm && pm !== '—' && pm !== '-' && !/^</.test(pm) && !/^Repo location$/i.test(cells[2])) primaryMasters.add(loc.replace(/^\.\//, ''));
+    }
+  }
+}
 {
   const v = [];
   for (const t of tokens) {
     const gated = t.source === 'computed-css' || HASH_GATED_CONFIDENCE.has(t.confidence);
     if (!gated) continue;
-    // handoff-inherited rungs must bind to the persisted handoff itself, not just any hashed file
+    // handoff-inherited rungs must bind to the persisted handoff itself, not just any hashed file;
+    // verified-primary must bind to an index-marked primary master (when the index exists)
     const mustBeHandoff = HANDOFF_BOUND_CONFIDENCE.has(t.confidence);
+    const mustBePrimary = t.confidence === 'verified-primary' && assetIndexPresent && primaryMasters.size > 0;
     const hashed = t.sourceRefs.some((r) => {
       if (!r || !r.file || !r.sha256) return false;
       if (mustBeHandoff && !isHandoffFile(r.file)) return false;
+      if (mustBePrimary && !primaryMasters.has(String(r.file).replace(/^\.\//, ''))) return false;
       const have = checksumByPath.get(String(r.file).replace(/^\.\//, ''));
       return !!have && have === String(r.sha256).toLowerCase();
     });
     if (!hashed) {
       const refs = t.sourceRefs.map((r) => (r && r.file ? `${r.file}#${r.sha256 ? String(r.sha256).slice(0, 12) : 'no-sha'}` : 'malformed')).join(', ');
-      v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file${mustBeHandoff ? ' AND that file must be the persisted handoff (sources/handoff—<date>.md)' : ''} [${refs || 'no sourceRef'}]`);
+      v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file${mustBeHandoff ? ' AND that file must be the persisted handoff (sources/handoff—<date>.md)' : ''}${mustBePrimary ? ' AND that file must be marked primary-master-for in satellites/asset-index.md (a verified-primary read binds to the slot\'s OFFICIAL master, not any hashed file)' : ''} [${refs || 'no sourceRef'}]`);
     }
   }
   // R3 CITATION-INTEGRITY sub-check (every sourceRef, every token): a cited selector must EXIST in the
@@ -539,7 +564,25 @@ const normGeom = (inner) => (inner == null ? null : inner
     }
   }
 
-  add('R6', 'MT-1 · cross-artifact reconciliation — R6a projection drift · R6b mark single-source · R6c asset refs resolve', v,
+  // ---- R6d · asset-index reconciliation: the consultation map's repo locations must RESOLVE ----
+  // (satellites/asset-index.md is emitted from the canon and is in-scope here: a row pointing at a file
+  // that does not exist is drift — the one map clients' AIs consult must never dangle. Placeholder rows
+  // — angle-bracket templates — are skipped; an absent index is N/A.)
+  {
+    const idx = readText(join(ROOT, 'satellites', 'asset-index.md'));
+    if (idx != null) {
+      for (const line of idx.split('\n')) {
+        if (!line.trim().startsWith('|')) continue;
+        const cells = line.split('|').slice(1, -1).map((c) => c.trim());
+        if (cells.length < 3 || /^[-:\s]*$/.test(cells[0]) || /^Entry$/i.test(cells[0])) continue;
+        const loc = cells[2].replace(/`/g, '').trim();
+        if (!loc || loc === '—' || loc === '-' || /[<>]/.test(loc)) continue; // placeholder/template rows
+        const p = join(ROOT, loc.replace(/\/$/, ''));
+        if (!existsSync(p)) v.push(`[R6d] asset-index entry "${cells[0]}" points at "${loc}" which does not exist — the consultation map must never dangle`);
+      }
+    }
+  }
+  add('R6', 'MT-1 · cross-artifact reconciliation — R6a projection drift · R6b mark single-source · R6c asset refs resolve · R6d asset-index resolves', v,
     `${derivedProjCount} derived projection(s), ${instances.length} mark instance(s), canon/mark.svg ${canonical == null ? 'absent (N/A unless a mark is rendered)' : 'present'}${r6aNote ? ' · ' + r6aNote : ''}`);
 }
 
@@ -611,6 +654,35 @@ const normGeom = (inner) => (inner == null ? null : inner
       markers.set(id, rec);
     }
   }
+  // INVERTED enumeration from the ASSET INDEX: the brandbook FAILS BY OMISSION against the index — every
+  // index entry of Kind `asset` (a client-visible brand resource the map says EXISTS) must render a
+  // [data-asset="<slug>"] surface OR carry an open-GAP deferral. Still anti-determinist: the index is
+  // DERIVED per-brand from what exists (never a fixed checklist), so a spare brand enumerates little and
+  // passes clean; a repo without an index keeps the present-set floor above.
+  const assetEntries = [];
+  {
+    const idx = readText(join(ROOT, 'satellites', 'asset-index.md'));
+    if (idx != null) {
+      for (const line of idx.split('\n')) {
+        if (!line.trim().startsWith('|')) continue;
+        const cells = line.split('|').slice(1, -1).map((c) => c.trim());
+        if (cells.length < 3 || /^[-:\s]*$/.test(cells[0]) || /^Entry$/i.test(cells[0]) || /[<>]/.test(cells.join(''))) continue;
+        if (/\basset\b/i.test(cells[1])) assetEntries.push(cells[0].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+      }
+    }
+  }
+  const assetMarkers = new Map();
+  for (const f of htmlFiles) {
+    const raw = readText(f); if (!raw) continue;
+    const text = raw.replace(/<!--[\s\S]*?-->/g, '').replace(/<template\b[^>]*>[\s\S]*?<\/template>/gi, '');
+    for (const m of text.matchAll(/data-asset\s*=\s*["']([a-z][a-z0-9-]*)["']([^>]*)/gi)) {
+      const id = m[1].toLowerCase();
+      const gapM = (m[2] || '').match(/data-gap\s*=\s*["'](GAP-\d+)["']/i);
+      const rec = assetMarkers.get(id) || { surfaced: false, gaps: new Set() };
+      if (gapM) rec.gaps.add(gapM[1].toUpperCase()); else rec.surfaced = true;
+      assetMarkers.set(id, rec);
+    }
+  }
   if (htmlFiles.length) {  // no generated prototype yet (e.g. pre-Stage-8 / non-visual build) ⇒ R8 vacuous
     for (const [id, why] of present) {
       const rec = markers.get(id);
@@ -618,9 +690,15 @@ const normGeom = (inner) => (inner == null ? null : inner
       if (rec && [...rec.gaps].some((g) => openGaps.has(g))) continue;  // deferred to an OPEN GAP
       v.push(`[R8] canon section "${id}" is present (${why}) but the generated prototype renders no [data-canon-section="${id}"] surface and declares no open GAP — a present canon section must be a brandbook surface OR carry an open GAP-NNN deferral (data-gap)`);
     }
+    for (const slug of assetEntries) {
+      const rec = assetMarkers.get(slug);
+      if (rec && rec.surfaced) continue;
+      if (rec && [...rec.gaps].some((g) => openGaps.has(g))) continue;
+      v.push(`[R8] asset-index entry "${slug}" (Kind: asset) renders no [data-asset="${slug}"] brandbook surface and declares no open GAP — the client must SEE every asset the map says exists (fail by omission, enumerated FROM the index)`);
+    }
   }
-  add('R8', 'RV-5 · prototype completeness — every present canon section → a brandbook surface OR an open GAP', v,
-    `${present.length} present section(s) [${present.map((p) => p[0]).join(', ') || '—'}]; ${markers.size} surface marker(s); ${htmlFiles.length} html file(s)`);
+  add('R8', 'RV-5 · brandbook completeness — every present canon section AND every indexed asset → a surface OR an open GAP (fail by omission)', v,
+    `${present.length} present section(s) [${present.map((p) => p[0]).join(', ') || '—'}]; ${assetEntries.length} indexed asset(s); ${markers.size + assetMarkers.size} surface marker(s); ${htmlFiles.length} html file(s)`);
 }
 
 // ---------- report ----------

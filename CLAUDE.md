@@ -65,10 +65,17 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
     **R6c** every local `@import`/`url()`/`href`/`src` in a generated artifact resolves to an existing file.
     `canon/mark.svg` is the ONE renderable mark source; `canon.json`/PRIMITIVES § Mark stay metadata-only. The
     projection registry's `consumes`/`source` columns are the machine linkage R6a reads.
-  - **R8 (RV-5, Stage D)** — prototype completeness: every present canon section → a `data-canon-section`
-    brandbook surface OR an open GAP. Reads present sections by machine signal (never a fixed checklist —
+  - **R8 (RV-5, Stage D)** — brandbook completeness, fail by omission: every present canon section → a
+    `data-canon-section`
+    brandbook surface OR an open GAP, AND every `satellites/asset-index.md` entry of Kind `asset` → a
+    `data-asset` surface or open GAP (enumerated FROM the index — derived per-brand, never a checklist).
+    Reads present sections by machine signal (
     flat/monogram/sonic/non-visual pass clean); markers inside HTML comments / inert `<template>` are stripped
     before the scan; no `.html` is a vacuous PASS. See `references/validate-audit.md` §5a.
+  - **R6d + R3-primary + deny-manifest (surfaces & index)** — the asset index's repo locations must resolve
+    (R6d); a `verified-primary` token binds to a file the index marks `primary-master-for` (the slot→master
+    linkage); the client-deny-lint takes its target list FROM `satellites/surfaces.md` `client` rows
+    (`--manifest <root>`) — never auto-chosen — and its KEYED values bind per-LINE (window padding dead).
 - **`python tools/source-recover.py <url> [--from --to]`** — MT-3 **archived-source recovery**: Wayback CDX +
   raw `id_` fetch, occupant disambiguation, SHA-256 → `sources/MANIFEST.json`. Identity/date verification is an
   AGENT step (Stage 3), not the script's. Dep: `requests`.

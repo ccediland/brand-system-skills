@@ -25,7 +25,8 @@
 //           - confidence-grade (hypothesis|corroborated|verified-primary|proxy-relayed|
 //             handoff-confirmed|owner-confirmed) and provenance-verb (matched|inferred|traced|
 //             proposed) fire only as a provenance ANNOTATION — a provenance
-//             key (confidence|source|provenance|…) within KEY_WINDOW chars BEFORE the value.
+//             key (confidence|source|provenance|…) BEFORE the value within the SAME annotation
+//             unit (line/attribute) — no char window: padding a key further away no longer escapes.
 //             "confidence: owner-confirmed" fires; "our founding hypothesis", "matched to its
 //             provenance documentation", "owner-confirmed listings", "our proposed timeline" pass.
 //           - asset-origin (harvested|redrawn|relay) fires only in the "origin: …" annotation form
@@ -76,7 +77,7 @@ try {
 }
 
 // ── windows + shared context vocabularies ───────────────────────────────────────────────
-const KEY_WINDOW = 24; // provenance key must sit this close BEFORE an annotation value
+const KEY_WINDOW = 24; // used by the asset-origin key anchor only; KEYED values bind per-LINE (window games dead)
 const CTX_WINDOW = 28; // build/archive/ratification context this close to the ambiguous token
 const ASSET_WINDOW = 16; // a BUILD-CONTEXT token must START within this many chars of an asset-origin verb
 
@@ -108,7 +109,7 @@ const DISTINCTIVE = [
 	{ cls: "stage-label", re: /\bStage[-\s]?N\b/g }, // literal "Stage-N" placeholder — always operator
 ];
 
-// KEYED: ambiguous value fires only if a provenance KEY sits within KEY_WINDOW chars BEFORE it.
+// KEYED: ambiguous value fires only if a provenance KEY precedes it within the same annotation unit (line).
 const KEYED = [
 	{
 		cls: "confidence-grade",
@@ -232,7 +233,12 @@ function scanString(raw, kind) {
 		vre.lastIndex = 0;
 		let m;
 		while ((m = vre.exec(value)) !== null) {
-			const before = value.slice(Math.max(0, m.index - KEY_WINDOW), m.index);
+			// STRUCTURAL binding, no char window: the key fires when it precedes the value within the SAME
+			// annotation unit (the current line of this text node / attribute). A fixed window was gameable
+			// by padding (a key parked N+1 chars away escaped); the unit-based bind kills the padding game
+			// while keeping heritage copy safe — value-before-key order and keyless prose never fire.
+			const lineStart = value.lastIndexOf("\n", m.index) + 1;
+			const before = value.slice(lineStart, m.index);
 			if (key.test(before)) push(cls, m); // operator ANNOTATION form only
 			if (m.index === vre.lastIndex) vre.lastIndex++;
 		}
@@ -347,19 +353,53 @@ function expandInputs(inputs) {
 const args = process.argv.slice(2);
 if (args.length === 0) {
 	process.stderr.write(
-		"usage: node client-deny-lint.mjs <emitted-client-surface ...>\n",
+		"usage: node client-deny-lint.mjs <emitted-client-surface ...>\n" +
+			"       node client-deny-lint.mjs --manifest <repo-root>   # target list FROM satellites/surfaces.md `client` rows\n",
 	);
 	process.exit(2);
 }
 
-const explicitFiles = args.filter((a) => {
+// ── --manifest mode: the target list comes FROM the surface manifest, never auto-chosen ──
+// Reads satellites/surfaces.md, takes the rows whose Class cell is `client`, expands each path/glob
+// (`*` within a segment, `**` any depth) relative to the repo root, and lints exactly that set.
+// The linter deciding its own scope was the defect this kills.
+let manifestTargets = null;
+if (args[0] === "--manifest") {
+	const root = args[1];
+	if (!root) { process.stderr.write("client-deny-lint: --manifest needs a repo root\n"); process.exit(2); }
+	const mf = (() => { try { return readFileSync(join(root, "satellites", "surfaces.md"), "utf8"); } catch { return null; } })();
+	if (mf == null) { process.stderr.write("client-deny-lint: no satellites/surfaces.md under the given root — the manifest IS the target list; without it use explicit paths\n"); process.exit(2); }
+	const globs = [];
+	for (const line of mf.split("\n")) {
+		if (!line.trim().startsWith("|")) continue;
+		const cells = line.split("|").slice(1, -1).map((c) => c.trim());
+		if (cells.length < 2 || /^[-:\s]*$/.test(cells[0])) continue;
+		if (/^client$/i.test(cells[1])) globs.push(cells[0].replace(/`/g, ""));
+	}
+	if (!globs.length) { process.stderr.write("client-deny-lint: the manifest declares no `client` rows\n"); process.exit(2); }
+	const globToRe = (g) => new RegExp("^" + g.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, "\u0001").replace(/\*/g, "[^/]*").replace(/\u0001/g, ".*") + "$");
+	const res = globs.map(globToRe);
+	const found = [];
+	(function walkAll(dir, relDir) {
+		let names; try { names = readdirSync(dir); } catch { return; }
+		for (const n of names) {
+			const p = join(dir, n); const r = relDir ? `${relDir}/${n}` : n;
+			let st; try { st = statSync(p); } catch { continue; }
+			if (st.isDirectory()) { if (n !== "node_modules" && n !== ".git") walkAll(p, r); }
+			else if (res.some((re) => re.test(r)) && SURFACE_EXTS.has(extname(n).toLowerCase())) found.push(p);
+		}
+	})(root, "");
+	manifestTargets = found;
+}
+
+const explicitFiles = manifestTargets ? [] : args.filter((a) => {
 	try {
 		return statSync(a).isFile();
 	} catch {
 		return false;
 	}
 });
-const fromDirs = expandInputs(args).filter((p) => {
+const fromDirs = manifestTargets ?? expandInputs(args).filter((p) => {
 	if (explicitFiles.indexOf(p) !== -1) return true; // explicit file args always linted
 	return SURFACE_EXTS.has(extname(p).toLowerCase()); // dir-walked files filtered by extension
 });

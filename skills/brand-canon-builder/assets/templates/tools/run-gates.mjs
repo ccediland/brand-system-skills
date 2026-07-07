@@ -34,10 +34,9 @@
 // Sibling tools are resolved NEXT TO THIS SCRIPT (tools/), so the runner works from the
 // emitted repo root and in the skill's own fixture self-tests. Zero-dep Node.
 //
-// INTERIM deny scope: the client-surface manifest does not exist yet, so the deny gate
-// runs over the DECLARED interim scope (prototype/**/*.html + the repo README.md) and the
-// board labels it "interim scope". Widening to a real manifest is a later, tracked change —
-// the label keeps the claim honest until then.
+// Deny scope: the target list comes FROM the surface manifest (satellites/surfaces.md `client` rows);
+// a repo without a manifest falls back to the DECLARED interim scope (prototype/**/*.html + README.md),
+// labeled as such on the board — the linter never chooses its own scope silently.
 
 import { readFileSync, readdirSync, existsSync, statSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve, dirname, relative } from 'node:path';
@@ -85,17 +84,24 @@ const failLine = (s) => {
 
 // ---------- 2. client-deny-lint over the INTERIM scope (lint, BLOCKING) ----------
 {
-  const scope = [];
-  const walkHtml = (dir) => { for (const f of listDir(dir)) { const p = join(dir, f); if (isDir(p)) walkHtml(p); else if (f.endsWith('.html')) scope.push(p); } };
-  const protoDir = join(ROOT, 'prototype');
-  if (isDir(protoDir)) walkHtml(protoDir);
-  const readme = join(ROOT, 'README.md');
-  if (existsSync(readme)) scope.push(readme);
-  if (!scope.length) {
-    add('client-deny-lint', 'lint', true, 'N/A', 'no client surfaces found under the interim scope (prototype/**/*.html, README.md)');
+  // the target list comes FROM the surface manifest (satellites/surfaces.md `client` rows) — the linter
+  // never chooses its own scope. A repo without a manifest falls back to the labeled interim scope.
+  if (existsSync(join(ROOT, 'satellites', 'surfaces.md'))) {
+    const r = runTool('client-deny-lint.mjs', ['--manifest', ROOT]);
+    add('client-deny-lint', 'lint', true, r.status, `MANIFEST scope (satellites/surfaces.md client rows) · ${r.detail}`);
   } else {
-    const r = runTool('client-deny-lint.mjs', scope);
-    add('client-deny-lint', 'lint', true, r.status, `INTERIM scope (${scope.map(rel).join(', ')}) — pending the client-surface manifest · ${r.detail}`);
+    const scope = [];
+    const walkHtml = (dir) => { for (const f of listDir(dir)) { const p = join(dir, f); if (isDir(p)) walkHtml(p); else if (f.endsWith('.html')) scope.push(p); } };
+    const protoDir = join(ROOT, 'prototype');
+    if (isDir(protoDir)) walkHtml(protoDir);
+    const readme = join(ROOT, 'README.md');
+    if (existsSync(readme)) scope.push(readme);
+    if (!scope.length) {
+      add('client-deny-lint', 'lint', true, 'N/A', 'no surface manifest and no interim-scope surfaces (prototype/**/*.html, README.md)');
+    } else {
+      const r = runTool('client-deny-lint.mjs', scope);
+      add('client-deny-lint', 'lint', true, r.status, `INTERIM scope (${scope.map(rel).join(', ')}) — no satellites/surfaces.md manifest in this repo · ${r.detail}`);
+    }
   }
 }
 
@@ -275,14 +281,14 @@ const failLine = (s) => {
 
 // ---------- 5. §7b keystone structural + FORM-OF-RULE (lint, BLOCKING) ----------
 {
-  const candidates = listDir(ROOT).filter((f) => /(^|-)keystone\.md$/.test(f));
+  const candidates = listDir(ROOT).filter((f) => /(^|-)keystone\.md$/.test(f) && !/visual-keystone\.md$/.test(f));
   if (!candidates.length) {
-    add('keystone structural', 'lint', true, 'FAIL', 'no <brand>-keystone.md at the repo root — the keystone is a mandatory output');
+    add('keystone structural', 'lint', true, 'FAIL', 'no <brand>-keystone.md at the repo root — the (verbal) keystone is a mandatory output');
     add('keystone form-of-rule', 'lint', true, 'FAIL', 'no keystone to check');
   } else {
     const text = readText(join(ROOT, candidates[0])) ?? '';
     // mask fenced code blocks (offset-preserving) so a ``` fence carrying "## " never miscounts sections
-    const masked = text.replace(/```[\s\S]*?```/g, (m) => m.replace(/[^\n]/g, ' '));
+    const masked = text.replace(/(```|~~~)[\s\S]*?\1/g, (m) => m.replace(/[^\n]/g, ' '));
     const headings = [...masked.matchAll(/^## .+$/gm)].map((m) => ({ h: m[0], i: m.index }));
     const probs = [];
     if (headings.length !== 6) probs.push(`${headings.length} top-level sections (needs the 6-section schema)`);
@@ -321,6 +327,57 @@ const failLine = (s) => {
     add('keystone form-of-rule', 'lint', true, formProbs.length ? 'FAIL' : 'PASS',
       formProbs.length ? formProbs.join(' · ') : 'THINK/DESIGN carry a conditional-rule shape (or a visible GAP), SPEAK carries a pair (or a visible GAP) — form only, never brand content');
   }
+}
+
+// ---------- 5b. VISUAL keystone — the design brain (lint, BLOCKING; the second lobe of the set) ----------
+// Mandatory resident-set member: exists · 7 sections (fences masked) · guardrail in the tail · ≥1 DO/DON'T
+// pair or a visible GAP marker · the imagery section present (content or an explicit not-used line) · and
+// ZERO pinned values (#hex / oklch() literals) — the brain REFERENCES the spine by token name; a pinned
+// value stops following the spine (drift by construction). All form checks — brand content is never read.
+{
+  const vks = listDir(ROOT).filter((f) => /visual-keystone\.md$/.test(f));
+  if (!vks.length) {
+    add('visual keystone', 'lint', true, 'FAIL', 'no <brand>-visual-keystone.md at the repo root — the design brain is a mandatory member of the resident set (verbal + visual + asset index)');
+  } else {
+    const text = readText(join(ROOT, vks[0])) ?? '';
+    const masked = text.replace(/(```|~~~)[\s\S]*?\1/g, (m) => m.replace(/[^\n]/g, ' '));
+    const headings = [...masked.matchAll(/^## .+$/gm)].map((m) => ({ h: m[0], i: m.index }));
+    const probs = [];
+    if (headings.length !== 7) probs.push(`${headings.length} top-level sections (needs the 7-section schema)`);
+    const guard = headings.findIndex((h) => /guardrail/i.test(h.h));
+    if (guard === -1) probs.push('no VISUAL GUARDRAILS section');
+    else if (guard < headings.length - 2) probs.push('guardrails buried mid-document (must sit in the high-recall tail)');
+    const section = (re) => {
+      const ix = headings.findIndex((h) => re.test(h.h));
+      if (ix === -1) return null;
+      return text.slice(headings[ix].i, ix + 1 < headings.length ? headings[ix + 1].i : text.length);
+    };
+    const GAPLINE = /\bGAP-\d+\b|\bGAP\b[^\n]*\bpending\b/;
+    const dd = section(/do\s*\/\s*don/i);
+    if (dd == null) probs.push('no DO / DON\'T section');
+    else {
+      // the section's own heading contains "DO / DON'T" — scan the BODY only, or the check is vacuous
+      const body = dd.slice(dd.indexOf('\n') + 1);
+      if (!(/\bDO\b[^\n]*\bDON'?T\b/i.test(body) || (/\bDO\b/.test(body) && /\bDON'?T\b/.test(body))) && !GAPLINE.test(body)) probs.push('DO/DON\'T carries no pair and no visible GAP marker (a brain without concrete pairs is adjectives)');
+    }
+    const im = section(/imagery/i);
+    if (im == null) probs.push('no AI-IMAGERY section');
+    else if (im.trim().split('\n').length < 2 && !/not-used/i.test(im)) probs.push('AI-IMAGERY section empty with no explicit not-used(owner-declared) line');
+    // pins checked outside fences AND outside markdown link targets (an anchor fragment like #e2e-flow is
+    // not a colour). Pin classes: the CSS absolute-colour family + DTCG component serialization + print inks.
+    const masked2 = masked.replace(/\]\([^)\n]*\)/g, (m) => m.replace(/[^\n()\]]/g, ' '));
+    const PIN_RE = /#[0-9a-f]{3,8}\b|\b(?:oklch|oklab|rgba?|hsla?|hwb|lch|lab|cmyk|color-mix)\s*\(|\bcolor\s*\(\s*(?:display-p3|srgb|rec2020|a98-rgb|prophoto-rgb|xyz)|\bcomponents\s*:\s*\[\s*[\d.]|\b(?:PMS|Pantone)\s*\d{2,4}\b/i;
+    const pinM = masked2.match(PIN_RE);
+    if (pinM) probs.push(`pinned value "${pinM[0]}" — the visual keystone references the spine BY TOKEN NAME, never by literal (a pin drifts)`);
+    add('visual keystone', 'lint', true, probs.length ? 'FAIL' : 'PASS',
+      probs.length ? probs.join(' · ') : `${vks[0]} — 7 sections, guardrails in tail, DO/DON'T pairs, imagery axis resolved, no pinned values in lint scope (outside fences/links)`);
+  }
+}
+
+// ---------- 5c. asset index — the third member of the resident set (lint, BLOCKING) ----------
+{
+  if (!nonEmpty(join(ROOT, 'satellites', 'asset-index.md'))) add('asset index', 'lint', true, 'FAIL', 'satellites/asset-index.md absent or empty — the mandatory third member of the resident set (verbal + visual keystones + asset index)');
+  else add('asset index', 'lint', true, 'PASS', 'resident-set third member present (row integrity is reconciled by audit-lint R6d/R8)');
 }
 
 // ---------- 6. §7b live red-team run (agent-gate; the live run is deferred) ----------

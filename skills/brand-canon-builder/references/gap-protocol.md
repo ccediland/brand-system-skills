@@ -91,8 +91,8 @@ Hard rules:
 Add a row to the Open Items / Gaps table in `RESIDENT.md`:
 
 ```
-| ID      | Item            | Why it matters        | Severity   | Provenance        | Proposed resolution | Status |
-| GAP-007 | <what's missing>| <why it's a must-have>| MUST-HAVE  | <provenance tag>  | <how to resolve>    | OPEN   |
+| ID      | Item            | Why it matters        | Severity   | Provenance        | Proposed resolution | Resolution target | Status |
+| GAP-007 | <what's missing>| <why it's a must-have>| MUST-HAVE  | <provenance tag>  | <how to resolve>    | <file/section that receives the fill> | OPEN   |
 ```
 
 - **ID:** `GAP-<NNN>`, zero-padded, sequential, never reused.
@@ -101,6 +101,9 @@ Add a row to the Open Items / Gaps table in `RESIDENT.md`:
   purpose) / `handoff-defect` (the handoff should have carried it but didn't) / `builder` (surfaced during
   the build) / `skill-scope` (outside what the skill can resolve). Seeds from the handoff's per-gap
   provenance tag; the builder owns the `GAP-NNN` formalization.
+- **Resolution target (the instructive column):** WHICH file/section — existing or to-create — receives the
+  answer when it arrives ("change/do this HERE when you have it"). Its reader is a NEW session's agent (or a
+  human dev) landing the fix cold; a gap without a landing spot invites the fix to drift into the wrong layer.
 - **Status lifecycle:** `OPEN` → `CLOSED (ratified)` when the owners decide and the canon is filled. Other
   terminal states: `DROPPED (OUT)` (decided not to do), `DEFERRED (NICE)`.
 - Never fabricate content to close a gap. An empty slot with an honest GAP beats invented brand truth.

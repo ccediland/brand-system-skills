@@ -203,8 +203,11 @@
   <!-- mark: BUILDER inline the geometry FROM canon/mark.svg (the single source) — byte-equal across the
        prototype + kit Mark.tsx; never hand-type it (audit-lint R6b enforces single-sourcing) -->
   <!-- data-canon-section markers (D-2b): each tags the canon section a surface documents; audit-lint R8
-       requires every PRESENT canon section (by machine signal) to have a marker OR an open-GAP deferral. -->
-  <div class="mark" data-canon-section="mark" aria-label="Example Brand logo">
+       requires every PRESENT canon section (by machine signal) to have a marker OR an open-GAP deferral.
+       data-asset markers (fail-by-omission): every satellites/asset-index.md entry of Kind `asset` needs a
+       [data-asset="<slug>"] surface (slug = the entry name, lowercased, non-alnum → hyphens) or an
+       open-GAP deferral — the client must SEE every asset the map says exists. -->
+  <div class="mark" data-canon-section="mark" data-asset="mark-master" aria-label="Example Brand logo">
     <svg id="brand-mark" viewBox="0 0 32 32" role="img" aria-hidden="true">
       <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>
       <circle cx="16" cy="16" r="7" fill="var(--color-brand-fg)"/>

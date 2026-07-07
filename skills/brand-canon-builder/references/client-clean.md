@@ -42,17 +42,42 @@ removed `{{…}}` and GUIDE/builder comments (linting the raw template is a usag
 parses HTML, Markdown, and code/style files with rehype/parse5 and scans text nodes, comment nodes, AND
 client-visible attributes (alt / title / aria-label / placeholder) for the operator-vocabulary class
 (GAP-NNN, Stage-N, build-grade, provenance/confidence grades, OFL, harvested / redrawn / Wayback,
-unratified), exiting non-zero on any hit. Coverage explicitly INCLUDES the **keystone deploy sections**, the
-**prototype's visible body**, and the **design-sync-kit source** (`.css` / `.ts` / `.tsx` / `.mjs`) —
-surfaces §1's grep does not reach today. (Builder chatter in CSS `/* */` or JS `//` comments is NOT removed
+unratified), exiting non-zero on any hit. **The target list comes FROM the surface manifest**
+(`satellites/surfaces.md` `client` rows, via `--manifest <root>`) — the linter NEVER chooses its own scope:
+the prototype/brandbook, the emitted `README.md`, and the **design-sync-kit source** (`.css` / `.ts` /
+`.tsx` / `.mjs` — visible inside Claude Design). **The keystone is NOT a deny target:** it is AI-FACING
+(one total client surface, brains keep their epistemics) — scrubbing its provenance/GAP markers made the
+deliverable MORE misleading, not less; the marker-vs-deny collision died structurally when the surfaces
+split, not lexically. (Builder chatter in CSS `/* */` or JS `//` comments is NOT removed
 by the §3 HTML-comment strip, so such comments must themselves carry no deny vocab.) It is brand-agnostic
 (vocabulary classes, never brand content) and composes with §1's grep; the ambiguous classes are
 context-bound so ordinary brand copy does not false-fail — provenance grades/verbs (hypothesis / corroborated
 / verified-primary / proxy-relayed / handoff-confirmed / owner-confirmed, matched / inferred / traced /
-proposed) fire only in the `key: value` annotation form, numeric stage labels only beside a build-context
+proposed) fire when a provenance KEY precedes the value within the SAME line/attribute (structural binding,
+no char window — padding a key further away no longer escapes), numeric stage labels only beside a
+build-context
 word, and asset-origin verbs (harvested / redrawn / relay) only in the `origin: …` annotation form or beside
 a build-context token — NEVER via an asset noun, so heritage copy passes (a "founding hypothesis", a "Stage 7
 venue", "beans harvested at dawn", "our logo was redrawn by hand" all pass).
+
+## 2b. The sanctioned CLIENT vocabulary (how status is expressed on a client surface)
+
+A client surface still needs to say "this is not final" — it says it in CLIENT language, never in machine
+status words. The rules:
+
+1. **Ladder values and source-grades never appear on a client surface** — not annotated (`key: value`) and
+   not as padded prose beside a provenance key (the same-line binding above catches both).
+2. **Bare epistemic KEYS are legitimate brand copy** ("our provenance story", "with confidence") — words are
+   not banned; annotations are.
+3. **The sanctioned client statuses** for anything pending: *Provisional* · *Para confirmar* / *To confirm* ·
+   *Propuesta — pendiente de tu visto bueno* (or the register-appropriate equivalent). These are
+   CLIENT-legible, live in the brandbook's "Decisions for you" panel and demo markers, and NEVER travel
+   downstream as machine status (a token's confidence never reads "Provisional" — the ladder lives on
+   AI-facing/operator surfaces only).
+4. **The protected mark's `<desc>` is brand voice by construction** — it ships inside client-visible
+   artifacts byte-equal from `canon/mark.svg`, so it carries the brand's own description of its mark, never
+   operator vocabulary (this kills the byte-equality-vs-deny collision at the source: the single-sourced
+   text is client-clean before it replicates).
 
 ## 3. {{PLACEHOLDER}} leftovers + scaffolding chatter
 

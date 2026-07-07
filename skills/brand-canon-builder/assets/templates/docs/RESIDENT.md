@@ -46,10 +46,13 @@ canonical: github
 | {{...}} | {{...}} | {{DATE}} |
 
 ## Open Items / Gaps
-<!-- GUIDE: every empty must-have slot and every unratified decision is a GAP here. See gap-protocol. -->
-| ID | Item | Why it matters | Severity | Provenance | Proposed resolution | Status |
-|---|---|---|---|---|---|---|
-| GAP-001 | {{...}} | {{...}} | {{MUST-HAVE \| SHOULD \| NICE}} | {{handoff-deliberate \| handoff-defect \| builder \| skill-scope}} | {{...}} | {{OPEN \| CLOSED (ratified)}} |
+<!-- GUIDE: every empty must-have slot and every unratified decision is a GAP here. See gap-protocol.
+     Resolution target = the INSTRUCTIVE column: WHICH file/section (existing or to-create) receives the
+     answer when it arrives — "change/do this HERE when you have it". Its reader is the next session's
+     Claude (or a human dev) landing the fix cold. -->
+| ID | Item | Why it matters | Severity | Provenance | Proposed resolution | Resolution target | Status |
+|---|---|---|---|---|---|---|---|
+| GAP-001 | {{...}} | {{...}} | {{MUST-HAVE \| SHOULD \| NICE}} | {{handoff-deliberate \| handoff-defect \| builder \| skill-scope}} | {{...}} | {{file/section that receives the fill, e.g. tokens/base.json › color + canon/02 § inks}} | {{OPEN \| CLOSED (ratified)}} |
 
 ## Change log
 - {{DATE}} — canon scaffolded; {{what was filled vs left as gaps}}.

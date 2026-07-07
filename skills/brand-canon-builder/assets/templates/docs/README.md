@@ -13,7 +13,7 @@ brand decision — for any medium, named here or not — from this repo.
 
 Deliverables projected from the canon (the canon is the skeleton; these are what you ship):
 
-- **`<brand>-keystone.md`** — the single attachable keystone an AI thinks / speaks / designs *as* the brand.
+- **`<brand>-keystone.md` + `<brand>-visual-keystone.md`** — the resident brand-AI set (two lobes of one brain — load BOTH), with `satellites/asset-index.md` as its asset map: an AI thinks / speaks / designs *as* the brand.
 - **`prototype.html`** — a real, presentable prototype rendered from the canon (opens in any browser, no build).
 - **`design-sync-kit/`** — the compiled, `/design-sync`-ready component library.
 
