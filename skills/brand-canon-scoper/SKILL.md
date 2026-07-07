@@ -462,8 +462,8 @@ The boundary: measured/derived values = builder; stated intent + observed pointe
 ### Material placement & target repo
 Both were v1 failures. Honor all three:
 
-- **A real target repo.** The handoff requires a real target repo path (or "create repo X"). Never invent a
-  tree you can't see — you are Chat-side with no filesystem.
+- **A real target repo.** The handoff requires a real target repo path (or "create repo X" — suggest the
+  `<brand>-brand` shape, no redundant `-canon` suffix). Never invent a tree you can't see — you are Chat-side with no filesystem. Hygiene disciplines: `references/process-discipline.md` § Instrument hygiene.
 - **Static source material goes INTO the target repo**, under a conventional location (`assets/` for binaries,
   `sources/` for references), as a build precondition, **with a sha256 checksum per item** (the ASSETS track).
   A **live consumer surface** the brand ships today (its site, app, active feed) is the exception: it is *not*

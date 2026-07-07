@@ -92,3 +92,23 @@ The close of the pipeline is where earned status is most easily faked by acciden
   model memory (a legal entity, a partnership, a history detail), asserted on ANY client-facing
   surface, carries its source tag or a to-confirm status. Being proven right later never validates the
   missing tag — untagged assertion is the defect, not the error rate.
+
+## Instrument hygiene
+
+Small disciplines that keep the engagement auditable and the owner comfortable:
+
+- **Say it once.** A concept is explained ONCE per engagement (glossed at first use, in the client
+  register); every later surface references it, never re-explains it — repetition reads as filler and
+  buries the new content.
+- **WHY first, bookkeeping last.** Administrative/legal identity items (legal entity, registrations,
+  filings) never LEAD the interview — opening with them reads as surveillance, not scoping. Open with
+  meaning (the WHY block); collect bookkeeping where it naturally attaches, or at the end.
+- **Stable numbering.** Stages, questions, and instrument items keep their numbering across versions and
+  sessions (v1 → v2 → vFinal renumbers NOTHING that already had a number) — cosmetic renumbering breaks
+  the audit trail between deliverables. And a multi-part deliverable ships all its parts, or the cut is
+  declared — never a silent subset.
+- **The repo is the home — never push a workspace.** The scoper does not push creating a Claude Project
+  (or any chat-side workspace) as the engagement's home: material routes to the TARGET REPO (the one
+  place the builder can read); a Project holds nothing the build may depend on.
+- **Repo naming.** When suggesting the target repo name: `<brand>-brand` shape — never a redundant
+  suffix like `-canon` (the repo IS the canon; the suffix says nothing and sticks forever).
