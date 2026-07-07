@@ -125,9 +125,8 @@ highest-authority and the freshest sources surface first, and so staleness is ca
 2. **Shipped/social next** — "Where does the brand live *today* — the live site, the active social feeds,
    the most recent packaging?" Shipped expression is the freshest evidence of practice, but it is
    *observed*, so it enters as `hypothesis` (confidence), not as a finding.
-3. **Stale-vs-fresh reconciliation (tag only).** When a brandbook says one thing and shipped work shows
-   another, you only *tag* the divergence (freshness + a gap flag); the builder reconciles precedence
-   (repo > external reference; shipped > stated for specifics; identity/stated > shipped for meaning).
+3. **Stale-vs-fresh reconciliation (tag only).** When a brandbook and shipped work disagree, you only *tag*
+   the divergence (freshness + a gap flag); the builder reconciles precedence (repo > external reference; shipped > stated for specifics; identity/stated > shipped for meaning).
 4. **Verify-the-exact-claim (TA-4).** A blocked/failed retrieval is NEVER a positive status — verified/liveness needs a successful read of the exact thing claimed, not an adjacent signal;
    it stays `hypothesis` or a GAP, never `shipped`/`corroborated` on a guess (no new status word; `references/process-discipline.md`).
 
@@ -205,9 +204,7 @@ cannot be rebuilt into a master, so it is a *reference*, not build-grade.
 | Wordmark | vector master (AI/SVG/EPS/PDF-vector), clean paths | raster / screenshot | no file |
 | Symbol / icon | vector master | raster | — |
 | Primary lockup | vector master + clear-space + min-size | raster, no rules | — |
-| Secondary / variants | vector master | raster | — |
-| Monogram | vector master | raster | — |
-| Seal / emblem | vector master | raster | — |
+| Secondary / variants · monogram · seal | vector master | raster | — |
 
 **The core-asset set is per-brand — not a fixed visual list.** The table above is the COMMON (visual-primary)
 case. Where a brand's PRIMARY identity carrier is non-visual — e.g. a sonic mark (a sound logo / audio
@@ -231,10 +228,12 @@ Other build-grade requirements (request all; "not used" is valid for optional it
 - **Misuse list:** prohibited treatments (no stretch, no unapproved recolor, no unauthorized
   bold/italic/outline, etc.).
 
-Placement & frontier. Vectors embedded in a source (a PDF, a deck) are pointed to in-repo for the
-builder to extract — never sampled by the scoper. Everything routes into the target repo, never Project
-knowledge. A missing or low-fidelity core asset is fidelity-blocking (MUST-HAVE), surfaced in the
-client review — because the build is judged on a real mark/fonts/imagery.
+Placement, frontier & the route walk. Vectors embedded in a source (a PDF, a deck) are pointed to in-repo
+for the builder to extract — never sampled by the scoper. Everything routes into the target repo, never
+Project knowledge. Acquisition is a FORMAL step: before compile, EVERY inventoried ASSETS item gets its
+`acquire:` route + declared `fallback:` assigned against the final contract (an unnameable route is itself
+a gap; fallbacks logged, never improvised at build time) — the scoper ASSIGNS routes, the builder EXECUTES.
+A missing or low-fidelity core asset is fidelity-blocking (MUST-HAVE), surfaced in the client review — because the build is judged on a real mark/fonts/imagery.
 
 Inventory-request text (translate to the owner's language at runtime):
 
@@ -493,7 +492,8 @@ rule-compliance.
   does not "pass with gaps." Closes the loop from *request* (asset inventory) to *judge* (fidelity gate).
 
 ## Principle
-Scope, don't build. Interview, request, structure, detect, and point — emit one machine-readable handoff
-plus a client instrument, and let the builder do the rigorous, filesystem-bound work (extract → scaffold →
-fill → tokens → gaps → validate). Never infer the WHY; never sample a primitive; never promote an
-observation to a line without the owner.
+Scope, don't build — the standing default against scope-bleed: never orchestrate the harvest or decompose
+the build into scoper sub-tasks (recovery routes are ASSIGNED, not run — even for a dead brand), never
+sniff the client's stack/CMS (builder territory). Interview, request, structure, detect, and point — emit
+one machine-readable handoff plus a client instrument; the builder does the rigorous filesystem-bound work
+(extract → scaffold → fill → tokens → gaps → validate). Never infer the WHY; never sample a primitive; never promote an observation to a line without the owner.
