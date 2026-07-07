@@ -221,9 +221,10 @@ builder gate + keystone use — the lead atom is never assumed to be a visual ma
 Other build-grade requirements (request all; "not used" is valid for optional items):
 
 - **Vector formats:** AI (editable master), SVG (web), EPS/PDF (print/vendor).
-- **Typefaces:** the named faces and their font files and proof of commercial-use license, per
-  surface (desktop ≠ web ≠ app ≠ broadcast). Named-only is a fidelity gap (the builder acquires). A typical
-  agency handoff leaves the license with the agency — flag it.
+- **Typefaces:** the named faces and their font files per surface (desktop ≠ web ≠ app ≠ broadcast), plus
+  the license STATE to record (a declared id or a confirmation to follow) — license is a dependency + a
+  confirmation request, never a capability gate (no proof demanded to proceed). Named-only is a fidelity
+  gap (the builder acquires); an agency handoff that kept the license = a visible confirmation gap, never a block.
 - **Color:** RGB (screen) and CMYK (print) values; spot/Pantone declared as authored truth when the
   brand defines it so (`owner-stated`, not re-derived from OKLCH).
 - **Clear-space and minimum-size** per mark slot.
@@ -239,8 +240,8 @@ Inventory-request text (translate to the owner's language at runtime):
 
 > "To build the canon we need your visual inventory. For each item, tell us what exists and in what form.
 > (a) Marks: wordmark, symbol, primary lockup, secondary lockups, monogram, seal — we prefer the editable
-> vector master (AI), plus SVG, EPS/PDF and PNG. (b) Typefaces: the font names AND the font files AND proof
-> of commercial-use license for the surfaces you use (web/desktop/app). (c) Color: RGB/CMYK values and, if
+> vector master (AI), plus SVG, EPS/PDF and PNG. (b) Typefaces: the font names AND the font files for the
+> surfaces you use (web/desktop/app), plus whatever license info you have — missing info we note to confirm later; it never stops the work. (c) Color: RGB/CMYK values and, if
 > any, the Pantone/spot colors that are your authored truth. (d) Existing rules: clear-space, minimum size,
 > and a misuse list. (e) If you only have a screenshot or a low-res PNG of something, send it anyway — we'll
 > mark it as a reference, not a build source. Don't send hex values from memory; point us at the source and
@@ -305,10 +306,9 @@ Accountables on a slot is itself a conflict) plus Consulted/Informed; **surface 
 record who ratifies (→ `OWNERS`). Session pattern: involve the decision-makers without making the decision
 in-session; keep the decider group small and fixed; never introduce new deciders mid-process. *(Wheeler — SECONDARY)*
 
-Unstructured input. Owners ramble, jump, contradict. You:
-- Capture verbatim, then cluster by canon layer.
-- Separate stated fact / aspiration / anecdote; mark contradictions as `liminal` to revisit.
-- Reflect back a structured version for confirmation (confirm-back loop).
+Unstructured input. Owners ramble, jump, contradict: capture verbatim, then cluster by canon layer;
+separate stated fact / aspiration / anecdote (contradictions marked `liminal` to revisit); reflect a
+structured version back for confirmation (confirm-back loop).
 
 Output: one consolidated, per-slot confirmed set plus an explicit list of unresolved multi-decider
 conflicts.
@@ -483,8 +483,8 @@ For THIS brand, the intake defines which assets/primitives are core/must-have (v
 the build is judged on fidelity (is the real mark/fonts/imagery present and on-brand?), not mere
 rule-compliance.
 
-- **build-grade** = vector master + commercial-licensed font files + color profiles (incl. authored spot
-  where declared) + clear-space/min-size + misuse list.
+- **build-grade** = vector master + the real font files (license recorded: confirmed or a visible
+  confirmation gap — never a capability gate) + color profiles (incl. authored spot where declared) + clear-space/min-size + misuse list.
 - The intake emits a fidelity contract (the handoff's CORE-ASSET FIDELITY CONTRACT block): the per-brand
   core-asset set, each marked present/build-grade vs gap/low-fi. The brand's primary-identity carrier (resolved
   from the DIMENSION MAP, not assumed a visual mark) + graphic-code are non-waivable even under
