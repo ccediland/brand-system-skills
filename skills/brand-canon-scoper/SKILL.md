@@ -25,8 +25,7 @@ This SKILL.md is the workflow + gates. Load the reference only when its stage is
 ## What it does NOT do
 It does not scaffold files, write tokens, or build the canon. No filesystem work. It does not eyedropper a
 color, read geometry off a PDF/site, extract embedded vectors, or finalize the WHY without the owner's
-ratification. It does not crystallize an observed one-off as a brand line. It scopes, structures, detects,
-and hands off.
+ratification. It never crystallizes an observed one-off as a brand line. It scopes, structures, detects, and hands off.
 
 **Non-trigger (vs brand-voice).** It does not engage for brand-voice-only guideline generation — a request to
 write tone-of-voice / voice guidelines for a brand (new or existing), with no full canon to scope, is a
@@ -166,9 +165,9 @@ the frame step of the elicitation machine (`references/elicitation-machine.md` �
 resolve to one of the three states is itself a `tagged-gap`, never an omission; an unelicited one is BORN a
 gap. This map drives intake depth, the client review, and the handoff. The all-empty case is the CREATE doctrine (explicit instruction only).
 
-The scoper owns completeness. The builder can only STOP on a dimension that is *present* in the map but
-unresolved; an un-enumerated dimension is the scoper's own defect (it lands as a `handoff-defect` gap), never
-a silent pass. One dimension is named explicitly so it can never be dropped: **applied-expression/social**
+The scoper owns completeness. The builder STOPs only on a dimension *present* but unresolved; an
+un-enumerated one is the scoper's own defect (a `handoff-defect` gap), never a silent pass. One dimension
+is named explicitly so it can never be dropped: **applied-expression/social**
 resolves to `filled(media-attached)` / `not-used(owner-declared)` / `tagged-gap` — a live applied surface is
 carried in the CONSUMERS track, static applied media in ASSETS, and if neither exists the dimension is a gap.
 
@@ -249,14 +248,13 @@ Inventory-request text (translate to the owner's language at runtime):
 > recording you have, marked as a reference): we rate it build-grade / low-fi reference / pointer-only on the same scale."
 
 ### 3.5 Discovery & Intake Instrument — BLOCKING (gate 3.5)
-A single fillable instrument, emitted by DEFAULT (not optional). Every line is tagged: **CONFIRM** (what we
+A single fillable instrument, emitted by DEFAULT (not optional): it EMITS, or the waive is answered WITH the ledger — every UNOPENED dimension NAMED one by one, the waive recorded in the next deliverable's snapshot, and the unopened dimensions shipping as VISIBLE gaps the brief must name (the machine's born-gap + the wire-check's silent-dimension sweep catch what the discipline misses); an un-emitted instrument is never sealed as done. Every line is tagged: **CONFIRM** (what we
 already believe, for the owner to ratify) / **ASK** (what we put as an open question) / **REQUEST** (material
 or assets we need). The chat RESOLVES it in session — filling, confirming, collecting — and never replaces it
-with loose conversation. Register: the worked-example register of §6 (warm, plain Mexican Spanish for a
-non-design owner-operator; design terms glossed inline by example) — do not duplicate that example here, it
-governs. This is the FIRST checkpoint of the single client-surface flow (see §6 "One client-surface flow,
-three checkpoints"): its CONFIRM / ASK / REQUEST lines mature into the §6 review and the gate-7a brief, never
-into a throwaway side-doc.
+with loose conversation. Register: the §6 worked-example register (warm, plain Mexican Spanish for a
+non-design owner-operator; terms glossed inline) — do not duplicate it here, it governs. This is the FIRST
+checkpoint of the single client-surface flow (§6 "One client-surface flow, three checkpoints"): its
+CONFIRM / ASK / REQUEST lines mature into the §6 review and the gate-7a brief, never a throwaway side-doc.
 
 ### 4. Elicitation instrument — BLOCKING (gate 4)
 The centerpiece. Hard rule: the WHY is elicited, never inferred. If the owner cannot answer, it becomes a
@@ -411,7 +409,9 @@ forced into a GAP.
 ### 7a. Final Brand Brief — BLOCKING (gate 7a)
 The close of the single client-surface flow: the §6 review carried to ratified-complete, in the §6 client
 register (warm, plain, the owner's language, every term glossed). The BLOCKING client APPROVAL — nothing
-compiles without it: every Found / Missing / To-confirm line settled, the WHY ratified. The owner signs off
+compiles without it: every Found / Missing / To-confirm line settled, the WHY ratified, and the PRE-BRIEF
+SWEEP run — every dimension of the machine's frame ends terminal or is NAMED as missing IN the brief (a
+gap the brief hides is a SILENT dimension the wire-check fails downstream — the brief travels in the wire). The owner signs off
 on this human-readable brief, never on the machine block — under the signing discipline
 (`references/process-discipline.md` § The signing discipline; load at gates 6–7b: text-before-signature · brief and handoff never in one message — the wire's SIGNED BRIEF appendix is a verbatim COPY inside the machine block, never a second approval surface; preserve the signed text byte-faithful, it is the oracle every `BRIEF{}` quote checks against · machine handoff = the ONLY builder path · clauses only elicited · web/memory specifics tagged).
 

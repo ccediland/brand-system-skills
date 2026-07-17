@@ -187,6 +187,32 @@ for (const lineRaw of body.split('\n')) {
   else checkQuotesOn(line, 'not-used (body)', null);
 }
 
+// ---- pre-brief sweep (the 7a compile guard, machine side) ----
+// A gap the signed brief never names is a SILENT dimension — the owner approved a brief that hid the
+// hole (the v5 compression failure: intake skipped, waive invisible, whole dimensions mute). Checkable
+// because the brief travels in the wire: every DIMENSION MAP `tagged-gap` dimension token, and every
+// GAPS row's client-language head, must appear in the signed brief text (the "what's missing" duty).
+if (brief != null && briefNorm.length) {
+  const briefLower = briefNorm.toLowerCase();
+  if (dimMap) {
+    for (const m of dimMap.matchAll(/([A-Za-z][\w/-]*)\s*:\s*tagged-gap/g)) {
+      const tok = m[1].toLowerCase();
+      if (!briefLower.includes(tok) && !briefLower.includes(tok.replace(/[/-]/g, ' ')))
+        fail('silent-dimension', `DIMENSION MAP ships "${m[1]}: tagged-gap" but the signed brief never names it — the owner approved a brief that hid this hole (every gap ends terminal AND named in the brief's what's-missing)`);
+    }
+  }
+  if (gapsBlock) {
+    for (const lineRaw of gapsBlock.split('\n').slice(1)) {
+      const line = lineRaw.trim();
+      if (!line || line.startsWith('(')) continue;
+      if (/^(WIRE-CHECK:|NOTES:)/.test(line)) continue;       // wire furniture, not a GAPS row
+      const head = norm((line.split(' — ')[0] ?? '').replace(/·.*$/, ''));
+      if (head && !briefLower.includes(head.toLowerCase()))
+        fail('silent-gap', `GAPS row "${head.slice(0, 50)}" is not named in the signed brief — a gap the owner never saw`);
+    }
+  }
+}
+
 // ---- WIRE-CHECK recompute + identities ----
 const wc = body.match(/^WIRE-CHECK:\s*markers:\s*(\d+)\s*·\s*verified:\s*(\d+)\s*·\s*demoted:\s*(\d+)\s*·\s*misses:\s*(.+)$/m);
 if (hasMarkers && brief != null) {

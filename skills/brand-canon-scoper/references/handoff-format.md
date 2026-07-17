@@ -274,7 +274,11 @@ point — text-before-signature guarantees the brief; the wire was just compiled
    actually says). Never emit a miss. (Scope note: ANY tag present on a VOICE-EXEMPLARS line is walked; the
    check proves INTERNAL consistency — the brief's authenticity is the Stage-0 hash + signing discipline,
    never this walk.)
-3. **Declare the result.** Write the `WIRE-CHECK:` line — `markers` (tags walked) · `verified`
+3. **Sweep the gaps against the brief.** Every DIMENSION MAP `tagged-gap` dimension and every GAPS row
+   must be NAMED in the signed brief text (its what's-missing duty) — a gap the brief never names is a
+   SILENT dimension: the owner approved a brief that hid the hole (the machine classes
+   `silent-dimension`/`silent-gap`). The fix is upstream: gate 7a's pre-brief sweep, never a wire patch.
+4. **Declare the result.** Write the `WIRE-CHECK:` line — `markers` (tags walked) · `verified`
    (verbatim/anchor hits) · `demoted` (`none — compiled, hypothesis` lines) · `misses` (MUST be `none` at
    emission; a wire emitted with misses is a contract defect).
 

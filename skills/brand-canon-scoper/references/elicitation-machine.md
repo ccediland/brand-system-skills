@@ -118,7 +118,10 @@ item absent from the To-confirm surface is not promoted — there is no mid-inte
 **Compile guard.** Gate 7b compiles only terminal states. Any dimension still OPEN or UNOPENED at compile
 time resolves by its born-gap semantics: it ships as `tagged-gap`, explicitly, its reason recorded in the
 ledger (a dimension still OPEN at compile is the scoper's own process defect — the gap ships, and the
-ledger records why). The machine guarantees there is ALWAYS an honest resolution, so the downstream
+ledger records why). The 7a PRE-BRIEF SWEEP is the same guard one gate earlier: the brief does not go to
+signature until every frame dimension is terminal or NAMED as missing in the brief itself — machine-held
+downstream (the wire-check's silent-dimension/silent-gap classes: a `tagged-gap` or GAPS row the signed
+brief never names FAILS). The machine guarantees there is ALWAYS an honest resolution, so the downstream
 parse-or-stop on the dimension map never receives an unresolved row from a well-run scoping.
 
 ## The ledger — where state lives (the scoper is chat-side; no filesystem)
@@ -136,8 +139,8 @@ new carrier, no new artifact class.
 
 | Failure | Behavior |
 |---|---|
-| The person skips ahead ("just compile it") | BLOCKING gates do not compress; the machine answers WITH the ledger: everything UNOPENED/OPEN would ship as a tagged gap — the owner is told exactly what a skip costs. A waive drops COVERAGE only (unopened/open dimensions → visible gaps, never silence); the status-integrity gates — the EH self-check, the §6 client-surface self-check, gate 5, the curator wall — are NEVER waivable: a waive changes what is elicited, never what a recorded datum's status claims. And gate 7a's approval is never waivable-INTO-compile: a waived 7a is a STOP, not a skip — without the sign-off, 7b never emits (the contract already forbids it) |
-| Interrupted conversation / new session | State = the ledger snapshot in the last emitted DELIVERABLE; reload it and continue. Anything after that snapshot is RE-elicited, never reconstructed from memory |
+| The person skips ahead ("just compile it") | BLOCKING gates do not compress; the machine answers WITH the ledger — every UNOPENED dimension NAMED one by one (never a count, never "the rest"): the owner is told exactly what a skip costs, and the waive + its named dimensions are RECORDED in the next deliverable's ledger snapshot. Gate 3.5 in particular EMITS or its waive shows that ledger — an un-emitted instrument is NEVER sealed "done"/"✔" (a coverage claim over unopened dimensions is a false claim). A waive drops COVERAGE only (unopened/open dimensions → visible gaps, never silence — each must surface in the brief's what's-missing: a gap the brief hides is a SILENT dimension the wire-check FAILS downstream); the status-integrity gates — the EH self-check, the §6 client-surface self-check, gate 5, the curator wall — are NEVER waivable: a waive changes what is elicited, never what a recorded datum's status claims. And gate 7a's approval is never waivable-INTO-compile: a waived 7a is a STOP, not a skip — without the sign-off, 7b never emits (the contract already forbids it) |
+| Interrupted conversation / new session | State = the ledger snapshot in the last emitted DELIVERABLE; reload it and continue. The close/pause instruction TELLS the person explicitly to BRING the latest brief (and the handoff, if one was emitted) to the resume session — the resume session CURES or CONSUMES that state, it never re-elicits from zero and never assumes memory. Anything after that snapshot is RE-elicited, never reconstructed from memory |
 | Corrupt or ambiguous state (conflicting snapshots, a self-contradicting row) | The affected dimension REGRESSES to OPEN and is re-confirmed with the owner — the machine never silently picks between two conflicting states |
 | Gamed saturation (filler answers to close fast) | Saturation closes the probing only; without the DECIDED guard (a real owner source) the dimension closes GAP — filler can end the interview, never mint a decision |
 | Frame blind spot (the profile analysis missed a dimension) | The open question + owner confirmation catch it at generation; one discovered later ENTERS the frame (it stays open to the 7b compile); one discovered after the seam is the scoper's `handoff-defect` — the existing accountability, unchanged |
