@@ -168,7 +168,8 @@ WHERE-FROM: the exact, hashed source-of-record the value was read from.
 - Any token above `confidence: hypothesis`, or with `source: computed-css`, MUST carry a `sourceRef`
   whose `sha256` is in `CHECKSUMS.txt` (MT-3/R3) — the build SHA-256-hashes every file under `sources/**`
   (`asset-acquisition.md`), the persisted handoff (`sources/handoff—<date>.md` — the natural sourceRef of
-  `handoff-confirmed`/`proxy-relayed` data) included. The lint fails the build otherwise.
+  `handoff-confirmed`/`proxy-relayed` data; the split `sources/brief—<date>.md` is hashed too but sourceRefs
+  bind to the HANDOFF, which contains the appendix) included. The lint fails the build otherwise.
 - `captureTs`/`selfPublished` carry the archived-source identity+date trail (`source-recover.py`,
   `asset-acquisition.md` § Archived-source recovery): the agent reconciles them before the value is trusted.
 - The template applies `sourceRef` to its REPRESENTATIVE token as the illustrative pattern (the same way the

@@ -4,7 +4,8 @@
 |---|---|---|---|---|---|
 | brandbook (stated spec) | knowledge/source | sources/brandbook.txt | — | CHECKSUMS.txt | paper |
 | site CSS capture | source | sources/site.css | — | CHECKSUMS.txt | — |
-| persisted handoff | knowledge/source | sources/handoff—2026-01-15.md | — | CHECKSUMS.txt (top of custody) | — |
+| persisted handoff | knowledge/source | sources/handoff—2026-01-15.md | — | CHECKSUMS.txt (top of custody; contains the SIGNED BRIEF appendix) | — |
+| persisted signed brief | knowledge/source | sources/brief—2026-01-15.md | — | CHECKSUMS.txt (Stage-0 split of the appendix — the wire-check target) | — |
 | palette transcription (relay) | source | sources/palette-notes.md | — | CHECKSUMS.txt (origin: relay — never counted as independent) | — |
 | mark master | asset | canon/mark.svg | — | CHECKSUMS.txt + single-source reconciliation | mark |
 | keystone (verbal brain) | knowledge | demo-keystone.md | — | — | — |

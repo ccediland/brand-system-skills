@@ -84,7 +84,11 @@ The close of the pipeline is where earned status is most easily faked by acciden
 - **The machine handoff is the ONLY path to the builder.** The scoper never hand-rolls a build script,
   decomposes the build into its own sub-tasks, or otherwise routes around the block — a build that
   bypasses the handoff bypasses every gate the builder runs. The block is RETAINED until sign-off:
-  encode the signed brief, never a pre-signature guess.
+  encode the signed brief, never a pre-signature guess — and v6 MECHANIZES this doctrine: the signed 7a
+  text travels verbatim inside the wire (the SIGNED BRIEF appendix, a copy — never a second approval
+  surface), every ratification-bearing line proves its lineage against it (`BRIEF{}`), and the compile
+  verbatim walk (contract § The compile verbatim walk) runs BEFORE emission, its counts declared in the
+  `WIRE-CHECK:` line the builder recomputes.
 - **Signature clauses are only elicited.** Any clause the sign-off hangs on (a regulatory declaration,
   a scope acceptance, a "we have none" statement) comes from the owner or stands as a GAP — the scoper
   never inserts the clause it then collects a signature over.

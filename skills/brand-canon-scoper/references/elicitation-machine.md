@@ -42,20 +42,22 @@ Every dimension in the frame starts UNOPENED. An un-enumerated dimension remains
 | **UNOPENED** | in the frame, not yet elicited. **Born-gap: a dimension never opened ships as a gap — the default IS the gap, never silence** | `tagged-gap` |
 | **OPEN** | elicitation in progress: probes issued, material arriving, not yet saturated | — (never crosses the seam; see § Compile guard) |
 | **DECIDED** | a datum with an owner source behind it, carried at its EARNED spine status | `filled` |
-| **NOT-USED** | the owner explicitly declared the brand does not use this dimension | `not-used(owner-declared)` |
+| **NOT-USED** | the owner explicitly declared the brand does not use this dimension | `not-used(owner-declared) · BRIEF{ verbatim:"<confirming quote>" }` — the quote must appear in the signed brief, or the row compiles `tagged-gap` |
 | **PROPOSED-QUARANTINE** | the owner ASKED for a draft; the scoper-authored value travels labeled | the WHY `PROPOSED` line (or a WHAT slot) at `source: proposed · confidence: hypothesis` riding a client-language gap — the contract's quarantine rule verbatim; a proposal never resolves or re-rows its dimension (the map row reflects whatever state the dimension itself earned) |
 | **GAP** | needed but absent, unconfirmed, or unresolved at saturation | `tagged-gap` |
 
 The four terminal states are the honest answers; OPEN and UNOPENED are process states. The "projects
 onto" column names the DIMENSION MAP literals; a frame dimension whose home is another block terminates
 onto THAT block's own contract literals — HORIZONS' `direction | not-relevant | tagged-gap`; POSTURE's
-`none` / `→GAP` (a posture field with no gap literal ships its gap as a GAPS-block row);
+`none` / `→GAP` (EVERY posture gap ships as a GAPS-block row naming the field — both the `→GAP` literal
+and a field with no gap literal of its own; the wire-check enforces the naming);
 `filled(media-attached)` for media-carried dimensions. The OPTIONAL block never runs the lifecycle: it
 resolves by the contract's own rule (scoper-WRITTEN `not used` / `demo-default-yes` /
 `scope-expanding(demo-default-no)` under v0/DEMO), and the two directive slots (`Claude Design component
 library`, `existing-component-stack`) MUST be filled — a gap there is a handoff defect, never a
-resolution. The wire (`references/handoff-format.md`) is UNCHANGED by this machine — every terminal
-state lands on literals the contract already defines.
+resolution. Every terminal state lands on literals the contract defines — including the v6 evidence the
+contract now demands with them (a NOT-USED row's confirming quote; the `BRIEF{}` lineage on ratified
+lines): the machine produces the evidence, the contract carries it.
 
 ## Transitions — guards decide, prose never does
 
@@ -76,9 +78,13 @@ state lands on literals the contract already defines.
   self-check axes). An owner-meaning field with no real owner UTTERANCE stays un-DECIDED regardless of
   confidence: owner-supplied material SEEDS elicitation for those fields, never decides them.
 - **OPEN → NOT-USED.** Guard: an explicit owner declaration about THAT dimension, named to the owner —
-  never inferred from silence, a shrug, or category assumption. A blanket "mark the rest not-used" is
+  never inferred from silence, a shrug, or category assumption. The guard CAPTURES the owner's declaration
+  verbatim and routes it into the Final Brand Brief (gates 6–7a) — the wire row will carry that quote as
+  `BRIEF{ verbatim }` and the wire-check verifies it against the signed brief: a declaration that never
+  reached the brief cannot mint the row (it compiles `tagged-gap`). A blanket "mark the rest not-used" is
   answered WITH the ledger (showing what "the rest" is), offering the waive-to-visible-gaps route
-  instead — a blanket never mints `not-used(owner-declared)` rows.
+  instead — a blanket never mints `not-used(owner-declared)` rows (and machine-side, a blanket line is not
+  in the brief per-dimension, so the check kills what the discipline misses).
 - **OPEN → PROPOSED-QUARANTINE.** Double guard: (a) the owner explicitly invited the draft for THAT slot
   ("propose one for us" — by, or relayed from, the slot's Accountable; a standing blanket invitation
   authorizes nothing beyond the slots it named) — proposing is never the default path; and (b) the
@@ -97,12 +103,15 @@ state lands on literals the contract already defines.
   line re-ratifies (or the owner waives it — it then ships GAP with the reopen recorded); a reopen never
   silently diverges the compiled block from the signed brief.
 - **terminal → GAP or NOT-USED (guard-regression).** A datum that fails the EH self-check
-  (`SKILL.md` § EH self-check) re-statuses to GAP — or to an owner-declared `none` (NOT-USED) where the
-  owner closed the field; those are the self-check's own two destinations. Corrupt or conflicting state
+  (`SKILL.md` § EH self-check) re-statuses to GAP — or to an owner-declared `none` (NOT-USED, with its
+  confirming quote) where the owner closed the field; those are the self-check's own two destinations. Corrupt or conflicting state
   records regress the dimension to OPEN (see § Failure modes) — a transition, not just table behavior.
 
 **The gate-6 promote.** A datum rises above `hypothesis` only when the owner confirms that ITEM on the
-gate-6 To-confirm surface; the promoted datum cites that confirmation and lands `owner-confirmed`. An
+gate-6 To-confirm surface; the promoted datum cites that confirmation and lands `owner-confirmed` — and the
+confirmation must be RECORDED in the Final Brand Brief text: a promoted WHAT slot's wire line carries
+`BRIEF{ verbatim | anchor }` that the wire-check verifies against the signed brief (a promote the brief
+does not record cannot ship at owner-confirmed). An
 item absent from the To-confirm surface is not promoted — there is no mid-interview or silent promote.
 
 **Compile guard.** Gate 7b compiles only terminal states. Any dimension still OPEN or UNOPENED at compile
@@ -144,6 +153,7 @@ machine makes machine-checkable is its PROJECTION, which the builder's existing 
 | Every dimension resolved on the wire | parse-or-stop (builder Stage 0 — the dimension-map HALT already in the § Directives registry) |
 | Quarantined proposals labeled + capped + riding a gap | lint downstream (the builder's audit-lint proposed-cap and gap-linkage rules) + the contract rule (`references/handoff-format.md` § Rules) |
 | Born-gap (an unelicited field ships as a gap) | agent-gate scoper-side; parse-or-stop + lint at the destination |
+| Compiled block ≡ signed brief (per-line lineage · not-used quotes · WIRE-CHECK counts) | agent-gate scoper-side (the 7b compile verbatim walk) + lint downstream (`tools/wire-check.mjs` — Stage 0 + the board row) |
 | The curator wall | agent-gate (`references/process-discipline.md` § The curator wall — the written rule) |
 
 ## The quarry — banks feed the machine, they never drive it

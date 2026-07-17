@@ -74,7 +74,7 @@ Voice (register / lexicon / do's-and-don'ts) — subset of ESSENCE:
 → TREATMENTS intent (visual/textural language — observed, enters as hypothesis):
 - Does the brand have a recurring texture, finish, or treatment (grain, gloss, hand-drawn, glitch, foil,
   halftone, glass)? Where does it appear? *(Observe + point; the builder's reproduction router decides
-  procedural / generative / vector-trace / raster. You only record the observation as `hypothesis` and
+  procedural / generative / vector-trace / raster-required / unknown. You only record the observation as `hypothesis` and
   point at the source artifact.)*
 
 → GRAMMAR (how / combination-rules / contrast / mark-selection / motion):

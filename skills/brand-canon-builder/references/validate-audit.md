@@ -346,7 +346,8 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
     medium it emits a declared fidelity-blocking GAP and the medium is a TRACKED HORIZON — never advertised as
     required-to-pass build-grade.
   - **`not-used(owner-declared)` resolves CLEAN.** Where a section legitimately has no rule because its
-    dimension is declared `not-used(owner-declared)` (cross-check the Stage-0 DIMENSION MAP), that is not a
+    dimension is declared `not-used(owner-declared)` (cross-check the Stage-0 DIMENSION MAP — whose rows
+    carry their `BRIEF{ verbatim }` confirming quote, already verified by the wire-check), that is not a
     missing rule — it resolves CLEAN, never FAIL. A section whose carrier is `none` but whose dimension is NOT
     declared not-used must carry its tagged GAP slot (e.g. "trade-off rule pending owner ratification") — an
     emitted GAP line satisfies the form check; a silent empty section does not.
@@ -388,7 +389,8 @@ The keystone `.md` (Stage 8.5, `keystone-emit.md`) is a mandatory output, so Sta
     expected-refusal contract are assembled into the PR and **human red-team sign-off is required; the default
     state is unratified-pending** (mirrors §6).
   - **Posture → GAP severity inheritance (EH-3).** When the regulated trigger fires (EITHER-signal) AND the
-    enabling regulatory instrument — the GAP carried on the POSTURE `regulatory:` field (its `→GAP` resolution),
+    enabling regulatory instrument — the GAP carried on the POSTURE `regulatory:` field (its `→GAP` resolution;
+    the wire's GAPS block names the field, wire-check-enforced),
     logged in the `RESIDENT.md` Gaps table — is **open** (the owner did not provide the named instrument), that
     GAP inherits **MUST-HAVE** severity: a regulated brand cannot ship its guardrail without knowing the binding
     instrument. **GATED, never universal:** a brand with `regulatory: none` forces NO regulatory GAP and NO
@@ -420,10 +422,13 @@ node tools/run-gates.mjs        # exit 0 ALL-GREEN · exit 2 INCOMPLETE · exit 
 
 It runs every executable gate above as a child process (real exit codes — audit-lint, the deny over its
 DECLARED interim scope of `prototype/**/*.html` + `README.md` pending the client-surface manifest, the kit's
-offline `package-validate` when `dist/` exists), machine-checks the committed evidence (§7a `scores.json`
+offline `package-validate` when `dist/` exists, the WIRE VERBATIM-CHECK — `tools/wire-check.mjs` re-run over
+the persisted handoff + signed brief: per-line `BRIEF{}` lineage, not-used citations, `WIRE-CHECK:` recompute,
+wire vocabulary), machine-checks the committed evidence (§7a `scores.json`
 verdicts recomputed from their own numbers + the mandatory non-waivable set parsed from the persisted
 handoff · the custody manifest — every declared `cut`/`recover-wayback` route bound to a
-`sources/MANIFEST.json` entry with the parent's url+hash · §7b keystone structure + form + battery ·
+`sources/MANIFEST.json` entry with the parent's url+hash (or an in-repo parent whose recorded sha256 the
+runner RECOMPUTES) · §7b keystone structure + form + battery ·
 `audit/agent-gates.md` sections for every demoted
 gate), and writes **`audit/gates/report.md`** — the status board. Per-gate statuses are first-class:
 `PASS / FAIL` (real exits) · `NOT-RUN(reason)` (deps missing → the tool's own exit-3 install instruction is
@@ -440,7 +445,8 @@ kill — the board line IS the deliverable's status.
 ## Gate summary
 
 The build is done only when **`node tools/run-gates.mjs` verdicts ALL-GREEN (§8)** — the machine-generated
-board, never a narrated summary, is the claim — which requires: every core asset present + build-grade with
+board, never a narrated summary, is the claim — which requires: the wire verbatim-check clean (or its honest
+N/A) alongside audit-lint exit 0; every core asset present + build-grade with
 the §1 walk COMMITTED to `audit/agent-gates.md`; `[FONT_MISSING]`
 resolved for core faces; the hollow-render gate clean and `package-validate.mjs` exit 0 — the kit's
 offline `npm run validate` pre-upload, and the converter's server-side validate once a `/design-sync` round-trip

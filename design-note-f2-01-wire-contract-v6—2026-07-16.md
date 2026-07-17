@@ -87,9 +87,41 @@ board (run-gates). El dry-parse lo hereda gratis.
 | POSTURE `→GAP` sin fila GAPS que nombre el campo | FAIL (born-gap sin shipear) |
 | Democión legítima (`BRIEF{ none }`) | PASS — cuenta en `demoted:` del WIRE-CHECK; el builder hereda hypothesis |
 
-## 4. Inventarios (levantados por workflow — 6 barridos + critic; se asientan al cierre)
+## 4. Inventarios (levantados por workflow — 6 barridos paralelos + completeness critic; 7 agentes, 187 tool-uses)
 
-[PENDIENTE — se llena con el retorno del workflow de inventario]
+**273 sitios totales · 143 marcados edit/regen por los barridos → ~40 edits reales tras triage** (la lección
+E1-02 confirmada otra vez: el alcance real solo se ve por workflow). Familias: ratification 33 ·
+notused-borngap 79 · vocabulary-enums 31 · compile-stage0-registry 31 · builder-lockstep 31 ·
+fixtures-handoffs 23 · critic 20 (+ cruces). Ejecutados: handoff-format (template + 6 rules + registro + §
+walk nueva + 4 residuos contradictorios pre-v6 en items 7/14 y rules ratification/promotion) · scoper SKILL
+13 sitios (7b reescrito con walk/appendix/WIRE-CHECK · 7a byte-faithful · rubric unificado al triple del
+wire · EH axes con cita not-used · 500/500 con trades pagados) · elicitation-machine 7 (proyección NOT-USED
+con cita · →GAP⇒fila GAPS · guard de minting captura el verbatim · gate-6 promote registrado en brief ·
+fila de enforcement) · multi-decider-proxy (RATIFIED-proxy = acto, techo por línea) · process-discipline
+(el walk mecaniza la signing discipline) · builder SKILL 10 (Stage 0 split+check · herencia por línea ·
+not-used citada · parse-or-stop gana wire-check · tools list · Stage 10 board) · gap-protocol ×2 ·
+token-spine (binding al handoff) · validate-audit ×5 · analyze · create ×2 · keystone-emit ×4 (rama
+hypothesis explícita) · asset-acquisition ×3 (none-needed) · elicitation-bank (route-hint alineado) ·
+client-clean + client-deny (clase deny wire-vocab + seeds) · CLAUDE repo (tool bullet + mapa). Fixtures:
+3 handoffs v6 (PASS con conteos exactos) · 6 biting nuevos · clean (handoff v6 + split brief + CASCADA:
+CHECKSUMS rehash + 3 sourceRefs re-bind con line numbers preservados 14/16/18 + asset-index/surfaces rows) ·
+custody pass/fail (ingest rename + MANIFEST parent rehash) · kit-off y board-violations verificados N/A
+limpios sin regen (wires stub sin markers). Boards de fixtures NO trackeados (hallazgo del critic
+adjudicado falso positivo — run artifacts).
+
+### 4b. Triage — decisiones de alcance sobre el inventario
+
+- **DECIDIDO-11 — el ban de "n/a" es del WIRE, no del board:** ~15 sitios del barrido pedían renombrar el
+  estatus `N/A(declared)` de run-gates/audit-lint/validate-audit. NO: la ambigüedad que el ban mata
+  (¿no-aplica o no-elicitado?) está resuelta en el board por construcción — el qualifier `(declared)` +
+  reason string obligatorio. Renombrar el enum del board tocaría toda la maquinaria v5 sin cerrar ningún
+  hallazgo del gate. El único n/a de REFERENCE prose (celda de tabla en asset-acquisition) se cambió a "—".
+- **DECIDIDO-12 — el binding R3 de `handoff-confirmed` queda AL HANDOFF:** el wire persistido CONTIENE el
+  appendix (cima de custodia intacta); `sources/brief—<fecha>.md` es el split de conveniencia (target
+  humano-legible del check), hasheado en CHECKSUMS pero NO target de sourceRef. Cero cambio en audit-lint;
+  cero cascada extra. Escrito en handoff-format rule 15/§persistencia + token-spine + gap-protocol.
+- **Diferidos a su etapa (del critic):** README/plugin.json version bump = F6-01 · RESIDENT = gate de
+  etapa F2 · demo-visual-keystone :20 sin cambio (prosa de keystone, no wire).
 
 ## 5. Ronda de verify adversarial
 

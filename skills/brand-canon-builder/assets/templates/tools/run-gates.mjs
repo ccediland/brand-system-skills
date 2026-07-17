@@ -106,6 +106,23 @@ const failLine = (s) => {
   }
 }
 
+// ---------- 2b. wire verbatim-check (lint, BLOCKING when a handoff is persisted) ----------
+{
+  // compiled-wire vs signed-brief: every ratification claim in the persisted handoff proves against the
+  // SIGNED BRIEF text it carries (per-line BRIEF{} lineage · not-used citations · WIRE-CHECK recompute ·
+  // wire vocabulary). The tool self-declares N/A on an all-empty wire (no markers, no brief) — never a
+  // false block on CREATE.
+  const srcDir = join(ROOT, 'sources');
+  const handoffs = isDir(srcDir) ? readdirSync(srcDir).filter((n) => /^handoff—.*\.md$/.test(n)) : [];
+  if (!handoffs.length) {
+    add('wire verbatim-check', 'lint', false, 'N/A', 'no persisted handoff (sources/handoff—*.md) — nothing claims what a brief must prove');
+  } else {
+    const r = runTool('wire-check.mjs', [ROOT]);
+    const status = r.status === 'PASS' && /N\/A/.test(r.detail) ? 'N/A' : r.status;
+    add('wire verbatim-check', 'lint', status !== 'N/A', status, r.detail);
+  }
+}
+
 // ---------- 3. kit package-validate (lint, BLOCKING when the kit is present) ----------
 {
   const kit = join(ROOT, 'design-sync-kit');

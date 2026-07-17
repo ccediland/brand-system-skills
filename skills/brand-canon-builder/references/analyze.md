@@ -4,8 +4,9 @@ Entered when the handoff says `MODE: ANALYZE` (the default for essentially every
 already expresses itself publicly in *some* form — one or more code repos, a brandbook PDF, a design-tool
 library, a live site, social, packaging, signage, a single old logo file. The job is to analyze that
 published expression across mediums → harvest the real decisions into the canon, reconcile conflicts, and
-remove the junk — without inverting the source-of-truth, and without re-eliciting the WHY (the scoper
-already ratified it; read it from the handoff's `WHY (essence) — RATIFIED` block).
+remove the junk — without inverting the source-of-truth, and without re-eliciting the WHY (read it from the
+handoff's `WHY (essence) — RATIFIED` block AT each line's own `BRIEF{}` status — a verified line is
+ratified inheritance, a `none — compiled` line is hypothesis; the wrapper confers nothing).
 
 Coverage is measured per canon layer (sourceable / partial / elicit-only / empty), never by artifact
 type. The asset-acquisition, font, and prototype/kit stages are mode-independent and live in `SKILL.md`

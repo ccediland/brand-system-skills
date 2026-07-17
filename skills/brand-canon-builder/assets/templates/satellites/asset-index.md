@@ -14,5 +14,6 @@
 |---|---|---|---|---|---|
 | brandbook (stated spec) | knowledge/source | sources/<brandbook file> | — | CHECKSUMS.txt | <slot | —> |
 | mark master | asset | canon/mark.svg | — | CHECKSUMS.txt + R6b single-source | mark |
-| persisted handoff | knowledge/source | sources/handoff—<date>.md | — | CHECKSUMS.txt (top of custody) | — |
+| persisted handoff | knowledge/source | sources/handoff—<date>.md | — | CHECKSUMS.txt (top of custody; contains the SIGNED BRIEF appendix) | — |
+| persisted signed brief | knowledge/source | sources/brief—<date>.md | — | CHECKSUMS.txt (Stage-0 split of the appendix — the wire-check target) | — |
 | token spine | knowledge | tokens/ | — | per-token provenance blocks | — |

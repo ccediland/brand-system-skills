@@ -103,6 +103,16 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   (numpy, opencv-python-headless, scikit-image, pillow; fontTools for `--font`) are **import-guarded**: missing →
   a clear `pip install …` + exit 3, never a stack trace; the non-visual path needs none of them. Self-test
   fixtures + generator: `tools/fixtures/fidelity/` (`gen.py` → source/within/within_shift/mid/out `.png`).
+- **`node tools/wire-check.mjs [repo-root | wire.md]`** — the **wire verbatim-check** (v6 F2-01; zero-dep
+  Node): verifies every ratification claim in the persisted handoff against the SIGNED BRIEF appendix it
+  carries — per-line `BRIEF{ verbatim | anchor | none }` lineage in tag scope (WHY lines · not-used rows ·
+  owner-confirmed VOICE-EXEMPLARS/WHAT slots; untagged line in scope = FAIL), quotes contained in the brief
+  (whitespace-normalized), `not-used(owner-declared)` citations (a blanket never mints rows), the
+  `WIRE-CHECK:` counts RECOMPUTED (a hand-written check FAILS), and the wire vocabulary (single-literal
+  enums · "n/a" banned as a wire field value · `NEW-INGEST:` declaration for open-class extension · posture
+  `→GAP` ⇒ a GAPS row naming the field). Markers with no brief = FAIL; no markers + no brief + vocab clean =
+  N/A declared (an all-empty CREATE wire never false-blocks — W-15). Run at Stage 0 (persist time) and as a
+  run-gates row. Fixtures: `tools/fixtures/wire-check/` (6 biting cases + the 3 handoff fixtures PASS).
 - **`node tools/tokens-project.mjs [repo-root]`** — the **consumer STRING projection** (zero-dep Node): reads
   the spine (`tokens/*.tokens.json`) and writes `tokens/web/{base,semantic,component}.json` with every
   structured-OKLCH `$value` serialized to its C-1 canonical string (`oklch(L C H)` / `oklch(L C H / a)`;

@@ -14,22 +14,27 @@ TARGET REPO: .
     site · url:https://example.invalid · role:CONSUMER · fresh:shipped · bidirectional:n · promotion-path:none · ingest:computed-css
 
 — WHY (essence) — RATIFIED{ by: demo-owner · how: in-session sign-off · date: 2026-01-15 } —
-  Category/positioning: a placeholder utility brand · Audience: fixture readers · Feel (is / never): plain / ornate
-  Anti-promise: never claims delight · One line (onliness): the only brand that exists to exercise gates · RTB: it ships fixtures
-  Voice (register/lexicon/don'ts): flat register · says "check" · never says "magic"
-  Personality (scored attributes on an owner-ratified scale): steady 4/5 · plain 5/5 · warm 2/5
-  Differential scales (formal↔casual): formal-leaning · Resonance: calm reliability
-  VALUE TRADE-OFFS: when trading clarity vs charm the brand chooses clarity
-  VOICE-EXEMPLARS (per audience): fixture readers → on-brand:"The gate passed." / off-brand:"Magic happened!" · PROVENANCE{ confidence:owner-confirmed }
+  Category/positioning: a placeholder utility brand · BRIEF{ verbatim:"a placeholder utility brand" }
+  Audience: fixture readers · BRIEF{ verbatim:"fixture readers" }
+  Feel (is / never): plain / ornate · BRIEF{ anchor:"How the brand should feel" }
+  Anti-promise: never claims delight · BRIEF{ verbatim:"never claims delight" }
+  One line (onliness): the only brand that exists to exercise gates · BRIEF{ verbatim:"the only brand that exists to exercise gates" }
+  RTB: it ships fixtures · BRIEF{ anchor:"Reason to believe" }
+  Voice (register/lexicon/don'ts): flat register · says "check" · never says "magic" · BRIEF{ anchor:"Voice of the brand" }
+  Personality (scored attributes on an owner-ratified scale): steady 4/5 · plain 5/5 · warm 2/5 · BRIEF{ anchor:"Personality scale" }
+  Differential scales (formal↔casual): formal-leaning · BRIEF{ none — compiled, hypothesis }
+  Resonance: calm reliability · BRIEF{ none — compiled, hypothesis }
+  VALUE TRADE-OFFS: when trading clarity vs charm the brand chooses clarity · BRIEF{ verbatim:"when trading clarity vs charm the brand chooses clarity" }
+  VOICE-EXEMPLARS (per audience): fixture readers → on-brand:"The gate passed." / off-brand:"Magic happened!" · PROVENANCE{ confidence:owner-confirmed } · BRIEF{ verbatim:"The gate passed." }
   PROPOSED (quarantine — only what the owner asked the scoper to draft): seasonal accent → a muted seasonal tint · PROVENANCE{ source:proposed · confidence:hypothesis } · gap: seasonal accent pending ratification
 
 — WHAT (primitives) — POINTERS + OWNER-PROVIDED ONLY (scoper never sampled) —
   ink: present:y · intent:text ink · owner value:none · source:sources/brandbook.txt
-    · PROVENANCE{ source:declared-spec · confidence:owner-confirmed · owner:demo-owner · freshness:shipped }
+    · PROVENANCE{ source:declared-spec · confidence:owner-confirmed · owner:demo-owner · freshness:shipped } · BRIEF{ anchor:"the ink stays the brandbook ink" }
   paper: present:y · intent:ground · owner value:none · source:sources/brandbook.txt (primary master — read exact)
     · PROVENANCE{ source:declared-spec · confidence:verified-primary · owner:demo-owner · freshness:shipped }
   night-ink: present:y · intent:dark-scheme ink · owner value:oklch(0.86 0 0) · source:this handoff
-    · PROVENANCE{ source:owner-stated · confidence:owner-confirmed · owner:demo-owner · freshness:shipped }
+    · PROVENANCE{ source:owner-stated · confidence:owner-confirmed · owner:demo-owner · freshness:shipped } · BRIEF{ verbatim:"oklch(0.86 0 0)" }
   signal: present:y · intent:status hue · owner value:oklch(0.70 0.12 145) · source:this handoff (proxy answered)
     · PROVENANCE{ source:owner-stated · confidence:proxy-relayed · owner:demo-owner (via proxy: demo-manager) · freshness:shipped }
   brand-blue: present:y · intent:primary hue · owner value:none · source:sources/site.css + sources/brandbook.txt
@@ -50,9 +55,10 @@ TARGET REPO: .
   grain-overlay: observed-on:brandbook · route-hint:procedural · PROVENANCE{ confidence:hypothesis }
 
 — DIMENSION MAP (every dimension resolves; none skipped silently; scoper owns completeness) —
-  color: filled · type: filled · iconography: not-used(owner-declared) · motion: not-used(owner-declared)
+  color: filled · type: filled
+  iconography: not-used(owner-declared) · BRIEF{ verbatim:"we don't use iconography" } · motion: not-used(owner-declared) · BRIEF{ verbatim:"we don't use motion or animation" }
   pattern: tagged-gap · imagery: filled
-  applied-expression/social: not-used(owner-declared)
+  applied-expression/social: not-used(owner-declared) · BRIEF{ verbatim:"we don't run social media" }
   consultation-surface: always-required
 
 — HORIZONS (category-detected; one-line + gap by default) —
@@ -75,4 +81,22 @@ TARGET REPO: .
   Claude Design component library: YES
   existing-component-stack: none
 
-NOTES: synthetic fixture handoff (Fixture Alpha) — full-surface v5 contract instance; zero real brand content.
+NOTES: synthetic fixture handoff (Fixture Alpha) — full-surface v6 contract instance; zero real brand content.
+
+WIRE-CHECK: markers:17 · verified:15 · demoted:2 · misses:none
+
+— SIGNED BRIEF (verbatim; ALWAYS the LAST block of the wire — everything from this header to the end of the fence is the signed Final Brand Brief text, byte-faithful) —
+Final Brand Brief — Fixture Alpha (signed 2026-01-15 by demo-owner, in-session)
+
+What the brand is: a placeholder utility brand, made for fixture readers.
+How the brand should feel: plain, never ornate.
+What it never promises: it never claims delight.
+The one line: the only brand that exists to exercise gates.
+Reason to believe: it ships fixtures, every cycle.
+Voice of the brand: flat register; we say "check"; we never say "magic".
+Personality scale (ratified in session): steady 4/5 · plain 5/5 · warm 2/5.
+Trade-off we ratified: when trading clarity vs charm the brand chooses clarity.
+On-brand example we approved: "The gate passed."
+Colors: the ink stays the brandbook ink; for dark mode the owner stated the value oklch(0.86 0 0).
+Things we confirmed we do not use: we don't use iconography; we don't use motion or animation; we don't run social media.
+What's still missing: a pattern language (to be drafted from the existing spacing rhythm); the seasonal accent draft is pending our ratification.
