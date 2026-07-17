@@ -19,14 +19,13 @@ if you're already in Claude Code with a filesystem, you can skip the scoper and 
 
 ## Reference materials — load when relevant
 This SKILL.md is the workflow + gates. Load the reference only when its stage is reached:
-- `references/handoff-format.md` — the handoff contract: the single self-contained fenced block this skill compiles at Stage 7 (two-track manifest with acquire routes · six-value provenance spine · directives registry · WHY/WHAT/HOW/DIMENSION-MAP/POSTURE/HORIZONS carriers). Load when compiling or validating the handoff.
+- `references/handoff-format.md` — the handoff contract: the single self-contained fenced block this skill compiles at Stage 7 (two-track manifest with acquire routes · six-value provenance spine · per-line `BRIEF{}` lineage + SIGNED BRIEF appendix + `WIRE-CHECK:` line (the compile verbatim walk) · directives registry · WHY/WHAT/HOW/DIMENSION-MAP/POSTURE/HORIZONS carriers). Load when compiling or validating the handoff.
 - `references/process-discipline.md` — the TEMPO doctrine (TA-1) + the verify-the-exact-claim rationale (TA-4); load at the gated pipeline's proceed-points.
 
 ## What it does NOT do
 It does not scaffold files, write tokens, or build the canon. No filesystem work. It does not eyedropper a
 color, read geometry off a PDF/site, extract embedded vectors, or finalize the WHY without the owner's
-ratification. It does not crystallize an observed one-off as a brand line. It scopes, structures, detects,
-and hands off.
+ratification. It never crystallizes an observed one-off as a brand line. It scopes, structures, detects, and hands off.
 
 **Non-trigger (vs brand-voice).** It does not engage for brand-voice-only guideline generation — a request to
 write tone-of-voice / voice guidelines for a brand (new or existing), with no full canon to scope, is a
@@ -83,9 +82,8 @@ over-interview" rule.
 ## The gated pipeline
 
 Run this fixed sequence. Each BLOCKING gate must be satisfied or explicitly waived by the person before
-you compile the handoff. The blocking gates trace to the two v1 failures (asset-inventory never
-issued; WHY invented) plus the single client-surface flow — the intake (3.5), the pre-compile review (6),
-and the Final Brand Brief approval (7a).
+you compile the handoff. The blocking gates trace to the two v1 failures (asset-inventory never issued; WHY
+invented) plus the single client-surface flow — the intake (3.5), the review (6), the brief approval (7a).
 
 **TEMPO doctrine (TA-1).** Scoping is multi-session / multi-day; the BLOCKING gates above always run; progress
 is **evidence-of-process** (gated DELIVERABLEs exist), **never wall-clock** (`references/process-discipline.md`).
@@ -101,7 +99,7 @@ is **evidence-of-process** (gated DELIVERABLEs exist), **never wall-clock** (`re
 | 5 | Multi-decider consolidation | Attribute voices, name the Accountable per slot, cluster rambling input | BLOCKING | consolidated per-slot set + conflicts list (OWNERS) · stage 6 of 9 |
 | 6 | Three-surface review | Internal status + external client instrument + living questions doc; owner reviews | BLOCKING | External client instrument — client instrument v2 · stage 7 of 9 |
 | 7a | Final Brand Brief | the client review resolved to ratified-complete; the BLOCKING client approval | BLOCKING | ratified Final Brand Brief — client instrument vFinal (signed) · stage 8 of 9 |
-| 7b | Handoff compile | emit the single machine block (`references/handoff-format.md`) AFTER 7a sign-off | emit once 7a clears | machine handoff block · stage 9 of 9 |
+| 7b | Handoff compile | compile the single machine block (`references/handoff-format.md`) AFTER 7a sign-off; run the compile verbatim walk, THEN emit | emit once 7a clears AND the walk shows zero misses | machine handoff block (with SIGNED BRIEF appendix + WIRE-CHECK) · stage 9 of 9 |
 
 No gate clears without emitting its DELIVERABLE, dated (ISO) and versioned. The 3.5 / 6 / 7a deliverables are the SAME client instrument at successive versions (v1 → v2 → vFinal), per §6 "One client-surface flow".
 
@@ -157,7 +155,7 @@ skipped silently.**
 | State | Meaning | What it requires |
 |---|---|---|
 | **filled** | sourceable from material or owner, with its epistemic status earned | a datum with the four-field spine |
-| **not-used** | the brand genuinely does not use this dimension | an explicit owner declaration |
+| **not-used** | the brand genuinely does not use this dimension | an explicit owner declaration — its confirming quote lands in the signed brief and the wire row carries it |
 | **tagged-gap** | needed but absent or unconfirmed | a gap with severity + a provenance tag |
 
 The dimensions are not a closed checklist — they are an open space seeded by the canon layers (INDEX /
@@ -166,9 +164,9 @@ the frame step of the elicitation machine (`references/elicitation-machine.md` �
 resolve to one of the three states is itself a `tagged-gap`, never an omission; an unelicited one is BORN a
 gap. This map drives intake depth, the client review, and the handoff. The all-empty case is the CREATE doctrine (explicit instruction only).
 
-The scoper owns completeness. The builder can only STOP on a dimension that is *present* in the map but
-unresolved; an un-enumerated dimension is the scoper's own defect (it lands as a `handoff-defect` gap), never
-a silent pass. One dimension is named explicitly so it can never be dropped: **applied-expression/social**
+The scoper owns completeness. The builder STOPs only on a dimension *present* but unresolved; an
+un-enumerated one is the scoper's own defect (a `handoff-defect` gap), never a silent pass. One dimension
+is named explicitly so it can never be dropped: **applied-expression/social**
 resolves to `filled(media-attached)` / `not-used(owner-declared)` / `tagged-gap` — a live applied surface is
 carried in the CONSUMERS track, static applied media in ASSETS, and if neither exists the dimension is a gap.
 
@@ -199,7 +197,7 @@ Fidelity rubric per primitive slot. Vector-vs-raster is the binary that decides 
 master scales and can regenerate every raster; a raster (PNG/JPG) or screenshot is fixed-resolution and
 cannot be rebuilt into a master, so it is a *reference*, not build-grade.
 
-| Slot | build-grade | low-fi-reference | missing |
+| Slot | build-grade | low-fi (reference) | pointer-only / absent→GAP |
 |---|---|---|---|
 | Wordmark | vector master (AI/SVG/EPS/PDF-vector), clean paths | raster / screenshot | no file |
 | Symbol / icon | vector master | raster | — |
@@ -207,13 +205,13 @@ cannot be rebuilt into a master, so it is a *reference*, not build-grade.
 | Secondary / variants · monogram · seal | vector master | raster | — |
 
 **The core-asset set is per-brand — not a fixed visual list.** The table above is the COMMON (visual-primary)
-case. Where a brand's PRIMARY identity carrier is non-visual — e.g. a sonic mark (a sound logo / audio
-signature), a motion signature (a timing/easing identity), a verbal/naming system, or another declared lead
-carrier — elicit and rate THAT carrier on the same three-way scale at intake: **build-grade** = the editable
-master + its spec (what the build can reproduce from); **low-fi-reference** = a lossy/recorded/captured
-instance (a clip, a screen-grab, scattered examples); **missing** = named only. So the scoper ELICITS the
-non-visual primary's fidelity and the handoff carries it under the same primary-identity-carrier model the
-builder gate + keystone use — the lead atom is never assumed to be a visual mark.
+case. Where a brand's PRIMARY identity carrier is non-visual — a sonic mark, a motion signature, a
+verbal/naming system, or another declared lead carrier — elicit and rate THAT carrier on the same scale at
+intake: **build-grade** = the editable master + its spec; **low-fi** = a lossy/recorded/captured reference
+instance; **pointer-only** = named/pointed-at only (absence itself is a GAPS row, never a fidelity grade —
+the wire triple is `build-grade|low-fi|pointer-only`). So the scoper ELICITS the non-visual primary's
+fidelity and the handoff carries it under the same primary-identity-carrier model the builder gate +
+keystone use — the lead atom is never assumed to be a visual mark.
 
 Other build-grade requirements (request all; "not used" is valid for optional items):
 
@@ -246,17 +244,16 @@ Inventory-request text (translate to the owner's language at runtime):
 > mark it as a reference, not a build source. Don't send hex values from memory; point us at the source and
 > we'll extract. (f) If your brand's LEAD identity isn't visual — a sound logo, a signature animation/motion,
 > a naming/verbal system — tell us that's the primary, and send its editable master + spec (or the best
-> recording you have, marked as a reference): we rate it build-grade / reference / missing on the same scale."
+> recording you have, marked as a reference): we rate it build-grade / low-fi reference / pointer-only on the same scale."
 
 ### 3.5 Discovery & Intake Instrument — BLOCKING (gate 3.5)
-A single fillable instrument, emitted by DEFAULT (not optional). Every line is tagged: **CONFIRM** (what we
+A single fillable instrument, emitted by DEFAULT (not optional): it EMITS, or the waive is answered WITH the ledger — every UNOPENED dimension NAMED one by one, the waive recorded in the next deliverable's snapshot, and the unopened dimensions shipping as VISIBLE gaps the brief must name (the machine's born-gap + the wire-check's silent-dimension sweep catch what the discipline misses); an un-emitted instrument is never sealed as done. Every line is tagged: **CONFIRM** (what we
 already believe, for the owner to ratify) / **ASK** (what we put as an open question) / **REQUEST** (material
 or assets we need). The chat RESOLVES it in session — filling, confirming, collecting — and never replaces it
-with loose conversation. Register: the worked-example register of §6 (warm, plain Mexican Spanish for a
-non-design owner-operator; design terms glossed inline by example) — do not duplicate that example here, it
-governs. This is the FIRST checkpoint of the single client-surface flow (see §6 "One client-surface flow,
-three checkpoints"): its CONFIRM / ASK / REQUEST lines mature into the §6 review and the gate-7a brief, never
-into a throwaway side-doc.
+with loose conversation. Register: the §6 worked-example register (warm, plain Mexican Spanish for a
+non-design owner-operator; terms glossed inline) — do not duplicate it here, it governs. This is the FIRST
+checkpoint of the single client-surface flow (§6 "One client-surface flow, three checkpoints"): its
+CONFIRM / ASK / REQUEST lines mature into the §6 review and the gate-7a brief, never a throwaway side-doc.
 
 ### 4. Elicitation instrument — BLOCKING (gate 4)
 The centerpiece. Hard rule: the WHY is elicited, never inferred. If the owner cannot answer, it becomes a
@@ -362,17 +359,19 @@ To-confirm line:
 *fuente*. The point is the register, not the length.)
 
 **Client-surface self-check — BLOCKING.** Before presenting the External client instrument and the Living
-questions doc, scan both for TWO leakage classes — (1) **operator vocabulary** (GAP-NNN, Stage-N,
-provenance/confidence grades, build-grade, RACI, tool-failure/cost reasoning, severity-as-operator-token); and
+questions doc, scan both for THREE leakage classes — (1) **operator vocabulary** (GAP-NNN, Stage-N,
+provenance/confidence grades, build-grade, RACI, tool-failure/cost reasoning, severity-as-operator-token);
 (2) **operator register/preference leakage (TA-2)** — the client surface gone terse, assumption-laden, or
 terms unglossed because the operator's user-profile preference toward terseness/speed/proceed-by-assumption
-bled in. Any hit is a defect: a **register** hit → rewrite in the §6 client register (warm, plain, owner's
-language, every term glossed; compare the §6 worked example); a **vocabulary** hit → rewrite in client language
-or move to the Internal status surface. **Register/preference firewall (TA-2):** the client register inherits
-NO operator terseness/speed/assumption preference; **mirror-guard** — it governs the CLIENT register ONLY,
-preserving legitimate operator directness on the Internal status surface + handoff. Neither client surface
-clears gate 6 with either class present. Brand-agnostic — tests the form (vocabulary + register), never brand
-content.
+bled in; and (3) **plumbing** — client-directed prose NEVER references the account, the operator, platform
+metadata, or internal mechanics ("por lo que veo de esta cuenta" is the reference class: HOW the scoper
+knows something is never client content — only what is known and its to-confirm status). Any hit is a
+defect: **register** → rewrite in the §6 client register (warm, plain, owner's language, terms glossed);
+**vocabulary/plumbing** → rewrite in client language or move to the Internal status surface.
+**Register/preference firewall (TA-2):** the client register inherits NO operator terseness/speed/assumption
+preference; **mirror-guard** — it governs the CLIENT register ONLY, preserving legitimate operator directness
+on the Internal surface + handoff. No client surface clears gate 6 with any class present. Brand-agnostic —
+tests form, never brand content.
 
 Gate. The owner reviews and confirms/corrects the external instrument; only then do you compile.
 
@@ -395,37 +394,40 @@ axes (`source` / `confidence` / GAP), never any brand's content. Verify:
   chooses, or refuses: personality, differential scales, resonance, the intended meaning of a
   color/typeface/mark, the anti-promise, value trade-offs), not a value observable in material. Each resolves
   to exactly one of: `source: owner-stated` backed by a real owner utterance, an owner-declared `none`
-  (not-used), or an explicit GAP. None is scoper-derived; `confidence: hypothesis` is not a license — a field
-  carrying a value with no owner source behind it is a defect even at hypothesis, and nothing sits above
-  hypothesis without explicit owner ratification.
+  (not-used — its confirming quote must land in the signed brief; the wire's not-used rows CARRY that quote,
+  checked by the wire-check), or an explicit GAP. None is scoper-derived; `confidence: hypothesis` is not a
+  license — a value with no owner source is a defect even at hypothesis; nothing rises without ratification.
 - **(b) Regulatory instruments.** Every named legal/regulatory instrument is `source: owner-stated` cited to
   the owner or a manifest item — never memory-asserted; a name tagged `owner-stated` with no cited source is a
   defect. The POSTURE `regulatory:` field carries no model-recalled regulation name.
 - **(c) Proceed-assumptions (TA-3).** Every assumption made to advance carries an explicit CONFIRM line
   (gate-3.5 mechanism); a proceed-assumption with no CONFIRM line — anything inferred silently — is a defect.
 Any violation is a BLOCKING defect: re-status the datum to a GAP (or, for a field the owner closed, an
-owner-declared `none`), add the missing CONFIRM line, or elicit it before compiling. Brand-agnostic by construction — a brand with no
+owner-declared `none` with its confirming quote), add the missing CONFIRM line, or elicit it before compiling. Brand-agnostic by construction — a brand with no
 regulatory exposure (`regulatory: none`) and any owner-declared `none` field both pass clean; absence is never
 forced into a GAP.
 
 ### 7a. Final Brand Brief — BLOCKING (gate 7a)
 The close of the single client-surface flow: the §6 review carried to ratified-complete, in the §6 client
 register (warm, plain, the owner's language, every term glossed). The BLOCKING client APPROVAL — nothing
-compiles without it: every Found / Missing / To-confirm line settled, the WHY ratified. The owner signs off
+compiles without it: every Found / Missing / To-confirm line settled, the WHY ratified, and the PRE-BRIEF
+SWEEP run — every dimension of the machine's frame ends terminal or is NAMED as missing IN the brief (a
+gap the brief hides is a SILENT dimension the wire-check fails downstream — the brief travels in the wire). The owner signs off
 on this human-readable brief, never on the machine block — under the signing discipline
-(`references/process-discipline.md` § The signing discipline; load at gates 6–7b: text-before-signature · brief and handoff never in one message · machine handoff = the ONLY builder path · clauses only elicited · web/memory specifics tagged).
+(`references/process-discipline.md` § The signing discipline; load at gates 6–7b: text-before-signature · brief and handoff never in one message — the wire's SIGNED BRIEF appendix is a verbatim COPY inside the machine block, never a second approval surface; preserve the signed text byte-faithful, it is the oracle every `BRIEF{}` quote checks against · machine handoff = the ONLY builder path · clauses only elicited · web/memory specifics tagged).
 
 ### 7b. Handoff compile (gate 7b)
 Produced ONLY after the 7a sign-off. Produce ONE machine-readable, fenced block following
 `references/handoff-format.md` — load that reference and compile EVERY block and carrier it defines (it is
-the single contract; this skill never re-enumerates it): the two-track manifest with `acquire:` routes +
-declared fallbacks · the six-value provenance spine with `proposed`-quarantine · the `RATIFIED{by · how ·
-date}` record · WHY/WHAT/HOW carriers · TREATMENTS / DIMENSION MAP / HORIZONS / POSTURE · per-gap provenance
-tags · `BUILD-MODE` · the explicit `Claude Design component library: <YES|NO>` slot · the non-waivables.
-Then tell the person: open Claude Code in (or create) the target repo, place the material per the manifest
-**with checksums** (or leave placement to the builder where an item declares an executable `acquire:` route),
-and paste the block — it invokes `brand-canon-builder`, which persists it under `sources/` before parsing.
-Self-contained: everything the builder needs, nothing it should discover for itself.
+the single contract; this skill never re-enumerates it), including the per-line `BRIEF{}` lineage on every
+ratification-bearing line, the confirming quote on every not-used row, the explicit `Claude Design component
+library: <YES|NO>` slot, the non-waivables, and the `— SIGNED BRIEF —` appendix (the 7a text byte-faithful,
+ALWAYS the last block). Then run the contract's COMPILE VERBATIM WALK (mandatory BEFORE emission — every tag
+verified against the signed brief; a miss is fixed or demoted, never emitted) and write its `WIRE-CHECK:`
+line (the builder RECOMPUTES it). Then tell the person: open Claude Code in (or create) the target repo,
+place the material per the manifest **with checksums** (or leave placement to the builder where a route is
+declared), and paste the block — it invokes `brand-canon-builder` (persists the block, splits the brief
+under `sources/`, runs `tools/wire-check.mjs`, then parses). Self-contained: everything the builder needs.
 
 ## Laws
 
@@ -466,11 +468,10 @@ Both were v1 failures. Honor all three:
   `<brand>-brand` shape, no redundant `-canon` suffix). Never invent a tree you can't see — you are Chat-side with no filesystem. Hygiene disciplines: `references/process-discipline.md` § Instrument hygiene.
 - **Static source material goes INTO the target repo**, under a conventional location (`assets/` for binaries,
   `sources/` for references), as a build precondition, **with a sha256 checksum per item** (the ASSETS track).
-  A **live consumer surface** the brand ships today (its site, app, active feed) is the exception: it is *not*
-  copied in — it is carried in the CONSUMERS track by its `url`, which the builder reaches and reads at build
-  time. What is always forbidden is the **dead/ephemeral** pointer: a Claude.ai chat link, a local Downloads
-  path, an auth-walled resource, or "Project knowledge" — the Code-side builder cannot reach any of those. The
-  test is reachability, not URL-vs-file: a live url that resolves is allowed; a dead link is not.
+  A **live consumer surface** the brand ships today (site, app, active feed) is the exception: not copied in —
+  carried in CONSUMERS by its `url`, which the builder reaches at build time. Always forbidden: the
+  **dead/ephemeral** pointer (a Claude.ai chat link, a local Downloads path, an auth wall, "Project
+  knowledge" — the Code-side builder reaches none of those). The test is reachability, not URL-vs-file.
 - **Chat→Code boundary.** Because you have no filesystem, placement is an instruction to the person + a
   two-track manifest in the handoff (checksummed ASSETS + reachability-verified CONSUMERS), never a scoper
   file-op. Social/applied media is either attached (ASSETS, checksummed) or carried live (CONSUMERS, url), each

@@ -3,8 +3,9 @@
 Entered only when the handoff says `MODE: CREATE` — a genuinely new brand, or an explicit "design us a
 new brand." This is never the default; ANALYZE is (`analyze.md`). The brand arrives with little or nothing
 published — an idea, a name, maybe a logo and a feeling — but it does not arrive without a brief: the
-scoper has already run the intake and ratified the WHY. CREATE authors *from that ratified handoff*, it
-does not start a fresh interview. The Lego property still holds: scaffold the full canon immediately, fill
+scoper has already run the intake and ratified the WHY. CREATE authors *from that ratified handoff* — at
+each line's own `BRIEF{}` status (the signing act ratifies nothing per wrapper; a `none — compiled` line
+authors at `hypothesis`) — it does not start a fresh interview. The Lego property still holds: scaffold the full canon immediately, fill
 what the handoff supports, and log the rest as GAPs the owners can ratify. Never invent brand truth to
 fill a slot, and never re-elicit or re-infer the WHY — a GAP in the handoff stays a GAP.
 
@@ -22,8 +23,9 @@ consume, don't re-interview:
 
 1. **Why (ESSENCE):** fill directly from the handoff's `WHY (essence) — RATIFIED` block — what the brand is,
    who it is for, how it should feel, what it must never be / never claim, the one line it wants remembered,
-   the onliness, the RTB, the voice. The *meaning of each atom* is set here, from the ratified WHY — never
-   re-derived by the builder.
+   the onliness, the RTB, the voice — each line consumed AT its `BRIEF{}` status (verified lines fill as
+   inherited ratification; `none — compiled` lines fill at `hypothesis`). The *meaning of each atom* is set
+   here, from the ratified WHY — never re-derived by the builder.
 2. **What (PRIMITIVES):** the fixed atoms — colors (with roles + meaning), typefaces, the mark and its
    forms, any pattern, spacing feel. Take owner-provided values (declared Pantone, `authored-print`) as
    truth; capture measurable values into the token spine. `intent` from the handoff seeds per-atom meaning.

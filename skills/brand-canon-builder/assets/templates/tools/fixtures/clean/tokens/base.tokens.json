@@ -7,7 +7,7 @@
         "$description": "handoff-confirmed — the handoff carries ink at ratified confidence; the builder INHERITS (never re-stamps owner-confirmed on handoff authority alone) and binds to the persisted handoff (R3).",
         "$extensions": { "brand": {
           "provenance": { "source": "declared-spec", "confidence": "handoff-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "ink", "line": 14, "sha256": "7c1fa553bc654701e314bd31152e3535178a90c43655fb85fd11885bee1f11e1" }
+          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "ink", "line": 14, "sha256": "b41cbcd50df3664691f804bcd7517c4125fcbfa14c3a53c4a4ec04d4771d21c9" }
         } }
       },
       "brand": {
@@ -34,7 +34,7 @@
         "$description": "handoff-confirmed — ratification inherited from the signed handoff; binds to the persisted handoff (sources/handoff—<date>.md) via R3.",
         "$extensions": { "brand": {
           "provenance": { "source": "owner-stated", "confidence": "handoff-confirmed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "night-ink", "line": 16, "sha256": "7c1fa553bc654701e314bd31152e3535178a90c43655fb85fd11885bee1f11e1" }
+          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "night-ink", "line": 16, "sha256": "b41cbcd50df3664691f804bcd7517c4125fcbfa14c3a53c4a4ec04d4771d21c9" }
         } }
       },
       "signal": {
@@ -42,7 +42,7 @@
         "$description": "proxy-relayed — a proxy confirmed a FACTUAL slot on the owner's behalf; the record is the persisted handoff (R3).",
         "$extensions": { "brand": {
           "provenance": { "source": "owner-stated", "confidence": "proxy-relayed", "owner": "demo-owner", "freshness": "shipped" },
-          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "signal", "line": 18, "sha256": "7c1fa553bc654701e314bd31152e3535178a90c43655fb85fd11885bee1f11e1" }
+          "sourceRef": { "file": "sources/handoff—2026-01-15.md", "selector": "signal", "line": 18, "sha256": "b41cbcd50df3664691f804bcd7517c4125fcbfa14c3a53c4a4ec04d4771d21c9" }
         } }
       },
       "seasonal": {

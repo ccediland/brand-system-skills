@@ -103,6 +103,27 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   (numpy, opencv-python-headless, scikit-image, pillow; fontTools for `--font`) are **import-guarded**: missing →
   a clear `pip install …` + exit 3, never a stack trace; the non-visual path needs none of them. Self-test
   fixtures + generator: `tools/fixtures/fidelity/` (`gen.py` → source/within/within_shift/mid/out `.png`).
+- **`node tools/wire-check.mjs [repo-root | wire.md]`** — the **wire verbatim-check** (v6 F2-01; zero-dep
+  Node): verifies every ratification claim in the persisted handoff against the SIGNED BRIEF appendix it
+  carries — per-line `BRIEF{ verbatim | anchor | none }` lineage in tag scope (WHY lines · not-used rows ·
+  owner-confirmed VOICE-EXEMPLARS/WHAT slots; untagged line in scope = FAIL), quotes contained in the brief
+  (whitespace-normalized) AND — for `verbatim` — in the line content they certify (content-bind: a real
+  brief quote never legitimizes different content; not-used rows exempt — their quote is the owner's
+  declaration), `not-used(owner-declared)` citations (a blanket never mints rows), the
+  `WIRE-CHECK:` counts RECOMPUTED + the identity markers = verified + demoted + body-wide tag
+  reconciliation (a hand-written check or a decorative out-of-scope tag FAILS), and the wire vocabulary
+  (single-literal enums, space-tolerant match · "n/a" banned in field-VALUE position (verified quotes
+  exempt) · `NEW-INGEST:` declaration for open-class extension · posture `→GAP` ⇒ a GAPS row naming the
+  field or carrying `field:<name>`), plus the PRE-BRIEF SWEEP (every DIMENSION MAP `tagged-gap` dimension
+  and every GAPS row named in the signed brief — a hidden gap = `silent-dimension`/`silent-gap` FAIL: the
+  machine face of gate-3.5 emite-o-waive-con-ledger and the 7a sweep), and RE-EMISSION integrity (the split
+  `sources/brief—*.md` must stay byte-faithful to its wire's appendix — an in-place "correction" of a signed
+  brief = `reemission` FAIL; a real correction re-emits a new dated pair). Structure enforced: exactly ONE SIGNED BRIEF header (the last block),
+  anchor substance floor, «…» for signed words containing ASCII quotes, one field per line. Markers with no
+  brief = FAIL; no markers + no brief + vocab clean =
+  N/A declared (an all-empty CREATE wire never false-blocks — W-15). Run at Stage 0 (persist time) and as a
+  run-gates row. LIMIT: proves internal consistency (wire ↔ carried brief); authenticity = Stage-0 hash +
+  signing discipline. Fixtures: `tools/fixtures/wire-check/` (6 FAIL + 1 N/A + the 3 handoff fixtures PASS).
 - **`node tools/tokens-project.mjs [repo-root]`** — the **consumer STRING projection** (zero-dep Node): reads
   the spine (`tokens/*.tokens.json`) and writes `tokens/web/{base,semantic,component}.json` with every
   structured-OKLCH `$value` serialized to its C-1 canonical string (`oklch(L C H)` / `oklch(L C H / a)`;

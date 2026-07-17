@@ -107,6 +107,7 @@ const DISTINCTIVE = [
 	},
 	{ cls: "ofl", re: /\bOFL(?:[-\s]match)?\b/g },
 	{ cls: "stage-label", re: /\bStage[-\s]?N\b/g }, // literal "Stage-N" placeholder — always operator
+	{ cls: "wire-vocab", re: /\bBRIEF\{|\bWIRE-CHECK:/g }, // v6 wire carriers — never legitimate client copy
 ];
 
 // KEYED: ambiguous value fires only if a provenance KEY precedes it within the same annotation unit (line).

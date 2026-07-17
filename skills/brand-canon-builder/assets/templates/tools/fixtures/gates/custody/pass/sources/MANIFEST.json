@@ -22,7 +22,7 @@
       "file": "tokens/web/base.json",
       "parent": {
         "file": "sources/handoff—2026-01-05.md",
-        "sha256": "9a16c4b307c9697bbacdedb17d728eb219c4f71f457021e03efa1878fe130380"
+        "sha256": "c2e79482e210629a9ab125370347a7b173cd983fadf3d165e9fc0d6cdef0bdad"
       },
       "tool": "tokens-project.mjs"
     }

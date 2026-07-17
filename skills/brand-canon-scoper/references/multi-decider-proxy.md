@@ -25,8 +25,9 @@ The scoper supports proxy-as-respondent without ever insisting on the literal ow
   proxy's-own-understanding are DIFFERENT provenances — the ledger records which, per answer; an
   unasked source check leaves the answer at the weaker reading.
 - The gate-7a sign-off may itself be proxied — the contract's `RATIFIED{ by: proxy:<who, for whom> }`
-  form records exactly that; the builder then inherits at `proxy-relayed`/`handoff-confirmed` semantics,
-  never `owner-confirmed`.
+  form records exactly that ACT; it confers nothing on the text (v6): each line inherits by its own
+  `BRIEF{}` tag verified against the proxy-signed brief, CEILINGED at `proxy-relayed`/`handoff-confirmed`
+  semantics, never `owner-confirmed`.
 
 ## Multi-decider — separate capture, weighted consolidation, escalated conflict
 

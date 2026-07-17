@@ -34,7 +34,9 @@ front-matter records which section goes where (the deployment map).
 2. **THINK AS THE BRAND (operative reasoning).** Essence, positioning, and values rendered as DECISION RULES
    ("when trading off X against Y, the brand chooses Z because…"), derived from the canon ESSENCE layer (Brand
    Key essence + discriminator) and from the handoff WHY's `VALUE TRADE-OFFS` carrier (each
-   ratified "when trading X vs Y the brand chooses Z" becomes one trade-off rule here). The WHY
+   "when trading X vs Y the brand chooses Z" becomes one trade-off rule AT the confidence its wire line's
+   `BRIEF{}` earned — a verified line rules as inherited ratification; a `none — compiled` line's rule ships
+   LABELED hypothesis, pending ratification). The WHY
    `Personality (scored)` and `Differential scales` carriers are **named inputs here** — render them AS
    the reasoning behind the rules (a high-scored personality attribute / a differential position shapes the
    when-X-then-Z choice), never as a bare adjective or score list. Where the `VALUE TRADE-OFFS` carrier is `none`, emit a
@@ -46,7 +48,8 @@ front-matter records which section goes where (the deployment map).
    `Personality (scored)` and `Resonance` carriers **seed the voice attributes** — each high-scored
    personality attribute becomes one behavioral attribute and `Resonance` sets the emotional register, rendered
    behaviorally (never the bare score). Where the `VOICE-EXEMPLARS` carrier is `none`, emit a tagged GAP
-   ("voice few-shot pair pending owner ratification") — NEVER a fabricated pair.
+   ("voice few-shot pair pending owner ratification") — NEVER a fabricated pair; an exemplar carried at
+   `confidence: hypothesis` becomes a few-shot pair LABELED hypothesis, never an unmarked exemplar.
 4. **DESIGN AS THE BRAND (design reasoning).** How the brand DECIDES color/type/spacing/asset/treatment — AND
    its **primary-medium reasoning** (motion / sonic / other) where that is the brand's lead — reasoning, not
    values: primary reserved for X; chroma ceilings; type-scale ratio; when texture vs flat (cross-ref the
@@ -104,10 +107,12 @@ front-matter records which section goes where (the deployment map).
 
 ## Emit procedure
 
-1. Synthesize each section from its canon source (above) — do not re-elicit; the WHY is already ratified.
+1. Synthesize each section from its canon source (above) — do not re-elicit; consume each WHY carrier at
+   the status its wire line earned (`BRIEF{}`/PROVENANCE per line — the wrapper ratifies nothing).
 2. Render THINK and DESIGN as decision rules, and SPEAK with few-shot pairs (machine-consumable), not adjectives.
    Derive THINK trade-off rules from WHY `VALUE TRADE-OFFS` and SPEAK few-shot pairs from WHY `VOICE-EXEMPLARS`;
-   where either carrier is `none`, emit a tagged GAP in that slot — never fabricate a rule or pair. (This
+   where either carrier is `none`, emit a tagged GAP in that slot — never fabricate a rule or pair; where a
+   carrier arrives at `hypothesis`, its rule/pair ships LABELED hypothesis. (This
    extends "never invent brand truth" to the keystone voice layer.)
 3. Tag every datum with its provenance; mark observed-but-unconfirmed as `confidence: hypothesis`.
 4. Emit `<brand>-keystone.md` from `assets/templates/keystone/keystone.md`, in the 6-section order, with the

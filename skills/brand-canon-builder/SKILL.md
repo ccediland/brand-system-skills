@@ -95,10 +95,14 @@ commit + PR. Every stage is specified here; nothing is deferred elsewhere.
 ### Stage 0 — Persist + ingest the handoff contract & locate the target
 The scoper's machine-readable handoff (`brand-canon-scoper/references/handoff-format.md`) is the canonical
 brief. **FIRST, before parsing: persist the received block VERBATIM to `sources/handoff—<date>.md`** (ISO
-date of receipt; a successive handoff is a NEW file — custody history) so it is hashed into `CHECKSUMS.txt`
-with everything under `sources/**`. The persisted handoff is the TOP of the chain of custody: the hashed
-source-of-record that `handoff-confirmed`/`proxy-relayed` data cites, and the artifact the gates read —
-never a paste that dies in chat. Then parse every block and act on it (do not re-derive what it already
+date of receipt; a successive handoff is a NEW file — custody history), **split its `— SIGNED BRIEF —`
+appendix to `sources/brief—<date>.md`**, hash BOTH into `CHECKSUMS.txt` with everything under `sources/**`,
+and **run `node tools/wire-check.mjs`** — the wire verbatim-check (per-line `BRIEF{}` lineage against the
+signed brief · not-used citations · `WIRE-CHECK:` recompute · wire vocabulary); a FAIL is stop-and-report,
+never a parse-anyway. The persisted handoff is the TOP of the chain of custody: the hashed
+source-of-record that `handoff-confirmed`/`proxy-relayed` data cites (sourceRefs bind to the HANDOFF — it
+contains the appendix; the split brief is the check's human-readable target), and the artifact the gates
+read — never a paste that dies in chat. Then parse every block and act on it (do not re-derive what it already
 carries):
 
 - **`MODE`** → ANALYZE | CREATE (drives Stage 2). `BUILD-MODE` → `FULL` = the normal build; `v0/DEMO` =
@@ -119,24 +123,30 @@ carries):
   `ingest:` (`computed-css` for a CSS-readable live site; `ocr-visual` for a live-but-raster surface — an image
   feed / gallery reachable by `url:` but not computed-style-readable) — see *Route by declared `ingest:`* next.
 - **Route by declared `ingest:`** → each ASSETS/CONSUMERS item carries an `ingest:` token
-  (`vector-extract | computed-css | design-file-native | ocr-visual | font-match | n/a`). Consume that token
+  (`vector-extract | computed-css | design-file-native | ocr-visual | font-match | none-needed`). Consume that token
   as the authoritative HOW-to-read and route to the matching acquisition technique (Stage 3,
   `references/asset-acquisition.md` § ingest-token map) — do not re-derive routing from a detected source-type
   when the contract already declares it.
 - **`WHY (essence) — RATIFIED{by · how · date}`** → fills ESSENCE directly in Stage 2. The RATIFIED header is
-  a RECORD: what the builder inherits from the signed block enters the build as `handoff-confirmed` (or
-  `proxy-relayed` where a proxy answered), never `owner-confirmed` on handoff text alone. The builder never
+  a RECORD of the signing act — it confers nothing: the builder inherits PER LINE by each line's `BRIEF{}`
+  tag (verified `verbatim`/`anchor` → `handoff-confirmed`, or `proxy-relayed` where a proxy answered;
+  `none — compiled` → `hypothesis`; an untagged line in scope = wire defect, the wire-check STOPPED it),
+  never `owner-confirmed` on handoff text alone, never per wrapper. The builder never
   re-elicits or re-infers the WHY; a GAP in the handoff stays a GAP; a `PROPOSED` line lands in quarantine
-  (`source: proposed` + `hypothesis` + its GAP). The voice/value carriers feed Stage 8.5: `Personality
+  (`source: proposed` + `hypothesis` + its GAP). The voice/value carriers feed Stage 8.5 AT the confidence
+  their line's `BRIEF{}`/`PROVENANCE` earned: `Personality
   (scored)` / `Differential scales` / `Resonance` seed the keystone's THINK/SPEAK; `VALUE TRADE-OFFS` →
   keystone §2 trade-off rules; `VOICE-EXEMPLARS` → keystone §3 few-shot pairs. Where a carrier is `none`, the
-  keystone emits a tagged GAP — never a fabricated pair/rule (`references/keystone-emit.md`).
+  keystone emits a tagged GAP — never a fabricated pair/rule; a carrier at `hypothesis` ships LABELED, never
+  laundered into a settled rule (`references/keystone-emit.md`).
 - **`WHAT (primitives) — POINTERS + OWNER-PROVIDED ONLY`** → pointers the builder will extract measured
   values from (its half of the frontier); owner-provided values (declared Pantone, `authored-print`) are
   truth, written `source:"authored"` (never re-derived); `intent` seeds per-atom meaning. Carry each
   primitive's `PROVENANCE{source/confidence/owner/freshness}` from the handoff into the build and propagate
   it through extraction (`references/gap-protocol.md` § The provenance spine): a value enters at its handoff
-  confidence (ratification carried by the handoff lands as `handoff-confirmed`/`proxy-relayed`) and is never
+  confidence (ratification carried by the handoff lands as `handoff-confirmed`/`proxy-relayed` — a slot at
+  `owner-confirmed` holds that rung only if its `BRIEF{ verbatim | anchor }` VERIFIED against the signed
+  brief; the wire-check already stopped the wire otherwise) and is never
   promoted to a brand line without tier-2 ratification. **per-mark GEOMETRY**
   (clear-space / min-size digital / min-size physical / construction-ref) → Stage 6 reads these owner-provided
   values instead of re-hunting from a PDF. **per-font `license:`** (a declared SPDX/license id, `owner-supplied`,
@@ -152,7 +162,9 @@ carries):
   by the gate runner against the persisted handoff — and `existing-component-stack:` → the Stage-8 kit
   shape) → Stage 8.
 - **`DIMENSION MAP`** → resolve each dimension to `filled` / `not-used(owner-declared)` / `tagged-gap`,
-  including the explicit `applied-expression/social` dimension. A dimension **present but unresolved** is a
+  including the explicit `applied-expression/social` dimension. Every `not-used(owner-declared)` row carries
+  its `BRIEF{ verbatim }` confirming quote — verified against the signed brief by the Stage-0 wire-check
+  (a row without its quote never mints not-used). A dimension **present but unresolved** is a
   PARSE-OR-STOP gate: HALT the build and report it — this is the live anti-determinism mechanism, not a
   decorative check. (The SCOPER owns completeness, so an *un-enumerated* dimension is a `handoff-defect` GAP,
   not something the builder can silently pass; a *present-but-unresolved* one stops the build.)
@@ -166,8 +178,9 @@ carries):
 - **`NOTES`** → human-readable context for the build PR only; the builder never treats it as a source of brand
   truth and it never silently overrides a parsed block.
 
-A handoff that cannot be parsed, that names no real target repo, or that carries a present-but-unresolved
-DIMENSION-MAP dimension is a parse-or-stop gate: stop and report rather than guess. (If a user runs the
+A handoff that cannot be parsed, that names no real target repo, that carries a present-but-unresolved
+DIMENSION-MAP dimension, or that FAILS the Stage-0 wire-check (untagged ratified line · unprovable quote ·
+hand-written WIRE-CHECK counts · banned vocabulary) is a parse-or-stop gate: stop and report rather than guess. (If a user runs the
 builder directly in Code with published material and no handoff block, default `MODE: ANALYZE` and gather the
 equivalent fields before proceeding.)
 
@@ -175,7 +188,7 @@ equivalent fields before proceeding.)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
 root (`README.md`, `CLAUDE.md`, `RESIDENT.md`), `tokens/*` into `tokens/`, and `tools/*` into `tools/`
 (`run-gates.mjs` — the Stage-10 suite runner + status board; `audit-lint.mjs` — the provenance/completeness
-gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `tokens-project.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
+gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `tokens-project.mjs`; `wire-check.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
 archived-source recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
 a seeded-violation sample), not client material. Create `assets/` (source
 binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the
@@ -206,7 +219,7 @@ name + declared color are authoritative; `pdffonts`/font-tables/sampled pixels c
 outlined type makes the table report the studio's layout font or nothing). Acquire build-grade assets from
 whatever sources exist (any combination). **Route by the declared `ingest:` token first** (the contract's
 authoritative HOW-to-read, mapped per token in `references/asset-acquisition.md` § ingest-token map); only
-where the manifest leaves it `n/a` do you fall back to selecting the technique by detected source-type
+where the manifest leaves it `none-needed` do you fall back to selecting the technique by detected source-type
 (existing DTCG/token files > repo vector masters > website extraction > PDF > design-tool exports > social) —
 never assume a PDF. Assemble the best-fidelity asset per canon slot with precedence (authored print > sampled;
 shipped/site > old brandbook; vector master > raster; existing tokens > extraction). The slot-need-vs-source-exists
@@ -375,7 +388,9 @@ skeleton. Eight parts:
   it runs every executable gate (real exit codes), verifies the committed evidence of every DEMOTED
   agent-gate (`audit/agent-gates.md` — §1 contract walk, §2 named tolerance, §4 content audit,
   output-agnostic, universality), machine-checks the keystone structure + form and the committed battery, and
-  writes the status board `audit/gates/report.md` — the ONLY legitimate "gates green" claim. Statuses are
+  writes the status board `audit/gates/report.md` — the ONLY legitimate "gates green" claim. Its rows
+  include the WIRE VERBATIM-CHECK (`tools/wire-check.mjs` re-run over the persisted handoff + brief).
+  Statuses are
   first-class: PASS/FAIL (real exits) · NOT-RUN(reason) (deps → the tool's exit-3 install line; never
   substituted by a manual "clean") · N/A(declared). Verdict ALL-GREEN required for "done"; INCOMPLETE is the
   honest, declarable v0/DEMO state. (`validate-audit.md` §8.)

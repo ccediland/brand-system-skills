@@ -25,6 +25,6 @@
 | RESIDENT.md | operator | living operator doc |
 | CLAUDE.md | operator | dev doc |
 | CHECKSUMS.txt | operator | custody hashes |
-| sources/** | operator | sources of record (incl. the persisted handoff) |
+| sources/** | operator | sources of record (incl. the persisted handoff + the split signed brief) |
 | audit/** | operator | gate evidence, agent-gate walks, boards |
 | tools/** | operator | the emitted gate suite |

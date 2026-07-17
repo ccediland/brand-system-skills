@@ -58,7 +58,8 @@ no char window — padding a key further away no longer escapes), numeric stage 
 build-context
 word, and asset-origin verbs (harvested / redrawn / relay) only in the `origin: …` annotation form or beside
 a build-context token — NEVER via an asset noun, so heritage copy passes (a "founding hypothesis", a "Stage 7
-venue", "beans harvested at dawn", "our logo was redrawn by hand" all pass).
+venue", "beans harvested at dawn", "our logo was redrawn by hand" all pass). The v6 wire carriers (`BRIEF{`
+· `WIRE-CHECK:`) are DISTINCTIVE — they never appear in legitimate client copy and fire anywhere.
 
 ## 2b. The sanctioned CLIENT vocabulary (how status is expressed on a client surface)
 

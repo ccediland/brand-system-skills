@@ -22,8 +22,11 @@ colors. Each datum carries four fields:
     archaeology when no living owner can ratify; its sourceRef is the hashed primary master).
   - **tier 2 — ratified (who/how the ratification happened):** `proxy-relayed` (a proxy confirmed on the
     owner's behalf — reliable for FACTUAL slots; attitudinal/posture/value slots degrade to `hypothesis` +
-    GAP) · `handoff-confirmed` (ratification INHERITED from the signed handoff — the record is the persisted
-    handoff, `sources/handoff—<date>.md`, hashed in `CHECKSUMS.txt`) · `owner-confirmed` (ratification the
+    GAP) · `handoff-confirmed` (ratification INHERITED PER LINE from the signed handoff — granted only by a
+    line whose `BRIEF{ verbatim | anchor }` tag VERIFIED against the wire's SIGNED BRIEF (the wire-check); a
+    `BRIEF{ none — compiled }` line confers `hypothesis` only; the record is the persisted
+    handoff, `sources/handoff—<date>.md`, hashed in `CHECKSUMS.txt` — it contains the brief appendix, split
+    to `sources/brief—<date>.md` for the check) · `owner-confirmed` (ratification the
     pipeline itself witnessed and recorded — the record is a committed artifact under `sources/`
     (e.g. `sources/ratification—<date>.md`, hashed in `CHECKSUMS.txt`), the natural sourceRef target for
     this rung). Conflict ranking: `owner-confirmed` > `handoff-confirmed` >
@@ -39,7 +42,8 @@ colors. Each datum carries four fields:
   `confidence: corroborated` token is the exact contradiction the lint rejects); and **anything above
   `hypothesis` requires a hashed, path-bound source-of-record** (R3). **The builder never stamps
   `owner-confirmed` on handoff authority alone:** ratification carried by the handoff enters the build as
-  `handoff-confirmed` (or stays `proxy-relayed` as carried — the weaker label survives, it is not
+  `handoff-confirmed` PER its line's VERIFIED `BRIEF{}` tag — a `none — compiled` line enters `hypothesis`
+  (or stays `proxy-relayed` as carried — the weaker label survives, it is not
   re-labeled); `owner-confirmed` in the emitted repo requires a ratification the build witnessed/committed.
 - **owner** — who ratifies it (the Accountable for that slot, from the handoff `OWNERS`).
 - **freshness** — the pinned value enum `shipped | stated-old` (`shipped` = fresh/live; `stated-old` =
@@ -51,9 +55,9 @@ Hard rules:
   harvested treatment — all enter at `hypothesis` and need tier-2 ratification before they become canonical
   brand truth.
 - **Promoting an observed one-off to a brand *line* (a rule) requires tier-2 ratification** —
-  `owner-confirmed`, or `handoff-confirmed` (a value the signed handoff carries verbatim AT RATIFIED
-  confidence — inside the RATIFIED WHY or a slot the wire stamps `owner-confirmed`; carriage at
-  `hypothesis`/`corroborated` confers nothing); `proxy-relayed`
+  `owner-confirmed`, or `handoff-confirmed` (a value the signed handoff carries ON A LINE whose
+  `BRIEF{ verbatim | anchor }` verified against the SIGNED BRIEF — the wire-check pass; carriage at
+  `hypothesis`/`corroborated` confers nothing, and a `BRIEF{ none — compiled }` line confers nothing); `proxy-relayed`
   ratifies factual slots only. The builder never crystallizes an unconfirmed observation as a GRAMMAR rule
   on its own.
 - **A pipeline-authored proposal lives in quarantine, fully labeled.** `source: proposed` +

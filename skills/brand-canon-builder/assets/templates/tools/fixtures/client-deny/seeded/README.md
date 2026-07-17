@@ -14,6 +14,8 @@ only with their context). Comment- and attribute-node hits live in notes.html.
 - confidence: owner-confirmed                  (confidence-grade — fires via the key:value annotation)
 - confidence …70 chars of padding… owner-confirmed   (confidence-grade — the WINDOW-BYPASS class: same-line key binding, padding no longer escapes)
 - confidence: verified-primary                 (confidence-grade, v5 rung — key:value annotation)
+- Ratified per BRIEF{ verbatim:"our words" }.  (wire-vocab, distinctive — v6 wire carrier)
+- WIRE-CHECK: markers:3 · verified:3           (wire-vocab, distinctive — v6 wire carrier)
 - confidence: handoff-confirmed                (confidence-grade, v5 rung — key:value annotation)
 - confidence: proxy-relayed                    (confidence-grade, v5 rung — key:value annotation)
 - source: matched                              (provenance-verb — fires via the key:value annotation)

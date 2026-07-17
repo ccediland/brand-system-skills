@@ -47,13 +47,13 @@ hypothesis` and must be owner-confirmed before it is promoted to canonical brand
 | Brandbook PDF | Stated-spec first: read the named typeface + declared HEX/Pantone from the page text/swatches. Then PyMuPDF: `get_drawings()` (vector paths → `Shape`), `extract_font`, `get_images()` (raster only) — `extract_font` corroborates the named face, it does not name it. Inkscape `--pdf-poppler --export-text-to-path --export-area-drawing` or pdf2svg for vector masters | medium — vector only if embedded as paths |
 | **Design-tool exports** (Figma/Canva) | Figma variables/styles → DTCG (Tokens Studio); layer/style names are the brand's declared truth; Canva export ≈ brandbook PDF | high (Figma) / low (Canva) |
 | **Social media** | observe applied aesthetic + grab the downloadable avatar/imagery (best-effort; anti-scraping/rate-limits). Everything here is observed → `confidence: hypothesis`, owner-confirm before canonizing | low — reference, not master |
-| **Nothing / a stray logo** | vectorize/clean the one mark; derive an OKLCH palette from it; pick an OFL stand-in face; emit a small valid DTCG spine; the rest = GAP (author only on `MODE: CREATE`) | n/a |
+| **Nothing / a stray logo** | vectorize/clean the one mark; derive an OKLCH palette from it; pick an OFL stand-in face; emit a small valid DTCG spine; the rest = GAP (author only on `MODE: CREATE`) | — |
 
 ## ingest-token map — route by the contract's declared `ingest:`
 
 The handoff's manifest carries an `ingest:` token per item (`brand-canon-scoper/references/handoff-format.md`).
 That token is the contract's **authoritative HOW-to-read** — consume it to pick the matrix row directly,
-instead of re-deriving routing from a detected source-type. Each of the five tokens maps to a row above:
+instead of re-deriving routing from a detected source-type. Each mapped token routes to a row above (`none-needed` declares no reading applies — no row):
 
 | `ingest:` token | Routes to (matrix row) | What it tells the builder to do |
 |---|---|---|
@@ -63,7 +63,7 @@ instead of re-deriving routing from a detected source-type. Each of the five tok
 | `ocr-visual` | Brandbook PDF (stated-spec read) · raster references · a **live-but-raster CONSUMER surface** (image feed / gallery — reachable by `url:` but not computed-style-readable) | OCR/visual read of the page text + swatch labels for the declared font name + declared HEX/Pantone (`source: declared-spec`); a flattened-image source — static OR a live raster feed — yields a reference, not a master |
 | `font-match` | (degraded face path; feeds Stage 4) | image-based font-matching for an unnamed/outlined face — the value enters at `confidence: hypothesis`, owner-confirm before canonizing; no match → MUST-HAVE fidelity GAP |
 
-`n/a` (or an absent token) is the only case where the builder falls back to detecting the source-type and
+`none-needed` (or an absent token) is the only case where the builder falls back to detecting the source-type and
 selecting the row itself. A declared token always wins over re-derivation; if the declared token and the
 detected source-type disagree, follow the token and flag the conflict (the contract is the brief).
 **A DECLARED `ingest:` that was never EXECUTED degrades to a GAP — never a silent skip:** the agent-gates
