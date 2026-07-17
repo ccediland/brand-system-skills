@@ -85,6 +85,17 @@ must leave a trace:** §7a commits the source capture + the reproduction render 
 `scores.json` (numeric scores + thresholds + within/outside-tolerance verdict) to `audit/fidelity/<treatment-id>/`
 in the emitted repo; absence of that artifact for a reproduced treatment FAILS the gate.
 
+**Mode seam — `MODE: CREATE` (authored treatments; adjudicated, not silent).** In CREATE there is no
+Stage-5 capture: a treatment is AUTHORED from the ratified WHY. Method SELECTION above is mode-agnostic —
+an authored treatment routes to its production method by class exactly as an observed one does (the
+vector-trace row is inapplicable unless the owner supplied artwork — then it is an owner-supplied asset,
+same as ANALYZE). Validation resolves by substitution of the source-of-record: the **AUTHORED MASTER**
+stands where the Stage-5 capture would (diff every rendered instance against it — master↔render drift is
+still real drift; `create.md` §5 operates this), and a treatment with no master yet is the runner's honest
+NOT-RUN or a declared-medium N/A — never a false FAIL for lacking what CREATE by definition lacks. An
+authored treatment enters at `source: "authored"` · `confidence: "hypothesis"` pending ratification
+(`create.md` §6); the archived-source gate below is N/A in CREATE (nothing was recovered).
+
 **Archived-source treatments inherit the identity/date gate (MT-3).** When the source artifact a treatment is
 reproduced from is an ARCHIVED capture (recovered via `asset-acquisition.md` § Archived-source recovery), its
 values are not trusted until the same identity+date pass clears: the capture is confirmed the right brand (not a

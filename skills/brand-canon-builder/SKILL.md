@@ -60,7 +60,9 @@ them all at once.
 - `references/gap-protocol.md` — load when logging `GAP-NNN`, applying the provenance spine, or running the universality stress test (Stages 6, 9–10).
 - `references/coverage-checklist.md` — load when walking the universal must-haves in the coverage pass (Stage 9).
 - `references/analyze.md` — load for the ANALYZE path (Stage 2, default): harvest the brand's published work.
-- `references/create.md` — load for the CREATE path (Stage 2): author from the ratified handoff WHY.
+- `references/create.md` — load for the CREATE path: author from the ratified handoff WHY (Stage 2) + the
+  per-stage seams downstream (§5: treatments/fidelity-no-source-branch/audit/kit/keystone · §6: authored
+  provenance — `authored`+`hypothesis`, never ratified rungs on builder output).
 - `references/asset-acquisition.md` — load when acquiring build-grade assets, source-agnostic (Stage 3).
 - `references/font-acquisition.md` — load when acquiring fonts under the license boundary (Stage 4).
 - `references/reproduction-router.md` — load when a brand carries a visual/textural treatment to reproduce (Stages 5 & 8).
