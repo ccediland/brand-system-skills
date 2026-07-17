@@ -116,7 +116,9 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   exempt) · `NEW-INGEST:` declaration for open-class extension · posture `→GAP` ⇒ a GAPS row naming the
   field or carrying `field:<name>`), plus the PRE-BRIEF SWEEP (every DIMENSION MAP `tagged-gap` dimension
   and every GAPS row named in the signed brief — a hidden gap = `silent-dimension`/`silent-gap` FAIL: the
-  machine face of gate-3.5 emite-o-waive-con-ledger and the 7a sweep). Structure enforced: exactly ONE SIGNED BRIEF header (the last block),
+  machine face of gate-3.5 emite-o-waive-con-ledger and the 7a sweep), and RE-EMISSION integrity (the split
+  `sources/brief—*.md` must stay byte-faithful to its wire's appendix — an in-place "correction" of a signed
+  brief = `reemission` FAIL; a real correction re-emits a new dated pair). Structure enforced: exactly ONE SIGNED BRIEF header (the last block),
   anchor substance floor, «…» for signed words containing ASCII quotes, one field per line. Markers with no
   brief = FAIL; no markers + no brief + vocab clean =
   N/A declared (an all-empty CREATE wire never false-blocks — W-15). Run at Stage 0 (persist time) and as a

@@ -89,3 +89,22 @@ matter?" up from a feature to a value); projective prompts (personification, the
 onliness fill-in-the-blank; the opposing-scales differential; "what would be lost if the brand
 disappeared?". These *draw out* the WHY from the person — they never license you to *invent* it. An
 unanswerable WHY is a gap to confirm, not a guess to make.
+
+## The kit slot — elicited by DESTINATION, never by library name (normative)
+
+The handoff's `Claude Design component library: <YES|NO>` slot is a DIRECTIVE the scoper must fill
+(unfilled = handoff defect), and it is decided in CLIENT language: ask what the owner wants to be able
+to DO, never whether they want a named library ("component library"/"Claude Design" mean nothing to a
+non-design owner — a slot elicited by library name records the scoper's guess, not the owner's intent).
+The destination⇒slot table (canonical rows; extend by the same logic):
+
+| The owner wants (destination, client terms) | Slot |
+|---|---|
+| "plantillas listas para publicar" — social/marketing pieces that come out ready without a designer | **YES** (canonical row: plantillas-redes ⇒ YES — this destination's vehicle IS the library) |
+| editable on-brand pieces they can iterate themselves in a design tool | **YES** |
+| canon + brandbook only; no template production for now | **NO** |
+| a website another team builds from the token spine | **NO** (the spine's string projection covers that hop — no library needed) |
+
+Record the DESTINATION the owner stated (their words, in the brief) and the slot it maps to; if the
+stated destination fits no row, extend the table's logic — never ask the library question raw, and
+never leave the slot to a default.

@@ -13,6 +13,7 @@ direct `.md` path); each fires exactly its class — run `node ../../wire-check.
 | `empty-create.md` | N/A (exit 0) | the W-15 guard — no markers, no brief, vocabulary clean: an all-empty CREATE wire is NEVER false-blocked |
 | `honest-quote-different-content.md` | FAIL (exit 1) | `content-bind` — a REAL brief quote certifying DIFFERENT line content (the fabrication-with-honest-citation hole, caught pre-verify by probe) + `wire-check` discrepancy |
 | `silent-dimension.md` | FAIL (exit 1) | `silent-dimension` — a DIMENSION MAP `tagged-gap` the signed brief never names · `silent-gap` — a GAPS row the owner never saw (the pre-brief sweep; the machine face of gate-3.5 emit-or-waive-with-ledger — W-19) |
+| `stale-brief/` (repo-root mode) | FAIL (exit 1) | `reemission` — the split `sources/brief—*.md` diverges from its wire's SIGNED BRIEF appendix (a post-signature "correction applied" in place; re-emission is a NEW dated version, the hash must change) |
 
 The PASSING instances are the three synthetic handoffs in `../handoff/` (exact recomputed counts). The
 repo-root mode (latest `sources/handoff—*.md`) is exercised by `../clean/` (PASS row in run-gates) and the

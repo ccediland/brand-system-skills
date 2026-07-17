@@ -73,7 +73,7 @@ downloadable, sendable, easy to fill, even when it is mostly template. The chat 
 
 ## The signing discipline (gates 6 → 7a → 7b)
 
-The close of the pipeline is where earned status is most easily faked by accident. Five rules:
+The close of the pipeline is where earned status is most easily faked by accident. Eight rules:
 
 - **The text exists BEFORE it is signed.** The gate-7a approval attaches to a complete brief the owner
   has in front of them; a "signature" recorded before — or in the same breath as — the text's first
@@ -96,6 +96,22 @@ The close of the pipeline is where earned status is most easily faked by acciden
   model memory (a legal entity, a partnership, a history detail), asserted on ANY client-facing
   surface, carries its source tag or a to-confirm status. Being proven right later never validates the
   missing tag — untagged assertion is the defect, not the error rate.
+- **A correction to a signed document RE-EMITS — never an in-place patch.** A post-signature correction
+  produces a NEW dated version of the document (the manifest points to the corrected version; its hash
+  MUST change — same custody law as successive handoffs), and the affected line re-ratifies per the
+  machine's reopen rule. "Queda hecha"/"applied" with no re-emitted artifact is a false status claim
+  (named in the machine's Failure modes) — machine-held where the artifacts reach: the split
+  `sources/brief—<date>.md` must stay byte-faithful to its wire's appendix (the wire-check `reemission`
+  class), so an in-place "correction" can never pose as the signed record.
+- **No ✔ before the To-confirm pass.** An instrument, line, or dimension is marked ✔/done/hecha ONLY by
+  its recorded state: the owner saw it on the To-confirm surface (the gate-6 promote) or signed it (7a).
+  A seal mark that precedes the recorded pass is a false status claim — mid-interview "Confirmado"/
+  "ratificada ✔"/"cerrado" annotations are the reference class; status marks FOLLOW the ledger, never
+  narrate ahead of it.
+- **Client-directed prose carries zero plumbing.** No account references, no operator identity, no
+  platform metadata, no internal mechanics on any client-facing surface — how the scoper knows something
+  is never client content; only what is known and its to-confirm status. (The §6 client-surface
+  self-check scans for this class.)
 
 ## Instrument hygiene
 

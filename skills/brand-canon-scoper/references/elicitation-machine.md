@@ -113,7 +113,9 @@ gate-6 To-confirm surface; the promoted datum cites that confirmation and lands 
 confirmation must be RECORDED in the Final Brand Brief text: a promoted WHAT slot's wire line carries
 `BRIEF{ verbatim | anchor }` that the wire-check verifies against the signed brief (a promote the brief
 does not record cannot ship at owner-confirmed). An
-item absent from the To-confirm surface is not promoted — there is no mid-interview or silent promote.
+item absent from the To-confirm surface is not promoted — there is no mid-interview or silent promote, and
+no premature seal: a ✔/done/hecha mark FOLLOWS the recorded state (To-confirm shown, or 7a signed), never
+narrates ahead of it (`process-discipline.md` § The signing discipline).
 
 **Compile guard.** Gate 7b compiles only terminal states. Any dimension still OPEN or UNOPENED at compile
 time resolves by its born-gap semantics: it ships as `tagged-gap`, explicitly, its reason recorded in the
@@ -143,6 +145,7 @@ new carrier, no new artifact class.
 | Interrupted conversation / new session | State = the ledger snapshot in the last emitted DELIVERABLE; reload it and continue. The close/pause instruction TELLS the person explicitly to BRING the latest brief (and the handoff, if one was emitted) to the resume session — the resume session CURES or CONSUMES that state, it never re-elicits from zero and never assumes memory. Anything after that snapshot is RE-elicited, never reconstructed from memory |
 | Corrupt or ambiguous state (conflicting snapshots, a self-contradicting row) | The affected dimension REGRESSES to OPEN and is re-confirmed with the owner — the machine never silently picks between two conflicting states |
 | Gamed saturation (filler answers to close fast) | Saturation closes the probing only; without the DECIDED guard (a real owner source) the dimension closes GAP — filler can end the interview, never mint a decision |
+| "Queda hecha" — a correction declared applied with no re-emitted artifact | NAMED violation: a post-signature correction RE-EMITS the document as a new dated version (hash changes; the manifest points to it) and the affected line re-ratifies (the reopen rule). Declaring it done without the artifact is a false status claim; machine-held where artifacts reach — the wire-check `reemission` class catches a split brief diverging from its wire's appendix |
 | Frame blind spot (the profile analysis missed a dimension) | The open question + owner confirmation catch it at generation; one discovered later ENTERS the frame (it stays open to the 7b compile); one discovered after the seam is the scoper's `handoff-defect` — the existing accountability, unchanged |
 
 ## Enforcement — what is machine, what is honestly agent-side

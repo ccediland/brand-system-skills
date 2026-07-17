@@ -60,6 +60,19 @@ if (briefHdrs.length) {
   if (/^— [A-Z]|RATIFIED\{|BRIEF\{|^WIRE-CHECK:/m.test(brief)) fail('structure', 'the SIGNED BRIEF slice contains wire furniture (a block header / RATIFIED{ / BRIEF{ / WIRE-CHECK:) — the appendix is client brief text only');
 }
 const briefNorm = brief == null ? null : norm(brief);
+
+// ---- re-emission integrity (repo-root mode) ----
+// A post-signature correction RE-EMITS (a NEW dated handoff+brief pair; the hash MUST change) — it never
+// edits the split brief in place. The split file must stay byte-faithful to its paired wire's appendix:
+// divergence = a "correction applied" that the signed record never received.
+if (brief != null && /[/\\]sources[/\\]handoff[—-]/.test(wirePath)) {
+  const briefPath = wirePath.replace(/handoff(—|-)/, 'brief$1');
+  if (existsSync(briefPath)) {
+    const split = readFileSync(briefPath, 'utf8');
+    if (split.trim() !== brief.trim())
+      fail('reemission', `${briefPath.split(/[/\\]sources[/\\]/).pop()} DIVERGES from its wire's SIGNED BRIEF appendix — a post-signature correction re-emits as a new dated version (new hash), never an in-place edit`);
+  }
+}
 // the brief's own first non-empty line (its title) is NOT an anchor corpus — an always-present title must not ratify arbitrary prose
 const briefAnchorCorpus = briefNorm == null ? null : norm((brief ?? '').split('\n').filter((l) => l.trim()).slice(1).join('\n'));
 

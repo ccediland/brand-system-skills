@@ -82,9 +82,8 @@ over-interview" rule.
 ## The gated pipeline
 
 Run this fixed sequence. Each BLOCKING gate must be satisfied or explicitly waived by the person before
-you compile the handoff. The blocking gates trace to the two v1 failures (asset-inventory never
-issued; WHY invented) plus the single client-surface flow — the intake (3.5), the pre-compile review (6),
-and the Final Brand Brief approval (7a).
+you compile the handoff. The blocking gates trace to the two v1 failures (asset-inventory never issued; WHY
+invented) plus the single client-surface flow — the intake (3.5), the review (6), the brief approval (7a).
 
 **TEMPO doctrine (TA-1).** Scoping is multi-session / multi-day; the BLOCKING gates above always run; progress
 is **evidence-of-process** (gated DELIVERABLEs exist), **never wall-clock** (`references/process-discipline.md`).
@@ -360,17 +359,19 @@ To-confirm line:
 *fuente*. The point is the register, not the length.)
 
 **Client-surface self-check — BLOCKING.** Before presenting the External client instrument and the Living
-questions doc, scan both for TWO leakage classes — (1) **operator vocabulary** (GAP-NNN, Stage-N,
-provenance/confidence grades, build-grade, RACI, tool-failure/cost reasoning, severity-as-operator-token); and
+questions doc, scan both for THREE leakage classes — (1) **operator vocabulary** (GAP-NNN, Stage-N,
+provenance/confidence grades, build-grade, RACI, tool-failure/cost reasoning, severity-as-operator-token);
 (2) **operator register/preference leakage (TA-2)** — the client surface gone terse, assumption-laden, or
 terms unglossed because the operator's user-profile preference toward terseness/speed/proceed-by-assumption
-bled in. Any hit is a defect: a **register** hit → rewrite in the §6 client register (warm, plain, owner's
-language, every term glossed; compare the §6 worked example); a **vocabulary** hit → rewrite in client language
-or move to the Internal status surface. **Register/preference firewall (TA-2):** the client register inherits
-NO operator terseness/speed/assumption preference; **mirror-guard** — it governs the CLIENT register ONLY,
-preserving legitimate operator directness on the Internal status surface + handoff. Neither client surface
-clears gate 6 with either class present. Brand-agnostic — tests the form (vocabulary + register), never brand
-content.
+bled in; and (3) **plumbing** — client-directed prose NEVER references the account, the operator, platform
+metadata, or internal mechanics ("por lo que veo de esta cuenta" is the reference class: HOW the scoper
+knows something is never client content — only what is known and its to-confirm status). Any hit is a
+defect: **register** → rewrite in the §6 client register (warm, plain, owner's language, terms glossed);
+**vocabulary/plumbing** → rewrite in client language or move to the Internal status surface.
+**Register/preference firewall (TA-2):** the client register inherits NO operator terseness/speed/assumption
+preference; **mirror-guard** — it governs the CLIENT register ONLY, preserving legitimate operator directness
+on the Internal surface + handoff. No client surface clears gate 6 with any class present. Brand-agnostic —
+tests form, never brand content.
 
 Gate. The owner reviews and confirms/corrects the external instrument; only then do you compile.
 
@@ -467,11 +468,10 @@ Both were v1 failures. Honor all three:
   `<brand>-brand` shape, no redundant `-canon` suffix). Never invent a tree you can't see — you are Chat-side with no filesystem. Hygiene disciplines: `references/process-discipline.md` § Instrument hygiene.
 - **Static source material goes INTO the target repo**, under a conventional location (`assets/` for binaries,
   `sources/` for references), as a build precondition, **with a sha256 checksum per item** (the ASSETS track).
-  A **live consumer surface** the brand ships today (its site, app, active feed) is the exception: it is *not*
-  copied in — it is carried in the CONSUMERS track by its `url`, which the builder reaches and reads at build
-  time. What is always forbidden is the **dead/ephemeral** pointer: a Claude.ai chat link, a local Downloads
-  path, an auth-walled resource, or "Project knowledge" — the Code-side builder cannot reach any of those. The
-  test is reachability, not URL-vs-file: a live url that resolves is allowed; a dead link is not.
+  A **live consumer surface** the brand ships today (site, app, active feed) is the exception: not copied in —
+  carried in CONSUMERS by its `url`, which the builder reaches at build time. Always forbidden: the
+  **dead/ephemeral** pointer (a Claude.ai chat link, a local Downloads path, an auth wall, "Project
+  knowledge" — the Code-side builder reaches none of those). The test is reachability, not URL-vs-file.
 - **Chat→Code boundary.** Because you have no filesystem, placement is an instruction to the person + a
   two-track manifest in the handoff (checksummed ASSETS + reachability-verified CONSUMERS), never a scoper
   file-op. Social/applied media is either attached (ASSETS, checksummed) or carried live (CONSUMERS, url), each
