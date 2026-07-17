@@ -20,7 +20,7 @@
     5. Replace "Example Brand" / sample copy with the brand's real name + on-voice copy (from ESSENCE).
     6. SCHEME TOGGLE (C-3): when `canon.json › schemes` has >1 NON-deferred scheme, render the toggle in the
        Controls section AND emit one `:root[data-scheme="<id>"]` block per materialized scheme (values from
-       `tokens/schemes/<id>.json`), and keep the inline toggle <script>. For a FLAT (single-scheme) brand,
+       `tokens/schemes/<id>.tokens.json`), and keep the inline toggle <script>. For a FLAT (single-scheme) brand,
        DELETE the toggle control, the `:root[data-scheme]` blocks, and the script — keep only the light `:root`
        (+ the optional prefers-color-scheme dark). `[data-scheme]` (set by the toggle) WINS over the OS media
        query; the `@media (prefers-color-scheme: dark)` block stays as the no-JS fallback for the dark scheme.
@@ -52,7 +52,7 @@
      Left commented so the file renders with system fonts when no font is yet acquired (fidelity GAP). */
   /* @font-face { font-family: "Brand Display"; src: url("data:font/woff2;base64,…") format("woff2"); } */
 
-  /* ---- token spine (BUILDER: replace every value from tokens/*.json; these are generic placeholders) ---- */
+  /* ---- token spine (BUILDER: replace every value from tokens/*.tokens.json; these are generic placeholders) ---- */
   :root {
     --color-bg:        oklch(0.99 0.005 250);
     --color-surface:   oklch(0.97 0.01 250);
@@ -80,7 +80,7 @@
   }
 
   /* ---- per-scheme overrides for the live toggle (C-3). BUILDER: emit ONE :root[data-scheme="<id>"] block
-     per materialized scheme (canon.json › schemes; values from tokens/schemes/<id>.json) ONLY when >1
+     per materialized scheme (canon.json › schemes; values from tokens/schemes/<id>.tokens.json) ONLY when >1
      non-deferred scheme exists; a FLAT brand DELETES these blocks + the toggle + the script. [data-scheme]
      (set by the inline toggle below) WINS over the OS media query; the @media block above is the no-JS
      fallback. The two generic blocks below mirror the light :root / dark @media as the illustrative shape. ---- */
@@ -315,7 +315,7 @@
 
   <!-- COLOR SCHEMES (D-2a): documents the schemes the brand ships (the live toggle is in Controls). BUILDER:
        render this ONLY when canon.json › schemes has >1 non-deferred scheme — one card per materialized
-       scheme (values from tokens/schemes/<id>.json). A FLAT (single-scheme) brand DELETES this section. -->
+       scheme (values from tokens/schemes/<id>.tokens.json). A FLAT (single-scheme) brand DELETES this section. -->
   <section data-canon-section="schemes">
     <h2>Color schemes</h2>
     <div class="scheme-cards">

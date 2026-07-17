@@ -7,7 +7,7 @@ Demo Brand · v0 · load with `demo-keystone.md`; asset map at `satellites/asset
 - The primary ink exists to carry text with calm authority; it is NOT for decorative fills.
 
 ## 3. TOKENS & USAGE — reference, never pin
-- Color roles: `{semantic.color.*}` at `tokens/semantic.json`; base truths at `{base.color.*}`.
+- Color roles: `{semantic.color.*}` at `tokens/semantic.tokens.json`; base truths at `{base.color.*}`.
 
 ## 4. DO / DON'T
 - DO set body copy in the ink role / DON'T tint body copy with the brand hue.

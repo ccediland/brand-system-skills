@@ -20,7 +20,7 @@ better).
 
 | Directive class (client language) | Files to touch, in order | Gates to re-run |
 |---|---|---|
-| a COLOR changes / is disliked | `tokens/base.json` (the one root) → `node tools/scheme-derive.mjs` (re-derive schemes) → re-emit prototype + kit styles from tokens → `canon/02-*` intent prose if the meaning changed | audit-lint (R1/R3/R6a drift) · run-gates |
+| a COLOR changes / is disliked | `tokens/base.tokens.json` (the one root) → `node tools/scheme-derive.mjs` (re-derive schemes) → re-emit prototype + kit styles from tokens → `canon/02-*` intent prose if the meaning changed | audit-lint (R1/R3/R6a drift) · run-gates |
 | the brand "doesn't say / never says X" (voice) | `canon/01-*` ESSENCE (anti-promise / lexicon) → keystone re-emit (SPEAK/§5) → prototype copy | content audit (agent-gates) · deny over client rows · run-gates |
 | a RULE feels wrong (spacing, usage, combination) | `canon/03-*` GRAMMAR (`G-*`/`ALGO-*` by ID) → `canon/canon.json` mirror → keystone re-emit (DESIGN-as) | audit-lint (R4 named refs) · run-gates |
 | the MARK changes | `canon/mark.svg` (THE single source) → prototype `#brand-mark` + kit `Mark.tsx` re-inline byte-equal → fidelity re-measure | audit-lint (R6b) · fidelity-diff · run-gates |

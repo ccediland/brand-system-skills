@@ -58,7 +58,7 @@
 <!-- GUIDE: the mechanical-consumption layer. Each ALGO is a typed signature + ordered steps or a decision
      table + the G-* rules it enforces. Fill the algorithms the brand needs. -->
 
-- **ALGO-SCHEME-DERIVE** `(base palette, scheme def {mode, dominant}) → the scheme's semantic role-token set` — enforces G-SCHEME-01/02, G-COLOR-01. RUNNABLE: `tools/scheme-derive.mjs` (zero-dep Node — NOT Style Dictionary) implements this exactly and writes one `tokens/schemes/<id>.json` per non-deferred scheme.
+- **ALGO-SCHEME-DERIVE** `(base palette, scheme def {mode, dominant}) → the scheme's semantic role-token set` — enforces G-SCHEME-01/02, G-COLOR-01. RUNNABLE: `tools/scheme-derive.mjs` (zero-dep Node — NOT Style Dictionary) implements this exactly and writes one `tokens/schemes/<id>.tokens.json` per non-deferred scheme.
   1. Map each semantic COLOUR role to its base anchor's OKLCH (read the `semantic` colour aliases → `base`).
   2. Remap LIGHTNESS by `mode`, preserving C and H (gamut-clamped at the hex fallback): **light** = identity; **dark** = invert L on neutral roles (C < 0.04) and lift non-`dominant` chromatic roles +0.08 for legibility (the `dominant` ink keeps its L, staying recognizable); **contrast** = push neutral roles to the L extreme (max separation).
   3. Emit each role as a structured-OKLCH object `{colorSpace:"oklch", components, alpha, hex}` (hex via OKLCH→sRGB), tagged `$extensions.brand.scheme:"<id>"`, entering at `confidence:"hypothesis"` + the scheme's tracking GAP (a derived palette is unratified until the owner confirms it).

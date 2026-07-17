@@ -8,7 +8,7 @@ Procedure (from `tools/`):
 
     K=$TMPDIR/kit-e2e && rm -rf $K && mkdir -p $K/repo/tokens
     cp -r ../design-sync-kit $K/repo/design-sync-kit
-    printf '{"base":{"font-family":{"$type":"fontFamily","body":{"$value":"\"Body Face\", system-ui, sans-serif"}}}}' > $K/repo/tokens/base.json
+    printf '{"base":{"font-family":{"$type":"fontFamily","body":{"$value":"\"Body Face\", system-ui, sans-serif"}}}}' > $K/repo/tokens/base.tokens.json
     cd $K/repo/design-sync-kit && npm install && npm run build       # → dist/index.es.js + .d.ts
     node package-validate.mjs                                        # → exit 0 (with a shipped @font-face
                                                                      #   or a declared --font-fallback-*)

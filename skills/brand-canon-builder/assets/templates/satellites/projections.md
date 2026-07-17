@@ -30,7 +30,7 @@ promoted, it stays as projection rationale, not canon.
 
 ## Interchange contract (machine)
 
-- **Tokens:** DTCG `tokens/` in three tiers — `base.json` / `semantic.json` / `component.json`
+- **Tokens:** DTCG `tokens/` in three tiers — `base.tokens.json` / `semantic.tokens.json` / `component.tokens.json`
   (the standard DTCG base/semantic/component convention). `usesDtcg:true`.
 - **Color spine:** OKLCH literal in `$value`. Consumers MUST emit `oklch()` via an OKLCH-preserving
   transform — never `color/css` or a `transformGroup:'css'` (those gamut-map to sRGB and discard the

@@ -98,7 +98,7 @@ Fidelity evidence is the convergence of four sources — all already produced by
 
    Plus the kit's **own offline pre-flight gate** — `npm run validate` (`package-validate.mjs`, shipped in
    `assets/templates/design-sync-kit/`): dist + `.d.ts` present, ≥1 component exported, every REQUIRED
-   font-family — styles.css references AND the token spine's `fontFamily` leaves (`../tokens/*.json`), so
+   font-family — styles.css references AND the token spine's `fontFamily` leaves (`../tokens/*.tokens.json`), so
    deleting a reference never removes the requirement — has a shipped `@font-face` OR a DECLARED fallback
    (`--font-fallback-*: "<Real Family>" …` — the honest non-redistributable state: license gates
    redistribution, never capability, so a declared substitute in bundled files is a VALID exit-0 outcome
@@ -168,7 +168,7 @@ emitted-repo root:
 node tools/audit-lint.mjs        # exit 0 required; exit 1 fails the build
 ```
 
-`audit-lint.mjs` (`assets/templates/tools/`) reads `tokens/*.json`, `canon/*.md` + `canon/canon.json`,
+`audit-lint.mjs` (`assets/templates/tools/`) reads `tokens/*.tokens.json`, `canon/*.md` + `canon/canon.json`,
 `RESIDENT.md` (the Open Items/Gaps table) and `CHECKSUMS.txt`, writes `audit/lint/report.md`, and enforces:
 
 - **R0 (MT-3/4)** — every VALUE token (non-alias) carries `$extensions.brand.provenance` with `source` on the
@@ -209,7 +209,7 @@ N/A on the report and a registry MISLOCATED at the repo root is a violation, nev
   OKLCH) covering the SAME role-keys as the DEFAULT scheme's set; a partial/absent set with no deferred+GAP
   FAILS, naming the missing role-keys. The deferred escape is a tracked GAP (R0/R5 still apply to whatever
   tokens exist), never a bypass. A single-scheme (flat) brand materializes its one default set; a repo with no
-  `schemes` block is a vacuous PASS. `audit-lint.mjs` also loads the per-scheme `tokens/schemes/*.json` sets.
+  `schemes` block is a vacuous PASS. `audit-lint.mjs` also loads the per-scheme `tokens/schemes/*.tokens.json` sets.
 - **R8 (RV-5)** — brandbook completeness, FAIL BY OMISSION: every canon section that is PRESENT by a
   brand-content-blind machine
   signal maps to a LIVE `[data-canon-section="<id>"]` surface in a generated `.html` brandbook OR an open
