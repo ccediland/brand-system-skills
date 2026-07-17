@@ -5,8 +5,9 @@
 
 ## Qué es
 
-`~/proyectos/essential-brand` (LOCAL, commit `f24afd9` — re-baselineado en E2: 22 citas verbatim +
-12 `selector:none` honestos) se re-corre bajo las herramientas v5 finales del plugin v0.5.0.
+`~/proyectos/essential-brand` (LOCAL, commit `8b78dba` — re-baselineado en E2 @ `f24afd9`: 22 citas
+verbatim + 12 `selector:none` honestos; re-baseline E3 @ `8b78dba`: expected-refusal-contract.md como
+archivo propio, v6 F0-04) se re-corre bajo las herramientas v5 finales del plugin v0.5.0.
 
 ## Procedimiento (lo ejecuta el harness/Code, 3 comandos)
 
@@ -15,10 +16,11 @@
    disparando en fixtures — el harness lo verifica aparte).
 2. `node <skill>/assets/templates/tools/run-gates.mjs ~/proyectos/essential-brand` → **exit 1
    esperado** con las clases CONOCIDAS: sin visual-keystone · sin asset-index · sin agent-gates
-   (×5 filas) · deny INTERIM · keystone structural — `audit/redteam/expected-refusal-contract.md`
-   ausente en el golden (clase conocida INTERINA hasta el re-baseline E3 pendiente del pre-plan v6;
-   el golden sí tiene `battery.md`) — (es un repo emitido pre-v5 — el board debe decirlo honesto,
-   no fingir verde). Nota tools v5: la ausencia de handoff persistido emite **N/A**, no FAIL
+   (×5 filas) · deny INTERIM — (es un repo emitido pre-v5 — el board debe decirlo honesto,
+   no fingir verde). La clase interina "keystone structural" fue RETIRADA: el re-baseline E3
+   del golden se ejecutó (v6 F0-04, commit local `8b78dba` — `expected-refusal-contract.md`
+   como archivo propio, extraído de `battery.md`); su reaparición = hallazgo.
+   Nota tools v5: la ausencia de handoff persistido emite **N/A**, no FAIL
    (`run-gates.mjs:138,202`) — retirada de las clases esperadas (gate final 2026-07-16, veredicto
    EV-1 §2e H2-r3). Cualquier clase NUEVA de FAIL = hallazgo a registrar.
 3. Restaurar frozen: `git checkout -- audit/ && git clean -fd audit/gates/` en el repo (porcelain 0
