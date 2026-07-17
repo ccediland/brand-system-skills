@@ -9,10 +9,8 @@ Target the W3C/DTCG Design Tokens Specification **2025.10** (the first stable ve
 syntax, `$value`/`$type`/`$description`, atomic + composite types, aliases via `{group.token}`, structured
 color with `colorSpace` (incl. `oklch`), and **resolvers** (sets + modifiers + `resolutionOrder`) as the
 standard theming mechanism. The SPEC names `.tokens.json` filenames and the
-`application/design-tokens+json` media type; **DEFERRAL (declared): this repo's templates and tools emit and
-read plain `.json` today — the `.tokens.json` rename is a planned migration, deliberately deferred so the
-whole toolchain (templates · lints · downstream consumers) moves in one lockstep change, never piecemeal.**
-The format target is 2025.10 either way.
+`application/design-tokens+json` media type; this repo's templates and tools emit and read the spec's
+`.tokens.json` filenames (the rename shipped as one lockstep change — templates · tools · fixtures · docs).
 
 **Structured-OKLCH `$value` (adopted in Stage C-1).** Colour value-tokens carry the DTCG **structured-OKLCH
 object** `{ "colorSpace": "oklch", "components": [L, C, H], "alpha": 1, "hex": "#rrggbb" }` — OKLCH the canonical
@@ -29,9 +27,9 @@ stays buildable — C-1 changes only the `$value` format + the audit-lint R6a se
 Three tiers, the standard DTCG base / semantic / component convention (adopted because it is the
 standard — not because any one consumer uses it):
 
-- `tokens/base.json` — raw primitive values. `path[0]` is always `"base"`.
-- `tokens/semantic.json` — intent aliases naming a ROLE. `path[0]` is always `"semantic"`.
-- `tokens/component.json` — optional component-scoped aliases. `path[0]` is always `"component"`.
+- `tokens/base.tokens.json` — raw primitive values. `path[0]` is always `"base"`.
+- `tokens/semantic.tokens.json` — intent aliases naming a ROLE. `path[0]` is always `"semantic"`.
+- `tokens/component.tokens.json` — optional component-scoped aliases. `path[0]` is always `"component"`.
 
 `semantic` aliases `base`; `component` aliases `semantic` (never `base` directly), so a scheme change at the
 semantic tier flows through. The tier a consumer themes is `semantic` — one scheme override (or one resolver
@@ -42,12 +40,23 @@ modifier, once supported) re-points it.
 N named schemes in `canon/canon.json › schemes` become N COMPLETE materialized role-token sets, NOT prose. A
 zero-dep preprocessor `tools/scheme-derive.mjs` (the runnable `ALGO-SCHEME-DERIVE`, 03-grammar §10 — NOT Style
 Dictionary, which would trip the structured-colour `-value`/`-unit` split) derives each scheme from the base
-palette by its `{mode, dominant}` and writes `tokens/schemes/<id>.json`: every role token a structured-OKLCH
+palette by its `{mode, dominant}` and writes `tokens/schemes/<id>.tokens.json`: every role token a structured-OKLCH
 object tagged **`$extensions.brand.scheme:"<id>"`**, entering at `confidence:"hypothesis"` + the scheme's
 tracking GAP (a derived palette is unratified until owner-confirmed). The DEFAULT scheme's set is materialized
 and tagged too; it defines the role-key parity. A scheme marked `status:"deferred"` emits NO set and carries a
 logged `GAP-NNN` instead. `audit-lint` R7 enforces this (complete set OR deferred+GAP). The Resolver Module
 (DTCG draft) remains a controlled convention layered over these sets — never raw SD `.resolver.json` (#1590).
+
+**Consumer STRING projection (`tools/tokens-project.mjs`).** String-only consumers (Style Dictionary v5
+rejects object `$value` — SD #1398/#1494; the web-stack `astro-css-tokens` contract requires plain-string
+`$value`) never ingest the spine directly: `node tools/tokens-project.mjs` writes `tokens/web/{base,semantic,
+component}.json` — the same tree with every structured-OKLCH `$value` serialized to its C-1 canonical string
+(`oklch(L C H)` / `oklch(L C H / a)`; byte-parity with the audit-lint serializer), `hex` fallback NOT
+propagated (the consumer's no-fallback OKLCH policy), `$extensions` dropped (values only — provenance lives
+in the spine), aliases/dimensions/stacks untouched. It is a DERIVED artifact: custody-recorded in
+`sources/MANIFEST.json` (in-repo parent path + sha256 — the custody gate recomputes the parent hash, so a
+stale projection FAILS) and `operator`-classed in the surfaces manifest. The spine stays the single source
+of truth; the projection is regenerated, never edited.
 
 ## Authoring rules (hard)
 
@@ -65,7 +74,7 @@ logged `GAP-NNN` instead. `audit-lint` R7 enforces this (complete set OR deferre
   `font-weight → --font-weight-`, `line-height → --leading-`, `border-radius → --radius-`,
   `shadow → --shadow-`.
 - **Singleton vs family.** A category with MULTIPLE values projects `--<prefix>-<name>` (e.g. a 2-radius brand
-  → `--radius-base` / `--radius-pill`, as the base.json template's example family shows); a category with a
+  → `--radius-base` / `--radius-pill`, as the base.tokens.json template's example family shows); a category with a
   SINGLE value projects the bare `--<prefix>` singleton (one radius → `--radius`, one shadow → `--shadow`, as
   the kit/prototype templates show). The bare form is the single-value case of the family, not a namespace
   break. The two templates illustrate the two shapes; per brand the builder emits ONE shape and keeps the

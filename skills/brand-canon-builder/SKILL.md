@@ -33,7 +33,7 @@ canon/01-essence.md      ESSENCE   — meaning, voice, positioning (why?)
 canon/02-primitives.md   PRIMITIVES— every fixed atom to full depth (what?)
 canon/03-grammar.md      GRAMMAR   — generative rules G-* + algorithms ALGO-* (how?)
 canon/canon.json         machine mirror of essence + grammar (dual legibility)
-tokens/base.json | semantic.json | component.json   DTCG token spine (OKLCH; the interchange contract)
+tokens/base.tokens.json | semantic.tokens.json | component.tokens.json   DTCG token spine (OKLCH; the interchange contract)
 data-map.md              DATA POINTER  (satellite, not canon) — where volatile values live
 projections.md           PROJECTIONS   (satellite, not canon) — consumer registry + interchange contract
 surfaces.md              SURFACES      (satellite) — the surface manifest: client/ai-facing/operator classes; THE deny-lint target list
@@ -175,7 +175,7 @@ equivalent fields before proceeding.)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
 root (`README.md`, `CLAUDE.md`, `RESIDENT.md`), `tokens/*` into `tokens/`, and `tools/*` into `tools/`
 (`run-gates.mjs` — the Stage-10 suite runner + status board; `audit-lint.mjs` — the provenance/completeness
-gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
+gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `tokens-project.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
 archived-source recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
 a seeded-violation sample), not client material. Create `assets/` (source
 binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the
@@ -265,12 +265,16 @@ observation to a brand line. (Provenance spine: `references/gap-protocol.md`.)
 Read `references/token-spine.md` — DTCG **2025.10** target, the OKLCH `$value` operative format (with the
 tooling-lag caveat on structured color / resolvers), and the **OKLCH scheme-derivation
 engine** (light/dark, high-contrast, sub-brand as cases of one L/C/H transform; re-cohering an ad-hoc
-palette is a `hypothesis` proposal pending owner confirmation). Author `tokens/base.json` (raw OKLCH +
+palette is a `hypothesis` proposal pending owner confirmation). Author `tokens/base.tokens.json` (raw OKLCH +
 authored/derived `$extensions` + `$extensions.brand.provenance` {source, confidence, owner, freshness} on
-EVERY token — `authored|derived` is source-only and orthogonal to the confidence ladder), `tokens/semantic.json`
-(role aliases), `tokens/component.json` (optional).
-Keep `$value` plain strings, aliases as `{tier.category.name}`, category names on the namespace convention.
+EVERY token — `authored|derived` is source-only and orthogonal to the confidence ladder), `tokens/semantic.tokens.json`
+(role aliases), `tokens/component.tokens.json` (optional).
+Colour `$value` is the structured-OKLCH object (C-1); composite values (shadows) stay plain strings; aliases
+as `{tier.category.name}`, category names on the namespace convention.
 Derive any additional scheme (dark, high-contrast, sub-brand) at the `semantic` tier via the OKLCH engine.
+Emit the consumer STRING projection — `node tools/tokens-project.mjs` → `tokens/web/` (plain-string `$value`
+for string-only consumers, e.g. astro-css-tokens; a DERIVED artifact: custody-recorded in `sources/MANIFEST.json`,
+`operator` class in the surfaces manifest — the spine stays the single source of truth).
 Emit motion/depth tokens if the brand uses them (DTCG-valid even without a current consumer); omit for a
 flat/print-only brand.
 

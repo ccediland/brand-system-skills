@@ -1,0 +1,8 @@
+{
+  "component": {
+    "color": {
+      "$type": "color",
+      "button-bg": { "$value": "{semantic.color.primary}", "$description": "alias string — passes through untouched" }
+    }
+  }
+}

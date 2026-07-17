@@ -5,7 +5,7 @@
 //   Turns N named canon schemes into N COMPLETE materialized role-token sets. For each
 //   NON-deferred scheme in `canon/canon.json › schemes`, it derives the semantic COLOUR role
 //   tokens in OKLCH from the base palette (per the scheme's {mode, dominant}) and writes a
-//   per-scheme file `tokens/schemes/<id>.json` — every token a structured-OKLCH object tagged
+//   per-scheme file `tokens/schemes/<id>.tokens.json` — every token a structured-OKLCH object tagged
 //   `$extensions.brand.scheme:"<id>"`. audit-lint R7 then checks role-key parity with the default.
 //
 //   ALGO-SCHEME-DERIVE (mirror of 03-grammar.md §10 + canon.json.algorithms):
@@ -81,8 +81,8 @@ function deriveRole(role, [L, C, H], mode, dominant) {
 function main() {
   const canon = readJSON('canon/canon.json');
   const schemes = (canon && canon.schemes) || {};
-  const base = readJSON('tokens/base.json');
-  const semantic = readJSON('tokens/semantic.json');
+  const base = readJSON('tokens/base.tokens.json');
+  const semantic = readJSON('tokens/semantic.tokens.json');
   const roleSet = ((semantic.semantic || {}).color) || {};
 
   // role → base-anchor OKLCH, from the semantic colour aliases
@@ -154,7 +154,7 @@ function main() {
     const out = { scheme: { [id]: { color } } };
     const dir = join(ROOT, 'tokens', 'schemes');
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-    const rel = `tokens/schemes/${id}.json`;
+    const rel = `tokens/schemes/${id}.tokens.json`;
     writeFileSync(join(ROOT, rel), JSON.stringify(out, null, 2) + '\n');
     written.push({ id, mode, roles: Object.keys(color).filter((k) => !k.startsWith('$')), file: rel });
   }

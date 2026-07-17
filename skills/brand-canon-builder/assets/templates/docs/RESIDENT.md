@@ -52,7 +52,7 @@ canonical: github
      Claude (or a human dev) landing the fix cold. -->
 | ID | Item | Why it matters | Severity | Provenance | Proposed resolution | Resolution target | Status |
 |---|---|---|---|---|---|---|---|
-| GAP-001 | {{...}} | {{...}} | {{MUST-HAVE \| SHOULD \| NICE}} | {{handoff-deliberate \| handoff-defect \| builder \| skill-scope}} | {{...}} | {{file/section that receives the fill, e.g. tokens/base.json › color + canon/02 § inks}} | {{OPEN \| CLOSED (ratified)}} |
+| GAP-001 | {{...}} | {{...}} | {{MUST-HAVE \| SHOULD \| NICE}} | {{handoff-deliberate \| handoff-defect \| builder \| skill-scope}} | {{...}} | {{file/section that receives the fill, e.g. tokens/base.tokens.json › color + canon/02 § inks}} | {{OPEN \| CLOSED (ratified)}} |
 
 ## Change log
 - {{DATE}} — canon scaffolded; {{what was filled vs left as gaps}}.

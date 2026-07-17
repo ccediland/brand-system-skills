@@ -103,6 +103,14 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   (numpy, opencv-python-headless, scikit-image, pillow; fontTools for `--font`) are **import-guarded**: missing →
   a clear `pip install …` + exit 3, never a stack trace; the non-visual path needs none of them. Self-test
   fixtures + generator: `tools/fixtures/fidelity/` (`gen.py` → source/within/within_shift/mid/out `.png`).
+- **`node tools/tokens-project.mjs [repo-root]`** — the **consumer STRING projection** (zero-dep Node): reads
+  the spine (`tokens/*.tokens.json`) and writes `tokens/web/{base,semantic,component}.json` with every
+  structured-OKLCH `$value` serialized to its C-1 canonical string (`oklch(L C H)` / `oklch(L C H / a)`;
+  byte-parity with audit-lint's `serializeValue`), `hex` fallback dropped, `$extensions` dropped (values only).
+  For string-only consumers (SD v5 rejects object `$value` — #1398/#1494; web-stack `astro-css-tokens`).
+  Derived-artifact custody: entries in `sources/MANIFEST.json` with in-repo parent `{file, sha256}` — the
+  run-gates custody row RECOMPUTES the parent hash (stale projection = FAIL). `operator` class in the
+  surfaces manifest. Fixture: `tools/fixtures/tokens-project/demo/` (round-trip diff vs frozen `expected/`).
 - **`node tools/scheme-derive.mjs [repo-root]`** — SC-1 the **ALGO-SCHEME-DERIVE materializer** (Stage C-2;
   build-time, zero-dep Node, **NOT Style Dictionary**). Reads `canon/canon.json › schemes` + `tokens/base.json`
   + `tokens/semantic.json` (role→anchor); for each NON-deferred scheme derives the semantic colour roles in

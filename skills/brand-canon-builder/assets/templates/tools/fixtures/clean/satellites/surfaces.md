@@ -19,6 +19,7 @@
 | canon/*.md | ai-facing | the four-layer canon |
 | canon/canon.json | ai-facing | machine mirror |
 | tokens/** | ai-facing | the DTCG spine (provenance blocks live here) |
+| tokens/web/** | operator | derived consumer STRING projection (tokens-project.mjs) — values only; provenance stays in the spine |
 | satellites/*.md | ai-facing | registries (projections, this manifest, the asset index) |
 | design-sync-kit/** | client | kit source is visible in Claude Design — scrubbed like client copy |
 | RESIDENT.md | operator | living operator doc |

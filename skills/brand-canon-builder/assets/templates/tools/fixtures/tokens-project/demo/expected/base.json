@@ -1,0 +1,29 @@
+{
+  "base": {
+    "color": {
+      "$type": "color",
+      "brand-1": {
+        "$value": "oklch(0.62 0.13 255)",
+        "$description": "generic example ink — hex is the sRGB fallback and must NOT survive the string projection"
+      },
+      "veil": {
+        "$value": "oklch(0.7 0.1 20 / 0.5)",
+        "$description": "generic example with alpha < 1 — must project as oklch(L C H / a)"
+      }
+    },
+    "spacing": {
+      "1": {
+        "$value": "0.25rem",
+        "$description": "plain string — passes through untouched"
+      },
+      "$type": "dimension"
+    },
+    "font-family": {
+      "$type": "fontFamily",
+      "body": {
+        "$value": "\"Demo Face\", system-ui, sans-serif",
+        "$description": "stack string — passes through untouched"
+      }
+    }
+  }
+}

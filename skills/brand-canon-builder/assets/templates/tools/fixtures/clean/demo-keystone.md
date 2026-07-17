@@ -1,7 +1,7 @@
 # Demo Brand — keystone (CLEAN fixture: minimal valid 6-section keystone)
 
 ## 1. Metadata & deployment
-Demo Brand · v0 · provenance pointer: tokens/base.json · sections 5–6 paste as instructions/knowledge.
+Demo Brand · v0 · provenance pointer: tokens/base.tokens.json · sections 5–6 paste as instructions/knowledge.
 
 ## 2. THINK as the brand — operative reasoning
 - When trading off clarity against charm, the brand chooses clarity — plain beats pretty here.

@@ -5,7 +5,7 @@
   here, the converter raises [CSS_BUNDLE_UNREACHABLE]; missing token vars → [TOKENS_MISSING]; a referenced
   family with no @font-face → [FONT_MISSING].
 
-  BUILDER: keep the @import line first; fill the tokens from tokens/*.json and the @font-face from the
+  BUILDER: keep the @import line first; fill the tokens from tokens/*.tokens.json and the @font-face from the
   brand's REAL licensed fonts (at the font step). Values below are obviously-generic placeholders.
 */
 
@@ -16,7 +16,7 @@
    Left commented so the bundle is valid before fonts are acquired (a missing core face is a fidelity GAP). */
 /* @font-face { font-family: "Brand Display"; src: url("./fonts/brand-display.woff2") format("woff2"); font-display: swap; } */
 
-/* token closure — BUILDER: replace with the brand's real token values (mirror tokens/*.json) */
+/* token closure — BUILDER: replace with the brand's real token values (mirror tokens/*.tokens.json) */
 :root {
   --color-bg:        oklch(0.99 0.005 250);
   --color-surface:   oklch(0.97 0.01 250);

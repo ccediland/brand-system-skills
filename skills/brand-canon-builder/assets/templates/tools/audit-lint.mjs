@@ -9,7 +9,7 @@
 //   node tools/audit-lint.mjs [repo-root]      # default repo-root = cwd
 //
 // Reads (all relative to repo-root, all optional — a missing input is reported, never a crash):
-//   tokens/*.json          DTCG token files (base / semantic / component)
+//   tokens/*.tokens.json          DTCG token files (base / semantic / component)
 //   canon/*.md             the canon layers (prose)
 //   canon/canon.json       the machine mirror (schemes / algorithms / ruleIndex)
 //   RESIDENT.md            the Open Items / Gaps table (GAP-NNN + Status)

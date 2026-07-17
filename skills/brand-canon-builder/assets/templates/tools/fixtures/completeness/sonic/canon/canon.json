@@ -1,5 +1,5 @@
 {
-  "$description": "Fixture canon mirror. Three schemes: day (default) + night materialized as COMPLETE role sets (tokens/schemes/<id>.json, scheme-tagged) by scheme-derive.mjs; print is status:\"deferred\" + GAP-022. R7 checks role-key parity vs the default; R4 (loose) still passes.",
+  "$description": "Fixture canon mirror. Three schemes: day (default) + night materialized as COMPLETE role sets (tokens/schemes/<id>.tokens.json, scheme-tagged) by scheme-derive.mjs; print is status:\"deferred\" + GAP-022. R7 checks role-key parity vs the default; R4 (loose) still passes.",
   "schemes": {
     "default": "day",
     "day": { "mode": "light", "dominant": "action", "gap": "GAP-020" },

@@ -25,3 +25,7 @@ skills/brand-canon-builder/assets/templates/tools/fixtures/**/audit/gates/
 
 # scheme-derive fixture run artifacts
 skills/brand-canon-builder/assets/templates/tools/fixtures/scheme-derive/**/tokens/schemes/
+
+# tokens-project fixture run artifacts (expected/ is the frozen truth)
+skills/brand-canon-builder/assets/templates/tools/fixtures/tokens-project/**/tokens/web/
+skills/brand-canon-builder/assets/templates/tools/fixtures/tokens-project/**/sources/

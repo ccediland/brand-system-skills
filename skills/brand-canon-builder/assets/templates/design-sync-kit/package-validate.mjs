@@ -75,7 +75,7 @@ if (css) {
       if (name && !SYSTEM.has(name.toLowerCase())) referenced.add(name);
     }
   }
-  // ANTI-GAMING: the requirement ALSO comes from the TOKEN SPINE (../tokens/*.json fontFamily leaves) —
+  // ANTI-GAMING: the requirement ALSO comes from the TOKEN SPINE (../tokens/*.tokens.json fontFamily leaves) —
   // outside this kit. Deleting a styles.css reference never removes the spine's requirement, so
   // "renaming your way past the gate" (dropping the reference and shipping a silent system fallback)
   // fails exactly like a missing face.
