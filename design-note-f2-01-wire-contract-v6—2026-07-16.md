@@ -123,9 +123,42 @@ adjudicado falso positivo — run artifacts).
 - **Diferidos a su etapa (del critic):** README/plugin.json version bump = F6-01 · RESIDENT = gate de
   etapa F2 · demo-visual-keystone :20 sin cambio (prosa de keystone, no wire).
 
-## 5. Ronda de verify adversarial
+## 5. Ronda de verify adversarial (4 atacantes + juez con repros re-ejecutados; 43 hallazgos → 43 veredictos)
 
-[PENDIENTE — atacantes + juez contra el diseño implementado; tabla al cierre]
+Pre-ronda: 1 BLOCKER auto-cazado por probe propio ANTES del verify — quote real del brief legitimando
+contenido fabricado de la línea (la clase de fabricación-con-cita-honesta) → content-bind implementado +
+fixture `honest-quote-different-content.md`. El verify lo re-encontró en 2 variantes (embed/parens) y lo
+endureció (coverage ≥50% del value).
+
+Veredicto inicial FAIL. Confirmados y CORREGIDOS en el acto (re-verificados con repros re-corridos):
+
+| Sev. | Hallazgo (clase) | Fix aplicado |
+|---|---|---|
+| **BLOCKER** ×2 (dupe entre atacantes) | Header `— SIGNED BRIEF` TEMPRANO tragaba el body entero → PASS universal con markers:0 (neutralizaba TODO el gate) | split en el ÚLTIMO header + FAIL(structure) si count≠1 o si el slice del brief carga mobiliario de wire (headers/RATIFIED{/BRIEF{/WIRE-CHECK) |
+| MAJOR | tag con comillas simples / payload no parseable contaba como marker sin certificar nada; identidad markers=verified+demoted no exigida | gramática de tag (3 formas legales, lo demás FAIL tag-grammar) + identidad exigida en el verdict + delimitador «…» para palabras firmadas con comilla ASCII interna |
+| MAJOR | `confidence:`/`owner-confirmed` partido en 2 líneas físicas esquivaba el untagged-gate del WHAT | reconstitución de RECORDS lógicos (línea de valor + continuaciones `·`) + FAIL(structure) en unidad partida + regla one-field-per-line en el template |
+| MAJOR | anchor trivial (`"e"`, el título del brief) legitimaba cualquier paráfrasis | piso de sustancia (≥2 palabras · ≥12 chars) + el título del brief fuera del corpus de anchors |
+| MAJOR ×2 | content-bind por substring: fragmento real embebido en ~90% fabricación / cita real entre paréntesis junto a valor distinto | coverage ≥50% del VALUE (tags+parens-con-comillas despojados) en líneas WHY simples; VOICE-EXEMPLARS/WHAT quedan substring (límite documentado) |
+| MAJOR | header WHY renombrado → walk de 0 líneas → WIRE-CHECK en ceros CONCUERDA | reconciliación body-wide (todo BRIEF{ del body se camina o FAIL unwalked-markers) + RATIFIED{ sin bloque WHY parseable = FAIL(structure) — cierra también el tag decorativo fuera de scope |
+| MAJOR | espacio tras el colon evadía TODAS las clases de vocabulario (`fidelity: reference`) | `\s*` en todas las regex de vocabulario + WIRE-CHECK line |
+| MAJOR | blanket por DUPLICACIÓN: la misma cita acuñaba N filas not-used | dedupe de citas normalizadas en el DIMENSION MAP |
+| MAJOR (rescoped) | pinza n/a: prosa del cliente con "n/a" citada en verbatim no tenía codificación legal | ban acotado a POSICIÓN de valor de campo (tras `:`/`·`); contenidos de BRIEF{} exentos; prosa unificada en las 3 superficies |
+| MAJOR | GEOMETRY a owner-confirmed: template sin slot BRIEF vs regla que lo exige (lockstep roto) | DECIDIDO lado regla: la fila GEOMETRY del template gana la nota BRIEF-a-owner-confirmed (proxy-relayed queda su techo natural sin quote — doctrina) |
+| MAJOR | pick del "latest" handoff roto con sufijos same-day (`-fix` ordena antes que `.md`) | sort sin extensión + patrón `handoff[—-]` en ambos tools |
+| MAJOR | NFD vs NFC: brief pegado de PDF/macOS = miss falso en es-MX acentuado | `norm()` gana `.normalize('NFC')` |
+| MAJOR | comilla ASCII dentro de palabras firmadas: verificación truncada en silencio | captura lazy hasta el delimitador de cierre + `«…»` sancionado en el contrato |
+| MAJOR | not-used(owner-declared) FUERA del DIMENSION MAP (CORE-ASSET) viajaba sin cita — el fixture PASS embarcado lo demostraba | scan body-wide del literal + Gamma regenerado (cita en graphic-code; 18/16/2) |
+| MAJOR | TREATMENTS ofrecía tiers ratificados que ninguna superficie checkea | enum recortado a hypothesis\|corroborated\|verified-primary (doctrina: bloque de observaciones) |
+| MAJOR | walk spec exigía content-bind a not-used (el código exime) → scoper obediente declararía counts que el recompute contradice | cláusula de exención en § walk paso 2 |
+| MINOR ×9 | paren-evasion (WHY + dimMap) · N/A-substring demotion en run-gates · "owner-confirmed" en prosa libre false-bloqueaba CREATE (W-15) · typo de path .md → N/A silencioso · NEW-INGEST multi-línea invisible · GAPS client-language vs literal inglés del born-gap · fila Directives sobre-atribuía el split a lint · case-sensitivity sin declarar · asimetría none entre slots hermanos | skip parentético estrecho (campo-shaped des-exento; dimMap sin skip) · anchor `/^wire-check: N\/A/` · marker = forma de carrier `confidence:owner-confirmed` · arg .md inexistente = exit 1 stderr · NOTES como bloque multi-línea · carrier `field:<posture-field>` en GAPS · fila Directives re-atribuida agent-gate+lint · case-exact DECLARADO en el walk · nota de template (none cita el brief con anchor) |
+| NIT ×5 | límite autenticidad-vs-consistencia sin declarar · fraseo residual pre-v6 en gap-protocol:44 · conteo de fixtures driftado · anchura del ban n/a en 3 fraseos · scope VOICE-EXEMPLARS spec↔tool | LIMIT declarado en tool header + § walk · fraseo por-línea en gap-protocol · conteos unificados (6 FAIL + 1 N/A) · fraseo value-position unificado · "any tag present is walked" en el walk |
+
+REFUTADOS/no-accionados: `WC-boundary` (by-model: consistencia interna — documentado como límite, no defecto) ·
+`WC-B` parcial (HOW/HORIZONS sin lineage = by-design del tag scope; el filo GEOMETRY/TREATMENTS sí se corrigió).
+Post-fix: los 5 repros clave del juez RE-CORRIDOS contra el tool corregido — todos FAIL/caza correcta; suite
+completa + golden re-verificados en verde. Bugs propios del primer fix-pack cazados en re-corrida (coverage
+medía el value con tag incluido; stripParens se comía `oklch(…)`) — corregidos: strip de tags en el value y
+strip solo de paréntesis con comillas.
 
 ## 6. Qué NO hace este item (fronteras)
 

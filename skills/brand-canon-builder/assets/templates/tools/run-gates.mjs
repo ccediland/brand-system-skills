@@ -113,12 +113,13 @@ const failLine = (s) => {
   // wire vocabulary). The tool self-declares N/A on an all-empty wire (no markers, no brief) — never a
   // false block on CREATE.
   const srcDir = join(ROOT, 'sources');
-  const handoffs = isDir(srcDir) ? readdirSync(srcDir).filter((n) => /^handoff—.*\.md$/.test(n)) : [];
+  const handoffs = isDir(srcDir) ? readdirSync(srcDir).filter((n) => /^handoff[—-].*\.md$/.test(n)) : [];
   if (!handoffs.length) {
     add('wire verbatim-check', 'lint', false, 'N/A', 'no persisted handoff (sources/handoff—*.md) — nothing claims what a brief must prove');
   } else {
     const r = runTool('wire-check.mjs', [ROOT]);
-    const status = r.status === 'PASS' && /N\/A/.test(r.detail) ? 'N/A' : r.status;
+    // anchor on the tool's own summary line, never a substring (a path containing "N/A" must not demote a PASS)
+    const status = r.status === 'PASS' && /^wire-check: N\/A/.test(r.detail) ? 'N/A' : r.status;
     add('wire verbatim-check', 'lint', status !== 'N/A', status, r.detail);
   }
 }

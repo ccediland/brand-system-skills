@@ -49,8 +49,9 @@ Every dimension in the frame starts UNOPENED. An un-enumerated dimension remains
 The four terminal states are the honest answers; OPEN and UNOPENED are process states. The "projects
 onto" column names the DIMENSION MAP literals; a frame dimension whose home is another block terminates
 onto THAT block's own contract literals — HORIZONS' `direction | not-relevant | tagged-gap`; POSTURE's
-`none` / `→GAP` (EVERY posture gap ships as a GAPS-block row naming the field — both the `→GAP` literal
-and a field with no gap literal of its own; the wire-check enforces the naming);
+`none` / `→GAP` (EVERY posture gap ships as a GAPS-block row naming the field — the wire-check enforces
+the naming for the `→GAP` literal (English name or the `field:<name>` carrier); a field with no gap
+literal of its own stays agent-gate at the compile guard);
 `filled(media-attached)` for media-carried dimensions. The OPTIONAL block never runs the lifecycle: it
 resolves by the contract's own rule (scoper-WRITTEN `not used` / `demo-default-yes` /
 `scope-expanding(demo-default-no)` under v0/DEMO), and the two directive slots (`Claude Design component

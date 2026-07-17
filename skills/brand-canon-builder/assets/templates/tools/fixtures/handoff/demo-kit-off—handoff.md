@@ -22,7 +22,7 @@ TARGET REPO: .
   Personality (scored attributes on an owner-ratified scale): quick 5/5 · modest 4/5 · BRIEF{ anchor:"Personality scale" }
   Differential scales (formal↔casual): casual-leaning · BRIEF{ none — compiled, hypothesis }
   Resonance: honest scrappiness · BRIEF{ none — compiled, hypothesis }
-  VALUE TRADE-OFFS: none · BRIEF{ verbatim:"none were named" }
+  VALUE TRADE-OFFS: none · BRIEF{ anchor:"Trade-offs: none were named" }
   VOICE-EXEMPLARS (per audience): none
   PROPOSED (quarantine — only what the owner asked the scoper to draft): tagline draft → "a demo, honestly" · PROVENANCE{ source:proposed · confidence:hypothesis } · gap: tagline pending ratification
 

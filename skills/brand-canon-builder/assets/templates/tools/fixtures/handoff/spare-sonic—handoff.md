@@ -22,7 +22,7 @@ TARGET REPO: .
   Personality (scored attributes on an owner-ratified scale): warm 5/5 · quiet 4/5 · BRIEF{ anchor:"Personality scale" }
   Differential scales (formal↔casual): mid · BRIEF{ none — compiled, hypothesis }
   Resonance: intimacy · BRIEF{ none — compiled, hypothesis }
-  VALUE TRADE-OFFS: none · BRIEF{ verbatim:"none were named" }
+  VALUE TRADE-OFFS: none · BRIEF{ anchor:"Trade-offs: none were named" }
   VOICE-EXEMPLARS (per audience): none
   PROPOSED (quarantine — only what the owner asked the scoper to draft): none
 
@@ -57,7 +57,7 @@ TARGET REPO: .
 
 — CORE-ASSET FIDELITY CONTRACT (this brand's must-haves) —
   sonic-mark: present build-grade (reference recording)
-  NON-WAIVABLE even in v0/DEMO: the brand's PRIMARY-IDENTITY CARRIER(S) — sonic-mark (no visual mark: where the build has no build-grade producer for the sonic medium, that carrier is a DECLARED fidelity-blocking GAP — never a false-fail on a visual mark this brand does not lead with) · graphic-code: not-used(owner-declared)
+  NON-WAIVABLE even in v0/DEMO: the brand's PRIMARY-IDENTITY CARRIER(S) — sonic-mark (no visual mark: where the build has no build-grade producer for the sonic medium, that carrier is a DECLARED fidelity-blocking GAP — never a false-fail on a visual mark this brand does not lead with) · graphic-code: not-used(owner-declared) · BRIEF{ verbatim:"no pattern" }
 
 — GAPS (client-language; builder formalizes to GAP-NNN) —
   reading typeface — why: never chosen · severity:MUST · provenance:handoff-deliberate · proposed: owner picks a libre face
@@ -70,7 +70,7 @@ TARGET REPO: .
 
 NOTES: synthetic fixture handoff (Fixture Gamma) — sonic-primary SPARE brand: spare stays spare (not-used respected, zero invented system); the non-visual primary carrier resolves to a declared fidelity-blocking GAP. Zero real brand content.
 
-WIRE-CHECK: markers:17 · verified:15 · demoted:2 · misses:none
+WIRE-CHECK: markers:18 · verified:16 · demoted:2 · misses:none
 
 — SIGNED BRIEF (verbatim; ALWAYS the LAST block of the wire — everything from this header to the end of the fence is the signed Final Brand Brief text, byte-faithful) —
 Final Brand Brief — Fixture Gamma (signed 2026-01-25 by demo-owner-c, in-session)

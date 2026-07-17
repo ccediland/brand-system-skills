@@ -84,12 +84,19 @@ TARGET REPO: <real path | "create repo <name>">
 
 — WHY (essence) — RATIFIED{ by:<owner name/role | proxy:<who, for whom>> · how:<in-session sign-off | written approval (cited)> · date:<ISO> }   (a RECORD of the signing act, not a label: it confers NO status on the text — every content line carries its own `BRIEF{}` lineage tag below; the builder inherits per LINE, never per wrapper) —
   Category/positioning: <…> · BRIEF{ verbatim:"<quote>" | anchor:"<brief fragment>" | none — compiled, hypothesis }
-  Audience: <…> · BRIEF{ … }   Feel (is / never): <…> · BRIEF{ … }   Anti-promise: <…> · BRIEF{ … }
-  One line (onliness): <…> · BRIEF{ … }   RTB: <…> · BRIEF{ … }   Voice (register/lexicon/don'ts): <…> · BRIEF{ … }
+  Audience: <…> · BRIEF{ … }
+  Feel (is / never): <…> · BRIEF{ … }
+  Anti-promise: <…> · BRIEF{ … }
+  One line (onliness): <…> · BRIEF{ … }
+  RTB: <…> · BRIEF{ … }
+  Voice (register/lexicon/don'ts): <…> · BRIEF{ … }
   Personality (scored attributes on an owner-ratified scale — ANY scale the owner ratifies or the scoper derives from the profile; a named framework is an illustration, never a required input): <…> · BRIEF{ … }
-  Differential scales (formal↔casual etc.): <…> · BRIEF{ … }   Resonance: <…> · BRIEF{ … }
-  VALUE TRADE-OFFS: <1–2 owner-confirmed "when trading X vs Y the brand chooses Z" | none> · BRIEF{ … }
-  (every WHY content line ends in ONE `BRIEF{}` tag — `verbatim:"<quote>"` = the content IS the signed words (the quote must appear in the SIGNED BRIEF, whitespace-normalized) · `anchor:"<brief fragment>"` = content compiled FROM that passage (the cited fragment must appear in the SIGNED BRIEF; semantic fidelity of the compilation stays governed by gate 7a + the signing discipline) · `none — compiled, hypothesis` = scoper-shaped without an anchor: LEGAL but the builder inherits it at `hypothesis`, never `handoff-confirmed`. An untagged WHY line is a wire defect — the check FAILS it, never inherits silently.)
+  Differential scales (formal↔casual etc.): <…> · BRIEF{ … }
+  Resonance: <…> · BRIEF{ … }
+  VALUE TRADE-OFFS: <1–2 owner-confirmed "when trading X vs Y the brand chooses Z" | none> · BRIEF{ … — a declared `none` cites the brief line that records the absence (anchor), same as any value }
+  (ONE field per physical line in the emitted wire — a tagged field never immunizes an untagged neighbor on
+  the same line; a PROVENANCE{}/BRIEF{}/`confidence:` unit never splits across physical lines.)
+  (every WHY content line ends in ONE `BRIEF{}` tag — `verbatim:"<quote>"` = the content IS the signed words: the quote must appear in the SIGNED BRIEF **and in the line content it certifies** (whitespace-normalized, both machine-checked — a real brief quote never legitimizes DIFFERENT content) · `anchor:"<brief fragment>"` = content compiled FROM that passage (the cited fragment must appear in the SIGNED BRIEF; semantic fidelity of the compilation stays governed by gate 7a + the signing discipline — this is the honest tag for a `none`/summary value line) · `none — compiled, hypothesis` = scoper-shaped without an anchor: LEGAL but the builder inherits it at `hypothesis`, never `handoff-confirmed`. An untagged WHY line is a wire defect — the check FAILS it, never inherits silently.)
   VOICE-EXEMPLARS (per audience): <audience> → on-brand:<utterance> / off-brand:<utterance> · PROVENANCE{ confidence:<owner-confirmed | hypothesis> } · BRIEF{ … — required at owner-confirmed } | none
   PROPOSED (quarantine — only what the owner asked the scoper to draft): <slot> → <draft value> · PROVENANCE{ source:proposed · confidence:hypothesis } · gap:<client-language gap this rides> | none   (quarantine channel UNCHANGED from v5 — `BRIEF{}` never applies here; a proposal's lineage is its `source: proposed` label)
 
@@ -98,7 +105,7 @@ TARGET REPO: <real path | "create repo <name>">
     · PROVENANCE{ source:<declared-spec|owner-stated|extracted-vector|computed-css|design-file|matched|traced|inferred|proposed> · confidence:<hypothesis|corroborated|verified-primary|proxy-relayed|handoff-confirmed|owner-confirmed> · owner:<who ratifies> · freshness:<shipped|stated-old> }   (handoff-confirmed is a BUILDER-side inheritance label — the scoper never stamps it. A WHAT slot at `confidence:owner-confirmed` ALSO carries `· BRIEF{ verbatim:"…" | anchor:"…" }` — its ratification came through the gate-6 promote the signed brief records; slots at hypothesis/corroborated/proxy-relayed/verified-primary are exempt: their evidence is material/sourceRefs, not the brief)
   mark forms present: <wordmark/symbol/lockup/secondary/monogram/seal>
   per-mark GEOMETRY (owner-provided + PROVENANCE; builder Stage 6 reads, does not re-hunt):
-    <mark>: clear-space:<… | none> · min-size digital:<… | none> · min-size physical:<… | none> · construction-ref:<repo pointer | none> · PROVENANCE{ confidence:<owner-confirmed | proxy-relayed | hypothesis> }   (geometry is factual — a proxy may confirm it)
+    <mark>: clear-space:<… | none> · min-size digital:<… | none> · min-size physical:<… | none> · construction-ref:<repo pointer | none> · PROVENANCE{ confidence:<owner-confirmed | proxy-relayed | hypothesis> }   (geometry is factual — a proxy may confirm it at `proxy-relayed`; a geometry row at `owner-confirmed` carries `· BRIEF{ … }` like any WHAT slot — the promote left its record in the brief)
   per-font: <face>: license:<declared SPDX/license id (e.g. OFL-1.1, Apache-2.0, Ubuntu) | owner-supplied | unlicensed→GAP>
 
 — HOW (grammar) —
@@ -106,7 +113,7 @@ TARGET REPO: <real path | "create repo <name>">
   generative-rule seeds (if/then): <e.g. if mode=dark then surface=elevated | none stated>
 
 — TREATMENTS (visual/textural, for the reproduction router) —
-  <treatment>: observed-on:<manifest item> · route-hint:<procedural|generative|vector-trace|raster-required|unknown> · PROVENANCE{ confidence:<hypothesis|corroborated|verified-primary|proxy-relayed|handoff-confirmed|owner-confirmed> } · none
+  <treatment>: observed-on:<manifest item> · route-hint:<procedural|generative|vector-trace|raster-required|unknown> · PROVENANCE{ confidence:<hypothesis|corroborated|verified-primary> } · none   (observations for the router — a capability-class block outside the ratified tiers by doctrine, so its enum stops at the evidence-earned tier; a ratified treatment is a WHAT/GRAMMAR matter)
 
 — DIMENSION MAP (every dimension resolves; none skipped silently; scoper owns completeness) —
   <dimension>: <filled | not-used(owner-declared) · BRIEF{ verbatim:"<confirming quote>" } | tagged-gap>
@@ -121,9 +128,12 @@ TARGET REPO: <real path | "create repo <name>">
 
 — POSTURE (guardrail layer; detected, not hardcoded; `profile` is an OPEN capability class — record an unlisted posture verbatim) —
   profile:<low-profile|high-visibility|regulated|activist|playful|b2b-formal|<other-detected>  (illustrative set, not a closed list)> · visibility:<low|moderate|high — ONE literal, never a range> · audiences:<ordered priority list> · regulatory:<named instrument — owner-stated (cited) | →GAP | none>  (owner-stated-or-GAP, never memory-asserted — EH-2) · stance:<takes positions | neutral> · never-topics:<owner-stated value | owner-declared none | →GAP> · refusal-style:<owner-stated value | owner-declared none | →GAP>
-  ("n/a" is NOT a wire literal — anywhere: it is ambiguous between not-applicable and not-elicited, the
-  exact exploit class. An unelicited posture field ships `→GAP`, and every `→GAP` posture field REQUIRES a
-  GAPS-block row naming that field — born-gap ships visibly, never as a placeholder.)
+  ("n/a" is NOT a wire field value: it is ambiguous between not-applicable and not-elicited, the exact
+  exploit class (client prose inside a verified `BRIEF{}` quote is exempt — the check strips tag contents).
+  An owner-declared `none` on a posture field is EH-1 agent-gate territory (declared exemption: no machine
+  quote demanded here — only the DIMENSION MAP's not-used rows carry machine-checked citations). An
+  unelicited posture field ships `→GAP`, and every `→GAP` posture field REQUIRES a GAPS-block row naming
+  that field — born-gap ships visibly, never as a placeholder.)
 
 — CORE-ASSET FIDELITY CONTRACT (this brand's must-haves) —
   <core slot>: <present build-grade | GAP low-fi/pointer-only/absent → fidelity-blocking>
@@ -131,7 +141,7 @@ TARGET REPO: <real path | "create repo <name>">
   (Where the build has no build-grade producer for the resolved carrier's medium, that carrier is a DECLARED fidelity-blocking GAP per its role — never a false zero-tolerance fail on a visual mark the brand does not lead with, and never a silent pass.)
 
 — GAPS (client-language; builder formalizes to GAP-NNN) —
-  <what's missing> — why:<…> · severity:<MUST/SHOULD/NICE> · provenance:<handoff-deliberate|handoff-defect|builder|skill-scope> · proposed:<…>
+  <what's missing> — why:<…> · severity:<MUST/SHOULD/NICE> · provenance:<handoff-deliberate|handoff-defect|builder|skill-scope> · proposed:<…> · field:<posture-field — REQUIRED on the row that ships a posture →GAP: the machine carrier the wire-check matches (GAPS prose stays client-language; the carrier is wire furniture)>
 
 — OPTIONAL (every dimension resolves EXPLICITLY — no skill default ever fills a slot; in v0/DEMO the scoper resolves momentum dims to demo-default-yes and scope-expanding dims to demo-default-no, as WRITTEN values) —
   <dimension>: not used | demo-default-yes | scope-expanding(demo-default-no)
@@ -175,12 +185,16 @@ hardens an older one, the newer wins.
   `source: proposed · confidence: hypothesis` riding a client-language gap — labeled, operative, never
   canon until ratified. An unlabeled scoper-authored value is a contract defect.
 - **The wrapper confers nothing; lines prove their lineage (v6).** `RATIFIED{by·how·date}` records the
-  signing ACT only. Every WHY content line, every `not-used(owner-declared)` row, every owner-confirmed
-  VOICE-EXEMPLAR and WHAT slot carries its own `BRIEF{}` tag: `verbatim:"<quote>"` (the quote must appear
-  in the SIGNED BRIEF, whitespace-normalized) · `anchor:"<brief fragment>"` (the cited passage must appear;
-  the compilation's semantic fidelity stays a gate-7a/signing-discipline matter — the machine proves the
-  anchor EXISTS) · `none — compiled, hypothesis` (legal, DEMOTED: the builder inherits `hypothesis`, never
-  `handoff-confirmed`). An untagged line in tag scope is a wire defect — the check FAILS it. This is the
+  signing ACT only. Every WHY content line, every `not-used(owner-declared)` row (WHEREVER the literal
+  appears — DIMENSION MAP or any other block: the literal carries its quote wherever it mints), every
+  owner-confirmed VOICE-EXEMPLAR and WHAT slot carries its own `BRIEF{}` tag: `verbatim:"<quote>"` (the
+  quote must appear in the SIGNED BRIEF, case-exact, whitespace-normalized — AND in/covering the wire
+  content it certifies: the content-bind) · `anchor:"<brief fragment>"` (the cited passage must appear and
+  carry substance; the compilation's semantic fidelity stays a gate-7a/signing-discipline matter — the
+  machine proves the anchor EXISTS) · `none — compiled, hypothesis` (legal, DEMOTED: the builder inherits
+  `hypothesis`, never `handoff-confirmed`). An untagged line in tag scope is a wire defect — the check
+  FAILS it; a tag that does not parse to one of the three forms certifies nothing and FAILS. Signed words
+  that contain an ASCII quote are carried with the alternate delimiter `«…»`. This is the
   compilation-seam fix: nothing enters ratified carriers unlabeled after the owner's last checkpoint.
 - **Vocabulary is sanctioned; drift is a defect (v6).** Enum fields carry ONE literal from their set —
   never ranges (`low-moderate`), compounds (`font-match/trace`), placeholders (`PENDIENTE`), or "n/a"
@@ -250,8 +264,16 @@ point — text-before-signature guarantees the brief; the wire was just compiled
    owner-confirmed VOICE-EXEMPLARS and WHAT slots) — plus a sweep for UNTAGGED lines in scope (an untagged
    line is fixed or demoted NOW, never emitted).
 2. **Verify each.** `verbatim`/`anchor` quotes: located in the signed brief text (whitespace-normalized,
-   exact wording). A miss has exactly two honest exits: FIX the tag (the line's real lineage — often
-   `none — compiled, hypothesis`) or FIX the line (re-quote what the brief actually says). Never emit a miss.
+   CASE-EXACT wording — verbatim means verbatim) — and a `verbatim` quote ALSO present in AND covering the
+   value it certifies (the content-bind: a real quote never legitimizes different content, and a signed
+   fragment embedded in compiled prose is anchor-or-demote territory; WHAT slots bind over the whole slot
+   record; not-used rows are EXEMPT from the content-bind — their quote is the owner's declaration,
+   external to the row text). An `anchor` needs substance (≥ 2 words · ≥ 12 chars; the brief's title is not
+   an anchor). A miss has exactly two honest exits: FIX the tag (the line's real lineage — often `anchor`
+   for a compiled/none value, or `none — compiled, hypothesis`) or FIX the line (re-quote what the brief
+   actually says). Never emit a miss. (Scope note: ANY tag present on a VOICE-EXEMPLARS line is walked; the
+   check proves INTERNAL consistency — the brief's authenticity is the Stage-0 hash + signing discipline,
+   never this walk.)
 3. **Declare the result.** Write the `WIRE-CHECK:` line — `markers` (tags walked) · `verified`
    (verbatim/anchor hits) · `demoted` (`none — compiled, hypothesis` lines) · `misses` (MUST be `none` at
    emission; a wire emitted with misses is a contract defect).
@@ -284,7 +306,7 @@ candidate for mechanization; the registry never claims a gate that does not exis
 | `existing-component-stack:` | kit shape read, never re-hunted | agent-gate (Stage 8) |
 | POSTURE `regulatory:` | seeds the keystone guardrail + the regulated red-team gate | agent-gate (Stage 8.5 + Stage 10 — §7b evidence committed) |
 | `consultation-surface: always-required` | the external-review gate never resolves away | agent-gate (scoper gate 5, unconditional) |
-| `— SIGNED BRIEF —` appendix (last block) | Stage 0 splits it to `sources/brief—<date>.md` + CHECKSUMS; ratification markers with NO appendix = FAIL | lint (tools/wire-check.mjs — Stage 0 + run-gates row) |
-| `BRIEF{}` per-line lineage tags | untagged line in scope FAILS; `verbatim`/`anchor` quotes must appear in the signed brief; `none` demotes to hypothesis; `not-used(owner-declared)` requires its confirming quote | lint (tools/wire-check.mjs) |
+| `— SIGNED BRIEF —` appendix (exactly ONE, the last block) | ratification markers with NO appendix = FAIL; a duplicate/early header = FAIL (structure) | agent-gate (Stage 0 — the split to `sources/brief—<date>.md` + CHECKSUMS) + lint (tools/wire-check.mjs — Stage 0 run + run-gates row) |
+| `BRIEF{}` per-line lineage tags | untagged line in scope FAILS; an unparseable tag FAILS; `verbatim` quotes must appear in the signed brief AND in/covering the certified content (content-bind; not-used rows exempt); `anchor` needs substance; `none` demotes to hypothesis; `not-used(owner-declared)` requires its confirming quote wherever it appears (a duplicated citation is a blanket) | lint (tools/wire-check.mjs) |
 | `WIRE-CHECK:` declared counts | recomputed from the persisted artifacts; discrepancy = hand-written check, FAIL | lint (tools/wire-check.mjs) |
 | Wire vocabulary (single-literal enums · no "n/a" · `NEW-INGEST:` declaration for open-class extension · posture `→GAP` ⇒ GAPS row) | out-of-vocabulary literal FAILS with its class named | lint (tools/wire-check.mjs) |

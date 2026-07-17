@@ -42,7 +42,8 @@ colors. Each datum carries four fields:
   `confidence: corroborated` token is the exact contradiction the lint rejects); and **anything above
   `hypothesis` requires a hashed, path-bound source-of-record** (R3). **The builder never stamps
   `owner-confirmed` on handoff authority alone:** ratification carried by the handoff enters the build as
-  `handoff-confirmed` (or stays `proxy-relayed` as carried — the weaker label survives, it is not
+  `handoff-confirmed` PER its line's VERIFIED `BRIEF{}` tag — a `none — compiled` line enters `hypothesis`
+  (or stays `proxy-relayed` as carried — the weaker label survives, it is not
   re-labeled); `owner-confirmed` in the emitted repo requires a ratification the build witnessed/committed.
 - **owner** — who ratifies it (the Accountable for that slot, from the handoff `OWNERS`).
 - **freshness** — the pinned value enum `shipped | stated-old` (`shipped` = fresh/live; `stated-old` =
