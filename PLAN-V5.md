@@ -5,7 +5,7 @@ last_updated: 2026-07-16
 applies_to: ccediland/brand-system-skills — baseline v0.4.0 @ 65932bb → target v0.5.0
 status: "CICLO v5 CERRADO — gate final corrido 2026-07-16 (PR del gate abierto; merge espera OK del operador)"
 etapa_vigente: "E4 CERRADA — ciclo v5 completo"
-next_action: "Ronda pre-plan v6 (análisis §16b) sobre los insumos del gate: failure-gallery-v5 (15 hallazgos; candidato PRINCIPAL de mecanismo = verbatim-check compilado-vs-brief de EV1-F13; candidatos de mecanismo = gate-3.5 emite-o-waive-con-ledger + barrido de dimensiones pre-brief de EV1-F01/F02) + pendientes EV1-F11 (re-baseline E3 del golden: audit/redteam/expected-refusal-contract.md, LOCAL; adjudicar kit-slot↔plantillas-redes). Forense: stress-v5-runs/veredicto-ev1—2026-07-16.md (LOCAL-ONLY)."
+next_action: "Ciclo v6 abierto — PLAN-V6.md definitivo (2026-07-16); etapa vigente F1."
 ---
 
 # PLAN v5 — brand-system-skills
