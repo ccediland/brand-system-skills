@@ -32,9 +32,12 @@ promoted, it stays as projection rationale, not canon.
 
 - **Tokens:** DTCG `tokens/` in three tiers — `base.tokens.json` / `semantic.tokens.json` / `component.tokens.json`
   (the standard DTCG base/semantic/component convention). `usesDtcg:true`.
-- **Color spine:** OKLCH literal in `$value`. Consumers MUST emit `oklch()` via an OKLCH-preserving
-  transform — never `color/css` or a `transformGroup:'css'` (those gamut-map to sRGB and discard the
-  OKLCH precision). Other color spaces are read from `$extensions.brand.spaces`, honoring the
+- **Color spine:** structured-OKLCH object in `$value` (C-1). A string-only consumer (e.g. Style
+  Dictionary v5, which rejects object `$value`) ingests the DERIVED string projection instead:
+  `node tools/tokens-project.mjs` → `tokens/web/` — plain-string `oklch()` `$value`, C-1-serializer
+  parity, custody-recorded. Consumers MUST keep OKLCH via an OKLCH-preserving transform — never
+  `color/css` or a `transformGroup:'css'` (those gamut-map to sRGB and discard the OKLCH precision).
+  Other color spaces are read from `$extensions.brand.spaces`, honoring the
   `source:"authored"|"derived"` flag (authored print values are truth and are not re-derived from OKLCH).
 - **Aliases:** `{tier.category.name}`, no `.value` suffix, pointing to a leaf.
 - **Escape valve:** stack-specific needs (a framework theme block, a shader uniform, a runtime) are

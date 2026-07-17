@@ -175,7 +175,7 @@ equivalent fields before proceeding.)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
 root (`README.md`, `CLAUDE.md`, `RESIDENT.md`), `tokens/*` into `tokens/`, and `tools/*` into `tools/`
 (`run-gates.mjs` — the Stage-10 suite runner + status board; `audit-lint.mjs` — the provenance/completeness
-gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
+gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `tokens-project.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
 archived-source recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
 a seeded-violation sample), not client material. Create `assets/` (source
 binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the
@@ -269,8 +269,12 @@ palette is a `hypothesis` proposal pending owner confirmation). Author `tokens/b
 authored/derived `$extensions` + `$extensions.brand.provenance` {source, confidence, owner, freshness} on
 EVERY token — `authored|derived` is source-only and orthogonal to the confidence ladder), `tokens/semantic.tokens.json`
 (role aliases), `tokens/component.tokens.json` (optional).
-Keep `$value` plain strings, aliases as `{tier.category.name}`, category names on the namespace convention.
+Colour `$value` is the structured-OKLCH object (C-1); composite values (shadows) stay plain strings; aliases
+as `{tier.category.name}`, category names on the namespace convention.
 Derive any additional scheme (dark, high-contrast, sub-brand) at the `semantic` tier via the OKLCH engine.
+Emit the consumer STRING projection — `node tools/tokens-project.mjs` → `tokens/web/` (plain-string `$value`
+for string-only consumers, e.g. astro-css-tokens; a DERIVED artifact: custody-recorded in `sources/MANIFEST.json`,
+`operator` class in the surfaces manifest — the spine stays the single source of truth).
 Emit motion/depth tokens if the brand uses them (DTCG-valid even without a current consumer); omit for a
 flat/print-only brand.
 

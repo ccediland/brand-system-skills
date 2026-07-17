@@ -11,9 +11,20 @@
     },
     {
       "file": "assets/sting.mp3",
-      "parent": { "url": "https://example.invalid/ep.mp3", "sha256": "2222222222222222222222222222222222222222222222222222222222222222" },
+      "parent": {
+        "url": "https://example.invalid/ep.mp3",
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
       "method": "cut",
       "locator": "00:19:26.9-00:19:34.0"
+    },
+    {
+      "file": "tokens/web/base.json",
+      "parent": {
+        "file": "sources/handoff—2026-01-05.md",
+        "sha256": "9a16c4b307c9697bbacdedb17d728eb219c4f71f457021e03efa1878fe130380"
+      },
+      "tool": "tokens-project.mjs"
     }
   ]
 }

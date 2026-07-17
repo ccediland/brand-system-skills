@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {
+      "file": "tokens/web/base.json",
+      "parent": {
+        "file": "tokens/base.tokens.json",
+        "sha256": "0a5dd1e4c6af0740c9c772dd5f8edf83997a5ad2cc0ac2357999860c1daebb3e"
+      },
+      "tool": "tokens-project.mjs"
+    },
+    {
+      "file": "tokens/web/semantic.json",
+      "parent": {
+        "file": "tokens/semantic.tokens.json",
+        "sha256": "8bbb60ee6a79b6ce3cb369eef696574c64deeede2d374fef9233c630fc55081c"
+      },
+      "tool": "tokens-project.mjs"
+    },
+    {
+      "file": "tokens/web/component.json",
+      "parent": {
+        "file": "tokens/component.tokens.json",
+        "sha256": "6823f2b5e81a54b9eaecd43d79f9d996439e7da8b36c5d96630fa49cd9bfde34"
+      },
+      "tool": "tokens-project.mjs"
+    }
+  ]
+}

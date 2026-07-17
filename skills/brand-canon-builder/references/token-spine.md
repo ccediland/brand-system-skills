@@ -47,6 +47,17 @@ and tagged too; it defines the role-key parity. A scheme marked `status:"deferre
 logged `GAP-NNN` instead. `audit-lint` R7 enforces this (complete set OR deferred+GAP). The Resolver Module
 (DTCG draft) remains a controlled convention layered over these sets — never raw SD `.resolver.json` (#1590).
 
+**Consumer STRING projection (`tools/tokens-project.mjs`).** String-only consumers (Style Dictionary v5
+rejects object `$value` — SD #1398/#1494; the web-stack `astro-css-tokens` contract requires plain-string
+`$value`) never ingest the spine directly: `node tools/tokens-project.mjs` writes `tokens/web/{base,semantic,
+component}.json` — the same tree with every structured-OKLCH `$value` serialized to its C-1 canonical string
+(`oklch(L C H)` / `oklch(L C H / a)`; byte-parity with the audit-lint serializer), `hex` fallback NOT
+propagated (the consumer's no-fallback OKLCH policy), `$extensions` dropped (values only — provenance lives
+in the spine), aliases/dimensions/stacks untouched. It is a DERIVED artifact: custody-recorded in
+`sources/MANIFEST.json` (in-repo parent path + sha256 — the custody gate recomputes the parent hash, so a
+stale projection FAILS) and `operator`-classed in the surfaces manifest. The spine stays the single source
+of truth; the projection is regenerated, never edited.
+
 ## Authoring rules (hard)
 
 - `usesDtcg: true` — DTCG `$type` / `$value` syntax (not legacy `value`).

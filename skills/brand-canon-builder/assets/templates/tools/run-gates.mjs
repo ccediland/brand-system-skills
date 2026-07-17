@@ -39,6 +39,7 @@
 // labeled as such on the board — the linter never chooses its own scope silently.
 
 import { readFileSync, readdirSync, existsSync, statSync, mkdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join, resolve, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -255,7 +256,16 @@ const failLine = (s) => {
       if (!e || typeof e !== 'object') { probs.push('malformed MANIFEST entry (not an object)'); continue; }
       const url = e.url ?? (e.parent && e.parent.url);
       const hash = e.sha256 ?? (e.parent && e.parent.sha256);
+      const inRepoParent = !url && e.parent && e.parent.file; // derived-from-spine projection (in-repo parent)
       if (!e.file) probs.push('MANIFEST entry with no file');
+      else if (inRepoParent) {
+        // in-repo parent custody is VERIFIED, not declared: the recorded parent hash must match the
+        // parent file as it exists NOW — a stale projection (spine moved on) FAILS here.
+        if (!e.parent.sha256) probs.push(`MANIFEST entry ${e.file}: in-repo parent ${e.parent.file} with no sha256 — custody dies with the feed`);
+        else if (!existsSync(join(ROOT, e.parent.file))) probs.push(`MANIFEST entry ${e.file}: in-repo parent ${e.parent.file} does not exist`);
+        else if (createHash('sha256').update(readFileSync(join(ROOT, e.parent.file))).digest('hex') !== e.parent.sha256)
+          probs.push(`MANIFEST entry ${e.file}: STALE derived artifact — parent ${e.parent.file} hash mismatch (re-run the emitting tool)`);
+      }
       else if (!url) probs.push(`MANIFEST entry ${e.file}: no parent url — custody dies with the feed`);
       else if (!hash) probs.push(`MANIFEST entry ${e.file}: no parent hash (sha256) — custody dies with the feed`);
     }

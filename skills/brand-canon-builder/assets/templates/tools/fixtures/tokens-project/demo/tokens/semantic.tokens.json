@@ -1,0 +1,8 @@
+{
+  "semantic": {
+    "color": {
+      "$type": "color",
+      "primary": { "$value": "{base.color.brand-1}", "$description": "alias string — passes through untouched" }
+    }
+  }
+}
