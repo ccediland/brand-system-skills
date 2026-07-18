@@ -135,7 +135,9 @@ carries):
   `none — compiled` → `hypothesis`; an untagged line in scope = wire defect, the wire-check STOPPED it),
   never `owner-confirmed` on handoff text alone, never per wrapper. The builder never
   re-elicits or re-infers the WHY; a GAP in the handoff stays a GAP; a `PROPOSED` line lands in quarantine
-  (`source: proposed` + `hypothesis` + its GAP). The voice/value carriers feed Stage 8.5 AT the confidence
+  (`source: proposed` + `hypothesis` + its GAP) — the builder MAY materialize working drafts from it that
+  INHERIT that status (`references/gap-protocol.md` § Draft-from-recommendation: nothing rises by
+  materialization; ratify = a recorded owner act, adjust stays proposed). The voice/value carriers feed Stage 8.5 AT the confidence
   their line's `BRIEF{}`/`PROVENANCE` earned: `Personality
   (scored)` / `Differential scales` / `Resonance` seed the keystone's THINK/SPEAK; `VALUE TRADE-OFFS` →
   keystone §2 trade-off rules; `VOICE-EXEMPLARS` → keystone §3 few-shot pairs. Where a carrier is `none`, the

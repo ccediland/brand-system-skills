@@ -123,7 +123,10 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   brief = FAIL; no markers + no brief + vocab clean =
   N/A declared (an all-empty CREATE wire never false-blocks — W-15). Run at Stage 0 (persist time) and as a
   run-gates row. LIMIT: proves internal consistency (wire ↔ carried brief); authenticity = Stage-0 hash +
-  signing discipline. Fixtures: `tools/fixtures/wire-check/` (6 FAIL + 1 N/A + the 3 handoff fixtures PASS).
+  signing discipline. Fixtures: `tools/fixtures/wire-check/` (8 FAIL + 1 N/A + the 3 handoff fixtures PASS);
+  mode acceptance in `tools/fixtures/gates/`: `create-empty/` (all-empty CREATE wire → N/A, never false-blocked)
+  and `t2-proposed/` (EXTEND/RECOMMEND twins: quarantined proposals PASS clean; a proposal canonized without a
+  ratification act FAILs audit-lint R2/R3/R5).
 - **`node tools/tokens-project.mjs [repo-root]`** — the **consumer STRING projection** (zero-dep Node): reads
   the spine (`tokens/*.tokens.json`) and writes `tokens/web/{base,semantic,component}.json` with every
   structured-OKLCH `$value` serialized to its C-1 canonical string (`oklch(L C H)` / `oklch(L C H / a)`;

@@ -90,6 +90,30 @@ Hard rules:
   corroboration count. The persisted handoff (`sources/handoff—<date>.md`, the top of the chain of custody)
   removes the legitimate need for relays: cite it directly instead of transcribing it.
 
+## Draft-from-recommendation — materializing a quarantined proposal (the T2 flow)
+
+An EXTEND/RECOMMEND (T2) handoff is an ANALYZE wire whose owner invited extension proposals: they arrive
+in the WHY `PROPOSED` line(s) (or a WHAT slot at `source: proposed`), each riding a client-language gap.
+The builder MAY materialize working drafts from them — tokens, a treatment render, kit cards, prototype
+surfaces — so the owner has something concrete to react to. The rules:
+
+- **Everything materialized inherits the proposal's status**: `source: "proposed"` ·
+  `confidence: "hypothesis"` (R2-forced), riding the SAME open GAP the proposal rode in on (several
+  artifacts may back-reference one gap — one proposal, one gap). The scoper's gap keeps its
+  `handoff-deliberate` origin; a draft the builder itself originates is `builder`-origin — same channel,
+  same cap.
+- **Materialization confers NOTHING.** Rendering a draft, committing it, shipping it in the prototype —
+  none of it is ratification; the draft and every derivative stay quarantined (`audit-lint` R2/R5 hold
+  the cap and the gap-linkage mechanically). Analyzed-existing values keep their original provenance —
+  a draft never upgrades, edits, or re-labels a neighbor, and a ratified line is never re-litigated by a
+  proposal (a GAP in the handoff stays a GAP until the OWNER's act closes it).
+- **The ratification loop — post-first-feedback.** The owner's first feedback on a draft has exactly two
+  exits: **RATIFY** — a witnessed, recorded act (`sources/ratification—<date>.md`, hashed into
+  `CHECKSUMS.txt` — the `owner-confirmed` record shape above): the gap moves to `CLOSED (ratified)` and
+  the value's provenance rises to `owner-confirmed` with that sourceRef (R3); or **ADJUST** — a revised
+  draft value, still `proposed` + `hypothesis`, gap OPEN. Silence, enthusiasm in prose, or the owner
+  USING the draft promote nothing — the scoper's curator wall, inherited here as written.
+
 ## Logging a gap
 
 Add a row to the Open Items / Gaps table in `RESIDENT.md`:

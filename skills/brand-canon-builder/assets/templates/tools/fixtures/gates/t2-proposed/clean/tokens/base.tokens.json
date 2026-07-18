@@ -1,0 +1,14 @@
+{
+  "color": {
+    "accent-seasonal": {
+      "$type": "color",
+      "$value": { "colorSpace": "oklch", "components": [0.68, 0.09, 45], "alpha": 1, "hex": "#c17a5e" },
+      "$extensions": {
+        "brand": {
+          "provenance": { "source": "proposed", "confidence": "hypothesis", "owner": "demo-owner-d", "freshness": "stated-old" },
+          "gap": "GAP-001"
+        }
+      }
+    }
+  }
+}
