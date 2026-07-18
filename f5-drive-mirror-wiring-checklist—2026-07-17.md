@@ -1,10 +1,11 @@
-# F5 — Drive-mirror wiring checklist (round-trip gate runbook)
+# Drive-mirror — user acceptance (optional)
 
 > Derived from the code (`tools/drive-mirror.mjs` + `.github/workflows/drive-mirror.yml`), not from memory of
-> Google's UI. The operator runs this against a REAL brand repo + a REAL Drive to close gate F5 (the live
-> sha256 round-trip that no fixture can prove). E-O1: this is NOT run here — the tool ships tested offline;
-> the live leg is the operator's to exercise. The mirror is EMITTED per repo; every account/folder below is
-> the operator's own, never the tool author's.
+> Google's UI. **The Drive mirror is an OPT-IN capability.** The skill emits + verifies the template offline
+> (`--plan`/`--verify` + fixtures — that is the shipped guarantee); wiring it to a real Drive and running the
+> live sha256 round-trip is the **user's own acceptance step**, not a build/cycle gate. Every account and
+> folder below is the user's own, never the tool author's — a round-trip run by the author would only prove
+> the author's Drive, and E-O1 forbids wiring a brand repo. Run this only if you want the mirror on.
 
 ## What you are proving
 
@@ -80,7 +81,8 @@ repo's default branch is not `main`, edit that one line before relying on it.
 4. Open the shared drive → the folder tree mirrors `satellites/asset-index.md` (a subfolder per `Kind`, or the
    per-row `Drive` column). Each file's checksum matches `CHECKSUMS.txt`.
 
-## What green here certifies (gate F5)
+## What green here certifies (your acceptance, not a cycle gate)
 
-Push → Drive → checksums match on both sides, zero conversion to Google-native formats (W-17). That is the
-live round-trip the offline `--plan`/`--verify` legs and the fixtures could not prove.
+Push → Drive → checksums match on both sides, zero conversion to Google-native formats. That is the live
+round-trip the offline `--plan`/`--verify` legs and the fixtures cannot prove — it depends on YOUR Drive, so
+it is your acceptance step, run once when you turn the mirror on, not a gate the skill runs.

@@ -1,5 +1,10 @@
 # Drive mirror — operation guide
 
+> **This mirror is OPT-IN.** It ships wired but dormant: nothing runs until YOU add the secrets below and turn
+> it on. Activating it (wiring your own Drive and running the first live round-trip) is your own acceptance
+> step — the canon build neither needs it nor blocks on it. To decline the mirror, delete
+> `.github/workflows/drive-mirror.yml`.
+
 The `drive-mirror` GitHub Action (`.github/workflows/drive-mirror.yml`) uploads this repo's **custodied brand
 assets** — every file the asset index (`satellites/asset-index.md`) names that also carries a `CHECKSUMS.txt`
 hash — to a Google **shared drive**, on each push to the default branch, and verifies the round-trip by
