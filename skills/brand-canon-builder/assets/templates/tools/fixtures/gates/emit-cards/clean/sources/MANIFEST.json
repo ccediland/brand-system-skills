@@ -1,0 +1,36 @@
+{
+  "entries": [
+    {
+      "file": "design-sync-kit/cards/01-brand.html",
+      "parent": {
+        "file": "canon/mark.svg",
+        "sha256": "ad38dd64cf973209718c7a63cf46a17c1bc3014a9dc5f4cb2a4c9e315ce8c9dc"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/02-color.html",
+      "parent": {
+        "file": "tokens/base.tokens.json",
+        "sha256": "db616d2bf261c048bc5b4bf81747539a14335e95af8839cf304cd5ba0bd61bea"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/03-type.html",
+      "parent": {
+        "file": "tokens/base.tokens.json",
+        "sha256": "db616d2bf261c048bc5b4bf81747539a14335e95af8839cf304cd5ba0bd61bea"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/04-components.html",
+      "parent": {
+        "file": "tokens/base.tokens.json",
+        "sha256": "db616d2bf261c048bc5b4bf81747539a14335e95af8839cf304cd5ba0bd61bea"
+      },
+      "tool": "emit-cards.mjs"
+    }
+  ]
+}

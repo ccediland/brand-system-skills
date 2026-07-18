@@ -63,6 +63,26 @@ substitute (the honest non-redistributable state), and `styles.css` carries a no
 closure → exit 0/1. It needs no `/design-sync` round-trip, so the Stage-10 gate can run it offline before any
 upload (`validate-audit.md` §3a).
 
+## The offline static cards (`[NO_DIST]` is still reviewable)
+
+The React build above needs a networked `npm install` + a converter round-trip before ANY card renders — so
+`[NO_DIST]` (the honest un-built state) left nothing reviewable in Claude Design. **Stage 8 ALSO runs the
+offline emitter** `node tools/emit-cards.mjs` (zero-dep, no network), which renders self-contained `@dsCard`
+static HTML cards from the canon (tokens + `canon/mark.svg`) to `design-sync-kit/cards/NN-<group>.html` — one
+card per PRESENT layer (Brand if a mark · Color · Type · Components), no React/bundle/converter/**network**.
+This makes `[NO_DIST]` a reviewable handoff state (upload the static cards; the React kit upgrades them in
+place on a later live re-sync — same first-line `@dsCard` registration path). Rules the emitter already holds:
+- **Truly offline** — ZERO remote refs (fonts render via the canon's font STACK with system fallbacks, never a
+  remote `@font-face`; the frozen reference workaround still shipped a CDN font — do not reintroduce it).
+  `emit-cards.mjs --check` re-verifies the offline guarantee ([REMOTE_REF]) + the first-line marker
+  ([DSCARD_MISSING]); it is the run-gates **static cards** row.
+- **Provenance-honest** — a value still uncertain (the R5 test) renders "· provisional" in sanctioned CLIENT
+  vocabulary, never a GAP id / confidence grade / cycle-ID. The cards land under the `design-sync-kit/** |
+  client` surface row, so `client-deny-lint` scrubs them.
+- **Custody** — each card records one `sources/MANIFEST.json` entry per canonical input; a canon change under
+  a card is a STALE custody FAIL (re-run the emitter). The mark instance carries `id="brand-mark"` so
+  `audit-lint` R6b reconciles it against `canon/mark.svg`.
+
 ## `.design-sync/config.json` (emit ONLY live-valid keys)
 
 Top-level keys are validated strictly: an unknown or removed key fails the run with a named fix, and

@@ -1,0 +1,14 @@
+{
+  "color": {
+    "$type": "color",
+    "ink":   { "$value": { "colorSpace": "oklch", "components": [0.28, 0, 0], "alpha": 1, "hex": "#2b2b2b" }, "$extensions": { "brand": { "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "d", "freshness": "shipped" } } } },
+    "paper": { "$value": { "colorSpace": "oklch", "components": [0.97, 0, 0], "alpha": 1, "hex": "#f6f6f4" }, "$extensions": { "brand": { "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "d", "freshness": "shipped" } } } },
+    "brand": { "$value": { "colorSpace": "oklch", "components": [0.62, 0.16, 150], "alpha": 1, "hex": "#3aa06a" }, "$extensions": { "brand": { "provenance": { "source": "declared-spec", "confidence": "corroborated", "owner": "d", "freshness": "shipped" }, "sourceRef": [ { "file": "sources/a.txt", "sha256": "x" }, { "file": "sources/b.txt", "sha256": "y" } ] } } },
+    "accent-draft": { "$value": { "colorSpace": "oklch", "components": [0.72, 0.14, 60], "alpha": 1, "hex": "#c89a5a" }, "$extensions": { "brand": { "provenance": { "source": "proposed", "confidence": "hypothesis", "owner": "d", "freshness": "stated-old" }, "gap": "GAP-001" } } }
+  },
+  "font-family": {
+    "$type": "fontFamily",
+    "display": { "$value": "\"Demo Display\", Georgia, serif", "$extensions": { "brand": { "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "d", "freshness": "shipped" } } } },
+    "body":    { "$value": "\"Demo Body\", system-ui, sans-serif", "$extensions": { "brand": { "provenance": { "source": "declared-spec", "confidence": "owner-confirmed", "owner": "d", "freshness": "shipped" } } } }
+  }
+}
