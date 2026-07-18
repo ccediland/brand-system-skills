@@ -48,3 +48,18 @@ value-presence test would have short-circuited on the hex and sealed the fabrica
 The strict matcher is content-bind-LOCAL (R1 corroboration keeps its lenient hex-OR-oklch `valueInText`); it
 also word/number-bounds string and numeric matches (a font family "Ares" never ratifies via the substring in
 "shares"; a non-colour value the record never names FAILs instead of a vacuous pass).
+
+`ratified-cross-slot/` — the PATH-BIND twin (OI-K finding 4): a genuine record ratifies
+`color.accent-seasonal` = terracotta, and a DIFFERENT slot `color.brand-primary` reuses that same value
+citing the same record. `node ../../../audit-lint.mjs .` → **exit 1 (FAIL)**: the R3 content-bind is
+PATH-BOUND — it ratifies a token only via a line in `## What was ratified` that names THIS token's slot; the
+section names `color.accent-seasonal`, never `color.brand-primary`. One ratification act does not silently
+ratify every other slot that happens to carry its value.
+
+`ratified-rejected-block/` — the SECTION-SCOPE twin (OI-K finding 1, the exact inversion of the v5 run-2
+failure): the record names the REJECTED darker option in an `## Alternatives considered — NOT chosen` block
+and ratifies the terracotta under `## What was ratified`. `node ../../../audit-lint.mjs .` → **exit 1**: the
+ratified token (`color.accent-seasonal`) PASSES, but the rejected token (`color.accent-dark-rejected`, whose
+value+slot appear ONLY in the alternatives block) FAILS — nothing outside `## What was ratified` ratifies. A
+whole-record value search would have sealed the owner-rejected colour owner-confirmed. A record with no
+`## What was ratified` section at all is malformed → FAIL (never a vacuous pass).

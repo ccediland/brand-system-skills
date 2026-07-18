@@ -118,13 +118,26 @@ surfaces — so the owner has something concrete to react to. The rules:
     **`source: "ratified-proposal"`** (the RATIFY terminal of the proposed lineage: it PRESERVES the
     "was a proposal" origin in the name — **never re-labeled to `owner-stated`, which erases the origin and
     is byte-identical to laundering**) · **`confidence: "owner-confirmed"`** · a **MANDATORY `sourceRef` to
-    that hashed ratification record** · gap **`CLOSED (ratified)`**. The ratification record MUST **NAME the
-    value it ratifies** — `audit-lint` R3's content-bind reads the record's text and FAILs a token whose
-    value the record does not contain (the post-handoff analog of the wire's `BRIEF{}` verbatim: a record
-    ratifying value X does not ratify a token carrying value Y). `ratified-proposal` is the ONE source by
+    that hashed ratification record** · gap **`CLOSED (ratified)`**. `ratified-proposal` is the ONE source by
     which a proposed lineage rises above `hypothesis`; it is earned by the content-bound record, never by a
     label. On the authored↔derived axis it is `authored` (the owner's recorded act makes it owner-declared
     truth). `source: "proposed"` itself stays hypothesis-capped forever (R2) — quarantine, never canon.
+
+    **The ratification record shape (MANDATORY — `audit-lint` R3's content-bind enforces it; the post-handoff
+    analog of the wire's `BRIEF{}` verbatim).** The record MUST carry a **`## What was ratified`** section,
+    and inside it, **one line per ratified token that names BOTH the token's SLOT (its dotted path, e.g.
+    `` `color.accent-seasonal` ``) AND its CANONICAL value on the SAME line** — for a colour the OKLCH
+    components (`` `oklch(L C H)` ``; a hex fallback alone never ratifies), for a dimension the `<value><unit>`,
+    for a string the quoted family. The bind is machine-checked three ways:
+    - **VALUE** — the record must name the token's canonical value (a record naming value X does not ratify a
+      token carrying value Y).
+    - **SLOT (path-bind)** — the value must sit on a line that also names THIS token's path (a record
+      ratifying value X for slot A does not ratify slot B that merely carries X).
+    - **SECTION-SCOPE** — only lines INSIDE `## What was ratified` ratify. A value the owner names in a
+      rejected / "alternatives — NOT chosen" block does NOT ratify it (the exact inversion the reject-block
+      attack exploits). A record with **no `## What was ratified` section is malformed → FAIL** (never a
+      vacuous pass). A record may also carry a rejected-alternatives section for the human record; it is
+      inert to the gate.
   - **ADJUST** — a revised draft value, still `source: "proposed"` + `confidence: "hypothesis"`, gap OPEN.
 
   Silence, enthusiasm in prose, or the owner USING the draft promote nothing — the scoper's curator wall,
