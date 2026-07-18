@@ -126,6 +126,45 @@ downstream (the wire-check's silent-dimension/silent-gap classes: a `tagged-gap`
 brief never names FAILS). The machine guarantees there is ALWAYS an honest resolution, so the downstream
 parse-or-stop on the dimension map never receives an unresolved row from a well-run scoping.
 
+## The EXTEND/RECOMMEND engagement (T2) — hybrid analyze + propose
+
+"Analyze our brand AND propose extensions" is an ENGAGEMENT SHAPE, not a third mode: the wire ships
+`MODE: ANALYZE` (the mode enum is closed), and everything the engagement adds travels in machinery this
+machine and the contract already carry. Two halves, one frame:
+
+- **The analyzed half runs the normal lifecycle.** Every existing dimension resolves exactly as in any
+  ANALYZE engagement — DECIDED / NOT-USED / GAP at its earned status, original provenance conserved. And
+  T2 EXTENDS, it never re-litigates: a proposal never re-opens elicitation of a ratified line; one that
+  would CONTRADICT a ratified line is surfaced as the tension it is (a to-confirm/conflict item — the
+  disconfirming-facts rule), never a silent reopen, never an edit to the signed record.
+- **The proposal half runs OPEN → PROPOSED-QUARANTINE, invitation-scoped.** The engagement's ask
+  ("analyze us and propose X and Y") NAMES the slots it invites — recorded in the ledger as the invitation
+  of record; within those named slots the invitation guard (a) is satisfied by the ask itself. Outside
+  them the per-slot double guard applies unchanged — a T2 engagement is never a blanket license to draft,
+  and the curator wall (`references/process-discipline.md` § The curator wall) applies as written: its
+  inheritance clause covers every propose-mode, this one included.
+
+**The ratification loop — post-first-feedback.** The owner's FIRST feedback on any proposal (at the gate-6
+review, at 7a, or later — on a builder-materialized draft) opens the loop, which has exactly TWO exits:
+
+1. **RATIFY** — an explicit, recordable act: pre-handoff, the gate-6 promote (recorded in the signed
+   brief — the promote rule above); post-handoff, a ratification the builder witnesses and commits
+   (`sources/ratification—<date>.md`, hashed — the builder's own `owner-confirmed` record shape). The
+   riding gap closes; the value rises to `owner-confirmed`.
+2. **ADJUST-and-stay-proposed** — the value is revised per the feedback and REMAINS
+   `source: proposed · confidence: hypothesis`, riding its gap: a re-draft, never a promotion.
+
+There is no third exit and no implicit one. What NEVER promotes: silence, enthusiasm in prose ("love it",
+"perfect"), or the owner USING the draft — operating on a quarantined value is exactly what the channel
+exists for; use is not ratification.
+
+**Wire projection: zero contract delta.** A T2 wire is the contract verbatim — `MODE: ANALYZE`, each
+proposal in a `PROPOSED` quarantine line (or a WHAT slot at `source: proposed`), riding its
+client-language GAPS row; `BRIEF{}` never applies to a proposal (its lineage IS the `proposed` label), and
+a proposal never re-rows its dimension (the state table's own rule). Downstream, the builder may
+materialize drafts from these lines (`brand-canon-builder` — `references/gap-protocol.md`
+§ Draft-from-recommendation); nothing materialized rises by having been materialized.
+
 ## The ledger — where state lives (the scoper is chat-side; no filesystem)
 
 The **dimension ledger** is the running per-dimension table: dimension · state · probes and yield ·

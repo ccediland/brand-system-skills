@@ -14,8 +14,7 @@ It interviews, requests, structures, detects, and points — then emits one hand
 instrument. It does not mine material autonomously, does not infer the WHY, does not extract primitive
 values, and does not promote an observation to a brand rule without owner confirmation. Those are the
 builder's job or require the owner. Use this when there's no working filesystem (e.g. Claude.ai chat);
-if you're already in Claude Code with a filesystem, you can skip the scoper and use
-`brand-canon-builder` directly.
+already in Claude Code with a filesystem → skip the scoper and use `brand-canon-builder` directly.
 
 ## Reference materials — load when relevant
 This SKILL.md is the workflow + gates. Load the reference only when its stage is reached:
@@ -55,17 +54,19 @@ handoff above its earned status — a scoper-authored value travels as `proposed
 
 ## Doctrine — analyze published work as the default
 
-The brand is almost never a blank page. Two orthogonal axes describe an intake; the old "greenfield vs
-brownfield" classification is retired (it conflated them and made "from scratch" a co-equal default,
-which it is not).
+The brand is almost never a blank page. Two orthogonal axes describe an intake (the old greenfield-vs-
+brownfield classification is retired — it made "from scratch" a co-equal default, which it is not).
 
-Axis 1 — Mode. Determined with a single, defaulted question. Ambiguity resolves to ANALYZE — ask for
-the published material.
+Axis 1 — Mode. Determined with a single, defaulted question; ambiguity resolves to ANALYZE — ask for the published material.
 
 | Mode | When | Default? |
 |---|---|---|
 | **ANALYZE** | The brand already expresses itself publicly in *any* form — site, social, print, brandbook, packaging, signage, a single old logo file. Job: analyze that expression across mediums then harvest, refine, transform, improve into a canon. | Yes — for essentially every real brand |
 | **CREATE** | Author brand truth from scratch. Entered only on explicit instruction (a genuinely new brand, or an explicit "design us a new brand"). | No — never assumed |
+
+**EXTEND/RECOMMEND (the T2 engagement) is a shape of ANALYZE, never a third mode.** "Analyze our brand AND propose
+extensions" ships `MODE: ANALYZE`; each invited proposal travels the labeled quarantine channel (`source: proposed` +
+`hypothesis` + its gap) under the curator wall, and the owner's first feedback opens the ratification loop — mechanism: `references/elicitation-machine.md` § The EXTEND/RECOMMEND engagement (T2).
 
 Axis 2 — Material coverage (orthogonal). Coverage is measured per canon layer — how much of each is
 recoverable from whatever the brand has already produced, in any form — never by artifact type. Make no
@@ -106,8 +107,7 @@ No gate clears without emitting its DELIVERABLE, dated (ISO) and versioned. The 
 ## Stage detail
 
 ### 1. Mode determination
-Ask the single defaulted question and set `MODE`. Default to ANALYZE; resolve ambiguity to ANALYZE by asking
-for the published material. CREATE only on explicit instruction.
+Ask the single defaulted question and set `MODE` — ANALYZE default, ambiguity resolves to ANALYZE (ask for the published material), CREATE only on explicit instruction; an extend/recommend ask stays ANALYZE (the T2 doctrine above governs).
 
 ### 2. Material protocol (medium-agnostic, discovery-driven)
 Principle: the canon's slots define what is NEEDED; open discovery defines what EXISTS; the delta is the

@@ -174,6 +174,12 @@ visual output: everything an AI needs to think/decide/DESIGN as the brand.
   `validate-audit.md` §7b enforces.
 - **The keystone is derived, never a re-elicitation.** It restates the ratified canon in an AI-operable form;
   it introduces no new brand truth.
+- **Mode note — MODE-AGNOSTIC by construction (adjudicated, not silent).** This emit reads every datum's
+  confidence FROM the token's `$extensions.brand.provenance` / `canon.json` / the GAP ledger and consumes
+  each WHY carrier at the status its wire line earned — it never reads HOW a datum was obtained, so
+  ANALYZE vs CREATE changes nothing in this file's procedure. What changes is the DATA: a CREATE build
+  arrives mostly `authored`+`hypothesis`/GAP, so the same branches that label a hypothesis carrier or emit
+  a tagged GAP simply fire more often (`create.md` §5/§6). No CREATE-specific step exists or is needed.
 
 Sources: Anthropic support (RAG for projects; context-window sizes; project-instructions guidance) + Anthropic
 engineering (Agent Skills progressive disclosure; long-context prompting). The functional-above-personality and
