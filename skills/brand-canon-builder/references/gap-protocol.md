@@ -124,20 +124,30 @@ surfaces — so the owner has something concrete to react to. The rules:
     truth). `source: "proposed"` itself stays hypothesis-capped forever (R2) — quarantine, never canon.
 
     **The ratification record shape (MANDATORY — `audit-lint` R3's content-bind enforces it; the post-handoff
-    analog of the wire's `BRIEF{}` verbatim).** The record MUST carry a **`## What was ratified`** section,
-    and inside it, **one line per ratified token that names BOTH the token's SLOT (its dotted path, e.g.
-    `` `color.accent-seasonal` ``) AND its CANONICAL value on the SAME line** — for a colour the OKLCH
-    components (`` `oklch(L C H)` ``; a hex fallback alone never ratifies), for a dimension the `<value><unit>`,
-    for a string the quoted family. The bind is machine-checked three ways:
-    - **VALUE** — the record must name the token's canonical value (a record naming value X does not ratify a
-      token carrying value Y).
+    analog of the wire's `BRIEF{}` verbatim).** The record MUST carry **exactly one TOP-LEVEL
+    `## What was ratified` section**, and inside it, **one FLAT line per ratified token that names BOTH the
+    token's SLOT and its CANONICAL value, each in its OWN backtick span, on the SAME line** — e.g.
+    `` - `color.accent-seasonal` = `oklch(0.68 0.09 45)` `` (a colour's canonical value is the OKLCH
+    components — a hex fallback alone never ratifies; a dimension is `` `37px` ``, a string its quoted family).
+    The bind is machine-checked four ways:
+    - **VALUE** — the token's value must appear in the line's VALUE SPAN (the first backtick span AFTER the
+      slot span). Anything later on the line — a change-history parenthetical ("revised up from …"), the hex
+      fallback, a second value — is annotation and never ratifies (a record naming value X does not ratify a
+      token carrying value Y, even when Y co-occurs on the ratified line).
     - **SLOT (path-bind)** — the value must sit on a line that also names THIS token's path (a record
       ratifying value X for slot A does not ratify slot B that merely carries X).
     - **SECTION-SCOPE** — only lines INSIDE `## What was ratified` ratify. A value the owner names in a
-      rejected / "alternatives — NOT chosen" block does NOT ratify it (the exact inversion the reject-block
-      attack exploits). A record with **no `## What was ratified` section is malformed → FAIL** (never a
-      vacuous pass). A record may also carry a rejected-alternatives section for the human record; it is
-      inert to the gate.
+      rejected / "alternatives — NOT chosen" or `— SUPERSEDED` block does NOT ratify it (the exact inversion
+      the reject-block attack exploits).
+    - **HEADING** — the section heading is bound EXACTLY: the literal text "What was ratified" (case-
+      insensitive, optional trailing colon), a TOP-LEVEL `##` (a nested `###` is inert), and EXACTLY ONE per
+      record. A trailing qualifier (`— SUPERSEDED 2026-03-01`), a nested/duplicate heading, or NO such
+      section is a **malformed record → FAIL** (never a vacuous pass). Rejected-alternatives and superseded
+      blocks live in their OWN sibling sections for the human record and are inert to the gate.
+
+    Do NOT group ratified slots under ATX sub-headings (`### Colours`) — a heading of ANY level ends the
+    section; group with **bold** labels (`**Colours**`) or a flat list. Slot and value each in their own
+    backtick span (never the whole assignment in one span); the value is the first span after the slot.
   - **ADJUST** — a revised draft value, still `source: "proposed"` + `confidence: "hypothesis"`, gap OPEN.
 
   Silence, enthusiasm in prose, or the owner USING the draft promote nothing — the scoper's curator wall,

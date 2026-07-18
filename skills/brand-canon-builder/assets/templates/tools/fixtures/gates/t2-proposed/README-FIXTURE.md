@@ -63,3 +63,16 @@ ratified token (`color.accent-seasonal`) PASSES, but the rejected token (`color.
 value+slot appear ONLY in the alternatives block) FAILS — nothing outside `## What was ratified` ratifies. A
 whole-record value search would have sealed the owner-rejected colour owner-confirmed. A record with no
 `## What was ratified` section at all is malformed → FAIL (never a vacuous pass).
+
+`ratified-line-residue/` — the SAME-LINE value-residue twin (OI-K pre-merge verify): the ratified line
+legitimately carries a change-history parenthetical naming the first-draft value alongside the ratified one,
+both inside `## What was ratified`. `node ../../../audit-lint.mjs .` → **exit 1**: the content-bind matches
+only the line's VALUE SPAN (the first backtick span after the slot span), so a token shipping the parenthetical
+off-value is not ratified — a whole-line value search would have sealed it.
+
+`ratified-superseded-heading/` — the TRAILING-QUALIFIER heading twin (OI-K pre-merge verify): an honest
+re-ratification record keeps a `## What was ratified — SUPERSEDED 2026-03-01` block ("do NOT ship") plus the
+current `## What was ratified`. `node ../../../audit-lint.mjs .` → **exit 1**: the heading is bound EXACTLY
+(literal text, top-level `##`, exactly one), so the superseded block is inert and the token shipping its value
+FAILS. A heading matching any text STARTING with "what was ratified", or a nested `###`, would have opened
+scope on the disavowed block.
