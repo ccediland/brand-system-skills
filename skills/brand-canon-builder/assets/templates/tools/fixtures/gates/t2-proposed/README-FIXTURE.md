@@ -39,3 +39,12 @@ alone**: the record's text does NOT name the token's value, so the record does n
 post-handoff analog of the wire's `BRIEF{}` verbatim — a hash→path bind alone let a genuine ratification
 of value X ship a token carrying value Y). A ghost record (a `sources/ratification—*` cited but absent,
 its hash fabricated into `CHECKSUMS.txt`) fails the same rule — a CHECKSUMS line is custody, not the file.
+
+`ratified-hex-held/` — the pre-merge verify's BLOCKER: the token pins its `hex` fallback to the terracotta
+the record names (`#c17a5e`) while its OKLCH `components` — the C-1 PRIMARY, rendered value — are FABRICATED
+(`oklch(0.40 0.25 300)`). `node ../../../audit-lint.mjs .` → **exit 1 (FAIL)**: the content-bind's STRICT
+matcher (`ratificationNamesValue`) requires the OKLCH components (never a hex-only hit) — a lenient
+value-presence test would have short-circuited on the hex and sealed the fabricated primary owner-confirmed.
+The strict matcher is content-bind-LOCAL (R1 corroboration keeps its lenient hex-OR-oklch `valueInText`); it
+also word/number-bounds string and numeric matches (a font family "Ares" never ratifies via the substring in
+"shares"; a non-colour value the record never names FAILs instead of a vacuous pass).

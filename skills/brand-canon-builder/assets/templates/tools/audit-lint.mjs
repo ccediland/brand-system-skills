@@ -246,6 +246,50 @@ function valueInText(txt, value) {
   }
   return true; // other shapes (composite strings already covered above) — declarative
 }
+
+// STRICT value matcher for the R3 RATIFICATION content-bind ONLY — never reuse valueInText here. R1
+// corroboration is intentionally LENIENT (hex-OR-oklch short-circuit, substring font faces, a declarative
+// `return true` for shapes it cannot read) because ≥2 agreeing sources tolerate slack. A ratification seal
+// is the TOP trust rung and must be STRICT: the record must name the token's CANONICAL value, a match is
+// word/number-BOUNDED (a family "Ares" never matches inside "shares"), the OKLCH components (the C-1 PRIMARY
+// truth) are required — a hex-only hit never ratifies a fabricated oklch — and an unverifiable shape FAILs
+// (never a vacuous pass). Value-blind & general: it asserts no specific value, only that whatever the token
+// carries is NAMED in the record.
+const numStr = (n) => { const x = Number(n); return Number.isFinite(x) ? String(x) : String(n).trim(); };
+const numberNamedAsWord = (txt, n) => {
+  const s = numStr(n).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?<![\\w.])${s}(?![\\w.])`).test(txt);
+};
+const wordBounded = (txt, needle) => {
+  const esc = String(needle).trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return esc.length > 0 && new RegExp(`(?<![\\w-])${esc}(?![\\w-])`, 'i').test(txt);
+};
+function ratificationNamesValue(txt, value) {
+  if (value == null) return false;                            // nothing to confirm → cannot ratify → FAIL
+  if (typeof value === 'object' && !Array.isArray(value)) {
+    if (Array.isArray(value.components)) {                     // structured colour: require the OKLCH components
+      const [L, C, H] = value.components;                      // (the C-1 PRIMARY value) — a hex-only hit never ratifies
+      for (const m of txt.matchAll(OKLCH_RE)) {
+        let l = parseFloat(m[1]); if (m[0].includes('%')) l /= 100;
+        if (Math.abs(l - L) <= 0.005 && Math.abs(parseFloat(m[2]) - C) <= 0.005 && Math.abs(parseFloat(m[3]) - H) <= 0.5) return true;
+      }
+      return false;
+    }
+    if (value.value != null && value.unit != null) {           // DTCG dimension {value,unit}: "37px" OR the bare number
+      if (txt.toLowerCase().includes(`${numStr(value.value)}${String(value.unit).toLowerCase()}`)) return true;
+      return numberNamedAsWord(txt, value.value);
+    }
+    return false;                                              // any other object shape — unverifiable → FAIL
+  }
+  if (typeof value === 'number') return numberNamedAsWord(txt, value);
+  if (Array.isArray(value)) return value.every((n) => (typeof n === 'number' ? numberNamedAsWord(txt, n) : wordBounded(txt, n)));
+  if (typeof value === 'string') {                             // font stack / plain string: the first quoted family
+    const fam = value.match(/^"([^"]+)"/);                     // or the whole string, as a BOUNDED token (never a raw
+    if (fam && txt.includes(`"${fam[1]}"`)) return true;       // substring — "Ares" must not match inside "shares")
+    return wordBounded(txt, fam ? fam[1] : value);
+  }
+  return false;                                                // unknown shape → FAIL (never a vacuous pass)
+}
 {
   const v = [];
   for (const t of tokens) {
@@ -377,8 +421,8 @@ let assetIndexPresent = false;
       }
       const txt = readText(p);
       if (txt == null || txt.includes('\u0000')) continue; // binary/unreadable: declarative (documented limit, as R1)
-      if (!valueInText(txt, t.value)) {
-        v.push(`${t.path} (${t.file}) — cites ratification record ${fileRel} but that record's text does NOT name the token's value ${showVal(t.value)} — a ratification record must NAME the value it ratifies (content-bind: the post-handoff analog of the wire's BRIEF{} verbatim). A record ratifying a different value does not ratify this one.`);
+      if (!ratificationNamesValue(txt, t.value)) {
+        v.push(`${t.path} (${t.file}) — cites ratification record ${fileRel} but that record's text does NOT name the token's value ${showVal(t.value)} — a ratification record must NAME the value it ratifies (content-bind: the post-handoff analog of the wire's BRIEF{} verbatim; the record must name the CANONICAL value — for colour the OKLCH components, never a hex fallback alone — as a bounded token). A record ratifying a different value does not ratify this one.`);
       }
     }
   }
