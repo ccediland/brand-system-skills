@@ -1,8 +1,11 @@
 # kit-e2e — the full kit pipeline, exercised end to end (networked; run on demand)
 
 The one chain no static fixture covered (the root cause of the P-series shipping undetected):
-**kit → `npm install && npm run build` → package-validate → R6c → deny → upload-shape.**
-It needs npm (network), so it stages to `$TMPDIR` and never commits `node_modules`/`dist`.
+**kit → `npm install && npm run build` → package-validate → R6c → deny → upload-shape**, plus the OFFLINE
+fallback path **canon → `emit-cards.mjs` → static cards → `--check` → deny** (the `[NO_DIST]`-reviewable route).
+It needs npm (network) for the build leg, so it stages to `$TMPDIR` and never commits `node_modules`/`dist`;
+the emitter leg is zero-dep and offline (also exercised always-on by the run-gates `static cards` §3c row + the
+`fixtures/gates/emit-cards/` twins).
 
 Procedure (from `tools/`):
 
@@ -18,6 +21,10 @@ Procedure (from `tools/`):
     node <tools>/client-deny-lint.mjs $K/repo/design-sync-kit/README-KIT.md \
          $K/repo/design-sync-kit/_card-shape/*.html                  # → exit 0
     head -1 _card-shape/preview-card.html | grep '@dsCard'           # → upload-shape marker present
+    # --- the OFFLINE static-cards leg (zero-dep; the [NO_DIST]-reviewable path) ---
+    node <tools>/emit-cards.mjs $K/repo                              # → design-sync-kit/cards/*.html (present layers)
+    node <tools>/emit-cards.mjs --check $K/repo                      # → exit 0 (offline: no [REMOTE_REF]/[DSCARD_MISSING])
+    node <tools>/client-deny-lint.mjs $K/repo/design-sync-kit/cards  # → exit 0 (emitted cards are client-clean)
 
 Acceptance runs recorded 2026-07-06 (all live): build exit 0 · package-validate exit 0 · R6c zero rows ·
 deny exit 0 · `@dsCard` first-line marker present. Anti-gaming (spine-required fonts): DELETING the

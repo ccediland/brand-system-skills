@@ -1,4 +1,4 @@
-# emit-cards — the offline static-cards emitter (F4-01) acceptance
+# emit-cards — the offline static-cards emitter acceptance
 
 Twin minimal repos for `tools/emit-cards.mjs`, the OFFLINE `@dsCard` static-cards emitter (a capability of the
 design-sync kit). Zero real brand content (Fixture demo). Each card is a self-contained HTML file rendered from

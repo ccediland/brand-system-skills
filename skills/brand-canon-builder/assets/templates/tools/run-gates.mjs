@@ -167,7 +167,7 @@ const failLine = (s) => {
   } else add('kit opt-out reconciliation', 'lint', true, 'PASS', 'kit opted IN by the handoff — presence/health governed by the kit rows');
 }
 
-// ---------- 3c. static cards (lint, BLOCKING when emitted) — the OFFLINE @dsCard set (F4-01 emitter) ----------
+// ---------- 3c. static cards (lint, BLOCKING when emitted) — the OFFLINE @dsCard set (emit-cards emitter) ----------
 // The offline static-cards emitter (tools/emit-cards.mjs) is what makes `[NO_DIST]` a reviewable handoff
 // state: self-contained @dsCard HTML rendered from the canon, no React/bundle/converter/NETWORK. This row
 // spawns `emit-cards.mjs --check` (offline guarantee: first-line @dsCard marker · zero remote/script/@font-face

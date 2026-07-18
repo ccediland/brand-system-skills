@@ -36,7 +36,7 @@ design-sync-kit/
 - **Package-shape default** (no Storybook): the component list comes from the shipped `.d.ts` exports;
   unscoped components get an honest floor card; rich previews are authored per scoped component.
 - **`@dsCard` marker.** Every emitted card's first line is `<!-- @dsCard group="…" -->` (the pane reads it
-  to register cards → server-regenerated `ds_manifest`). Authored `previews/*.tsx` carry no marker;
+  to register cards → server-regenerated `_ds_manifest.json`). Authored `previews/*.tsx` carry no marker;
   the converter stamps it into the generated `.html`.
 - **`readmeHeader`** wires `conventions.md` as the conventions header (the "Author the conventions header"
   step).
