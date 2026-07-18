@@ -161,6 +161,26 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   entering at `confidence:"hypothesis"` + the scheme's tracking GAP. A `status:"deferred"` scheme emits no set
   (carries a GAP). **audit-lint R7** (loaded from `tokens/schemes/*.json` too) fails any named scheme without a
   COMPLETE set (role-key parity with the default) or a deferred+GAP; single-scheme/flat brands pass clean.
+- **`node tools/drive-mirror.mjs [--plan | --verify <remote.json>] [repo-root]`** — the **Google-Drive asset
+  mirror** (F5-01; zero-dep Node, Node ≥ 20 built-in `fetch`+`crypto`; the engine of the emitted
+  `.github/workflows/drive-mirror.yml`). Mirrors the brand's **custodied assets** (asset-index rows whose
+  `Repo location` is hashed in `CHECKSUMS.txt`) to a Google **shared drive** on push to the default branch, in
+  a folder tree that mirrors the ASSET INDEX (per-row `Drive` column, else the row's `Kind`), and verifies the
+  round-trip by `sha256Checksum` on BOTH sides. **No conversion** (real MIME, never `application/vnd.google-apps.*`,
+  never a convert flag); Google Docs-Editors native files (`.gdoc/.gsheet/…`) have no `sha256Checksum` → **excluded
+  by name, logged** (R-14). One-way mirror, not a sync (git = source of truth; P-J-01). Two auth routes via GitHub
+  Secrets (service-account + shared drive — quota-less SA can't own files, `storageQuotaExceeded` on My Drive is
+  the named trap; or OAuth refresh token). Scope: Route A (SA) uses `drive` — a pre-created shared-drive folder
+  is out of `drive.file`'s reach (would 404), and a dedicated SA is confined in practice to its shared-drive
+  memberships; Route B (OAuth) uses `drive.file` + an app-owned root folder (`GDRIVE_ROOT_FOLDER_NAME`),
+  publishable to production to dodge the 7-day test-token expiry. **`--plan`** (OFFLINE): computes the plan,
+  FAILs on a STALE custody hash, a Drive-path collision, or a broken index. **`--verify <remote.json>`** (OFFLINE):
+  compares CHECKSUMS vs a recorded remote map — a MISSING remote entry (empty-pass guard) or a MISMATCH (stale) is
+  a FAIL. The **live** leg (default mode) needs real Drive creds → the operator's F5 round-trip gate, never a
+  build-time dep. run-gates **§3d "drive mirror plan"** row (N/A when the workflow is not emitted). Security: `push`
+  to the default branch only — NEVER `pull_request_target` (secret-exfil vector); secrets only via `env:`, never
+  logged. Fixtures `tools/fixtures/gates/drive-mirror/` (plan-clean + stale-custody + collision + verify-{clean,missing,stale}).
+  Doc: `.github/DRIVE-MIRROR.md` (emitted) · method `references/drive-mirror.md`.
 
 ## Standing guardrails (apply when editing THIS repo's templates/skills)
 - **Brand-agnostic + output-agnostic, always.** The templates must contain zero real brand specifics and no

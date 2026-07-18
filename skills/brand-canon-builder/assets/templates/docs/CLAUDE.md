@@ -24,7 +24,7 @@ better).
 | the brand "doesn't say / never says X" (voice) | `canon/01-*` ESSENCE (anti-promise / lexicon) → keystone re-emit (SPEAK/§5) → prototype copy | content audit (agent-gates) · deny over client rows · run-gates |
 | a RULE feels wrong (spacing, usage, combination) | `canon/03-*` GRAMMAR (`G-*`/`ALGO-*` by ID) → `canon/canon.json` mirror → keystone re-emit (DESIGN-as) | audit-lint (R4 named refs) · run-gates |
 | the MARK changes | `canon/mark.svg` (THE single source) → prototype `#brand-mark` + kit `Mark.tsx` re-inline byte-equal → fidelity re-measure | audit-lint (R6b) · fidelity-diff · run-gates |
-| an ASSET is added / replaced | place under `assets/`/`sources/` + hash into `CHECKSUMS.txt` → row in `satellites/asset-index.md` → `data-asset` surface in the brandbook (or an open GAP) | audit-lint (R3/R6d/R8) · run-gates |
+| an ASSET is added / replaced | place under `assets/`/`sources/` + hash into `CHECKSUMS.txt` → row in `satellites/asset-index.md` → `data-asset` surface in the brandbook (or an open GAP) → (if the Drive mirror is wired) it re-uploads on push automatically | audit-lint (R3/R6d/R8) · run-gates (drive mirror plan) · drive-mirror |
 | a SCHEME (dark/contrast) feels off | `canon/canon.json › schemes` → `node tools/scheme-derive.mjs` → prototype toggle re-check | audit-lint (R7) · run-gates |
 | a GAP gets its answer | fill the owning layer/token per the gap's **Resolution target** column → flip the `RESIDENT.md` row to CLOSED (ratified) | audit-lint (R4/R5) · run-gates |
 
