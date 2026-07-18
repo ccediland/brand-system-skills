@@ -290,6 +290,47 @@ function ratificationNamesValue(txt, value) {
   }
   return false;                                                // unknown shape → FAIL (never a vacuous pass)
 }
+
+// SECTION-SCOPE for the ratification content-bind: nothing ratifies OUTSIDE the record's canonical
+// "## What was ratified" section. Returns the CONTENT lines of that section (heading lines dropped, HTML
+// comments stripped so a slot/value hidden in a comment never counts), or null when the record is malformed.
+// This kills the reject-block laundering: a value the owner names under "Alternatives — NOT chosen" (or a
+// SUPERSEDED / earlier-draft block) lives OUTSIDE this section and cannot ratify. The heading is bound TIGHT:
+//   • EXACT text — "what was ratified" only (optional trailing colon); a trailing qualifier
+//     ("— SUPERSEDED 2026-03-01", "in the earlier draft") never opens ratified scope.
+//   • TOP-LEVEL ## only — a nested ###+ heading matching the text is inert (a rejected block cannot open
+//     scope by nesting a same-text sub-heading).
+//   • EXACTLY ONE — 0 (absent) OR >1 (ambiguous / duplicate-heading laundering) ⇒ null ⇒ FAIL (a malformed
+//     record never ratifies; heritage of "an unverifiable shape never passes").
+// ANY heading of any level ENDS the section — ratified lines are listed FLAT directly under the heading
+// (group with **bold** labels, never ATX ###; see gap-protocol § the ratification record shape). General/
+// value-blind: it scopes WHERE to look, never WHAT to find.
+function ratifiedSectionLines(txt) {
+  const stripped = txt.replace(/<!--[\s\S]*?-->/g, '');
+  const out = [];
+  let inSec = false, canonCount = 0;
+  for (const line of stripped.split('\n')) {
+    const h = line.match(/^\s*(#{1,6})\s+(.*\S)\s*$/);
+    if (h) {
+      const isCanon = h[1].length === 2 && /^what\s+was\s+ratified\s*:?$/i.test(h[2].trim());
+      if (isCanon) canonCount++;
+      inSec = isCanon;                 // a canonical heading opens; ANY other heading closes a prior section
+      continue;
+    }
+    if (inSec) out.push(line);
+  }
+  return canonCount === 1 ? out : null; // exactly one canonical top-level heading, else malformed → FAIL
+}
+// the RATIFIED VALUE of a path-bound line is the FIRST backtick code-span AFTER the span that names the slot
+// — the record convention is `slot` = `value` (each in its own span). Everything later on the line (a
+// change-history parenthetical, a rejected "revised up from" value, the hex fallback) is annotation and
+// never ratifies: matching the whole line let an off-value that merely co-occurred on the ratified line pass.
+function ratifiedValueSpan(line, path) {
+  const spans = [...line.matchAll(/`([^`]+)`/g)].map((m) => m[1]);
+  const slotIdx = spans.findIndex((s) => rowMentions(s, path));
+  if (slotIdx >= 0) return spans[slotIdx + 1] ?? null;      // the value span immediately after the slot span
+  return spans.find((s) => !rowMentions(s, path)) ?? null;  // slot named in prose: first span that isn't the path
+}
 {
   const v = [];
   for (const t of tokens) {
@@ -405,11 +446,15 @@ let assetIndexPresent = false;
   // R3 CONTENT-BIND ON THE RATIFICATION ACT (the post-handoff analog of the wire verbatim-check's BRIEF{} content-bind):
   // a token citing a sources/ratification—<date>.md record must (1) point at a record that EXISTS — a hashed
   // CHECKSUMS line is custody, never a substitute for the file (kills the ghost-record R3 emitter-circular
-  // escape for ratification records) — and (2) have its VALUE NAMED in that record's text (reuse valueInText).
-  // A record naming a DIFFERENT value, or no value, does NOT ratify this token: hash→path bind alone let a
-  // genuine ratification of value X ship a token at value Y under owner-confirmed (R1's value check never fired
-  // above "corroborated"). Miss = FAIL, never a silent pass. Value-blind & golden-safe: fires ONLY on a
-  // sources/ratification—* citation — the golden's owner-confirmed tokens cite declared-spec/handoff, untouched.
+  // escape for ratification records) — and (2) be RATIFIED by a line INSIDE the record's canonical
+  // "## What was ratified" section that names BOTH this token's SLOT (its path) AND its CANONICAL value
+  // (strict ratificationNamesValue), on the SAME line. Two bindings:
+  //   • SECTION-SCOPE — nothing outside "## What was ratified" ratifies (a value named in a rejected/
+  //     alternatives block does NOT ratify); an ABSENT section is a malformed record → FAIL.
+  //   • PATH-BIND — a record ratifying value X for slot A does NOT ratify slot B that merely carries X.
+  // hash→path bind alone let a genuine ratification of value X ship a token at value Y under owner-confirmed
+  // (R1's value check never fired above "corroborated"). Miss = FAIL, never a silent pass. Value-blind &
+  // golden-safe: fires ONLY on a sources/ratification—* citation — the golden cites none (verified).
   for (const t of tokens) {
     for (const r of t.sourceRefs) {
       if (!r || !r.file || !isRatificationFile(r.file)) continue;
@@ -421,8 +466,21 @@ let assetIndexPresent = false;
       }
       const txt = readText(p);
       if (txt == null || txt.includes('\u0000')) continue; // binary/unreadable: declarative (documented limit, as R1)
-      if (!ratificationNamesValue(txt, t.value)) {
-        v.push(`${t.path} (${t.file}) — cites ratification record ${fileRel} but that record's text does NOT name the token's value ${showVal(t.value)} — a ratification record must NAME the value it ratifies (content-bind: the post-handoff analog of the wire's BRIEF{} verbatim; the record must name the CANONICAL value — for colour the OKLCH components, never a hex fallback alone — as a bounded token). A record ratifying a different value does not ratify this one.`);
+      const secLines = ratifiedSectionLines(txt);
+      if (secLines == null) {
+        v.push(`${t.path} (${t.file}) — ratification record ${fileRel} has no single canonical "## What was ratified" section (exactly one TOP-LEVEL heading with that exact text is required; a trailing qualifier, a nested ###, or a duplicate heading is malformed) — nothing outside it ratifies, and a malformed record does not ratify`);
+        continue;
+      }
+      // ratified only by a line that names the slot AND, in that line's VALUE SPAN (the first backtick span
+      // after the slot span — not the whole line), the canonical value; section-scoped, same line.
+      const ratified = secLines.some((line) => {
+        if (!rowMentions(line, t.path)) return false;
+        const span = ratifiedValueSpan(line, t.path);
+        return span != null && ratificationNamesValue(span, t.value);
+      });
+      if (!ratified) {
+        const slotNamed = secLines.some((line) => rowMentions(line, t.path));
+        v.push(`${t.path} (${t.file}) — the "## What was ratified" section of ${fileRel} ratifies no line binding this token's slot to its value ${showVal(t.value)}${slotNamed ? ' (the slot is named, but not on a line that also names this value — a record ratifying a DIFFERENT value does not ratify this one)' : ` (the section never names the slot ${t.path} — a record ratifying another slot does not ratify this one)`}. A ratification record must name the SLOT and its CANONICAL value (for colour the OKLCH components, never a hex fallback alone) on one line inside the ratified section (the post-handoff analog of the wire's BRIEF{} verbatim).`);
       }
     }
   }
