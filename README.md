@@ -89,9 +89,17 @@ chat, ask to scope your brand and `brand-canon-scoper` hands you a block for the
 
 ## Status
 
-**`v0.5.0`** — v5 shipped, hardened by a five-brand blind stress test: a frozen handoff contract with a
-six-value provenance ladder and hashed custody · the executable-or-demoted gate suite with its machine-written
-status board · governed surfaces (the manifest-scoped client firewall) · the resident brand-AI set (verbal +
-visual keystones + asset index, with an AI-imagery rule) · the scoper's elicitation state machine, curator
-wall, and proxy/multi-decider support. See [`RESIDENT.md`](./RESIDENT.md) for architecture, decisions, and
-Open Items. MIT licensed.
+**`v0.6.0`** — v6 builds on the v5 foundation what the blind stress test left untested, plus what that test
+surfaced (compile-step inflation · instrument compression). It adds: the **compile seam** — the signed brief
+travels inside the wire and every ratification claim proves against it per line (`wire-check.mjs`), so the
+handoff can no longer assert ratification it can't prove · **both build modes** (CREATE from a ratified brief,
+and T2 EXTEND/RECOMMEND with a real ratification loop and a content-bound ratification record) · the kit's
+**offline leg** (`emit-cards.mjs` renders self-contained review cards with zero network) · an opt-in **Drive
+mirror** (an emitted GitHub Action that backs up custodied assets to a shared drive and verifies the round-trip
+by checksum on both sides). Every mechanism shipped with an adversarial pre-merge verify. See
+[`RESIDENT.md`](./RESIDENT.md) (`## v6`) for the full architecture and decisions; per-stage design/verify notes
+live in [`notes/`](./notes). MIT licensed.
+
+Prior: **`v0.5.0`** — v5, hardened by a five-brand blind stress test (frozen handoff contract with a six-value
+provenance ladder + hashed custody · executable-or-demoted gate suite · governed surfaces · the resident
+brand-AI set · the scoper elicitation state machine).

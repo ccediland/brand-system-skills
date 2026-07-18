@@ -8,8 +8,11 @@
 - `.claude-plugin/marketplace.json` · `plugin.json` — marketplace + plugin manifests (mirror `web-stack-skills`).
 - `skills/brand-canon-builder/` — Code-side builder: `SKILL.md`, `references/` (the method knowledge),
   `assets/templates/` (the canon skeletons + DTCG token spine + satellites + docs + prototype + design-sync
-  kit + Claude Design adapter + `tools/` — emitted gates `audit-lint.mjs` · `source-recover.py`, with
-  `tools/fixtures/` the gate's own clean + seeded-violation acceptance proof, not emitted to clients).
+  kit + Claude Design adapter + `.github/` (the opt-in Drive-mirror Action + `DRIVE-MIRROR.md`) + `tools/` — the
+  emitted gate suite `run-gates.mjs` · `audit-lint.mjs` · `wire-check.mjs` · `tokens-project.mjs` ·
+  `emit-cards.mjs` · `drive-mirror.mjs` · `scheme-derive.mjs` · `client-deny-lint.mjs` · `source-recover.py` ·
+  `fidelity-diff.py` (each documented in full below), with `tools/fixtures/` the gates' own clean +
+  seeded-violation acceptance proof + `fixtures/integration/` the v6 cross-mechanism harness, not emitted to clients).
 - `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` (the gated pipeline; hard cap 500 lines —
   every edit is line-neutral or trades a line, logged) + `references/`: `handoff-format.md` (the FROZEN
   handoff contract) · `elicitation-machine.md` (the per-dimension state machine: born-GAP, generated frame,
@@ -18,6 +21,7 @@
   · curator wall · complete downloadable documents · the signing discipline · instrument hygiene) ·
   `elicitation-bank.md` + `detection-batteries.md` (the QUARRY the machine improvises from — never a script).
 - `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items — the single durable record).
+- `notes/` — per-stage design & verify notes (build provenance, indexed in `notes/README.md`); the durable record is `RESIDENT.md`.
 - The v3 root docs (`v3-execution-plan.md`, `v3-research-foundation.md`, `v3-system-audit—2026-06-23.md`) were
   removed in the v4 consolidation, and the v4 roadmap (`v4-roadmap.md`) was retired at the v4 ship; their record
   lives in the closed-PR + git history + `RESIDENT.md` (`## v3` / `## v4`).
@@ -179,7 +183,8 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   a FAIL. The **live** leg (default mode) needs real Drive creds → the operator's F5 round-trip gate, never a
   build-time dep. run-gates **§3d "drive mirror plan"** row (N/A when the workflow is not emitted). Security: `push`
   to the default branch only — NEVER `pull_request_target` (secret-exfil vector); secrets only via `env:`, never
-  logged. Fixtures `tools/fixtures/gates/drive-mirror/` (plan-clean + stale-custody + collision + verify-{clean,missing,stale}).
+  logged. Fixtures `tools/fixtures/gates/drive-mirror/` (plan-clean + stale-custody + collision + verify-{clean,missing,stale}
+  + the pre-merge-verify regression guards checksums-binary-stale + collision-double-slash).
   Doc: `.github/DRIVE-MIRROR.md` (emitted) · method `references/drive-mirror.md`.
 
 ## Standing guardrails (apply when editing THIS repo's templates/skills)

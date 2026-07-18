@@ -30,11 +30,12 @@ domains: [brand-system, tooling, ciclo-v5]
 - **v3 (shipped):** un stress adversarial (3ª marca independiente) expuso clases de falla que los gates v2 no ven — todas reducen a pérdida de estatus epistémico. v3 = **anti-determinismo rectoral** + north star **"a brand an AI can BE"** (keystone attachable think/speak/design-as) + **provenance en cada dato**. Phases 1–4 a `main`; los dos audits (#19 transversal, #25 system) remediados a **ledger CERRADO** across #20–#29 (deliberados: F55 bold-density · F31 motion-line · horizonte OI-J). Ver `## v3`.
 - **v4 (SHIPPED — plugin `0.4.0`):** la disciplina de prosa vuelta **gates ejecutables** en ambos skills — 7 stages A–G cerrados, 23 mecanismos a `main` (solo R9 diferido): el builder emite un repo cliente auto-validante (`audit-lint` R0–R8 + fidelity MEDIDA + scheme materializer + client deny-lint); el scoper corre un flujo cliente único + self-checks EH/proceso. RESIDENT = único doc durable; el roadmap v4 retirado a git history. Ver `## v4`.
 - **v5 (SHIPPED — plugin `0.5.0`, 2026-07-07):** la respuesta al stress-test blind — **verdad-máquina completada + superficies gobernadas + scoper vuelto máquina**. Builder: contrato handoff congelado (6 rungs/3 tiers + cuarentena proposed + persistencia hasheada) · gate suite ejecutable-o-demovido con status board machine-generated (`run-gates.mjs` — NOT-RUN de primera clase) · fidelity obligatoria anti-verdict-a-mano · citas verificables + custodia de derivados · manifest de superficies (client/ai-facing/operator; el deny toma su scope DEL manifest) · **SET residente del brand-AI: keystone verbal + keystone VISUAL (7 secciones, cero pins, regla imagery-IA de 5 ejes) + asset-index** · R8 invertido (fail por omisión desde el índice) · self-audit harness-backed. Scoper: **máquina de estados de elicitación** (born-GAP, frame generado del perfil, saturación auditable, ledger en deliverables) · curator wall escrito · proxy/multi-decider (factual→proxy-relayed; consolidación declarada; conflicto escalado) · instrumentos completos descargables · disciplina de firma · license jamás gate · route walk formal. 4 etapas E0–E3 cerradas con verifies adversariales multi-agente (E1-02: 8+8 fixes · E1-03: 17 · E1-05: 7 · E2-05/06: BLOCKER+3 MAJOR+menores · E3-01: 22) y golden set re-baselineado. E4: stress-test v5 corrido (3 corridas + harness EV-1) — gate final 2026-07-16, veredicto mixto: chat-side sostuvo, fallan emisión-de-instrumentos bajo compresión e inflación en compilación del wire (15 hallazgos → `stress-test-v5/failure-gallery-v5.md`; insumo pre-plan v6). Ver `## v5`.
+- **v6 (SHIPPING — plugin `0.6.0`, 2026-07-18):** construye lo no-testeado sobre v5 + lo que arrojó el stress-test v5 (inflación en compilación · compresión de instrumentos). **F1** migración `.tokens.json` + hop downstream reparado (`tokens-project.mjs`) · **F2** la **costura de compilación** — el wire ya no afirma ratificación que no puede probar (brief firmado DENTRO del wire, `BRIEF{}` por línea, `wire-check.mjs`) · **F3** los dos modos (CREATE downstream + T2 EXTEND/RECOMMEND con loop de ratificación; content-bind del acto de ratificación en R3) · **F4** el kit gana su pierna offline (`emit-cards.mjs`, cero network) + re-pin vivo /design-sync · **F5** el mirror Drive (Action emitido opt-in, `drive-mirror.mjs`, verify sha256 ambos lados) · **F6** integración (mecanismos ortogonales confirmado) + docs + bump. TODO item con mecanismo/contrato llevó verify adversarial PRE-merge. Ver `## v6`; notas de diseño/verify por etapa en `notes/`.
 - **CICLO VIGENTE (2026-07-04) — v4 TESTEADA → v5/v6:** la validación que v4 llamaba "Phase 5" corrió — más grande — como **stress-test BLIND e2e de 5 marcas reales**. Veredicto: la tesis machine-true quedó a la mitad (~50% del gate suite era prosa auto-atestada; el aparato de provenance certifica la transcripción del builder, no la captura — C-X6; fidelity se fingió o esquivó donde aplicaba — X2). Disposición: `essential-brand` = golden set LOCAL; Onyx/Cuenca/Klim/Radiotopia = failure gallery local. Planeación CERRADA: análisis congelado + PLAN-V5 (aprobado) + PLAN-V6 (preliminar) en la raíz de este repo. Ver `## Ciclo vigente`.
 
 ## Cómo retomar (toda sesión del ciclo)
 
-Leer EN ORDEN: este `RESIDENT.md` → `CLAUDE.md` → `brand-system-skills-v5-analysis_2026-07-04.md` (el "análisis") → el PLAN de la versión en curso (`PLAN-V5.md` / `PLAN-V6.md`). Con eso la sesión queda up-to-date: contexto, avance, decisiones, lo que falta. Mantenimiento de este doc: Code lo actualiza al cierre de cada GATE/ETAPA del ciclo (recap + log + decisiones) — JAMÁS por sesión; el detalle por sesión vive en el Session log del plan. `CLAUDE.md` carga lo puntual de arquitectura/código/gotchas y lo mantiene Code cuando haga falta.
+Leer EN ORDEN: este `RESIDENT.md` → `CLAUDE.md` → `brand-system-skills-v5-analysis_2026-07-04.md` (el "análisis") → el PLAN de la versión en curso (`PLAN-V5.md` / `PLAN-V6.md`). Con eso la sesión queda up-to-date: contexto, avance, decisiones, lo que falta. El detalle de diseño/verify por etapa del ciclo vive en `notes/` (índice en `notes/README.md`) — provenance, no docs vivos. Mantenimiento de este doc: Code lo actualiza al cierre de cada GATE/ETAPA del ciclo (recap + log + decisiones) — JAMÁS por sesión; el detalle por sesión vive en el Session log del plan. `CLAUDE.md` carga lo puntual de arquitectura/código/gotchas y lo mantiene Code cuando haga falta.
 
 ## Ciclo vigente — v4 testeada → v5/v6 (recap; el detalle SIEMPRE se resuelve por ID en los docs de raíz)
 
@@ -95,15 +96,18 @@ Leer EN ORDEN: este `RESIDENT.md` → `CLAUDE.md` → `brand-system-skills-v5-an
 ## Repo map
 - `.claude-plugin/marketplace.json` · `plugin.json` — marketplace + plugin manifests (mirror web-stack-skills).
 - `skills/brand-canon-builder/` — `SKILL.md` + `references/` (architecture, coverage-checklist, gap-protocol,
-  token-spine, analyze, create, asset-acquisition, font-acquisition, design-sync-kit, claude-design-adapter,
-  reproduction-router, keystone-emit, validate-audit, client-clean) + `assets/templates/` (canon skeletons,
-  DTCG token spine, canon.json, satellites, docs, prototype, design-sync kit, Claude Design adapter, and the
-  emitted-gate suite `tools/` — `audit-lint.mjs` (R0–R8) · `source-recover.py` · `fidelity-diff.py` ·
-  `scheme-derive.mjs` · `client-deny-lint.mjs`, with `tools/fixtures/` the gates' own clean + seeded acceptance proof).
-- `skills/brand-canon-scoper/` — `SKILL.md` + `references/` (`handoff-format.md`, `elicitation-bank.md`,
-  `detection-batteries.md`, `process-discipline.md`).
+  token-spine, analyze, create, asset-acquisition, font-acquisition, design-sync-kit, drive-mirror,
+  claude-design-adapter, reproduction-router, keystone-emit, validate-audit, client-clean) + `assets/templates/`
+  (canon skeletons, DTCG token spine, canon.json, satellites, docs, prototype, design-sync kit, Claude Design
+  adapter, `.github/` (the opt-in Drive-mirror Action + `DRIVE-MIRROR.md`), and the emitted-gate suite `tools/` —
+  `run-gates.mjs` (suite runner + status board) · `audit-lint.mjs` (R0–R8) · `wire-check.mjs` (wire verbatim) ·
+  `tokens-project.mjs` (string projection) · `emit-cards.mjs` (offline @dsCard cards) · `drive-mirror.mjs` (Drive
+  mirror engine) · `scheme-derive.mjs` · `client-deny-lint.mjs` · `source-recover.py` · `fidelity-diff.py`, with
+  `tools/fixtures/` the gates' own clean + seeded acceptance proof + `fixtures/integration/` the v6 cross-mechanism harness).
+- `skills/brand-canon-scoper/` — `SKILL.md` + `references/` (`handoff-format.md`, `elicitation-machine.md`,
+  `multi-decider-proxy.md`, `process-discipline.md`, `elicitation-bank.md`, `detection-batteries.md`).
 - `README.md` (human front door) · `RESIDENT.md` (this doc — the single durable record) · `CLAUDE.md` (agent ops + guardrails).
-- **Docs del ciclo v5/v6 (raíz, desde 2026-07-04):** `brand-system-skills-v5-analysis_2026-07-04.md` (análisis del stress-test v4, CONGELADO — requisitos/evidencia por ID) · `PLAN-V5.md` (plan de ejecución canónico v5) · `PLAN-V6.md` (preliminar, gated a F0).
+- **Docs del ciclo v5/v6 (raíz):** `brand-system-skills-v5-analysis_2026-07-04.md` (análisis del stress-test v4, CONGELADO — requisitos/evidencia por ID) · `PLAN-V5.md` (plan v5, cerrado) · `PLAN-V6.md` (plan v6, F0–F6). Design/verify notes por etapa en `notes/` (índice `notes/README.md`).
 - `dev/` — build provenance (work-log + v2 specs + `v2-backlog.md`, F-001…F-026); **gitignored, local-only, not shipped**.
 - The v3 root docs (`v3-execution-plan.md`, `v3-research-foundation.md`, `v3-system-audit—2026-06-23.md`) were
   removed in the v4 consolidation, and the v4 roadmap (`v4-roadmap.md`) was retired at the v4 ship; their
@@ -188,7 +192,8 @@ Leer EN ORDEN: este `RESIDENT.md` → `CLAUDE.md` → `brand-system-skills-v5-an
 | OI-H | Resolver-based theming → CERRADO por decisión (2026-07-04): resolver NO se adopta (scheme-derive+R7 probado; P-J-01); la migración de formato `.tokens.json` es PLAN-V6 F1; condición de reapertura escrita en PLAN-V6. Paisaje: DTCG 2025.10 estable + SD v5 liberado (análisis §15 R-09). | NICE | CERRADO por decisión (2026-07-04) |
 | OI-J | **Non-visual-primary build-grade reproduction** (sonic / motion) is a tracked HORIZON, explicitly NOT a blocker: the reasoning layers are already medium-agnostic and a non-visual primary carrier resolves to a declared fidelity-blocking GAP today (honest scoping, #26). Producing build-grade output for a motion signature (timing/easing + frame-diff) or a sonic mark is a NEW capability MILESTONE, post-Phase-5. | NICE | OPEN (horizonte post-v6 — decisión 2026-07-04, gated en demanda real de marca no-visual-primaria) |
 | OI-I | v3 audits (#19: 4 BLOCKER · 22 MAJOR · 24 MINOR · 6 NIT; #25 system) — **FULLY REMEDIATED (#29)** across PRs #20–#29 (detalle por PR en `## Change log`). Únicos no-cerrados, deliberados: **F55** (bold-density, ver *Documented deviations*) · **F31** (`motion:` prose token; consumidor = horizonte OI-A) · **OI-J**. Reports removidos en la consolidación v4; registro en closed-PR history — baselines CERRADOS, no trabajo abierto. | — | RESOLVED (#29) |
-| OI-K | **Ratification content-bind value-bound, not slot-bound / section-scoped** — CERRADO (2026-07-17, branch claude/v6-oik). El content-bind R3 ahora ata PATH (el valor debe estar en una línea que nombra el slot del token — un registro que ratifica X para el slot A ya no ratifica al slot B que carga X) y SECTION-SCOPE (solo `## What was ratified` ratifica; un bloque rechazado/superseded es inerte — la inversión del run 2 v5), con heading exacto/único/top-level, valor por VALUE SPAN (primer span backtick tras el slot), y 5 fixtures bitientes. Verify adversarial pre-merge (3 frentes) cazó 3 huecos bloqueantes (value-residue en la misma línea · heading superseded/nested · falso-FAIL por sub-headers ATX) — los 3 corregidos + fixtures. Convención formalizada en gap-protocol § the ratification record shape. Detalle en `verify-note-oik-path-section-bind—2026-07-17.md`. | MAJOR | CERRADO (2026-07-17) |
+| OI-K | **Ratification content-bind value-bound, not slot-bound / section-scoped** — CERRADO (2026-07-17, branch claude/v6-oik). El content-bind R3 ahora ata PATH (el valor debe estar en una línea que nombra el slot del token — un registro que ratifica X para el slot A ya no ratifica al slot B que carga X) y SECTION-SCOPE (solo `## What was ratified` ratifica; un bloque rechazado/superseded es inerte — la inversión del run 2 v5), con heading exacto/único/top-level, valor por VALUE SPAN (primer span backtick tras el slot), y 5 fixtures bitientes. Verify adversarial pre-merge (3 frentes) cazó 3 huecos bloqueantes (value-residue en la misma línea · heading superseded/nested · falso-FAIL por sub-headers ATX) — los 3 corregidos + fixtures. Convención formalizada en gap-protocol § the ratification record shape. Detalle en `notes/verify-note-oik-path-section-bind—2026-07-17.md`. | MAJOR | CERRADO (2026-07-17) |
+| OI-L | **`source-recover.py` re-run clobbers producer custody entries** — NOMBRADO por el verify de integración F6-01 (P-J-01: hueco real revelado se nombra, no se tapa sin adjudicación). `source-recover.py` construye un `{recovered:[…]}` fresco y `json.dump` SOBRESCRIBE el MANIFEST — nunca lo lee (no hay `json.load`), así que re-correrlo DESPUÉS de un productor Stage-8 (emit-cards/tokens-project) tira las filas `entries` de esos productores. PRE-EXISTENTE (no lo introdujo el fix F6-01 del dual-key). **Mitigado por orden de pipeline** (source-recover = Stage 3, ANTES de los productores Stage 8; los productores re-agregan sus filas en cualquier re-corrida Stage-8/10) → no muerde en el flujo normal. Fix recomendado: plegar `source-recover.py` al MISMO contrato union-preserving que ya tienen los dos productores JS (leer el MANIFEST existente, filtrar solo lo propio, unir, escribir). Candidato F6-03 o backlog — lo adjudica el home base. | MINOR | OPEN (candidato F6-03 — NOMBRADO 2026-07-18, mitigado por orden de pipeline) |
 
 (OI-C — end-to-end run on a real brownfield pilot — RESOLVED: it surfaced the v2 reframe + F-001…F-026, all shipped. See `## v2`.)
 
@@ -470,6 +475,51 @@ gate final (2026-07-16): veredicto EV-1 destilado en el Log del ciclo y en `stre
   ID estable → `stress-test-v5/failure-gallery-v5.md`; forense LOCAL-ONLY (E-O1).
   citas verbatim contra archivos hasheados o `selector:none` honesto — 0 hallazgos REALES, no 0-por-supresión.
 - **Todo local (E-O1):** cero push de repos de marca, siempre; la gallery y el golden son fixtures locales.
+
+## v6 — compile seam, both modes, the kit's offline leg, the Drive mirror (F0–F6)
+
+v6 CONSTRUYE lo no-testeado sobre la fundación que v5 probó, MÁS lo que arrojó el stress-test v5 (los dos
+patrones rectores del gate: inflación en el paso de COMPILACIÓN del wire · compresión de instrumentos bajo
+presión). Ejecutado en 6 etapas sobre `PLAN-V6.md` (Session log por item); TODO item con mecanismo o contrato
+llevó **verify adversarial PRE-merge** (la lección de F3, que mergeó con un BLOCKER por correr el verify
+después) con journal respaldado local-only. Baseline `9294c961` → **plugin `0.6.0`**. Golden = `essential-brand`
+LOCAL `8b78dba` (8 clases FAIL exactas = la regresión permanente). Design/verify notes por etapa en `notes/`.
+
+- **F1 — spine.** Migración `.tokens.json` lockstep (cierra el deferral E1-08); hop downstream REPARADO — el
+  spine emite el objeto estructurado-OKLCH y `tools/tokens-project.mjs` (zero-dep, tool propio) proyecta la
+  STRING canónica C-1 a `tokens/web/**` para los consumers string-only (SD v5 #1398/#1494); custodia de
+  derivados en `sources/MANIFEST.json` con parent hash recomputado por el gate. E2E real contra el clon
+  web-stack (build.mjs verbatim + SD 5.4.4 → oklch() preservado).
+- **F2 — la costura de compilación (el insumo #1 del gate v5).** El wire ya no AFIRMA ratificación que no
+  puede PROBAR: el brief firmado viaja DENTRO del wire (appendix, último bloque; Stage 0 lo parte + hashea),
+  con **`BRIEF{ verbatim | anchor | none }` POR LÍNEA** — el wrapper `RATIFIED{}` registra el acto y confiere
+  NADA; paráfrasis sin ancla = democión a hypothesis (el mecanismo EV1-F03/F04 muerto). Ejecutable
+  `tools/wire-check.mjs` (verbatim-check compilado-vs-brief-firmado + barrido pre-brief silent-dimension/gap +
+  reemisión byte-fiel + vocabulario saneado). Contrato v6 CONGELADO para el resto del plan.
+- **F3 — los dos modos.** CREATE completado DOWNSTREAM (seams per-stage: la rama sin-fuente de fidelity se
+  OPERA contra el master AUTORADO; provenance `authored·hypothesis`; keystone MODE-AGNÓSTICO por construcción).
+  T2 EXTEND/RECOMMEND = engagement shape de ANALYZE (jamás tercer literal de MODE): mitad propositiva en
+  PROPOSED-QUARANTINE invitation-scoped + **loop de ratificación** post-primer-feedback con dos salidas (RATIFY
+  registrable / ADJUST-and-stay-proposed), ninguna implícita. Fix-pack post-F3 + OI-K: **content-bind del acto
+  de ratificación** en R3 (el registro debe existir y nombrar el valor canónico, path-bound + section-scoped;
+  terminal `ratified-proposal`), cerrado con 3 verifies adversariales.
+- **F4 — el kit gana su pierna offline.** `tools/emit-cards.mjs` (zero-dep, capability del kit) renderiza
+  cards `@dsCard` self-contained desde el canon — cero React/bundle/converter/**network** → hace de
+  `[NO_DIST]` un estado revisable; honestidad de provenance (un valor incierto R5 → "· provisional" en vocab
+  cliente, jamás GAP id). Re-pin VIVO del contrato /design-sync leído del schema del tool `DesignSync`
+  (`report_validate` + `.render-check.json` absorbidos; regla nueva freeze-after-repin).
+- **F5 — el mirror Drive (capability EMITIDA, opt-in).** GitHub Action + engine zero-dep `tools/drive-mirror.mjs`
+  que sube los assets custodiados (**asset-index ∩ CHECKSUMS**) a un Drive compartido en push y verifica el
+  round-trip por `sha256Checksum` en ambos lados; no-conversión (Docs-Editors excluidos por nombre, R-14);
+  one-way (git = fuente de verdad). Auth GitHub Secrets (SA `drive` + shared drive, o OAuth `drive.file` +
+  app-owned root). **DECIDIDO de criterio de gate (doctrina reusable):** el gate de una capability EMITIDA =
+  emisión correcta + verify OFFLINE que muerde, JAMÁS ejecución viva dependiente de infra de tercero — el
+  round-trip vivo es aceptación del usuario, no gate (W-17 = NOT-RUN honesto).
+- **F6 — cierre.** Integración: los mecanismos de las 5 etapas ejercitados JUNTOS sobre un repo (proposed → card
+  `provisional` → deny scrub · proposed nunca llega al mirror · los 3 productores de custodia coexisten — el
+  merge de `sources/MANIFEST.json` es tool-scoped, jamás clobber · run-gates verde con toda la board de una vez)
+  → **cero pisos, mecanismos ortogonales confirmado**; harness offline en `fixtures/integration/`. Docs del repo
+  a v6, notas consolidadas a `notes/`, bump `0.6.0`.
 
 ## Dead-ends — do not retry
 - Tried: ship an output-agnostic rule/token canon and defer all real assets to `GAP-NNN`. Abandoned: it

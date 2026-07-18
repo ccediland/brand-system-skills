@@ -1,0 +1,18 @@
+{
+  "recovered": [
+    {
+      "file": "sources/wayback/home.html",
+      "url": "https://example.invalid/",
+      "captureTs": "20200101000000",
+      "sha256": "51f6b9e71036d52db625bf16497fddd0e5c5f018daa49242af26d2e22926576c"
+    }
+  ],
+  "entries": [
+    {
+      "file": "design-sync-kit/cards/02-color.html",
+      "url": "https://example.invalid/parent",
+      "sha256": "1cea58bbba712a964aeb31350a66921331af0db92e6cabd0713e841dacb3953c",
+      "tool": "emit-cards.mjs"
+    }
+  ]
+}
