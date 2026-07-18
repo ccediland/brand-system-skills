@@ -23,3 +23,28 @@ brief names both drafts as pending the owner's ratification.
 an act) · **R3** (no hashed ratification record backs the claimed confidence) · **R5** (the quarantine
 gap was dropped instead of closed by the owner). Enthusiasm, silence, or shipping the draft promote
 nothing — only the recorded ratification loop does.
+
+`ratified-clean/` — the RATIFY happy path (the legit exit the loop's prose prescribes). The owner ratified
+the terracotta draft in a witnessed record (`sources/ratification—2026-04-01.md`, hashed); the token moves
+to `source:"ratified-proposal"` (the proposed lineage PRESERVED in the name — never re-labeled to
+`owner-stated`, which would erase the origin) · `confidence:"owner-confirmed"` · a mandatory `sourceRef` to
+that record · GAP-001 `CLOSED (ratified)`. `node ../../../audit-lint.mjs .` → **exit 0 (CLEAN)**: R3's
+content-bind reads the record, finds the ratified value in its text, and passes. (Pre-fix this exact shape
+gave exit 1 — the loop's prose was un-lintable.)
+
+`ratified-mismatch/` — the content-unbound seal: a FABRICATED value (a saturated blue) ships at
+`confidence:"owner-confirmed"` citing the SAME genuine, correctly-hashed ratification record — which
+ratifies only the terracotta. `node ../../../audit-lint.mjs .` → **exit 1 (FAIL)** on **R3's content-bind
+alone**: the record's text does NOT name the token's value, so the record does not ratify it (the
+post-handoff analog of the wire's `BRIEF{}` verbatim — a hash→path bind alone let a genuine ratification
+of value X ship a token carrying value Y). A ghost record (a `sources/ratification—*` cited but absent,
+its hash fabricated into `CHECKSUMS.txt`) fails the same rule — a CHECKSUMS line is custody, not the file.
+
+`ratified-hex-held/` — the pre-merge verify's BLOCKER: the token pins its `hex` fallback to the terracotta
+the record names (`#c17a5e`) while its OKLCH `components` — the C-1 PRIMARY, rendered value — are FABRICATED
+(`oklch(0.40 0.25 300)`). `node ../../../audit-lint.mjs .` → **exit 1 (FAIL)**: the content-bind's STRICT
+matcher (`ratificationNamesValue`) requires the OKLCH components (never a hex-only hit) — a lenient
+value-presence test would have short-circuited on the hex and sealed the fabricated primary owner-confirmed.
+The strict matcher is content-bind-LOCAL (R1 corroboration keeps its lenient hex-OR-oklch `valueInText`); it
+also word/number-bounds string and numeric matches (a font family "Ares" never ratifies via the substring in
+"shares"; a non-colour value the record never names FAILs instead of a vacuous pass).

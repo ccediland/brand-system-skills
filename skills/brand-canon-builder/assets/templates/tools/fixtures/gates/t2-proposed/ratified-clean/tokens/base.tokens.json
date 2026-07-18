@@ -1,0 +1,14 @@
+{
+  "color": {
+    "accent-seasonal": {
+      "$type": "color",
+      "$value": { "colorSpace": "oklch", "components": [0.68, 0.09, 45], "alpha": 1, "hex": "#c17a5e" },
+      "$extensions": {
+        "brand": {
+          "provenance": { "source": "ratified-proposal", "confidence": "owner-confirmed", "owner": "demo-owner-d", "freshness": "shipped" },
+          "sourceRef": { "file": "sources/ratification—2026-04-01.md", "sha256": "3b8ff62fec69850470ad57a15072912688d034a9dc7c42d027374b71a1df8622" }
+        }
+      }
+    }
+  }
+}

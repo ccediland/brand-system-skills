@@ -48,20 +48,30 @@ const ROOT = resolve(process.argv[2] || process.cwd());
 
 // closed enums (mirror gap-protocol.md § The provenance spine — "no extra value/synonym")
 // source: `proposed` = pipeline-authored proposal in quarantine (capped at hypothesis + open GAP).
+//   `ratified-proposal` = the RATIFY terminal of that lineage — a proposal an owner ratified post-handoff;
+//   it PRESERVES the "was a proposal" lineage in the name (never re-labeled to owner-stated — that erases
+//   the origin and is byte-identical to laundering) and, unlike `proposed`, may rise (to owner-confirmed),
+//   but ONLY bound to a content-bound sources/ratification—<date>.md record (R3).
 // confidence tiers: 0 unconfirmed = hypothesis · 1 evidence-earned = corroborated, verified-primary ·
 //   2 ratified = proxy-relayed, handoff-confirmed, owner-confirmed (who/how the ratification happened).
-const SOURCE_ENUM = new Set(['declared-spec', 'owner-stated', 'extracted-vector', 'computed-css', 'design-file', 'matched', 'traced', 'inferred', 'proposed']);
+const SOURCE_ENUM = new Set(['declared-spec', 'owner-stated', 'extracted-vector', 'computed-css', 'design-file', 'matched', 'traced', 'inferred', 'proposed', 'ratified-proposal']);
 const CONFIDENCE_ENUM = new Set(['hypothesis', 'corroborated', 'verified-primary', 'proxy-relayed', 'handoff-confirmed', 'owner-confirmed']);
 // every confidence above hypothesis requires a hashed, path-bound source-of-record (R3)
 const HASH_GATED_CONFIDENCE = new Set(['corroborated', 'verified-primary', 'proxy-relayed', 'handoff-confirmed', 'owner-confirmed']);
 // handoff-inherited rungs must bind to the persisted handoff itself (R3)
 const HANDOFF_BOUND_CONFIDENCE = new Set(['handoff-confirmed', 'proxy-relayed']);
-// sources that may never rise above hypothesis on their own (R2)
+// sources that may never rise above hypothesis on their own (R2). `ratified-proposal` is DELIBERATELY absent:
+// it is the one exit by which a proposed lineage rises — earned by a content-bound ratification record, not a label.
 const HYPOTHESIS_CAPPED_SOURCES = new Set(['inferred', 'matched', 'proposed']);
 // sourceRef origin axis (normalized; absent = capture). A typo'd origin must not silently count as capture.
 const ORIGIN_ENUM = new Set(['capture', 'relay']);
 const refOrigin = (r) => String((r && r.origin) ?? 'capture').trim().toLowerCase();
 const isHandoffFile = (f) => /^sources\/handoff—/.test(String(f ?? '').replace(/^\.\//, ''));
+const isRatificationFile = (f) => /^sources\/ratification—/.test(String(f ?? '').replace(/^\.\//, ''));
+// human-readable render of a $value for a violation message (no dep on serializeValue, defined below R3).
+const showVal = (val) => (val && typeof val === 'object' && Array.isArray(val.components))
+  ? (val.hex ? `${val.hex} / oklch(${val.components.join(' ')})` : `oklch(${val.components.join(' ')})`)
+  : String(val);
 
 // ---------- tiny fs/json helpers (no deps) ----------
 const parseErrors = [];
@@ -236,6 +246,50 @@ function valueInText(txt, value) {
   }
   return true; // other shapes (composite strings already covered above) — declarative
 }
+
+// STRICT value matcher for the R3 RATIFICATION content-bind ONLY — never reuse valueInText here. R1
+// corroboration is intentionally LENIENT (hex-OR-oklch short-circuit, substring font faces, a declarative
+// `return true` for shapes it cannot read) because ≥2 agreeing sources tolerate slack. A ratification seal
+// is the TOP trust rung and must be STRICT: the record must name the token's CANONICAL value, a match is
+// word/number-BOUNDED (a family "Ares" never matches inside "shares"), the OKLCH components (the C-1 PRIMARY
+// truth) are required — a hex-only hit never ratifies a fabricated oklch — and an unverifiable shape FAILs
+// (never a vacuous pass). Value-blind & general: it asserts no specific value, only that whatever the token
+// carries is NAMED in the record.
+const numStr = (n) => { const x = Number(n); return Number.isFinite(x) ? String(x) : String(n).trim(); };
+const numberNamedAsWord = (txt, n) => {
+  const s = numStr(n).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?<![\\w.])${s}(?![\\w.])`).test(txt);
+};
+const wordBounded = (txt, needle) => {
+  const esc = String(needle).trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return esc.length > 0 && new RegExp(`(?<![\\w-])${esc}(?![\\w-])`, 'i').test(txt);
+};
+function ratificationNamesValue(txt, value) {
+  if (value == null) return false;                            // nothing to confirm → cannot ratify → FAIL
+  if (typeof value === 'object' && !Array.isArray(value)) {
+    if (Array.isArray(value.components)) {                     // structured colour: require the OKLCH components
+      const [L, C, H] = value.components;                      // (the C-1 PRIMARY value) — a hex-only hit never ratifies
+      for (const m of txt.matchAll(OKLCH_RE)) {
+        let l = parseFloat(m[1]); if (m[0].includes('%')) l /= 100;
+        if (Math.abs(l - L) <= 0.005 && Math.abs(parseFloat(m[2]) - C) <= 0.005 && Math.abs(parseFloat(m[3]) - H) <= 0.5) return true;
+      }
+      return false;
+    }
+    if (value.value != null && value.unit != null) {           // DTCG dimension {value,unit}: "37px" OR the bare number
+      if (txt.toLowerCase().includes(`${numStr(value.value)}${String(value.unit).toLowerCase()}`)) return true;
+      return numberNamedAsWord(txt, value.value);
+    }
+    return false;                                              // any other object shape — unverifiable → FAIL
+  }
+  if (typeof value === 'number') return numberNamedAsWord(txt, value);
+  if (Array.isArray(value)) return value.every((n) => (typeof n === 'number' ? numberNamedAsWord(txt, n) : wordBounded(txt, n)));
+  if (typeof value === 'string') {                             // font stack / plain string: the first quoted family
+    const fam = value.match(/^"([^"]+)"/);                     // or the whole string, as a BOUNDED token (never a raw
+    if (fam && txt.includes(`"${fam[1]}"`)) return true;       // substring — "Ares" must not match inside "shares")
+    return wordBounded(txt, fam ? fam[1] : value);
+  }
+  return false;                                                // unknown shape → FAIL (never a vacuous pass)
+}
 {
   const v = [];
   for (const t of tokens) {
@@ -294,21 +348,29 @@ let assetIndexPresent = false;
   const v = [];
   for (const t of tokens) {
     const gated = t.source === 'computed-css' || HASH_GATED_CONFIDENCE.has(t.confidence);
+    // source "ratified-proposal" is the RATIFY terminal — it MUST carry confidence owner-confirmed
+    // (a not-yet-ratified proposal stays source "proposed" + hypothesis; there is no half-ratified rung).
+    if (t.source === 'ratified-proposal' && t.confidence !== 'owner-confirmed') {
+      v.push(`${t.path} (${t.file}) — source "ratified-proposal" is the RATIFY terminal and MUST carry confidence "owner-confirmed" (found "${t.confidence ?? 'none'}"); an unratified proposal stays source "proposed" + "hypothesis"`);
+    }
     if (!gated) continue;
     // handoff-inherited rungs must bind to the persisted handoff itself, not just any hashed file;
-    // verified-primary must bind to an index-marked primary master (when the index exists)
+    // verified-primary must bind to an index-marked primary master (when the index exists);
+    // ratified-proposal must bind to a sources/ratification—<date>.md record (the witnessed owner act).
     const mustBeHandoff = HANDOFF_BOUND_CONFIDENCE.has(t.confidence);
     const mustBePrimary = t.confidence === 'verified-primary' && assetIndexPresent && primaryMasters.size > 0;
+    const mustBeRatification = t.source === 'ratified-proposal';
     const hashed = t.sourceRefs.some((r) => {
       if (!r || !r.file || !r.sha256) return false;
       if (mustBeHandoff && !isHandoffFile(r.file)) return false;
       if (mustBePrimary && !primaryMasters.has(String(r.file).replace(/^\.\//, ''))) return false;
+      if (mustBeRatification && !isRatificationFile(r.file)) return false;
       const have = checksumByPath.get(String(r.file).replace(/^\.\//, ''));
       return !!have && have === String(r.sha256).toLowerCase();
     });
     if (!hashed) {
       const refs = t.sourceRefs.map((r) => (r && r.file ? `${r.file}#${r.sha256 ? String(r.sha256).slice(0, 12) : 'no-sha'}` : 'malformed')).join(', ');
-      v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file${mustBeHandoff ? ' AND that file must be the persisted handoff (sources/handoff—<date>.md)' : ''}${mustBePrimary ? ' AND that file must be marked primary-master-for in satellites/asset-index.md (a verified-primary read binds to the slot\'s OFFICIAL master, not any hashed file)' : ''} [${refs || 'no sourceRef'}]`);
+      v.push(`${t.path} (${t.file}) — source "${t.source ?? '–'}" / confidence "${t.confidence ?? '–'}" requires a sourceRef whose sha256 is in CHECKSUMS.txt FOR THAT file${mustBeHandoff ? ' AND that file must be the persisted handoff (sources/handoff—<date>.md)' : ''}${mustBePrimary ? ' AND that file must be marked primary-master-for in satellites/asset-index.md (a verified-primary read binds to the slot\'s OFFICIAL master, not any hashed file)' : ''}${mustBeRatification ? ' AND that file must be the witnessed ratification record (sources/ratification—<date>.md)' : ''} [${refs || 'no sourceRef'}]`);
     }
   }
   // R3 CITATION-INTEGRITY sub-check (every sourceRef, every token): a cited selector must EXIST in the
@@ -340,7 +402,31 @@ let assetIndexPresent = false;
       }
     }
   }
-  add('R3', 'MT-3 · computed-css / any confidence above hypothesis ⇒ hashed source-of-record (path-bound)', v);
+  // R3 CONTENT-BIND ON THE RATIFICATION ACT (the post-handoff analog of the wire verbatim-check's BRIEF{} content-bind):
+  // a token citing a sources/ratification—<date>.md record must (1) point at a record that EXISTS — a hashed
+  // CHECKSUMS line is custody, never a substitute for the file (kills the ghost-record R3 emitter-circular
+  // escape for ratification records) — and (2) have its VALUE NAMED in that record's text (reuse valueInText).
+  // A record naming a DIFFERENT value, or no value, does NOT ratify this token: hash→path bind alone let a
+  // genuine ratification of value X ship a token at value Y under owner-confirmed (R1's value check never fired
+  // above "corroborated"). Miss = FAIL, never a silent pass. Value-blind & golden-safe: fires ONLY on a
+  // sources/ratification—* citation — the golden's owner-confirmed tokens cite declared-spec/handoff, untouched.
+  for (const t of tokens) {
+    for (const r of t.sourceRefs) {
+      if (!r || !r.file || !isRatificationFile(r.file)) continue;
+      const fileRel = String(r.file).replace(/^\.\//, '');
+      const p = join(ROOT, fileRel);
+      if (!existsSync(p)) {
+        v.push(`${t.path} (${t.file}) — cites ratification record ${fileRel} which does NOT exist (a ghost record ratifies nothing; a CHECKSUMS.txt line is custody, not the record)`);
+        continue;
+      }
+      const txt = readText(p);
+      if (txt == null || txt.includes('\u0000')) continue; // binary/unreadable: declarative (documented limit, as R1)
+      if (!ratificationNamesValue(txt, t.value)) {
+        v.push(`${t.path} (${t.file}) — cites ratification record ${fileRel} but that record's text does NOT name the token's value ${showVal(t.value)} — a ratification record must NAME the value it ratifies (content-bind: the post-handoff analog of the wire's BRIEF{} verbatim; the record must name the CANONICAL value — for colour the OKLCH components, never a hex fallback alone — as a bounded token). A record ratifying a different value does not ratify this one.`);
+      }
+    }
+  }
+  add('R3', 'MT-3 · computed-css / any confidence above hypothesis ⇒ hashed source-of-record (path-bound) + ratification content-bind', v);
 }
 
 // R4 (MT-5): every named value/scheme maps to a token artifact OR an open GAP.
