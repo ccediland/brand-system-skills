@@ -192,9 +192,11 @@ equivalent fields before proceeding.)
 Copy the full template set from `assets/templates/` into the target repo, renaming `docs/*` to the repo
 root (`README.md`, `CLAUDE.md`, `RESIDENT.md`), `tokens/*` into `tokens/`, and `tools/*` into `tools/`
 (`run-gates.mjs` — the Stage-10 suite runner + status board; `audit-lint.mjs` — the provenance/completeness
-gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `tokens-project.mjs`; `wire-check.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
+gate; `client-deny-lint.mjs`; `scheme-derive.mjs`; `tokens-project.mjs`; `wire-check.mjs`; `emit-cards.mjs`; `drive-mirror.mjs`; `fidelity-diff.py`; `source-recover.py` — MT-3
 archived-source recovery). **Do NOT copy `tools/fixtures/`** — it is the skill's own gate-acceptance proof (a clean sample +
-a seeded-violation sample), not client material. Create `assets/` (source
+a seeded-violation sample), not client material. Also copy `.github/` — the optional **Drive mirror** Action
+(`.github/workflows/drive-mirror.yml` + its `DRIVE-MIRROR.md` operation guide, driven by `tools/drive-mirror.mjs`;
+`references/drive-mirror.md`); a repo that opts out simply deletes the workflow (`run-gates.mjs` then records it N/A). Create `assets/` (source
 binaries: marks, fonts, imagery) and `sources/` (references: brandbook PDFs, exports) — the
 `assets/`+`sources/` material convention. This creates the valid, empty-but-structured baseplate before any content. Fill the obvious
 header fields (`{{BRAND}}`, `{{BRAND_OWNERS}}`, `{{DATE}}`, repo/org).

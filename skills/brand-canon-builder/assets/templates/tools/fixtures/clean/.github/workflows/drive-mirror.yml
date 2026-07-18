@@ -1,0 +1,55 @@
+# Drive mirror — upload the custodied brand assets to a Google shared drive on every push to the default
+# branch, and verify the round-trip by sha256Checksum on both sides. git is the source of truth; the Drive
+# is a one-way mirror (no bidirectional sync). See .github/DRIVE-MIRROR.md for wiring (secrets, auth routes,
+# the shared-drive requirement, minimal scope).
+#
+# SECURITY POSTURE (do not weaken):
+#   · Trigger is `push` to the default branch ONLY. It is NEVER `pull_request_target` (and never `pull_request`
+#     from forks): those run untrusted fork code WITH access to this repo's secrets — the classic secret-exfil
+#     vector. A push event only fires for commits already ON the branch, so the secret is never exposed to an
+#     outside contributor.
+#   · `permissions:` is contents:read and nothing else — the job needs no write scope on the repo.
+#   · The service-account key / OAuth token live in GitHub Secrets, are passed only through `env:`, and are
+#     never echoed. The mirror script never prints credential material or token-endpoint response bodies.
+#   · `concurrency` serializes runs so two pushes can't race the same Drive folder.
+
+name: drive-mirror
+
+on:
+  push:
+    branches: [main]        # ← set to your repo's default branch if it is not `main`
+    paths:                  # only re-mirror when custodied material or the index actually changes
+      - 'sources/**'
+      - 'assets/**'
+      - 'canon/**'
+      - 'CHECKSUMS.txt'
+      - 'satellites/asset-index.md'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: drive-mirror-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    # extra belt: never run on a fork's copy of this workflow (a fork uses its OWN secrets, but this makes the
+    # intent explicit and keeps the upstream job from firing on mirror-network forks).
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Mirror custodied assets to Drive + verify round-trip
+        env:
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+          # Auth route A (default): service account + shared drive
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          # Auth route B (no Workspace): OAuth refresh token — leave the SA secret unset to use these
+          GDRIVE_OAUTH_CLIENT_ID: ${{ secrets.GDRIVE_OAUTH_CLIENT_ID }}
+          GDRIVE_OAUTH_CLIENT_SECRET: ${{ secrets.GDRIVE_OAUTH_CLIENT_SECRET }}
+          GDRIVE_OAUTH_REFRESH_TOKEN: ${{ secrets.GDRIVE_OAUTH_REFRESH_TOKEN }}
+        run: node tools/drive-mirror.mjs

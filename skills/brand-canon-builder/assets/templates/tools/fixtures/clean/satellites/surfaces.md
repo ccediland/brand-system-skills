@@ -28,3 +28,4 @@
 | sources/** | operator | sources of record (incl. the persisted handoff + the split signed brief) |
 | audit/** | operator | gate evidence, agent-gate walks, boards |
 | tools/** | operator | the emitted gate suite |
+| .github/** | operator | CI plumbing — the Drive-mirror workflow + its operation guide (no client copy) |

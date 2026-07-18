@@ -180,6 +180,22 @@ const failLine = (s) => {
   else { const r = runTool('emit-cards.mjs', ['--check', ROOT]); add('static cards', 'lint', r.status !== 'N/A', r.status, r.detail); }
 }
 
+// ---------- 3d. drive mirror plan (lint, BLOCKING when the mirror is emitted) — OFFLINE plan integrity ----------
+// The Drive-mirror Action (.github/workflows/drive-mirror.yml) uploads custodied assets on push; its ENGINE
+// (tools/drive-mirror.mjs) computes the mirror plan from satellites/asset-index.md ∩ CHECKSUMS.txt. This row
+// runs `--plan` (OFFLINE, no credentials) so a plan that would break in CI — a STALE custody hash, a Drive-path
+// collision, a broken asset-index — is caught BEFORE the live round-trip. N/A when the mirror was not emitted
+// (opt-in infra). The live round-trip (sha256 both sides) needs real Drive creds — the operator's F5 gate,
+// never a build-time dep here.
+{
+  if (!existsSync(join(ROOT, '.github', 'workflows', 'drive-mirror.yml'))) {
+    add('drive mirror plan', 'lint', false, 'N/A', 'no .github/workflows/drive-mirror.yml in this repo (mirror not emitted / opt-out)');
+  } else {
+    const r = runTool('drive-mirror.mjs', ['--plan', ROOT]);
+    add('drive mirror plan', 'lint', true, r.status, r.detail);
+  }
+}
+
 // ---------- 4. §7a fidelity evidence — recomputed verdicts + the MANDATORY non-waivable set ----------
 // `pass` is never trusted on its own: the runner RECOMPUTES the measurement from the recorded numeric
 // metrics vs thresholds (a hand-written verdict — recorded pass disagreeing with its own numbers, or a
