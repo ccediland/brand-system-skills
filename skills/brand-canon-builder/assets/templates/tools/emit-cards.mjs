@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// emit-cards.mjs — the OFFLINE static-cards emitter (F4-01; zero-dep Node, a capability of the design-sync KIT).
+// emit-cards.mjs — the OFFLINE static-cards emitter (zero-dep Node, a capability of the design-sync KIT).
 //
 // WHAT: reads the canon (tokens/*.tokens.json · tokens/schemes/*.json · canon/canon.json · canon/mark.svg)
 //   and writes N self-contained `@dsCard` static HTML cards to design-sync-kit/cards/NN-<group>.html — one
@@ -30,7 +30,7 @@
 // Usage: node tools/emit-cards.mjs [repo-root]            # emit the cards + record custody
 //        node tools/emit-cards.mjs --check [repo-root]    # verify emitted cards are offline + marked (no emit)
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync, rmSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, relative } from 'node:path';
 
@@ -58,6 +58,15 @@ function oklchStr(v) {
 const isAlias = (v) => typeof v === 'string' && /^\{.+\}$/.test(v.trim());
 // audit-lint R5's exact "uncertain" test — a card marks these PROVISIONAL in client vocab, never operator vocab
 const isProvisional = (t) => t.confidence === 'hypothesis' || ['inferred', 'matched', 'traced', 'proposed'].includes(t.source);
+
+// SANITIZERS — a token $value is UNTRUSTED text placed into a CSS context; never interpolate it raw (a value
+// like `serif;}</style><img src=…>` would break out of <style> and inject markup). A value that is not a
+// well-formed CSS colour / font-family is DROPPED (the face falls back to the system stack; the colour var is
+// omitted) — never emitted. Structured-OKLCH values are always safe (oklchStr emits `oklch(<numbers>)`).
+const CSS_COLOR_RE = /^(?:#[0-9a-f]{3,8}|oklch\([0-9.\s/%]+\)|oklab\([0-9.\s/%-]+\)|rgba?\([0-9.,\s/%]+\)|hsla?\([0-9.,\s/%]+\)|[a-z]+)$/i;
+const FONT_STACK_RE = /^[\w\s"',.-]+$/;                 // families, quotes, commas, spaces, dots, hyphens only
+const safeColor = (str) => (typeof str === 'string' && CSS_COLOR_RE.test(str.trim()) ? str.trim() : null);
+const safeFont = (str) => (typeof str === 'string' && FONT_STACK_RE.test(str.trim()) ? str.trim() : null);
 
 // ---------- collect canon leaves ----------
 function walkTokens(node, path, type, out) {
@@ -140,8 +149,8 @@ for (const f of tokenFiles) { const j = readJSON(join(ROOT, f)); if (j) walkToke
 const resolve = buildResolver(leaves);
 const inputs = new Set();               // canonical inputs a card consumes → custody parents (path per card handled below)
 
-const colors = leaves.filter((t) => t.type === 'color' && !t.isAlias && !t.scheme && oklchStr(t.value));
-const fonts = leaves.filter((t) => t.type === 'fontFamily' && typeof t.value === 'string' && !t.isAlias);
+const colors = leaves.filter((t) => t.type === 'color' && !t.isAlias && !t.scheme && safeColor(oklchStr(t.value)));
+const fonts = leaves.filter((t) => t.type === 'fontFamily' && typeof t.value === 'string' && !t.isAlias && safeFont(t.value));
 const markSvgRaw = readText(join(ROOT, 'canon', 'mark.svg'));
 const canonJson = readJSON(join(ROOT, 'canon', 'canon.json'));
 const schemeDefs = (canonJson && canonJson.schemes && typeof canonJson.schemes === 'object') ? canonJson.schemes : {};
@@ -225,11 +234,17 @@ if (colors.length) {
   const schemeCards = Object.keys(schemeDefs).filter((k) => !k.startsWith('$') && k !== 'default').map((s) => {
     const def = schemeDefs[s]; const deferred = def && /^deferred$/i.test(String(def.status ?? ''));
     const roles = schemeLeaves.filter((t) => t.scheme === s);
+    // PROVENANCE HONESTY: a scheme is provisional if deferred OR its rendered roles are still uncertain
+    // (scheme-derive materializes every scheme at hypothesis + GAP until ratified — a materialized scheme is
+    // NOT settled). Read confidence from the role tokens (isProvisional / R5), never canon.json status alone.
+    const prov = deferred || !roles.length || roles.some(isProvisional);
     const strip = deferred || !roles.length
       ? `<div style="height:48px;display:grid;place-items:center;color:var(--muted);font-size:.75rem">provisional</div>`
-      : `<div style="height:48px;display:flex">${roles.slice(0, 5).map((r) => `<span style="flex:1;background:${esc(oklchStr(r.value))}"></span>`).join('')}</div>`;
-    return `<div style="flex:1;min-width:180px;border:1px solid var(--line);border-radius:2px;overflow:hidden">${strip}<div style="padding:8px 12px;font-size:.78rem;color:var(--muted)">${esc(humanize(s))}${deferred ? ' <span class="prov">· provisional</span>' : ''}</div></div>`;
+      : `<div style="height:48px;display:flex">${roles.slice(0, 5).map((r) => `<span style="flex:1;background:${esc(safeColor(oklchStr(r.value)) || 'transparent')}"></span>`).join('')}</div>`;
+    return `<div style="flex:1;min-width:180px;border:1px solid var(--line);border-radius:2px;overflow:hidden">${strip}<div style="padding:8px 12px;font-size:.78rem;color:var(--muted)">${esc(humanize(s))}${prov ? ' <span class="prov">· provisional</span>' : ''}</div></div>`;
   }).join('');
+  // [5] the chrome inks (ink/paper/accent) can themselves be provisional — say so, never present a draft colour as settled
+  const chromeProv = [ink, paper, accent].some((x) => isProvisional(x.t));
   const body = `<div class="row">
   <button style="background:${esc(inkV)};color:${esc(paperV)};border:1px solid transparent">Primary action</button>
   <button style="background:transparent;color:${esc(inkV)};border:1px solid ${esc(inkV)}">Secondary</button>
@@ -237,7 +252,7 @@ if (colors.length) {
   <input placeholder="Search" />
 </div>
 ${schemeCards ? `<div class="row" style="margin-top:28px">${schemeCards}</div>` : ''}
-<p class="note">Components rendered from the palette${schemeCards ? ' and colour schemes' : ''}. A scheme marked <span class="prov">provisional</span> is pending your confirmation.</p>`;
+<p class="note">Components rendered from the palette${schemeCards ? ' and colour schemes' : ''}.${chromeProv ? ' Some colours shown here are <span class="prov">provisional</span> (proposals pending your confirmation).' : ''} A scheme marked <span class="prov">provisional</span> is pending your confirmation.</p>`;
   const parents = new Set([...inputsBacking((t) => t.type === 'color' && !t.isAlias)]);
   if (schemeLeaves.length) inputsBacking((t) => t.scheme).forEach((f) => parents.add(f));
   if (canonJson) parents.add('canon/canon.json');
@@ -253,13 +268,22 @@ function checkCards() {
   // a remote/script/live ref makes the card non-offline. NOTE: `data:` URIs are INLINE (self-contained, not
   // remote) and are allowed; SVG `xmlns="http://www.w3.org/…"` namespace URIs are inert identifiers (never
   // dereferenced) and are stripped before the scan; the {{…}} converter carve-out never appears in EMITTED output.
-  const REMOTE = /https?:\/\/|(?<![:a-z0-9])\/\/[a-z0-9.]|<script\b|@font-face|@import\b|<link\b|\bfetch\s*\(|\b(?:src|href|xlink:href)\s*=\s*["']?(?:https?:)?\/\//i;
+  // Flag any FETCHABLE URL scheme in a card. NOT just `//`-bearing URLs: a browser fetches a special-scheme
+  // URL written WITHOUT slashes too (`http:host/x` normalizes to host `host`), and `javascript:`/`ftp:` etc.
+  // are all live. Detect ANY non-`data:` scheme in a src/href/xlink:href attribute OR a CSS url(); plus the
+  // script/@font-face/@import/link/fetch/protocol-relative signals. `data:` (inline) and `#frag`/`var(`/
+  // relative refs are allowed. xmlns namespace URIs are stripped first (inert identifiers, never fetched).
+  const REMOTE = [
+    /https?:\/\//i, /(?<![:a-z0-9])\/\/[a-z0-9.]/i, /<script\b/i, /@font-face/i, /@import\b/i, /<link\b/i, /\bfetch\s*\(/i,
+    /\b(?:src|href|xlink:href)\s*=\s*["']?\s*(?!data:)[a-z][a-z0-9+.-]*:/i,  // scheme (with or without //) in a fetchable attr
+    /\burl\(\s*["']?\s*(?!data:)[a-z][a-z0-9+.-]*:/i,                        // scheme in a CSS url()
+  ];
   for (const n of files) {
     const raw = readText(join(CARDS_DIR, n)) || '';
     const first = raw.split('\n', 1)[0] || '';
     if (!/^<!--\s*@dsCard\s+group="[^"]+"\s*-->/.test(first)) fails.push(`[DSCARD_MISSING] ${n}: first line is not the <!-- @dsCard group="…" --> marker`);
     const scan = raw.replace(/\bxmlns(:\w+)?\s*=\s*"[^"]*"/gi, ''); // namespace URIs are inert, never fetched
-    if (REMOTE.test(scan)) fails.push(`[REMOTE_REF] ${n}: a remote/script/@font-face/@import/live reference — a card must be self-contained offline`);
+    if (REMOTE.some((re) => re.test(scan))) fails.push(`[REMOTE_REF] ${n}: a remote/script/@font-face/@import/live reference (any non-data: URL scheme in a fetchable position) — a card must be self-contained offline`);
   }
   return { fails, files };
 }
@@ -278,11 +302,27 @@ if (!cards.length) {
   process.exit(0);
 }
 if (!existsSync(CARDS_DIR)) mkdirSync(CARDS_DIR, { recursive: true });
+
+// RECONCILE cards/ to the present-layer set: a layer that DISAPPEARED from the canon leaves no card in this
+// run, so PRUNE any of OUR previously-emitted cards (first line is the @dsCard marker) not in the current set —
+// an orphan card is a stale derived artifact its custody entry no longer binds (a layer-removal is a canon
+// change custody-by-hash cannot see). Only cards THIS emitter authored (the @dsCard first line) are pruned.
+const wanted = new Set(cards.map((c) => c.file.split('/').pop()));
+for (const n of readdirSync(CARDS_DIR)) {
+  if (!/\.html$/.test(n) || wanted.has(n)) continue;
+  const head = (readText(join(CARDS_DIR, n)) || '').split('\n', 1)[0] || '';
+  if (/^<!--\s*@dsCard\s+group="[^"]+"\s*-->/.test(head)) { rmSync(join(CARDS_DIR, n)); console.log(`emit-cards: pruned orphan card design-sync-kit/cards/${n} (its canon layer is gone)`); }
+}
+
+// every card embeds the full colour closure (:root --color-*), so the colour-token file(s) are a parent of
+// EVERY card — register them universally so a colour change is a STALE custody FAIL on all cards, not just Color.
+const colorInputs = inputsBacking((t) => t.type === 'color' && !t.isAlias && !t.scheme);
 const emitted = [];
 for (const c of cards) {
   writeFileSync(join(ROOT, c.file), c.html);
   console.log(`emit-cards: ${c.file}  (@dsCard group="${c.group}")`);
-  for (const p of c.parents) {
+  const parents = new Set([...c.parents, ...colorInputs]);      // dedupe (card × input), colour closure universal
+  for (const p of parents) {
     const abs = join(ROOT, p);
     const sha = existsSync(abs) ? createHash('sha256').update(readFileSync(abs)).digest('hex') : null;
     if (sha) emitted.push({ file: c.file, parent: { file: p, sha256: sha }, tool: 'emit-cards.mjs' });

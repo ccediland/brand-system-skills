@@ -1,0 +1,4 @@
+{ "scheme": { "night": { "color": { "$type": "color",
+  "background": { "$value": { "colorSpace": "oklch", "components": [0.2, 0, 0], "alpha": 1, "hex": "#1a1a1a" }, "$extensions": { "brand": { "scheme": "night", "role": "background", "provenance": { "source": "declared-spec", "confidence": "hypothesis", "owner": "d", "freshness": "shipped" }, "gap": "GAP-002" } } },
+  "foreground": { "$value": { "colorSpace": "oklch", "components": [0.95, 0, 0], "alpha": 1, "hex": "#eee" }, "$extensions": { "brand": { "scheme": "night", "role": "foreground", "provenance": { "source": "declared-spec", "confidence": "hypothesis", "owner": "d", "freshness": "shipped" }, "gap": "GAP-002" } } }
+} } } }

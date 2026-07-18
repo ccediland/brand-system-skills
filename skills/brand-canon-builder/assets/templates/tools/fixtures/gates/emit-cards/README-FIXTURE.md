@@ -6,7 +6,10 @@ the canon (tokens + `canon/mark.svg`) with NO React, NO bundle, NO converter, NO
 that makes `[NO_DIST]` a reviewable handoff state.
 
 `clean/` — a minimal emitted repo (4 colours incl. one `proposed`/`hypothesis` draft · a display + body font ·
-a mark) with the EMITTED cards frozen under `design-sync-kit/cards/`:
+a mark · a materialized-but-`hypothesis` `night` scheme) with the EMITTED cards frozen under
+`design-sync-kit/cards/`. The scheme exercises the provenance-honesty path: a materialized scheme is NOT
+settled — the Components card labels it "· provisional" (read from the scheme roles' own confidence, not
+`canon.json` status alone), just as a `proposed` base colour is marked:
 - `node ../../../emit-cards.mjs clean` re-emits BYTE-IDENTICAL cards (idempotent) — the self-test.
 - `node ../../../emit-cards.mjs --check clean` → **exit 0**: every card's first line is the
   `<!-- @dsCard group="…" -->` marker and carries ZERO remote/script/@font-face/@import reference (the offline
@@ -20,7 +23,7 @@ a mark) with the EMITTED cards frozen under `design-sync-kit/cards/`:
 
 `violation/` — the same repo with two DEFECT cards, one per failure mode:
 - `05-remote.html` carries a remote CDN `@font-face` → `emit-cards --check` → **exit 1 [REMOTE_REF]** (a card
-  that reaches the network is not offline — the exact compromise the frozen Onyx workaround still shipped).
+  that reaches the network is not offline — the exact compromise the frozen reference workaround still shipped).
 - `02-color.html`'s note leaks operator vocabulary (`source: proposed`, `confidence: hypothesis`, `GAP-001`,
   `build-grade`) → `client-deny-lint` → **exit 1** (a client surface must read as brand copy — provisional
   status is sanctioned client vocab only, never the ladder/GAP/build plumbing).

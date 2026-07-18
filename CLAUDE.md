@@ -135,6 +135,20 @@ The builder copies `assets/templates/tools/` into every emitted repo as `tools/`
   Derived-artifact custody: entries in `sources/MANIFEST.json` with in-repo parent `{file, sha256}` — the
   run-gates custody row RECOMPUTES the parent hash (stale projection = FAIL). `operator` class in the
   surfaces manifest. Fixture: `tools/fixtures/tokens-project/demo/` (round-trip diff vs frozen `expected/`).
+- **`node tools/emit-cards.mjs [repo-root]` / `--check`** — the **OFFLINE static-cards emitter** (F4-01;
+  zero-dep Node, a capability of the design-sync KIT): renders self-contained `@dsCard` static HTML cards from
+  the canon (`tokens/*.tokens.json` · `canon/mark.svg` · `canon/canon.json`) to `design-sync-kit/cards/NN-<group>.html`
+  — one per PRESENT layer (Brand if a mark · Color · Type · Components), NO React/bundle/converter/**network**.
+  The offline path that makes `[NO_DIST]` a reviewable handoff state; improves on the frozen reference workaround
+  by being TRULY offline (font STACKS with system fallbacks, never a remote `@font-face`). Provenance-honest (an
+  R5-uncertain value renders "· provisional" in client vocab, never a GAP id/grade); cards land under the
+  `design-sync-kit/** | client` surface row (deny scrubs them). Custody: one `sources/MANIFEST.json` entry per
+  (card × canonical input) — run-gates recomputes each parent hash (STALE FAIL on any canon change). The mark
+  carries `id="brand-mark"` → audit-lint R6b reconciles it. `--check` = the offline gate ([REMOTE_REF] any
+  remote/script/@font-face/@import ref · [DSCARD_MISSING] first-line marker); run-gates **static cards** row
+  (N/A when no cards / no kit). Fixtures: `tools/fixtures/gates/emit-cards/` (`clean` idempotent + PASS ·
+  `violation` remote `@font-face` → `--check` FAIL + operator-vocab leak → deny FAIL). Emitted at Stage 8
+  alongside the React kit (`references/design-sync-kit.md`).
 - **`node tools/scheme-derive.mjs [repo-root]`** — SC-1 the **ALGO-SCHEME-DERIVE materializer** (Stage C-2;
   build-time, zero-dep Node, **NOT Style Dictionary**). Reads `canon/canon.json › schemes` + `tokens/base.json`
   + `tokens/semantic.json` (role→anchor); for each NON-deferred scheme derives the semantic colour roles in
