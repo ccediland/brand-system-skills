@@ -13,7 +13,10 @@ colors. Each datum carries four fields:
   `extracted-vector` / `computed-css` / `design-file` / `matched` / `traced` / `inferred` / `proposed`
   (**the quarantine channel** — a value AUTHORED by the pipeline itself, scoper or builder, as a proposal:
   it operates today, labeled, and is never canon until ratified. Distinct from the token spine's `authored`
-  flag, which marks *owner*-declared truth — the opposite trust level).
+  flag, which marks *owner*-declared truth — the opposite trust level) / `ratified-proposal` (**the RATIFY
+  terminal** of the `proposed` lineage — a proposal an owner ratified post-handoff; it keeps the "was a
+  proposal" origin in the name, and is the ONE source by which that lineage rises above `hypothesis`, earned
+  by a content-bound `sources/ratification—<date>.md` record — see § Draft-from-recommendation).
 - **confidence** — a six-value ladder in three tiers (byte-identical at every hop; no extra value/synonym):
   - **tier 0 — unconfirmed:** `hypothesis` (observed / derived / proposed, unconfirmed).
   - **tier 1 — evidence-earned:** `corroborated` (the VALUE — not just the citation — appears in ≥2
@@ -66,8 +69,8 @@ Hard rules:
   (`handoff-deliberate` = scoper-proposed via handoff · `builder` = builder-proposed). Never threaded into
   the spine as settled; conflicts are ESCALATED as items, never silently resolved.
 - **A datum is never used at a status it has not earned.** The `authored|derived` flag in the token spine
-  (`token-spine.md`) is this spine's color-specific projection: `source: declared-spec`/`owner-stated` →
-  `authored` (never re-derived); `source: computed-css`/`matched`/`inferred`/`proposed` → `derived`.
+  (`token-spine.md`) is this spine's color-specific projection: `source: declared-spec`/`owner-stated`/`ratified-proposal` →
+  `authored` (never re-derived; a ratified proposal is owner-declared truth); `source: computed-css`/`matched`/`inferred`/`proposed` → `derived`.
 - **No above-`hypothesis` or `computed-css` value without a hashed, identity-verified source-of-record
   (MT-3, `audit-lint.mjs` R3).** Any token above `confidence: hypothesis`, or with `source: computed-css`,
   MUST carry a `$extensions.brand.sourceRef` whose `sha256` is listed in `CHECKSUMS.txt` — and
@@ -108,11 +111,24 @@ surfaces — so the owner has something concrete to react to. The rules:
   a draft never upgrades, edits, or re-labels a neighbor, and a ratified line is never re-litigated by a
   proposal (a GAP in the handoff stays a GAP until the OWNER's act closes it).
 - **The ratification loop — post-first-feedback.** The owner's first feedback on a draft has exactly two
-  exits: **RATIFY** — a witnessed, recorded act (`sources/ratification—<date>.md`, hashed into
-  `CHECKSUMS.txt` — the `owner-confirmed` record shape above): the gap moves to `CLOSED (ratified)` and
-  the value's provenance rises to `owner-confirmed` with that sourceRef (R3); or **ADJUST** — a revised
-  draft value, still `proposed` + `hypothesis`, gap OPEN. Silence, enthusiasm in prose, or the owner
-  USING the draft promote nothing — the scoper's curator wall, inherited here as written.
+  exits, both machine-checked (the RATIFY exit below is written to PASS `audit-lint` R2/R3/R5 as stated —
+  run the prose against the linter, never a shape it rejects):
+  - **RATIFY** — a witnessed, recorded act (`sources/ratification—<date>.md`, hashed into `CHECKSUMS.txt` —
+    the `owner-confirmed` record shape above). The token's provenance moves — as ONE atomic shape — to:
+    **`source: "ratified-proposal"`** (the RATIFY terminal of the proposed lineage: it PRESERVES the
+    "was a proposal" origin in the name — **never re-labeled to `owner-stated`, which erases the origin and
+    is byte-identical to laundering**) · **`confidence: "owner-confirmed"`** · a **MANDATORY `sourceRef` to
+    that hashed ratification record** · gap **`CLOSED (ratified)`**. The ratification record MUST **NAME the
+    value it ratifies** — `audit-lint` R3's content-bind reads the record's text and FAILs a token whose
+    value the record does not contain (the post-handoff analog of the wire's `BRIEF{}` verbatim: a record
+    ratifying value X does not ratify a token carrying value Y). `ratified-proposal` is the ONE source by
+    which a proposed lineage rises above `hypothesis`; it is earned by the content-bound record, never by a
+    label. On the authored↔derived axis it is `authored` (the owner's recorded act makes it owner-declared
+    truth). `source: "proposed"` itself stays hypothesis-capped forever (R2) — quarantine, never canon.
+  - **ADJUST** — a revised draft value, still `source: "proposed"` + `confidence: "hypothesis"`, gap OPEN.
+
+  Silence, enthusiasm in prose, or the owner USING the draft promote nothing — the scoper's curator wall,
+  inherited here as written.
 
 ## Logging a gap
 

@@ -1,4 +1,4 @@
-# wire-check fixtures — the biting cases (v6 F2-01)
+# wire-check fixtures — the biting cases
 
 Own acceptance fixtures of `tools/wire-check.mjs`. Each file is a minimal RAW wire (the tool accepts a
 direct `.md` path); each fires exactly its class — run `node ../../wire-check.mjs <file>` from `tools/`:
