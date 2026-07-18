@@ -1,0 +1,7 @@
+{
+  "schemes": {
+    "default": "day",
+    "day":   { "mode": "light", "dominant": "brand" },
+    "night": { "mode": "dark",  "dominant": "brand", "gap": "GAP-002" }
+  }
+}

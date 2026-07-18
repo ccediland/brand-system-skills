@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-hidden="true">
+  <rect x="3" y="3" width="26" height="26" rx="6" fill="var(--color-brand)"/>
+  <path d="M11 21 L16 10 L21 21 Z" fill="var(--color-brand-fg)"/>
+</svg>

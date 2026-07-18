@@ -1,0 +1,60 @@
+{
+  "entries": [
+    {
+      "file": "design-sync-kit/cards/01-brand.html",
+      "parent": {
+        "file": "canon/mark.svg",
+        "sha256": "ad38dd64cf973209718c7a63cf46a17c1bc3014a9dc5f4cb2a4c9e315ce8c9dc"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/01-brand.html",
+      "parent": {
+        "file": "tokens/base.tokens.json",
+        "sha256": "db616d2bf261c048bc5b4bf81747539a14335e95af8839cf304cd5ba0bd61bea"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/02-color.html",
+      "parent": {
+        "file": "tokens/base.tokens.json",
+        "sha256": "db616d2bf261c048bc5b4bf81747539a14335e95af8839cf304cd5ba0bd61bea"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/03-type.html",
+      "parent": {
+        "file": "tokens/base.tokens.json",
+        "sha256": "db616d2bf261c048bc5b4bf81747539a14335e95af8839cf304cd5ba0bd61bea"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/04-components.html",
+      "parent": {
+        "file": "tokens/base.tokens.json",
+        "sha256": "db616d2bf261c048bc5b4bf81747539a14335e95af8839cf304cd5ba0bd61bea"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/04-components.html",
+      "parent": {
+        "file": "tokens/schemes/night.tokens.json",
+        "sha256": "3d95be5a2d5a45cb0afac38b223cc3bbb8e356018402aea9ccb9782356741d53"
+      },
+      "tool": "emit-cards.mjs"
+    },
+    {
+      "file": "design-sync-kit/cards/04-components.html",
+      "parent": {
+        "file": "canon/canon.json",
+        "sha256": "66c870dc7609925e7fb7d665de43b33429f0fbc5bafa3069f3062ac150ba513b"
+      },
+      "tool": "emit-cards.mjs"
+    }
+  ]
+}

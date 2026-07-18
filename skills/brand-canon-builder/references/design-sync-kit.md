@@ -16,18 +16,33 @@ server-side and grows release-to-release (this pin already absorbed `readmeHeade
 indexing, and the `package-validate.mjs` converter script across releases). So **before generating or
 freezing the kit emitter on any major run, re-pin against the live skill**:
 
-1. **Update first.** Run `/update` so the Claude Code session carries the current bundled `/design-sync`
-   skill (the Piebald-mirror copy lags releases by minutes-to-days — read the live on-disk skill, not a
-   mirror).
-2. **Read the live skill.** Open the bundled `/design-sync package source shape` skill and re-pin the exact
-   names this kit depends on: the `.design-sync/config.json` top-level keys (a removed/renamed key fails the
-   run with no compat code), the converter script names (`package-build.mjs` / `package-validate.mjs` /
-   `package-capture.mjs` / `resync.mjs`), the `@dsCard` first-line marker, the upload-bundle file names, and
-   the converter error codes (`[NO_DIST]`, `[FONT_MISSING]`, `[RENDER]`, …).
+1. **Read the live contract — two sources, most-authoritative first.**
+   - **The `DesignSync` tool schema IS the live runtime contract** (authoritative; no `/update` needed): its
+     `method` enum + param descriptions name the live methods and artifacts directly. Read it FIRST — it
+     confirms the marker/index, the upload flow, the validation-report path, and which methods are legacy,
+     verbatim from the running interface.
+   - **The bundled skill source** (`/update` first — the Piebald mirror lags releases; read the live on-disk
+     skill, not the mirror) is the FALLBACK for names the tool schema does NOT expose: the
+     `.design-sync/config.json` top-level keys and the converter SCRIPT names
+     (`package-build.mjs` / `package-validate.mjs` / `package-capture.mjs` / `resync.mjs`). If `/update`
+     demands a session restart, STOP and let the operator restart — this step is FIRST so a restart costs nothing.
+2. **Re-pin the exact names** this kit depends on from those two reads: the config keys, the converter scripts,
+   the `@dsCard` first-line marker + card index, the upload-bundle file names, the converter error codes
+   (`[NO_DIST]`, `[FONT_MISSING]`, `[RENDER]`, …), and the validation-report path (`report_validate` +
+   `.render-check.json`).
 3. **Reconcile the pin.** Where a live name diverges from the pin below, update the kit templates + this
    reference to the live name before emitting — never ship the emitter against a stale field/script name.
    If a render-/error-code variant isn't confirmed live, fall back to the generic confirmed code (e.g.
    `[RENDER]`) rather than invent one.
+
+> **Re-pin 2026-07-17, read from the live `DesignSync` tool schema.** CONFIRMED LIVE: the `@dsCard`
+> first-line marker builds the card index (`_ds_manifest.json`) — the emitter's marker is current, no change;
+> `register_assets`/`unregister_assets` are LEGACY; the upload flow is `create_project → finalize_plan →
+> write_files`/`delete_files` (`get_file` cap 256 KiB, `write_files` max 256/call). ADDED to the pin (the
+> v2.1.185 capture MISSED them, the 2026-07-06 live read saw them): **`report_validate` + `.render-check.json`**
+> (see § below). The `.design-sync/config.json` keys and converter script names are NOT tool-visible; they stay
+> at the F0-01c-confirmed pin (unconfirmed-live variants are never invented). The offline emitter uses only the
+> live-confirmed `@dsCard` marker — the re-pin is a NO-OP on `emit-cards.mjs`.
 
 This is the one piece that cannot be frozen into the kit: the rest of this reference is the captured pin to
 reconcile *against*.
@@ -63,6 +78,37 @@ substitute (the honest non-redistributable state), and `styles.css` carries a no
 closure → exit 0/1. It needs no `/design-sync` round-trip, so the Stage-10 gate can run it offline before any
 upload (`validate-audit.md` §3a).
 
+## The live validation report (`report_validate` + `.render-check.json`)
+
+Distinct from the kit's OWN offline `package-validate.mjs` above: AFTER an upload, the /design-sync converter
+renders each card server-side and writes a **`.render-check.json`** capture; the skill then calls the
+`DesignSync` `report_validate` method to surface the AGGREGATE — `counts: { total, bad, thin,
+variantsIdentical, iterations }` (counts only — no component names or paths cross back). `bad` = a card that
+did not render; `thin` = a hollow/near-empty render; `variantsIdentical` = a preview whose variants don't
+differ. This is the live post-upload health signal — the networked counterpart to the offline
+`package-validate.mjs`/`[NO_DIST]` pre-flight. The offline static-cards emitter never runs it (it is the
+converter's step); a builder that DOES upload reads these counts to know whether the pushed kit rendered.
+
+## The offline static cards (`[NO_DIST]` is still reviewable)
+
+The React build above needs a networked `npm install` + a converter round-trip before ANY card renders — so
+`[NO_DIST]` (the honest un-built state) left nothing reviewable in Claude Design. **Stage 8 ALSO runs the
+offline emitter** `node tools/emit-cards.mjs` (zero-dep, no network), which renders self-contained `@dsCard`
+static HTML cards from the canon (tokens + `canon/mark.svg`) to `design-sync-kit/cards/NN-<group>.html` — one
+card per PRESENT layer (Brand if a mark · Color · Type · Components), no React/bundle/converter/**network**.
+This makes `[NO_DIST]` a reviewable handoff state (upload the static cards; the React kit upgrades them in
+place on a later live re-sync — same first-line `@dsCard` registration path). Rules the emitter already holds:
+- **Truly offline** — ZERO remote refs (fonts render via the canon's font STACK with system fallbacks, never a
+  remote `@font-face`; the frozen reference workaround still shipped a CDN font — do not reintroduce it).
+  `emit-cards.mjs --check` re-verifies the offline guarantee ([REMOTE_REF]) + the first-line marker
+  ([DSCARD_MISSING]); it is the run-gates **static cards** row.
+- **Provenance-honest** — a value still uncertain (the R5 test) renders "· provisional" in sanctioned CLIENT
+  vocabulary, never a GAP id / confidence grade / cycle-ID. The cards land under the `design-sync-kit/** |
+  client` surface row, so `client-deny-lint` scrubs them.
+- **Custody** — each card records one `sources/MANIFEST.json` entry per canonical input; a canon change under
+  a card is a STALE custody FAIL (re-run the emitter). The mark instance carries `id="brand-mark"` so
+  `audit-lint` R6b reconciles it against `canon/mark.svg`.
+
 ## `.design-sync/config.json` (emit ONLY live-valid keys)
 
 Top-level keys are validated strictly: an unknown or removed key fails the run with a named fix, and
@@ -84,10 +130,12 @@ guideline `.md`s into `guidelines/`. The "replacement" framing was wrong; both a
 
 Every emitted preview/floor `<Name>.html`'s first line is `<!-- @dsCard group="…" -->`. The design pane's
 self-check reads it to register the card and build the card index (compiled server-side into
-`ds_manifest`; `register_assets`/`unregister_assets` are legacy). A card whose first line isn't the marker is
-`[DSCARD_MISSING]`. Authored `previews/<Name>.tsx` carry NO marker (they're yours, re-syncs never touch
-them) — the converter stamps the marker into the generated `.html`. The emitter must stamp every card,
-authored or floor. (Shapes: `assets/templates/design-sync-kit/_card-shape/`.)
+`_ds_manifest.json`; `register_assets`/`unregister_assets` are LEGACY — the `@dsCard` marker replaced explicit
+registration, "no longer required for /design-sync uploads"). `group` is a FREE-FORM section label (the pane
+groups by whatever value you send); the live foundational labels are Type / Colors / Spacing / Components /
+Brand. A card whose first line isn't the marker is `[DSCARD_MISSING]`. Authored `previews/<Name>.tsx` carry NO
+marker (they're yours, re-syncs never touch them) — the converter stamps the marker into the generated `.html`.
+The emitter must stamp every card, authored or floor. (Shapes: `assets/templates/design-sync-kit/_card-shape/`.)
 
 ## The conventions header (`readmeHeader`)
 

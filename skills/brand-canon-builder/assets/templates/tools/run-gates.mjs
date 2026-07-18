@@ -167,6 +167,19 @@ const failLine = (s) => {
   } else add('kit opt-out reconciliation', 'lint', true, 'PASS', 'kit opted IN by the handoff — presence/health governed by the kit rows');
 }
 
+// ---------- 3c. static cards (lint, BLOCKING when emitted) — the OFFLINE @dsCard set (emit-cards emitter) ----------
+// The offline static-cards emitter (tools/emit-cards.mjs) is what makes `[NO_DIST]` a reviewable handoff
+// state: self-contained @dsCard HTML rendered from the canon, no React/bundle/converter/NETWORK. This row
+// spawns `emit-cards.mjs --check` (offline guarantee: first-line @dsCard marker · zero remote/script/@font-face
+// ref). N/A when no cards were emitted (a built kit needs none; an unbuilt one MAY carry them) — honest, never
+// a false FAIL. Freshness (a card stale vs a changed canon) is the custody manifest row's job (parent-hash).
+{
+  const cardsDir = join(ROOT, 'design-sync-kit', 'cards');
+  if (!isDir(join(ROOT, 'design-sync-kit'))) add('static cards', 'lint', false, 'N/A', 'no design-sync-kit/ in this repo (opt-out or not emitted)');
+  else if (!isDir(cardsDir) || !listDir(cardsDir).some((f) => f.endsWith('.html'))) add('static cards', 'lint', false, 'N/A', 'no emitted static cards (design-sync-kit/cards/*.html) — the offline emitter has not run, or the kit built its dist');
+  else { const r = runTool('emit-cards.mjs', ['--check', ROOT]); add('static cards', 'lint', r.status !== 'N/A', r.status, r.detail); }
+}
+
 // ---------- 4. §7a fidelity evidence — recomputed verdicts + the MANDATORY non-waivable set ----------
 // `pass` is never trusted on its own: the runner RECOMPUTES the measurement from the recorded numeric
 // metrics vs thresholds (a hand-written verdict — recorded pass disagreeing with its own numbers, or a
