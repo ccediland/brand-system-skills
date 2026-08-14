@@ -288,8 +288,15 @@ const failLine = (s) => {
     try {
       const j = JSON.parse(readFileSync(mfPath, 'utf8'));
       // accepted shapes: a bare array · {entries:[...]} · source-recover.py's {recovered:[...]} wrapper.
+      // UNION every entry-carrying key — a derived-artifact producer (emit-cards / tokens-project) merges
+      // into `entries`, so a manifest that ALSO has source-recover's `recovered` key must be read from BOTH;
+      // a precedence read would SHADOW `recovered`, drop its captureTs captures, flip usedArchive false, and
+      // silently skip the MT-3 identity/date gate (the F6-01 cross-mechanism collision this closes).
       // NO Object.values fallback — mangling an unknown wrapper into fake entries hides the real problem.
-      entries = Array.isArray(j) ? j : Array.isArray(j.entries) ? j.entries : Array.isArray(j.recovered) ? j.recovered : null;
+      if (Array.isArray(j)) entries = j;
+      else if (j && typeof j === 'object' && (Array.isArray(j.entries) || Array.isArray(j.recovered)))
+        entries = [...(Array.isArray(j.entries) ? j.entries : []), ...(Array.isArray(j.recovered) ? j.recovered : [])];
+      else entries = null;
       if (!entries) badShape = 'unrecognized MANIFEST shape — expected an array, {entries:[...]}, or {recovered:[...]}';
     } catch { badShape = 'sources/MANIFEST.json is unparseable'; }
   }

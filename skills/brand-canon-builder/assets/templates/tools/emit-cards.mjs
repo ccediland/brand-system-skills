@@ -338,9 +338,16 @@ if (emitted.length) {
   const mPath = join(ROOT, 'sources', 'MANIFEST.json');
   let manifest = existsSync(mPath) ? readJSON(mPath) : null;
   const notOurs = (e) => !(e && e.tool === 'emit-cards.mjs');
-  if (Array.isArray(manifest)) manifest = [...manifest.filter(notOurs), ...emitted];
-  else if (manifest && typeof manifest === 'object') manifest = { ...manifest, entries: [...(Array.isArray(manifest.entries) ? manifest.entries.filter(notOurs) : []), ...emitted] };
-  else manifest = { entries: emitted };
+  // gather the FULL existing custody list from ANY shape (bare array · {entries} · source-recover's
+  // {recovered}) so merging never leaves a dual-key manifest that shadows the recovered captures from
+  // run-gates (the F6-01 collision). Write ONE canonical, stably-sorted `{entries}` (byte-idempotent).
+  const wasArray = Array.isArray(manifest);
+  const existing = wasArray ? manifest
+    : (manifest && typeof manifest === 'object') ? [...(Array.isArray(manifest.entries) ? manifest.entries : []), ...(Array.isArray(manifest.recovered) ? manifest.recovered : [])]
+    : [];
+  const keyOf = (e) => `${e && e.file}|${(e && e.parent && (e.parent.file || e.parent.url)) || (e && e.url) || ''}|${(e && e.tool) || ''}`;
+  const merged = [...existing.filter(notOurs), ...emitted].sort((a, b) => keyOf(a).localeCompare(keyOf(b)));
+  manifest = wasArray ? merged : { entries: merged };
   if (!existsSync(join(ROOT, 'sources'))) mkdirSync(join(ROOT, 'sources'), { recursive: true });
   writeFileSync(mPath, JSON.stringify(manifest, null, 2) + '\n');
   console.log(`emit-cards: custody — ${emitted.length} derived entr${emitted.length === 1 ? 'y' : 'ies'} (card×input) recorded in sources/MANIFEST.json`);

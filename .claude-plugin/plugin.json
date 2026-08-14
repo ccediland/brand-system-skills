@@ -1,7 +1,7 @@
 {
   "name": "brand-system",
   "description": "Build a canonical, brand-agnostic, output-agnostic brand source for any brand, plus a real prototype, a /design-sync-ready component library, and a single attachable keystone .md an AI can think, speak, and design as the brand. brand-canon-builder analyzes, extracts assets, and builds the canon in Claude Code (filesystem + git); brand-canon-scoper scopes a brand in chat and compiles a ready-to-paste handoff for the builder.",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": { "name": "ccediland" },
   "skills": [
     "./skills/brand-canon-builder",
