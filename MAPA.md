@@ -28,10 +28,6 @@ homogéneos (ahí la fila dice cuántos son y qué convención siguen).
 | `.claude-plugin/marketplace.json` | Declara este repo como marketplace de plugins de Claude Code. | andamio |
 | `.claude-plugin/plugin.json` | Manifiesto del plugin: qué skills expone. | andamio |
 | `.gitignore` | Qué no entra. | andamio |
-| `.playwright-mcp/page-2026-07-18T03-04-36-915Z.yml` | Volcado de una sesión de Playwright MCP del 18-jul. Basura de sesión que se coló al repo. | evidencia |
-| `.playwright-mcp/page-2026-07-18T03-06-58-163Z.yml` | Ídem. | evidencia |
-| `.playwright-mcp/page-2026-07-18T03-07-43-945Z.yml` | Ídem. | evidencia |
-| `.playwright-mcp/page-2026-07-18T03-18-20-164Z.yml` | Ídem. Los cuatro son candidatos a limpieza. | evidencia |
 | `BITACORA.md` | Qué pasó y cuándo, append-only. | raíz |
 | `CLAUDE.md` | Cómo tocar este repo sin romperlo. | raíz |
 | `LICENSE` | Licencia. | andamio |

@@ -30,3 +30,8 @@ skills/brand-canon-builder/assets/templates/tools/fixtures/scheme-derive/**/toke
 # tokens-project fixture run artifacts (expected/ is the frozen truth)
 skills/brand-canon-builder/assets/templates/tools/fixtures/tokens-project/**/tokens/web/
 skills/brand-canon-builder/assets/templates/tools/fixtures/tokens-project/**/sources/
+
+# Volcados de sesión de Playwright MCP. Son basura de sesión: cuatro archivos de
+# julio se colaron al repo y ahí siguieron. No aportan nada a nadie y confunden
+# a quien los encuentre sobre si son evidencia de algo.
+.playwright-mcp/
