@@ -305,3 +305,22 @@ Composio GitHub **con calma**: reads + light edits only; route big repo work to 
 (RESIDENT/CLAUDE) via Composio carries clobber risk → read-then-merge, or route to Code. Update RESIDENT + CLAUDE
 at the end of each chat — especially on a context/compute hand-off, which Carlos decides (Claude may only suggest
 a fresh chat when context is legitimately heavy).
+
+## Bitácora
+
+Al cerrar cualquier sesión que haya tocado este repo, **agrega su entrada al final de
+`BITACORA.md` sin preguntar y sin anunciarlo**. Una sesión sin entrada no cerró.
+
+El formato está en la cabecera de ese archivo. Es **append-only**: nunca se edita ni se reordena
+una entrada pasada, y una revisión posterior va abajo con su propia fecha — jamás como nota en la
+cabecera.
+
+Qué va dónde, con la prueba mecánica del estándar:
+
+> ¿Lleva una **fecha**? → `BITACORA.md`.
+> ¿Sigue siendo verdad en tres meses sin que nadie lo toque? → `RESIDENT.md`.
+> ¿Es sobre cómo tocar los archivos? → aquí.
+
+Esto no es burocracia: es lo que mantiene a `RESIDENT.md` atemporal. Un RESIDENT que carga la
+narrativa de cada sesión cambia todos los días, y entonces el knowledge de su Project queda
+desfasado siempre.
