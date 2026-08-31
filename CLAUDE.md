@@ -296,15 +296,17 @@ then rebuilt v2 → v3 → v4; full lineage in `RESIDENT.md`. The work-log + v2 
 live in the **gitignored `dev/`** directory — local provenance, not shipped.
 
 ## Flujo (Carlos)
-Work on a `claude/<name>` branch, never main; PR + wait for OK before merge. Respond to Carlos in es-MX
-(technical terms + code in English). Secrets in Infisical, never in git/Drive.
+Work on a `claude/<name>` branch, never main; open the PR **and merge it yourself** — Carlos gave permanent
+merge authorization on 2026-08-30 («a cualquier otro merge-request, PR, branch que esté por surgir o pendiente
+tienen mi OK»), superseding this doc's old wait-for-OK rule. Still ask before anything irreversible (delete,
+force-push, prod). Respond to Carlos in es-MX (technical terms + code in English). Secrets in Infisical,
+never in git/Drive.
 
-**Workflow hub (v3).** Chat is the hub; design decisions happen in Chat. Hand big or filesystem/git/build tasks
-to Claude Code (it returns results to Chat) — including non-repo tasks better suited to Code. From Chat, use
-Composio GitHub **con calma**: reads + light edits only; route big repo work to Code. Editing canonical `.md`
-(RESIDENT/CLAUDE) via Composio carries clobber risk → read-then-merge, or route to Code. Update RESIDENT + CLAUDE
-at the end of each chat — especially on a context/compute hand-off, which Carlos decides (Claude may only suggest
-a fresh chat when context is legitimately heavy).
+**Workflow hub.** *(Updated 2026-08-31 — the v3 «Chat is the hub» rule is superseded by
+`_meta/venturedge-framework/sistema.md §4`: **Code is the base**, and work starts on the surface where the
+artifact's writer lives.)* Chat/scoper remains the client-facing elicitation surface by design (the scoper is
+chat-only); everything filesystem/git/build/gates is Code. Composio from Chat: reads + light edits only;
+canonical `.md` edits route to Code (clobber risk). Update RESIDENT + CLAUDE at the end of working sessions.
 
 ## Bitácora
 
