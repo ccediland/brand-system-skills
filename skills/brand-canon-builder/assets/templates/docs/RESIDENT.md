@@ -1,10 +1,10 @@
 ---
-name: {{brand}}-resident
+name: "{{brand}}-resident"
 description: Living resident doc for the {{BRAND}} brand canon — the source of truth for identity, voice,
   and design system. Use when any session touches the {{BRAND}} brand, its canon, its tokens, or its
   consumers. Canonical at the source; any mirror is read-only.
-last_updated: {{DATE}}
-applies_to: Repo {{ORG}}/{{BRAND_REPO}} — source of truth for the {{BRAND}} brand
+last_updated: "{{DATE}}"
+applies_to: "Repo {{ORG}}/{{BRAND_REPO}} — source of truth for the {{BRAND}} brand"
 canonical: github
 ---
 
