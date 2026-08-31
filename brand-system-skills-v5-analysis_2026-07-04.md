@@ -1,6 +1,10 @@
 ---
 name: brand-system-skills-v5-analysis
-description: Análisis y resultados del stress-test v4 de brand-system-skills (v0.4.0 @ 65932bb) + hallazgos de research (§15). Fuente CONGELADA de requisitos y evidencia para shippear v5 y v6: los planes (PLAN-V5.md, PLAN-V6.md, raíz del repo) la referencian por ID y son los canónicos de etapas/gates. Use al ejecutar items de los planes, resolver cualquier ID citado, o analizar el repo.
+description: >-
+  Análisis y resultados del stress-test v4 de brand-system-skills (v0.4.0 @ 65932bb) + hallazgos de
+  research (§15). Fuente CONGELADA de requisitos y evidencia para shippear v5 y v6: los planes
+  (PLAN-V5.md, PLAN-V6.md, raíz del repo) la referencian por ID y son los canónicos de etapas/gates.
+  Use al ejecutar items de los planes, resolver cualquier ID citado, o analizar el repo.
 last_updated: 2026-07-04
 applies_to: ccediland/brand-system-skills v0.4.0 @ 65932bb (tested "v4") → target v5 · deferrals v6
 status: FINAL consolidado (2026-07-04) — congelado; ediciones solo de grado corrección con entrada en el log
