@@ -43,3 +43,4 @@ skills/brand-canon-builder/assets/templates/tools/fixtures/tokens-project/**/sou
 # que el pre-commit no es red aquí — estas dos líneas sí (F-004).
 .claude/
 .claude-*/
+.venv/

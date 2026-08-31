@@ -4,8 +4,10 @@
      mark and PRIMITIVES § Mark stay metadata-only (viewBox / ratio / minPx / construction /
      clear-space / misuse) — the renderable vector lives ONLY here.
      BUILDER: replace the placeholder geometry below with the brand's REAL extracted vector
-     mark (Stage 3). Fill from the token spine via var(--color-brand) / var(--color-brand-fg)
-     (or currentColor), never a baked literal. The shape below is an OBVIOUSLY-GENERIC
+     mark (Stage 3). Fill from the token spine via var() on the color-brand / color-brand-fg
+     custom properties (or currentColor), never a baked literal. (Their names are spelled
+     without the leading dashes HERE ONLY because XML comments must not contain a double
+     hyphen — librsvg and any strict XML parser reject the whole file otherwise.) The shape below is an OBVIOUSLY-GENERIC
      placeholder so the file renders standalone before fill; no real brand geometry lives here. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-hidden="true">
   <rect x="2" y="2" width="28" height="28" rx="8" fill="var(--color-brand)"/>

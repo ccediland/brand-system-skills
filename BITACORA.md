@@ -67,3 +67,23 @@ Decidido: las del sistema viven en `_meta/venturedge-framework/decisiones.md` (`
 `VE-2026-033` se escribieron hoy).
 Pendiente: lo que quedó abierto está en `pendientes.md` y como issues etiquetados por área.
 Siguiente: al cerrar la próxima sesión que toque este repo, agregar su entrada aquí — sin preguntar.
+
+## 2026-08-31 · Code · La caja de medios del builder, instalada y probada
+
+Hecho: barrido exhaustivo (5 lectores) de los casos de medios que builder/scoper declaran, cruzado
+contra la caja real de la máquina. Instalado lo que faltaba de sistema: Inkscape 1.4.3, pdf2svg,
+rsvg-convert, woff2, dembrandt (npm, el extractor primario de tokens de sitio vivo), y el venv
+`.venv/` de este repo con el stack que fidelity-diff.py exige (pymupdf 1.28.2, opencv 5.0, numpy,
+scikit-image, pillow, fonttools, requests) — import-guard en verde (ya no exit 3) y pipeline real
+probado: SVG→PDF con Inkscape, get_drawings() extrae los paths, pdf2svg de regreso, métricas OS/2
+con fontTools. `.venv/` entra al .gitignore.
+
+Encontrado y corregido: el `mark.svg` de la plantilla era XML inválido — el comentario contenía
+`--` (por escribir `var(--color-brand)` dentro de un comentario). Inkscape lo toleraba; librsvg y
+cualquier parser estricto rechazaban el archivo COMPLETO, y cada repo emitido lo heredaba. Barrido
+de la clase en todo ~/proyectos: solo la plantilla madre estaba mal, los fixtures limpios.
+
+Sin instalar, con razón: design-extract (0.1.0, demasiado verde — dembrandt lo cubre),
+illustrator-parser-pdfcpu y token-transformer (deps por-proyecto npm, no de sistema; Ghostscript ya
+está para EPS/.ai), Storybook/Chromatic/esbuild/Style Dictionary (viven en el package.json del kit
+emitido). Firecrawl (fallback anti-bot) necesita cuenta/key de Carlos — issue abierto.
