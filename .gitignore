@@ -44,3 +44,9 @@ skills/brand-canon-builder/assets/templates/tools/fixtures/tokens-project/**/sou
 .claude/
 .claude-*/
 .venv/
+# Red de seguridad — jamás versionar secretos (estandar.md §5)
+.env
+.env.*
+*.pem
+*.key
+*.token
