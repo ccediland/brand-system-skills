@@ -4,27 +4,23 @@
 > canon** (four layers + DTCG/OKLCH token spine) for any brand. This repo is the SKILL/tooling — not a
 > brand canon itself. Read `RESIDENT.md` first, then this file.
 
-## Repo map
-- `.claude-plugin/marketplace.json` · `plugin.json` — marketplace + plugin manifests (mirror `web-stack-skills`).
-- `skills/brand-canon-builder/` — Code-side builder: `SKILL.md`, `references/` (the method knowledge),
-  `assets/templates/` (the canon skeletons + DTCG token spine + satellites + docs + prototype + design-sync
-  kit + Claude Design adapter + `.github/` (the opt-in Drive-mirror Action + `DRIVE-MIRROR.md`) + `tools/` — the
-  emitted gate suite `run-gates.mjs` · `audit-lint.mjs` · `wire-check.mjs` · `tokens-project.mjs` ·
-  `emit-cards.mjs` · `drive-mirror.mjs` · `scheme-derive.mjs` · `client-deny-lint.mjs` · `source-recover.py` ·
-  `fidelity-diff.py` (each documented in full below), with `tools/fixtures/` the gates' own clean +
-  seeded-violation acceptance proof + `fixtures/integration/` the v6 cross-mechanism harness, not emitted to clients).
-- `skills/brand-canon-scoper/` — Chat-side scoper: `SKILL.md` (the gated pipeline; hard cap 500 lines —
-  every edit is line-neutral or trades a line, logged) + `references/`: `handoff-format.md` (the FROZEN
-  handoff contract) · `elicitation-machine.md` (the per-dimension state machine: born-GAP, generated frame,
-  auditable saturation, the dimension ledger) · `multi-decider-proxy.md` (proxy-as-respondent + weighted
-  consolidation + escalated conflict) · `process-discipline.md` (the process laws: TEMPO · verify-the-exact-claim
-  · curator wall · complete downloadable documents · the signing discipline · instrument hygiene) ·
-  `elicitation-bank.md` + `detection-batteries.md` (the QUARRY the machine improvises from — never a script).
-- `README.md` (human front door) · `RESIDENT.md` (living architecture, decisions, Open Items — the single durable record).
-- `notes/` — per-stage design & verify notes (build provenance, indexed in `notes/README.md`); the durable record is `RESIDENT.md`.
-- The v3 root docs (`v3-execution-plan.md`, `v3-research-foundation.md`, `v3-system-audit—2026-06-23.md`) were
-  removed in the v4 consolidation, and the v4 roadmap (`v4-roadmap.md`) was retired at the v4 ship; their record
-  lives in the closed-PR + git history + `RESIDENT.md` (`## v3` / `## v4`).
+## Cómo verificar
+Este repo no tiene build ni test suite propios — es el repo de SKILL/tooling; lo que construye corre
+en los repos CLIENTE que emite, no aquí. El verde de este repo es:
+
+- **El self-test de cada gate emitido**, contra sus propios fixtures (`tools/fixtures/`) — comando
+  exacto por herramienta en `docs/tools-reference.md`. Ejemplo:
+  `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs
+  skills/brand-canon-builder/assets/templates/tools/fixtures/clean` (exit 0) y `.../fixtures/seeded-violation` (exit 1).
+- **`python3 ~/.claude/tools/audita.py revisa .`** — el verificador del doc-set de VenturEdge
+  (RESIDENT/CLAUDE/BITACORA/MAPA, front matter, presupuestos de longitud).
+- **El pre-commit global** (`core.hooksPath` → `~/.config/git/hooks`) corre gitleaks + format-hook en
+  cada commit, automático — este repo no tiene un pre-commit propio.
+- **El brand-scrub**: antes de commitear un cambio a `skills/`/`assets/templates/`, grep el árbol
+  trackeado por cualquier nombre de marca real, ink o valor de token real — debe dar 0 hits (regla
+  completa en `docs/guardrails-reference.md`).
+
+El inventario de archivos vive en `MAPA.md` (generado); la arquitectura narrativa del repo, en `RESIDENT.md` → `## Repo map`. Aquí no se duplica ninguno de los dos.
 
 ## How the skills work (one line each)
 - **brand-canon-builder** — scaffold the canon → fill what the brand's material/brief supports → log the
@@ -38,257 +34,55 @@
   downloadable doc) → compile one ready-to-paste 7b handoff block for the builder, only after sign-off
   (the signing discipline: text-before-signature; the machine block is the ONLY path to the builder).
 
-## Tooling — emitted gates (run from the EMITTED client repo root)
-The builder copies `assets/templates/tools/` into every emitted repo as `tools/` (Stage 1; never `tools/fixtures/`):
-- **`node tools/run-gates.mjs`** — the Stage-10 **suite runner & status board**: runs every executable gate
-  (real exit codes), verifies the committed evidence of every demoted agent-gate (`audit/agent-gates.md`),
-  machine-checks keystone structure/form + the committed red-team battery, and writes `audit/gates/report.md`
-  — the only legitimate "gates green" claim. Statuses: PASS/FAIL · **NOT-RUN(reason)** (first-class: deps
-  missing records the tool's own exit-3 install line — never substituted by a manual "clean") ·
-  N/A(declared); rows with Class `agent-gate` PASS/FAIL by committed evidence. Exit 0 ALL-GREEN ·
-  2 INCOMPLETE (honest v0/DEMO state) · 1 BLOCKED.
-  Self-test from THIS repo: `node …/tools/run-gates.mjs …/tools/fixtures/clean` (exit 2 — INCOMPLETE, zero
-  FAIL: the un-built kit records NOT-RUN `[NO_DIST]`) and `…/fixtures/gates/board-violations` (exit 1 —
-  keystone structural+form FAIL + agent-gates FAIL + §7a pass:false FAIL). Fresh-clone acceptance: copy
-  `run-gates.mjs` + `audit-lint.mjs` + `client-deny-lint.mjs` to a
-  deps-less dir and re-run — the deny row records NOT-RUN(deps) with the npm install line, never "clean".
-- **`node tools/audit-lint.mjs`** — the BLOCKING Stage-10 **provenance, completeness & reconciliation gate**
-  (MT-1/3/4/5 + SC-1 + RV-5; rules R0–R8). Exits 1 on any violation, writing `audit/lint/report.md`. Reads `tokens/*.json`,
-  `canon/*.md` + `canon/canon.json`, `RESIDENT.md`, `CHECKSUMS.txt`, and (for R6) `satellites/projections.md`,
-  `canon/mark.svg`, and the generated `.html`/`.css` artifacts. Zero-dep Node. Self-test from THIS repo:
-  `node skills/brand-canon-builder/assets/templates/tools/audit-lint.mjs skills/brand-canon-builder/assets/templates/tools/fixtures/clean`
-  (exit 0) and `…/fixtures/seeded-violation` (exit 1).
-  - **R0–R5 (MT-3/4/5)** — provenance & completeness (each value token's provenance block on closed enums;
-    corroborated ⇒ the VALUE found in ≥2 distinct non-relay sources (R1 searches the hashed files —
-    normalized hex/oklch/string; `origin:"relay"` refs = custody, never counted; binary sources count
-    declaratively); inferred/matched/proposed ⇒ hypothesis; any confidence above hypothesis ⇒ ≥1
-    path-bound sha256 sourceRef (R3 — for handoff-confirmed/proxy-relayed it must be the persisted handoff;
-    R3 also checks CITATION integrity: a cited selector exists in the hashed file or is "none", a line never
-    points past EOF, a PDF cites page never line);
-    value→token/GAP; one GAP back-ref). See `references/validate-audit.md` §5a.
-  - **R6 (MT-1) — cross-artifact reconciliation / drift.** **R6a** every `derived` projection in
-    `satellites/projections.md` consumes only aliases that resolve in the spine, and any pinned value byte-equals
-    the spine-resolved value — **both sides routed through one canonical serializer (`serializeValue`, C-1) so a
-    structured-OKLCH `$value` reconciles against a pinned `oklch(L C H)` / `oklch(L C H / a)` form; never
-    `String(object)`** (drift FAILS); `source: authored` rows are truth and are **skipped** (the authored
-    carve-out). **R6b** the protected mark geometry is single-sourced from **`canon/mark.svg`** — each rendered
-    instance (prototype `#brand-mark`, kit `Mark.tsx`) must be byte-equal to it; a brand with **no visual mark
-    and no rendered instance is N/A → PASS** (medium-agnostic — never a false fail on a sonic/verbal brand).
-    **R6c** every local `@import`/`url()`/`href`/`src` in a generated artifact resolves to an existing file.
-    `canon/mark.svg` is the ONE renderable mark source; `canon.json`/PRIMITIVES § Mark stay metadata-only. The
-    projection registry's `consumes`/`source` columns are the machine linkage R6a reads.
-  - **R8 (RV-5, Stage D)** — brandbook completeness, fail by omission: every present canon section → a
-    `data-canon-section`
-    brandbook surface OR an open GAP, AND every `satellites/asset-index.md` entry of Kind `asset` → a
-    `data-asset` surface or open GAP (enumerated FROM the index — derived per-brand, never a checklist).
-    Reads present sections by machine signal (
-    flat/monogram/sonic/non-visual pass clean); markers inside HTML comments / inert `<template>` are stripped
-    before the scan; no `.html` is a vacuous PASS. See `references/validate-audit.md` §5a.
-  - **R6d + R3-primary + deny-manifest (surfaces & index)** — the asset index's repo locations must resolve
-    (R6d); a `verified-primary` token binds to a file the index marks `primary-master-for` (the slot→master
-    linkage); the client-deny-lint takes its target list FROM `satellites/surfaces.md` `client` rows
-    (`--manifest <root>`) — never auto-chosen — and its KEYED values bind per-LINE (window padding dead).
-- **`python tools/source-recover.py <url> [--from --to]`** — MT-3 **archived-source recovery**: Wayback CDX +
-  raw `id_` fetch, occupant disambiguation, SHA-256 → `sources/MANIFEST.json`. Identity/date verification is an
-  AGENT step (Stage 3), not the script's. Dep: `requests`.
-- **`python tools/fidelity-diff.py --treatment <id> --source <src.png> --reproduction <render.png>`** — MT-2 the
-  **measured reproduction-fidelity gate** (the §7a verdict; build-time, not a runtime/client dep). Co-registers
-  the reproduction onto the **Stage-5 source capture** (ORB+RANSAC) and computes **ΔE2000** + **SSIM/pixelmatch**
-  (+ **fontTools** glyph metrics for type). Verdict vs the §2 tiers (ΔE2000 ≤ 2.0 default, ≤ 1.0 core colour;
-  loosening RAISES the bound, never waives it) → `within-tolerance` (exit 0) / `outside-tolerance` (exit 1;
-  with `--gap` exit 0 as a TRACKED outcome — the record never flips to a pass) / non-visual carrier
-  `--medium non-visual` → declared GAP (exit 0, `measured:false`).
-  Writes **`audit/fidelity/<treatment-id>/scores.json`** (numeric scores + thresholds + verdict — re-auditable
-  WITHOUT cv2; `pass` records the MEASUREMENT alone — `--gap` keeps exit 0 for pipeline continuation but the
-  record stays `pass:false` + `gap:GAP-NNN`, and the runner recomputes the verdict from the numbers, so a
-  hand-written pass is caught) + a `diff.png` heatmap. The NON-WAIVABLE set is measured mandatorily (runner
-  parses the persisted handoff; CREATE mode diffs against the AUTHORED master or records NOT-RUN — never a
-  false block). It measures against the SOURCE capture — **not a pixel-VRT** (§3a). Deps
-  (numpy, opencv-python-headless, scikit-image, pillow; fontTools for `--font`) are **import-guarded**: missing →
-  a clear `pip install …` + exit 3, never a stack trace; the non-visual path needs none of them. Self-test
-  fixtures + generator: `tools/fixtures/fidelity/` (`gen.py` → source/within/within_shift/mid/out `.png`).
-- **`node tools/wire-check.mjs [repo-root | wire.md]`** — the **wire verbatim-check** (v6 F2-01; zero-dep
-  Node): verifies every ratification claim in the persisted handoff against the SIGNED BRIEF appendix it
-  carries — per-line `BRIEF{ verbatim | anchor | none }` lineage in tag scope (WHY lines · not-used rows ·
-  owner-confirmed VOICE-EXEMPLARS/WHAT slots; untagged line in scope = FAIL), quotes contained in the brief
-  (whitespace-normalized) AND — for `verbatim` — in the line content they certify (content-bind: a real
-  brief quote never legitimizes different content; not-used rows exempt — their quote is the owner's
-  declaration), `not-used(owner-declared)` citations (a blanket never mints rows), the
-  `WIRE-CHECK:` counts RECOMPUTED + the identity markers = verified + demoted + body-wide tag
-  reconciliation (a hand-written check or a decorative out-of-scope tag FAILS), and the wire vocabulary
-  (single-literal enums, space-tolerant match · "n/a" banned in field-VALUE position (verified quotes
-  exempt) · `NEW-INGEST:` declaration for open-class extension · posture `→GAP` ⇒ a GAPS row naming the
-  field or carrying `field:<name>`), plus the PRE-BRIEF SWEEP (every DIMENSION MAP `tagged-gap` dimension
-  and every GAPS row named in the signed brief — a hidden gap = `silent-dimension`/`silent-gap` FAIL: the
-  machine face of gate-3.5 emite-o-waive-con-ledger and the 7a sweep), and RE-EMISSION integrity (the split
-  `sources/brief—*.md` must stay byte-faithful to its wire's appendix — an in-place "correction" of a signed
-  brief = `reemission` FAIL; a real correction re-emits a new dated pair). Structure enforced: exactly ONE SIGNED BRIEF header (the last block),
-  anchor substance floor, «…» for signed words containing ASCII quotes, one field per line. Markers with no
-  brief = FAIL; no markers + no brief + vocab clean =
-  N/A declared (an all-empty CREATE wire never false-blocks — W-15). Run at Stage 0 (persist time) and as a
-  run-gates row. LIMIT: proves internal consistency (wire ↔ carried brief); authenticity = Stage-0 hash +
-  signing discipline. Fixtures: `tools/fixtures/wire-check/` (8 FAIL + 1 N/A + the 3 handoff fixtures PASS);
-  mode acceptance in `tools/fixtures/gates/`: `create-empty/` (all-empty CREATE wire → N/A, never false-blocked)
-  and `t2-proposed/` (EXTEND/RECOMMEND twins: quarantined proposals PASS clean; a proposal canonized without a
-  ratification act FAILs audit-lint R2/R3/R5).
-- **`node tools/tokens-project.mjs [repo-root]`** — the **consumer STRING projection** (zero-dep Node): reads
-  the spine (`tokens/*.tokens.json`) and writes `tokens/web/{base,semantic,component}.json` with every
-  structured-OKLCH `$value` serialized to its C-1 canonical string (`oklch(L C H)` / `oklch(L C H / a)`;
-  byte-parity with audit-lint's `serializeValue`), `hex` fallback dropped, `$extensions` dropped (values only).
-  For string-only consumers (SD v5 rejects object `$value` — #1398/#1494; web-stack `astro-css-tokens`).
-  Derived-artifact custody: entries in `sources/MANIFEST.json` with in-repo parent `{file, sha256}` — the
-  run-gates custody row RECOMPUTES the parent hash (stale projection = FAIL). `operator` class in the
-  surfaces manifest. Fixture: `tools/fixtures/tokens-project/demo/` (round-trip diff vs frozen `expected/`).
-- **`node tools/emit-cards.mjs [repo-root]` / `--check`** — the **OFFLINE static-cards emitter** (F4-01;
-  zero-dep Node, a capability of the design-sync KIT): renders self-contained `@dsCard` static HTML cards from
-  the canon (`tokens/*.tokens.json` · `canon/mark.svg` · `canon/canon.json`) to `design-sync-kit/cards/NN-<group>.html`
-  — one per PRESENT layer (Brand if a mark · Color · Type · Components), NO React/bundle/converter/**network**.
-  The offline path that makes `[NO_DIST]` a reviewable handoff state; improves on the frozen reference workaround
-  by being TRULY offline (font STACKS with system fallbacks, never a remote `@font-face`). Provenance-honest (an
-  R5-uncertain value renders "· provisional" in client vocab, never a GAP id/grade); cards land under the
-  `design-sync-kit/** | client` surface row (deny scrubs them). Custody: one `sources/MANIFEST.json` entry per
-  (card × canonical input) — run-gates recomputes each parent hash (STALE FAIL on any canon change). The mark
-  carries `id="brand-mark"` → audit-lint R6b reconciles it. `--check` = the offline gate ([REMOTE_REF] any
-  remote/script/@font-face/@import ref · [DSCARD_MISSING] first-line marker); run-gates **static cards** row
-  (N/A when no cards / no kit). Fixtures: `tools/fixtures/gates/emit-cards/` (`clean` idempotent + PASS ·
-  `violation` remote `@font-face` → `--check` FAIL + operator-vocab leak → deny FAIL). Emitted at Stage 8
-  alongside the React kit (`references/design-sync-kit.md`).
-- **`node tools/scheme-derive.mjs [repo-root]`** — SC-1 the **ALGO-SCHEME-DERIVE materializer** (Stage C-2;
-  build-time, zero-dep Node, **NOT Style Dictionary**). Reads `canon/canon.json › schemes` + `tokens/base.json`
-  + `tokens/semantic.json` (role→anchor); for each NON-deferred scheme derives the semantic colour roles in
-  OKLCH by `{mode, dominant}` (light=identity · dark=invert-L on neutrals + lift non-dominant chromatic ·
-  contrast=push neutrals to the L extreme; C/H preserved, hex via in-process OKLCH→sRGB; **post-derive
-  legibility guard**: a derived text/fg role keeps ≥0.30 L-separation from the scheme's nearest bg/surface
-  role — a collapsed pair is pushed apart, logged, still hypothesis+GAP; fixture:
-  `tools/fixtures/scheme-derive/near-black/`) and writes
-  `tokens/schemes/<id>.json` — every token a structured-OKLCH object tagged **`$extensions.brand.scheme:"<id>"`**,
-  entering at `confidence:"hypothesis"` + the scheme's tracking GAP. A `status:"deferred"` scheme emits no set
-  (carries a GAP). **audit-lint R7** (loaded from `tokens/schemes/*.json` too) fails any named scheme without a
-  COMPLETE set (role-key parity with the default) or a deferred+GAP; single-scheme/flat brands pass clean.
-- **`node tools/drive-mirror.mjs [--plan | --verify <remote.json>] [repo-root]`** — the **Google-Drive asset
-  mirror** (F5-01; zero-dep Node, Node ≥ 20 built-in `fetch`+`crypto`; the engine of the emitted
-  `.github/workflows/drive-mirror.yml`). Mirrors the brand's **custodied assets** (asset-index rows whose
-  `Repo location` is hashed in `CHECKSUMS.txt`) to a Google **shared drive** on push to the default branch, in
-  a folder tree that mirrors the ASSET INDEX (per-row `Drive` column, else the row's `Kind`), and verifies the
-  round-trip by `sha256Checksum` on BOTH sides. **No conversion** (real MIME, never `application/vnd.google-apps.*`,
-  never a convert flag); Google Docs-Editors native files (`.gdoc/.gsheet/…`) have no `sha256Checksum` → **excluded
-  by name, logged** (R-14). One-way mirror, not a sync (git = source of truth; P-J-01). Two auth routes via GitHub
-  Secrets (service-account + shared drive — quota-less SA can't own files, `storageQuotaExceeded` on My Drive is
-  the named trap; or OAuth refresh token). Scope: Route A (SA) uses `drive` — a pre-created shared-drive folder
-  is out of `drive.file`'s reach (would 404), and a dedicated SA is confined in practice to its shared-drive
-  memberships; Route B (OAuth) uses `drive.file` + an app-owned root folder (`GDRIVE_ROOT_FOLDER_NAME`),
-  publishable to production to dodge the 7-day test-token expiry. **`--plan`** (OFFLINE): computes the plan,
-  FAILs on a STALE custody hash, a Drive-path collision, or a broken index. **`--verify <remote.json>`** (OFFLINE):
-  compares CHECKSUMS vs a recorded remote map — a MISSING remote entry (empty-pass guard) or a MISMATCH (stale) is
-  a FAIL. The **live** leg (default mode) needs real Drive creds → the operator's F5 round-trip gate, never a
-  build-time dep. run-gates **§3d "drive mirror plan"** row (N/A when the workflow is not emitted). Security: `push`
-  to the default branch only — NEVER `pull_request_target` (secret-exfil vector); secrets only via `env:`, never
-  logged. Fixtures `tools/fixtures/gates/drive-mirror/` (plan-clean + stale-custody + collision + verify-{clean,missing,stale}
-  + the pre-merge-verify regression guards checksums-binary-stale + collision-double-slash).
-  Doc: `.github/DRIVE-MIRROR.md` (emitted) · method `references/drive-mirror.md`.
+## Herramientas emitidas (resumen — detalle completo en `docs/tools-reference.md`)
+El builder copia `assets/templates/tools/` a cada repo emitido como `tools/`. Una línea por herramienta:
 
-## Standing guardrails (apply when editing THIS repo's templates/skills)
-- **Brand-agnostic + output-agnostic, always.** The templates must contain zero real brand specifics and no
-  output/medium-named sections. Before committing changes to the templates/skills, grep the tracked tree for
-  any real brand name, ink, or token value that may have crept in — it must be 0 hits (a standing pre-commit
-  gate). This covers `.gitignore`, configs, and every dotfile too: a brand-scrub *pattern* must generalize
-  (`**/brandbook*.pdf`), never name a brand (the M2 leak hid in `.gitignore`). Example/illustrative token
-  values must be obviously generic (never a real brand's exact OKLCH/hex/Pantone).
-- **Token contract is load-bearing.** Keep the DTCG token templates (DTCG 2025.10) valid and projecting cleanly
-  into downstream consumers: colour `$value` is the **structured-OKLCH object** `{colorSpace, components, alpha,
-  hex}` (C-1; `hex` = sRGB fallback, not a second source of truth; other spaces live in `$extensions.brand.spaces`
-  flagged `source:"authored"|"derived"`); composite values (shadows) stay plain strings (the SD `-value`/`-unit`
-  split bug); `{tier.category.name}`
-  aliases; category names on the namespace convention (a single-value category projects a bare `--<prefix>`
-  singleton, e.g. one radius → `--radius`; a multi-value one projects `--<prefix>-<name>`). Schemes are
-  MATERIALIZED — N named schemes → N complete role-token sets via `tools/scheme-derive.mjs` (zero-dep), enforced
-  by `audit-lint` R7; the Resolver Module is deferred (SD-v5 lag, issue #1590 / OI-H). Structured-colour + scheme
-  architecture: RESIDENT `## v4`; token shape: `references/token-spine.md`.
-- **Generative over catalog.** Never add a per-output section to a template; absorb the need as a rule.
-- **Install integrity (Theme 2).** A shipped file must point at zero unshipped paths — never cite `dev/`
-  (gitignored) from `skills/`; if a method lives only in `dev/`, harvest it into the shipped reference that owns
-  that stage. Client-emitted templates (`canon.json`, the kit, docs templates) must carry no tool-repo URL/org
-  (`brand-system-skills`/`ccediland`) — the Stage-11 client-clean grep depends on it. The `.design-sync` config
-  is single-sourced in the kit (`design-sync-kit/.design-sync/config.json`); the adapter references it, never a
-  duplicate. No gate (validate-audit.md) may name an artifact that isn't shipped or honestly attributed — the kit
-  ships a real offline `package-validate.mjs`.
-- **Epistemic honesty (Stage E — EH-1/EH-2/EH-3).** Scoper: an **EH self-check (BLOCKING, gate-7a precondition)**
-  holds that owner-meaning fields (personality / differential / resonance / intended meaning) and named
-  regulatory instruments resolve to `owner-stated`(cited) / owner-declared `none` / GAP — never scoper-derived,
-  never memory-asserted, never above `hypothesis` without ratification (EH-1/EH-2); the `regulatory:` carrier is
-  owner-stated-cited-or-GAP. Builder: `validate-audit.md §7b` makes the regulated trigger inherit **MUST-HAVE**
-  to the enabling regulatory GAP (gated — `regulatory: none` forces nothing; no new `BLOCKING` severity), binds
-  the keystone §5 regulated-claim constraints + refusal policy to that cited `regulatory:` carrier (or GAP, never
-  memory-recalled), and adds visual-guardrail + over-refusal axes to the red-team battery (EH-3). **R9 — the
-  EXECUTABLE posture→GAP-severity gate (a `posture` block in `canon.json` + Severity-column parsing in
-  `audit-lint`) is DEFERRED to Phase-5 with the live red-team RUN;** EH-3 ships as prose, so `audit-lint` stays
-  R0–R8.
-- **Structural hygiene (Stage G — SH-1/SH-2/SH-3).** SH-1: the scoper interview bank + detection batteries
-  live in `references/` (keeps `SKILL.md` < 500). SH-2: a **live-but-raster CONSUMER surface** (image feed /
-  gallery — reachable by `url:` but not computed-style-readable) declares `ingest:ocr-visual`; the CONSUMERS
-  `ingest:` is the **same open class** as the ASSETS track (not css-only), and the builder routes by the
-  declared `ingest:` — kept in lockstep across `handoff-format.md` (schema), `builder/SKILL.md` (routing) and
-  `asset-acquisition.md` (the ingest-token map). SH-3: the scoper does **not** trigger for brand-voice-only
-  guideline generation (discriminator = whole-task-vs-part-of-canon, never brand age) — and never suppresses
-  full-canon scoping that includes voice.
-- **Process discipline (Stage F — TA-1…4).** Multi-session tempo (progress is evidence-of-process, never
-  wall-clock); the client register is firewalled from operator terseness/speed/assumption preferences (the §6
-  self-check scans register leakage; operator directness governs the internal surface only); proceed-assumptions
-  surface as explicit CONFIRM lines; a blocked/failed retrieval is never a positive status. Doctrine in
-  `scoper/references/process-discipline.md`.
-- **Mirror web-stack-skills' marketplace conventions** so the two interoperate (same manifest/skill layout).
-- **Handoff = single sufficient interface.** Keep the Chat→Code seam closed both ways: every carrier the handoff
-  emits has a NAMED builder consumer (parsed in Stage 0); the builder never reads an uncarried field. Two-track
-  manifest — ASSETS (in-repo, `sha256`) / CONSUMERS (live `url:`, reachability-checked, not checksummed): a
-  DEAD/auth-walled pointer is forbidden, a live surface is not. DIMENSION-MAP present-but-unresolved → builder
-  HALTs. Carrier enums stay capability classes (font `license:` = a declared SPDX id, not a closed floor;
-  freshness = `shipped | stated-old`); the kit shape is a carried datum (`existing-component-stack:`) read at
-  Stage 8, never re-hunted; keystone voice/value derive from the WHY exemplars, GAP where absent — never fabricate.
-- **Medium scoping (carrier-resolved).** Every layer that gates or renders identity acts on the brand's
-  PRIMARY-IDENTITY CARRIER(S) resolved from the DIMENSION MAP — an OPEN class (visual mark \| sonic-mark \|
-  motion-signature \| other), never a hardcoded `mark`. The build is visual-build-grade; a carrier whose medium
-  has no build-grade producer (sonic/motion) → a DECLARED fidelity-blocking GAP (OI-J), never a false-fail nor a
-  silent pass. §7b keystone OPERABILITY (medium-agnostic) stays distinct from build-grade FIDELITY (§1/§2,
-  visual). Posture `profile:` is open-class with an `<other-detected>` escape — no closed enum-as-floor.
-- **Stated-spec-read.** Read the brand's declared truth (named font, declared hex/Pantone) via OCR/visual;
-  `pdffonts`/embedded-font tables corroborate only — outlined type makes them report the studio's layout font or
-  nothing.
-- **Provenance spine (4 fields per datum).** Every datum + every emitted token carries
-  `$extensions.brand.provenance` {source, confidence, owner, freshness}. `authored|derived` is the SOURCE axis
-  ONLY, ORTHOGONAL to the confidence ladder — six values in three tiers, byte-identical at every hop, no extra
-  value/synonym: `hypothesis` → `corroborated` · `verified-primary` (evidence-earned) → `proxy-relayed` ·
-  `handoff-confirmed` · `owner-confirmed` (ratified; who/how). An `authored` value can still be `hypothesis`.
-  `source: proposed` = the quarantine channel (pipeline-authored proposal: capped at `hypothesis` + open GAP,
-  never canonized without ratification). Observed expression enters as `hypothesis`; a one-off → brand line
-  needs tier-2 ratification; ratification carried by the handoff lands as `handoff-confirmed`/`proxy-relayed` —
-  the builder never stamps `owner-confirmed` on handoff text alone (the handoff itself is persisted to
-  `sources/handoff—<date>.md` + hashed, the top of the chain of custody); a datum is never used above the
-  status it earned; the keystone READS its confidence FROM the token, never recalls it. Full definition:
-  `builder/references/gap-protocol.md` § The provenance spine.
-- **Adaptive dimension map.** Every brand dimension resolves explicitly to `filled` / `not-used(owner-declared)`
-  / `tagged-gap` — none skipped silently; an unresolved dimension STOPS the builder. The dimension catalogue is
-  an illustrative instance of the mechanism, never a closed universe (anti-determinism).
-- **Faithful capture.** Clean vectors via PyMuPDF `page.get_drawings()` or copy-region-to-new-doc (a full-page
-  Inkscape open yields a bloated, non-isolated SVG); image font-matching for unnamed faces; a fidelity rating +
-  provenance per artifact.
-- **Reproduction router (treatment→method).** Procedural SVG filters (`feTurbulence` texture · `feDisplacementMap`
-  organic/glitch · `feDiffuse`+`feSpecularLighting` 3D/gloss/emboss · `feGaussianBlur` glass · `feColorMatrix` grading)
-  / generative lib (rough.js) / vector-trace / raster-required; validate by visual diff. `feTurbulence` is
-  CPU-heavy → constrain or rasterize; photography + bespoke illustration are raster-required.
-- **Keystone `.md` (mandatory output, Stage 8.5).** A single attachable think/speak/design + guardrail file
-  (6-section schema in `references/keystone-emit.md`), kept within a Claude Project's resident context (RAG
-  trip-point unpublished → size is a parameter, calibrated in Phase 5; data first, instructions last for recall).
-- **Fidelity + keystone gate (Stage 10, `references/validate-audit.md` §7).** Reproduction fidelity is MEASURED
-  against the source capture (`tools/fidelity-diff.py`, ΔE2000/SSIM — NOT a pixel-VRT, no eyeball verdict);
-  persisted evidence to `audit/fidelity/<treatment-id>/`, absence = FAIL. Keystone gate: present · 6-section ·
-  guardrail-in-tail · within budget, PLUS a §7b FORM-OF-RULE content check (THINK + DESIGN-as each ≥1
-  when-X-then-Z rule, SPEAK ≥1 on/off-brand pair, no bare-adjective core). Guardrail red-team battery +
-  expected-refusal contract COMMITTED to `audit/redteam/` even when non-blocking (empty = FAIL), posture-gated
-  (regulated → BLOCK + human sign-off; the live run is Phase-5, deferral does not void the committed artifacts).
-- **Decorative contrast (SPEC — no executable gate).** A graphic-code device's contrast lives in PRIMITIVES ›
-  Pattern as a brand-fixed opacity/contrast band (PRIMARY), escalating to WCAG 3:1 (SC 1.4.11) when it carries
-  meaning/state; resolved by GRAMMAR `ALGO-CONTRAST-ROLE`'s graphic-code row + `G-PATTERN-01`. APCA Lc 15 is an internal reference
-  only; WCAG 2.x AA is the legal bar — no APCA substitution.
+- `run-gates.mjs` — corre y reporta la suite completa (status board, NOT-RUN de primera clase).
+- `audit-lint.mjs` — el gate BLOQUEANTE de provenance/completeness/reconciliation (R0–R8).
+- `source-recover.py` — recuperación de fuente archivada (Wayback CDX + SHA-256).
+- `fidelity-diff.py` — fidelity MEDIDA (ΔE2000/SSIM/glyph metrics), no veredicto a mano.
+- `wire-check.mjs` — verbatim-check del wire contra el brief firmado que carga.
+- `tokens-project.mjs` — proyección STRING del spine para consumidores string-only (SD v5).
+- `emit-cards.mjs` — cards offline `@dsCard`, cero red — la pierna offline del kit.
+- `scheme-derive.mjs` — materializa cada esquema de color nombrado a un set OKLCH completo.
+- `drive-mirror.mjs` — mirror opt-in a Google Drive de los assets custodiados, verify por SHA-256.
+
+## Guardrails vigentes (resumen — razonamiento completo en `docs/guardrails-reference.md`)
+Aplican al editar templates/skills de ESTE repo:
+
+- **Brand-agnostic + output-agnostic, siempre.** Cero specifics de marca real en los templates; grep
+  del árbol trackeado en 0 hits antes de commitear.
+- **El contrato de tokens es load-bearing.** DTCG 2025.10, `$value` OKLCH estructurado (C-1); los
+  schemes se MATERIALIZAN (`scheme-derive.mjs` + R7), nunca prosa.
+- **Generative over catalog.** Nunca una sección de template por output; el need se absorbe como regla.
+- **Integridad de instalación (Theme 2).** Un archivo shippeado no cita rutas no-shippeadas (`dev/`
+  gitignored) ni un tool-repo URL propio.
+- **Honestidad epistémica (Stage E).** Los campos owner-meaning resuelven a `owner-stated`/`none`/GAP
+  — nunca inferidos por el scoper ni recordados de memoria.
+- **Hygiene estructural (Stage G).** El banco de entrevista + baterías viven en `references/`
+  (mantiene `SKILL.md` < 500 líneas); el `ingest:` de CONSUMERS es open-class.
+- **Disciplina de proceso (Stage F).** TEMPO multi-sesión; el registro de cliente está firewalled del
+  tono/velocidad del operador.
+- **Espeja las convenciones de marketplace de `web-stack-skills`** para que interoperen.
+- **El handoff es la interfaz única suficiente Chat→Code.** Todo carrier que emite tiene un
+  consumidor NOMBRADO; DIMENSION-MAP sin resolver = HALT del builder.
+- **Medium scoping resuelto por carrier**, nunca hardcodeado a `mark` — un medio sin producer
+  build-grade emite un GAP declarado, jamás false-fail ni pase silencioso.
+- **Stated-spec-read.** La verdad declarada de la marca (fuente/color nombrado) manda sobre metadata
+  de herramienta (que solo corrobora).
+- **Provenance spine.** 4 campos (`source, confidence, owner, freshness`) en cada dato + cada token
+  emitido; un dato nunca se usa por encima de la confianza que ganó.
+- **Dimension map adaptativo.** Toda dimensión resuelve a `filled`/`not-used(owner-declared)`/
+  `tagged-gap` — ninguna se salta en silencio.
+- **Captura fiel.** Vectores limpios vía PyMuPDF; el fidelity rating + provenance van por artefacto.
+- **Reproduction router por tratamiento** (filtro SVG procedural / lib generativa / vector-trace /
+  raster-required), validado por diff visual.
+- **Keystone `.md` es output obligatorio** (Stage 8.5) — el think/speak/design + guardrail que cabe
+  en el contexto de un Project.
+- **Gate de fidelity + keystone (Stage 10).** Fidelity MEDIDA, nunca veredicto a mano; keystone con
+  FORM-OF-RULE (≥1 regla when-X-then-Z por sección core).
+- **Contraste decorativo (SPEC, sin gate ejecutable).** Banda de opacidad fija en PRIMITIVES,
+  escalando a WCAG 3:1 cuando el device carga significado/estado.
 
 ## Provenance / build memory
 Derived in a bounded Phase-4 job (method abstracted from one mature canon, coverage validated against a second),

@@ -2,7 +2,7 @@
 name: brand-system-skills-mapa
 title: brand-system-skills — MAPA
 description: Qué archivos hay en este repo y para qué sirve cada uno. Se lee para ubicarse sin barrer el repo entero. Las filas las genera `mapa.py`; la columna «Qué es» se escribe a mano.
-last_updated: 2026-08-31
+last_updated: 2026-09-01
 status: vigente
 supersede: ninguno
 ---
@@ -34,8 +34,10 @@ homogéneos (ahí la fila dice cuántos son y qué convención siguen).
 | `PLAN-V5.md` | Plan de la versión 5 del catálogo. Histórico. | evidencia |
 | `PLAN-V6.md` | Plan de la versión 6. El vigente. | raíz |
 | `README.md` | Qué es el catálogo de skills de marca, para alguien de fuera. | raíz |
-| `RESIDENT.md` | **Cómo es el catálogo hoy y por qué.** 593 líneas contra un tope de 200 — su narrativa histórica pertenece a `BITACORA.md`. | raíz |
+| `RESIDENT.md` | **Cómo es el catálogo hoy y por qué, y hacia dónde va (`## Rumbo`).** Solo lo atemporal — el índice de decisiones y la narrativa histórica viven en `BITACORA.md`. | raíz |
 | `brand-system-skills-v5-analysis_2026-07-04.md` | Análisis fechado de la v5. Evidencia: no se reescribe. | evidencia |
+| `docs/guardrails-reference.md` | Los ~18 guardrails de `CLAUDE.md` en su forma completa (razonamiento + detalle); `CLAUDE.md` solo trae el resumen de una línea cada uno. | raíz |
+| `docs/tools-reference.md` | Las 9 herramientas de gate que el builder emite a cada repo cliente, documentadas en detalle (contrato, self-tests, fixtures); `CLAUDE.md` solo trae el resumen. | raíz |
 | `notes/` | Notas de trabajo del catálogo. | raíz |
 | `skills/` | **El catálogo.** Las skills de sistema de marca: el scoper que entrevista al dueño y el builder que construye el canon de cuatro capas más su espina de tokens. | raíz |
 | `stress-test-v5/failure-gallery-v5.md` | Galería de fallos encontrados en el stress-test. | evidencia |

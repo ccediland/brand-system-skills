@@ -80,26 +80,11 @@ chat, ask to scope your brand and `brand-canon-scoper` hands you a block for the
 
 ## Requirements
 
-- **Claude Code** — latest recommended. The `/design-sync` integration (compiling the component library into
-  Claude Design) requires a recent Claude Code that ships `/design-sync`. That contract is server-side and
-  version-fluid — the command re-reads it live via `get_claude_design_prompt`, so its field and script names
-  can shift between releases and the builder re-pins them at run time (don't treat a pinned setup as frozen).
-- **Node ≥ 18** — only for building the emitted component-library kit (esbuild + ts-morph); the canon itself
-  needs no toolchain.
+- **Claude Code** — latest recommended. The `/design-sync` integration (compiling the component library into Claude Design) requires a recent Claude Code that ships `/design-sync`. That contract is server-side and version-fluid — the command re-reads it live via `get_claude_design_prompt`, so its field and script names can shift between releases and the builder re-pins them at run time (don't treat a pinned setup as frozen).
+- **Node ≥ 18** — only for building the emitted component-library kit (esbuild + ts-morph); the canon itself needs no toolchain.
 
 ## Status
 
-**`v0.6.0`** — v6 builds on the v5 foundation what the blind stress test left untested, plus what that test
-surfaced (compile-step inflation · instrument compression). It adds: the **compile seam** — the signed brief
-travels inside the wire and every ratification claim proves against it per line (`wire-check.mjs`), so the
-handoff can no longer assert ratification it can't prove · **both build modes** (CREATE from a ratified brief,
-and T2 EXTEND/RECOMMEND with a real ratification loop and a content-bound ratification record) · the kit's
-**offline leg** (`emit-cards.mjs` renders self-contained review cards with zero network) · an opt-in **Drive
-mirror** (an emitted GitHub Action that backs up custodied assets to a shared drive and verifies the round-trip
-by checksum on both sides). Every mechanism shipped with an adversarial pre-merge verify. See
-[`RESIDENT.md`](./RESIDENT.md) (`## v6`) for the full architecture and decisions; per-stage design/verify notes
-live in [`notes/`](./notes). MIT licensed.
-
-Prior: **`v0.5.0`** — v5, hardened by a five-brand blind stress test (frozen handoff contract with a six-value
-provenance ladder + hashed custody · executable-or-demoted gate suite · governed surfaces · the resident
-brand-AI set · the scoper elicitation state machine).
+**`v0.6.0`**, MIT licensed. Full version history, architecture and decisions live in
+[`RESIDENT.md`](./RESIDENT.md) and [`BITACORA.md`](./BITACORA.md); per-stage design/verify notes in
+[`notes/`](./notes).
