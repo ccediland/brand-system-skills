@@ -7,6 +7,7 @@ description: >-
 last_updated: 2026-08-31
 status: vigente
 supersede: ninguno
+append-only: true
 ---
 
 # brand-system-skills — bitácora
