@@ -27,6 +27,7 @@ homogéneos (ahí la fila dice cuántos son y qué convención siguen).
 |---|---|---|
 | `.claude-plugin/marketplace.json` | Declara este repo como marketplace de plugins de Claude Code. | andamio |
 | `.claude-plugin/plugin.json` | Manifiesto del plugin: qué skills expone. | andamio |
+| `.gitattributes` | Normaliza fin de línea. | raíz |
 | `.gitignore` | Qué no entra. | andamio |
 | `BITACORA.md` | Qué pasó y cuándo, append-only. | raíz |
 | `CLAUDE.md` | Cómo tocar este repo sin romperlo. | raíz |
